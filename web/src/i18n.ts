@@ -47,15 +47,17 @@ const tr = {
   geometrySource: "Sınırlar: Natural Earth (kamu malı)",
   dataComingSoon: "Veriler TÜİK'ten alınmıştır.",
   perCapitaNote: "TÜİK'in yayımladığı değerler; tarafımızca hesaplanmamıştır.",
-  legendTitle: "Kişi başına GSYH",
   legendMethod: "Her renk eşit sayıda il içerir (yüzdelik dilim). Değerler yayımlandığı gibidir; dilimlendirme bu projenin sunum tercihidir.",
   noFigureLegend: "Yayımlanmış veri yok",
   currency: "Para birimi",
-  year: "Yıl",
   overlay: "Katman",
   overlayGdp: "Kişi başına GSYH",
   overlayElection: "Seçim",
-  election: "Seçim",
+  groupProvinces: "İl bazında",
+  groupConnections: "Bağlantılar",
+  time: "Zaman",
+  timeNote: "Her durak yayımlanmış bir dönemdir; aralıklar eşit değildir.",
+  noPeriod: "Gösterilecek dönem yok",
   option: "Aday / Parti",
   share: "Oy oranı",
   shareNote: "Oy oranı = geçerli oylara bölünmüş oy sayısı; YSK oy sayılarını yayımlar, oranı bu proje hesaplar.",
@@ -87,15 +89,17 @@ const en: Strings = {
   geometrySource: "Boundaries: Natural Earth (public domain)",
   dataComingSoon: "Figures published by TÜİK.",
   perCapitaNote: "As TÜİK publishes them; nothing here is computed by this project.",
-  legendTitle: "GDP per capita",
   legendMethod: "Each shade holds an equal number of provinces (quantiles). The values are as published; the banding is this project's presentation choice.",
   noFigureLegend: "No published figure",
   currency: "Currency",
-  year: "Year",
   overlay: "Overlay",
   overlayGdp: "GDP per capita",
   overlayElection: "Election",
-  election: "Election",
+  groupProvinces: "By province",
+  groupConnections: "Connections",
+  time: "Time",
+  timeNote: "Each stop is a published period; the gaps between them are not even.",
+  noPeriod: "No period to show",
   option: "Candidate / party",
   share: "Vote share",
   shareNote: "Vote share = votes divided by valid votes. YSK publishes the counts; this project does the division.",
@@ -142,6 +146,23 @@ export function formatPercent(value: number, lang: Lang, digits = 1): string {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   }).format(value)}%`;
+}
+
+/**
+ * A period on the time slider, as short as it can honestly be.
+ *
+ * A year is left as it is — "2024" is already the whole fact. A date is passed
+ * to Intl, which writes 28.05.2023 in Turkish and 28/05/2023 in English rather
+ * than this project picking an order. Parsed as UTC, because a date-only string
+ * read in local time can slip to the day before.
+ */
+export function formatInstant(at: string, lang: Lang): string {
+  if (/^\d{4}$/.test(at)) return at;
+  const when = new Date(`${at}T00:00:00Z`);
+  if (Number.isNaN(when.getTime())) return at;
+  return new Intl.DateTimeFormat(LOCALE[lang], {
+    day: "2-digit", month: "2-digit", year: "numeric", timeZone: "UTC",
+  }).format(when);
 }
 
 /** Turkish first: this is a Turkish atlas, and every source speaks Turkish. */

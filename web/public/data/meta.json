@@ -4,11 +4,12 @@
     "elections/2023-cumhurbaskani-1.json",
     "elections/2023-cumhurbaskani-2.json",
     "elections/2023-milletvekili.json",
+    "elections/index.json",
     "meta.json",
     "palette.json",
     "provinces/gdp-per-capita.json"
   ],
-  "generated_at": "2026-09-20T20:03:45Z",
+  "generated_at": "2026-09-20T20:24:17Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",

@@ -1,0 +1,29 @@
+{
+  "elections": [
+    {
+      "date": "2023-05-14",
+      "slug": "2023-cumhurbaskani-1",
+      "title": {
+        "en": "Presidential election, first round",
+        "tr": "Cumhurbaşkanı Seçimi, birinci oylama"
+      }
+    },
+    {
+      "date": "2023-05-14",
+      "slug": "2023-milletvekili",
+      "title": {
+        "en": "Parliamentary general election, 28th term",
+        "tr": "28. Dönem Milletvekili Genel Seçimi"
+      }
+    },
+    {
+      "date": "2023-05-28",
+      "slug": "2023-cumhurbaskani-2",
+      "title": {
+        "en": "Presidential election, second round",
+        "tr": "Cumhurbaşkanı Seçimi, ikinci oylama"
+      }
+    }
+  ],
+  "generated_at": "2026-09-20T20:24:17Z"
+}

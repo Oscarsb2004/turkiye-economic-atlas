@@ -20,10 +20,18 @@ WHAT IS GENERATED
                   actually read — the app never hardcodes a publisher's name.
     palette.json  registry/palette.yaml, which is a validated artifact; the app
                   reads its colours rather than carrying its own.
+    elections/index.json
+                  every election's slug, date and published title, READ BACK OUT
+                  of the election files themselves. The time slider labels its
+                  stops from this, so it can show "Cumhurbaşkanı Seçimi, ikinci
+                  oylama · 28.05.2023" without fetching three result files —
+                  and without the app keeping a hand-typed copy of a date or a
+                  title that the pipeline would then be free to change.
 """
 
 from __future__ import annotations
 
+import json
 import logging
 
 import yaml
@@ -44,6 +52,27 @@ COPIES = (
 
 SCHEMA_VERSION = "1.0.0"
 
+#: Where the elections live under data/, and where their index is published.
+ELECTIONS_PREFIX = "elections/"
+ELECTIONS_INDEX = "elections/index.json"
+
+
+def _election_index(copied: list[str]) -> dict:
+    """Slug, date and title for every election copied, from the files themselves."""
+    entries = []
+    for rel in copied:
+        if not rel.startswith(ELECTIONS_PREFIX):
+            continue
+        payload = json.loads((R.DATA_DIR / rel).read_text(encoding="utf-8"))
+        election = payload["election"]
+        entries.append({"slug": election["slug"], "date": election["date"],
+                        "title": election["title"]})
+    # Oldest first, which is the order the slider runs in. Two elections can
+    # share a date — 14 May 2023 was both the presidential first round and the
+    # parliamentary ballot — so the slug breaks the tie and the order is total.
+    entries.sort(key=lambda entry: (entry["date"], entry["slug"]))
+    return {"generated_at": clock.now_iso(), "elections": entries}
+
 
 def build(ctx: Context, *, dataset: str) -> Built:  # noqa: ARG001 - the runner passes both
     """Every dataset the site reads, plus meta and palette."""
@@ -57,6 +86,9 @@ def build(ctx: Context, *, dataset: str) -> Built:  # noqa: ARG001 - the runner 
             continue
         copies.append((source, web / rel))
         written.append(rel)
+
+    index = _election_index(written)
+    written.append(ELECTIONS_INDEX)
 
     srcs = R.sources()
     meta = {
@@ -73,9 +105,11 @@ def build(ctx: Context, *, dataset: str) -> Built:  # noqa: ARG001 - the runner 
     }
     palette = yaml.safe_load((R.REGISTRY_DIR / "palette.yaml").read_text(encoding="utf-8"))
 
-    log.info("bundle: %d copied, meta and palette generated", len(copies))
+    log.info("bundle: %d copied, %d election(s) indexed, meta and palette generated",
+             len(copies), len(index["elections"]))
     return Built(
-        outputs=[(web / "meta.json", meta), (web / "palette.json", palette)],
+        outputs=[(web / ELECTIONS_INDEX, index),
+                 (web / "meta.json", meta), (web / "palette.json", palette)],
         copies=copies,
         receipt={"files": meta["files"], "schema_version": SCHEMA_VERSION},
     )

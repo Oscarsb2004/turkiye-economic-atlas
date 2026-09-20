@@ -131,9 +131,17 @@ python verify/golden.py record --ref HEAD --name <name>   # a new master, per da
 ## House style
 
 Dataset cards in `registry/`, builders in `atlas/datasets/`, one operation per shell in
-`atlas/shells/`, and only `atlas/run.py` writes. `# ── Section ──` banners. Module docstrings
-explain *why*, and name the thing that went wrong before — a comment that only restates the
-code is not worth the line. Pinned dependencies. LF endings via `.gitattributes`.
+`atlas/shells/`, one overlay per module in `web/src/overlays/`, and only `atlas/run.py` writes.
+
+`# ── Section ──` banners. Module docstrings explain *why*, and name the thing that went wrong
+before — a comment that only restates the code is not worth the line. Pinned dependencies. LF
+endings via `.gitattributes`.
+
+An overlay is a hook returning the shape in `web/src/overlays/types.ts`: its own fetching, its
+own controls, its own periods. It reads the shared clock and snaps to it (`timeline.ts`), and it
+names its SOURCE CARD rather than its publisher, so the rail's attribution comes from meta.json
+and the app carries no publisher's name of its own. Adding one is a module and a line in
+`web/src/overlays/index.ts`.
 
 ## Things that fail silently — Turkish specifics
 

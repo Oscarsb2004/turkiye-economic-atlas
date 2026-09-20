@@ -19,11 +19,39 @@
 import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
-import type { Geo, Lang, ProvinceProps } from "../data/bundle";
+import type { Geo, GeoJson, Lang, ProvinceProps } from "../data/bundle";
 import type { Binning } from "./bins";
 
-/** Türkiye, framed so the whole country sits in view at the opening zoom. */
+/** Where the map looks if the geometry cannot say — it always can, in practice. */
 const HOME = { center: [35.2, 39.0] as [number, number], zoom: 4.9 };
+
+/**
+ * The extent of a published geometry.
+ *
+ * The opening view is FITTED to the country rather than set to a zoom chosen by
+ * hand, because the map pane is not a fixed width: the overlay rail took 220px
+ * of it, and a hardcoded zoom cropped the east of the country as soon as it
+ * did. Fitting derives the framing from the geometry the atlas actually ships.
+ */
+function extentOf(geo: GeoJson): [number, number, number, number] | null {
+  let west = 180, south = 90, east = -180, north = -90;
+  let seen = false;
+  const walk = (node: unknown): void => {
+    if (!Array.isArray(node)) return;
+    if (typeof node[0] === "number" && typeof node[1] === "number") {
+      const [lon, lat] = node as [number, number];
+      west = Math.min(west, lon); east = Math.max(east, lon);
+      south = Math.min(south, lat); north = Math.max(north, lat);
+      seen = true;
+      return;
+    }
+    for (const child of node) walk(child);
+  };
+  for (const feature of geo.features) {
+    walk((feature.geometry as { coordinates?: unknown }).coordinates);
+  }
+  return seen ? [west, south, east, north] : null;
+}
 
 interface Props {
   geo: Geo;
@@ -80,10 +108,12 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Pr
     const waterColour = ink("--surface-1", "#191919");
     const noFigure = ink("--no-figure", "#2a2a2a");
 
+    const extent = extentOf(geo.turkiye);
     const instance = new maplibregl.Map({
       container: container.current,
-      center: HOME.center,
-      zoom: HOME.zoom,
+      ...(extent
+        ? { bounds: extent, fitBoundsOptions: { padding: 16 } }
+        : { center: HOME.center, zoom: HOME.zoom }),
       attributionControl: false,
       style: {
         version: 8,

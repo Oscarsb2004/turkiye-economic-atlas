@@ -112,15 +112,24 @@ body {
   color: var(--accent-contrast);
 }
 
+/* The rail, the map with its clock under it, and the province panel. */
 .app__body {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 220px 1fr 320px;
   flex: 1;
+  min-height: 0;
+}
+
+.app__stage {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   min-height: 0;
 }
 
 .app__map {
   position: relative;
+  flex: 1;
   min-height: 0;
 }
 
@@ -192,16 +201,40 @@ body {
   margin: 0 0 4px;
 }
 
-/* The map pane stacks above the panel once there is no room beside it. */
+/* The three columns stack once there is no room beside each other, and the
+   rail becomes a row of tabs above the map.
+   The page scrolls here rather than each pane scrolling inside a fixed height:
+   with the rail, the map, the clock and the panel all stacked, panes that each
+   keep their own scrollbar leave every one of them too short to use — the rail
+   cut its own controls off. */
 @media (max-width: 760px) {
+  .app {
+    height: auto;
+    min-height: 100%;
+  }
+
   .app__body {
     grid-template-columns: 1fr;
-    grid-template-rows: 60vh auto;
+    grid-template-rows: auto 60vh auto;
   }
 
   .app__panel {
     border-left: 0;
     border-top: 1px solid var(--line);
+    overflow: visible;
+  }
+
+  .rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    overflow: visible;
+  }
+
+  .rail__heading {
+    display: none;
   }
 }
 
@@ -278,12 +311,6 @@ body {
   line-height: 1.35;
 }
 
-.app__controls {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-}
-
 .control {
   display: flex;
   align-items: center;
@@ -300,4 +327,127 @@ body {
   color: var(--text-1);
   font: inherit;
   font-size: 12px;
+}
+
+/* ── The overlay rail ───────────────────────────────────────────────────────
+   One button per overlay, grouped, with the active overlay's own controls
+   directly beneath it. Built to grow: T7–T12 add rows, not layout. */
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: var(--gutter) 12px;
+  background: var(--surface-1);
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+}
+
+.rail__group {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.rail__heading {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.rail__tab {
+  display: grid;
+  gap: 1px;
+  width: 100%;
+  padding: 8px 10px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-1);
+  font: inherit;
+  cursor: pointer;
+}
+
+.rail__tab--on {
+  border-color: var(--accent-9);
+  background: color-mix(in srgb, var(--accent-9) 18%, var(--surface-2));
+}
+
+.rail__name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rail__source {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.rail__controls {
+  padding: 8px 2px 2px;
+}
+
+.rail__controls .control {
+  align-items: stretch;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rail__controls .control__select {
+  width: 100%;
+}
+
+/* ── The clock ──────────────────────────────────────────────────────────────
+   Under the map, the width of the map, because it moves what the map shows. */
+.timebar {
+  display: grid;
+  gap: 4px;
+  padding: 10px var(--gutter);
+  background: var(--surface-1);
+  border-top: 1px solid var(--line);
+}
+
+.timebar__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.timebar__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.timebar__now {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timebar__range {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent-9);
+}
+
+.timebar__ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-3);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timebar__note {
+  text-align: center;
+}
+
+/* The legend's place, while an overlay is still loading or could not load. */
+.legend--empty {
+  padding: 10px 12px;
 }

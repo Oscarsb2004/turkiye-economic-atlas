@@ -16,6 +16,7 @@ outputs:
 - web/public/data/elections/2023-cumhurbaskani-1.json
 - web/public/data/elections/2023-cumhurbaskani-2.json
 - web/public/data/elections/2023-milletvekili.json
+- web/public/data/elections/index.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

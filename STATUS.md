@@ -24,7 +24,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/meta.json` (2 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/meta.json` (2 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
