@@ -81,9 +81,30 @@ export function App() {
   // list contains, and an unknown id falls back to the first overlay.
   const overlay = overlays.find((entry) => entry.id === activeId) ?? overlays[0];
 
+  /**
+   * Every province, then whatever the overlay has for it.
+   *
+   * The overlays only know their own subject — the airports overlay knows the
+   * 52 provinces with an airport in them, not the 29 without — and a province
+   * left out of the map entirely gets no band AND no line in the legend, so it
+   * is painted "no figure" with nothing saying why. Filling the collection here
+   * makes the legend total over all 81 (CLAUDE.md §10), once, for every overlay
+   * there will ever be.
+   */
+  const values = useMemo(() => {
+    if (!overlay.values) return null;
+    if (!geo) return overlay.values;
+    const all = new Map<number, number | null>();
+    for (const feature of geo.provinces.features ?? []) {
+      all.set(Number((feature.properties as { code: number }).code), null);
+    }
+    for (const [plaka, value] of overlay.values) all.set(plaka, value);
+    return all;
+  }, [overlay.values, geo]);
+
   const binning = useMemo(
-    () => (overlay.values ? quantileBands(overlay.values, palette?.sequential.steps.length ?? 6) : null),
-    [overlay.values, palette],
+    () => (values ? quantileBands(values, palette?.sequential.steps.length ?? 6) : null),
+    [values, palette],
   );
 
   const onSelect = useCallback((code: number | null, props: ProvinceProps | null) => {
@@ -133,6 +154,7 @@ export function App() {
                   binning={binning}
                   ramp={palette?.sequential.steps ?? []}
                   flows={overlay.flows ?? []}
+                  markers={overlay.markers ?? []}
                 />
                 {binning && palette ? (
                   <Legend

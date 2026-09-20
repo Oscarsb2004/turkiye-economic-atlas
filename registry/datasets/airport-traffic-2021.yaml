@@ -1,0 +1,24 @@
+# registry/datasets/airport-traffic-2021.yaml - one year of airport traffic.
+# atlas/core/registry.py checks every claim below.
+
+title: "Every airport's traffic in 2021, as DHMİ publishes it"
+group: aviation
+order: 2021
+builder: atlas.datasets.airport_traffic:build
+params:
+  year: 2021
+sources:
+- dhmi_airport_statistics
+- ourairports
+shells:
+- fetcher
+after: []
+outputs:
+- data/airports/2021.json
+frame:
+  profile: panel
+  record_type: observation
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches 2021.json, draws each airport and shades provinces by their airports' traffic

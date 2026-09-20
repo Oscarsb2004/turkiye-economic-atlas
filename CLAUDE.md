@@ -155,4 +155,13 @@ population or count containing those digits, so the year is filtered and the 6 4
 in the reader · every migration flow is published twice, once from each end, so a disagreement
 between them is the publisher catching us · the 2012 metropolitan municipality reform changed district counts, so a district
 series crosses a definition break · TÜİK revises provincial GDP, so a year's figure is not
-final when first published.
+final when first published · DHMİ's workbooks put TWO years side by side and a percentage block
+whose header names BOTH of them, so a year is found by reading the headers, never by column
+position · DHMİ's figures are cumulative, so December is the year · DHMİ TOPLAMI is not the sum
+of the rows above it (it leaves out the airports marked (*)); TÜRKİYE GENELİ is.
+
+**MapLibre's `load` event needs a rendered frame.** A hidden desktop pane gives no animation
+frames at all, so `map.loaded()` and `isStyleLoaded()` stay false indefinitely while the style,
+the sources and the paint are all fine, and anything queued behind `once("load")` never happens
+— silently, on a map that is otherwise drawing. `getSource` answers without a frame, so data
+goes on a source by trying at once and retrying on `styledata` (web/src/map/ProvinceMap.tsx).

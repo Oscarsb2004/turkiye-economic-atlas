@@ -31,6 +31,19 @@ licences:
     # unstated rather than assumed permissive.
     attribution: Yüksek Seçim Kurulu (YSK)
 
+  dhmi-unstated:
+    name: DHMİ — no published terms
+    url: https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx
+    redistribution: unstated by the publisher
+    # Checked 2026-09-20: DHMİ publishes its airport statistics as monthly
+    # workbooks on an open page and states no terms of use anywhere on the site
+    # — the only policy it publishes is a KVKK notice, which is about personal
+    # data and not about reusing statistics. The page does say the figures are
+    # "Resmi İstatistik Programı (RİP) Kapsamındadır", part of the Official
+    # Statistics Programme; that is a statement about how they are produced,
+    # not a licence, so it is recorded here rather than read as permission.
+    attribution: Devlet Hava Meydanları İşletmesi (DHMİ)
+
   odbl-1.0:
     name: Open Database License 1.0
     url: https://opendatacommons.org/licenses/odbl/1-0/

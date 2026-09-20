@@ -54,6 +54,12 @@ COPIES = (
     "migration/2023.json",
     "migration/2024.json",
     "migration/2025.json",
+    "airports/2020.json",
+    "airports/2021.json",
+    "airports/2022.json",
+    "airports/2023.json",
+    "airports/2024.json",
+    "airports/2025.json",
 )
 
 SCHEMA_VERSION = "1.0.0"

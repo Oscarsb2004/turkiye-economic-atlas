@@ -1,0 +1,2873 @@
+{
+  "airports": [
+    {
+      "iata": "ESB",
+      "icao": "LTAC",
+      "kind": "large_airport",
+      "name": {
+        "en": "Esenboğa International Airport",
+        "tr": "Ankara Esenboğa"
+      },
+      "plaka": 6,
+      "point": [
+        32.995098,
+        40.128101
+      ],
+      "province": {
+        "en": "Ankara",
+        "tr": "Ankara"
+      },
+      "traffic": {
+        "aircraft_domestic": 41321,
+        "aircraft_international": 9073,
+        "aircraft_total": 50394,
+        "cargo_tonnes_domestic": 5599.0830000000005,
+        "cargo_tonnes_international": 5350.162000000002,
+        "cargo_tonnes_total": 10949.245000000003,
+        "commercial_aircraft_domestic": 32883,
+        "commercial_aircraft_international": 6891,
+        "commercial_aircraft_total": 39774,
+        "freight_tonnes_domestic": 39764.401000000005,
+        "freight_tonnes_international": 19472.098,
+        "freight_tonnes_total": 59236.49900000001,
+        "passengers_domestic": 4415805,
+        "passengers_international": 746764,
+        "passengers_total": 5162569
+      }
+    },
+    {
+      "iata": "ADA",
+      "icao": "LTAF",
+      "kind": "small_airport",
+      "name": {
+        "en": "Adana Şakirpaşa Airport",
+        "tr": "Adana"
+      },
+      "plaka": 1,
+      "point": [
+        35.280399,
+        36.982201
+      ],
+      "province": {
+        "en": "Adana",
+        "tr": "Adana"
+      },
+      "traffic": {
+        "aircraft_domestic": 25268,
+        "aircraft_international": 2271,
+        "aircraft_total": 27539,
+        "cargo_tonnes_domestic": 2726.3210000000013,
+        "cargo_tonnes_international": 614.587,
+        "cargo_tonnes_total": 3340.9080000000013,
+        "commercial_aircraft_domestic": 15684,
+        "commercial_aircraft_international": 1949,
+        "commercial_aircraft_total": 17633,
+        "freight_tonnes_domestic": 22544.445,
+        "freight_tonnes_international": 4930.927000000001,
+        "freight_tonnes_total": 27475.372,
+        "passengers_domestic": 2283292,
+        "passengers_international": 224052,
+        "passengers_total": 2507344
+      }
+    },
+    {
+      "iata": "AYT",
+      "icao": "LTAI",
+      "kind": "large_airport",
+      "name": {
+        "en": "Antalya International Airport",
+        "tr": "Antalya"
+      },
+      "plaka": 7,
+      "point": [
+        30.800501,
+        36.898701
+      ],
+      "province": {
+        "en": "Antalya",
+        "tr": "Antalya"
+      },
+      "traffic": {
+        "aircraft_domestic": 29919,
+        "aircraft_international": 41261,
+        "aircraft_total": 71180,
+        "cargo_tonnes_domestic": 2179.48,
+        "cargo_tonnes_international": 744.717,
+        "cargo_tonnes_total": 2924.197,
+        "commercial_aircraft_domestic": 21900,
+        "commercial_aircraft_international": 37556,
+        "commercial_aircraft_total": 59456,
+        "freight_tonnes_domestic": 30003.164,
+        "freight_tonnes_international": 86300.14600000001,
+        "freight_tonnes_total": 116303.31000000001,
+        "passengers_domestic": 3126211,
+        "passengers_international": 6584984,
+        "passengers_total": 9711195
+      }
+    },
+    {
+      "iata": "GZT",
+      "icao": "LTAJ",
+      "kind": "large_airport",
+      "name": {
+        "en": "Gaziantep Oğuzeli International Airport",
+        "tr": "Gaziantep"
+      },
+      "plaka": 27,
+      "point": [
+        37.478699,
+        36.947201
+      ],
+      "province": {
+        "en": "Gaziantep",
+        "tr": "Gaziantep"
+      },
+      "traffic": {
+        "aircraft_domestic": 13505,
+        "aircraft_international": 1078,
+        "aircraft_total": 14583,
+        "cargo_tonnes_domestic": 595.2280000000001,
+        "cargo_tonnes_international": 368.86400000000003,
+        "cargo_tonnes_total": 964.0920000000001,
+        "commercial_aircraft_domestic": 9193,
+        "commercial_aircraft_international": 967,
+        "commercial_aircraft_total": 10160,
+        "freight_tonnes_domestic": 11915.499,
+        "freight_tonnes_international": 3101.3520000000003,
+        "freight_tonnes_total": 15016.851,
+        "passengers_domestic": 1271409,
+        "passengers_international": 119375,
+        "passengers_total": 1390784
+      }
+    },
+    {
+      "iata": "KFS",
+      "icao": "LTAL",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Kastamonu Airport",
+        "tr": "Kastamonu"
+      },
+      "plaka": 37,
+      "point": [
+        33.795799,
+        41.314201
+      ],
+      "province": {
+        "en": "Kastamonu",
+        "tr": "Kastamonu"
+      },
+      "traffic": {
+        "aircraft_domestic": 717,
+        "aircraft_international": 19,
+        "aircraft_total": 736,
+        "cargo_tonnes_domestic": 1.575,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 1.575,
+        "commercial_aircraft_domestic": 238,
+        "commercial_aircraft_international": 11,
+        "commercial_aircraft_total": 249,
+        "freight_tonnes_domestic": 194.19400000000002,
+        "freight_tonnes_international": 29.614,
+        "freight_tonnes_total": 223.80800000000002,
+        "passengers_domestic": 23758,
+        "passengers_international": 1377,
+        "passengers_total": 25135
+      }
+    },
+    {
+      "iata": "KYA",
+      "icao": "LTAN",
+      "kind": "large_airport",
+      "name": {
+        "en": "Konya Airport",
+        "tr": "Konya"
+      },
+      "plaka": 42,
+      "point": [
+        32.561901,
+        37.979
+      ],
+      "province": {
+        "en": "Konya",
+        "tr": "Konya"
+      },
+      "traffic": {
+        "aircraft_domestic": 3836,
+        "aircraft_international": 520,
+        "aircraft_total": 4356,
+        "cargo_tonnes_domestic": 222.27399999999994,
+        "cargo_tonnes_international": 0.125,
+        "cargo_tonnes_total": 222.39899999999994,
+        "commercial_aircraft_domestic": 3279,
+        "commercial_aircraft_international": 461,
+        "commercial_aircraft_total": 3740,
+        "freight_tonnes_domestic": 4202.782,
+        "freight_tonnes_international": 1460.747,
+        "freight_tonnes_total": 5663.529,
+        "passengers_domestic": 438126,
+        "passengers_international": 57735,
+        "passengers_total": 495861
+      }
+    },
+    {
+      "iata": "MZH",
+      "icao": "LTAP",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Amasya Merzifon Airport",
+        "tr": "Amasya Merzifon"
+      },
+      "plaka": 5,
+      "point": [
+        35.521999,
+        40.829399
+      ],
+      "province": {
+        "en": "Amasya",
+        "tr": "Amasya"
+      },
+      "traffic": {
+        "aircraft_domestic": 791,
+        "aircraft_international": 56,
+        "aircraft_total": 847,
+        "cargo_tonnes_domestic": 16.212,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 16.212,
+        "commercial_aircraft_domestic": 710,
+        "commercial_aircraft_international": 24,
+        "commercial_aircraft_total": 734,
+        "freight_tonnes_domestic": 786.389,
+        "freight_tonnes_international": 92.60699999999997,
+        "freight_tonnes_total": 878.996,
+        "passengers_domestic": 85951,
+        "passengers_international": 4062,
+        "passengers_total": 90013
+      }
+    },
+    {
+      "iata": "VAS",
+      "icao": "LTAR",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Sivas Nuri Demirağ Airport",
+        "tr": "Sivas Nuri Demirağ"
+      },
+      "plaka": 58,
+      "point": [
+        36.9035,
+        39.813801
+      ],
+      "province": {
+        "en": "Sivas",
+        "tr": "Sivas"
+      },
+      "traffic": {
+        "aircraft_domestic": 2845,
+        "aircraft_international": 60,
+        "aircraft_total": 2905,
+        "cargo_tonnes_domestic": 14.639,
+        "cargo_tonnes_international": 7.236,
+        "cargo_tonnes_total": 21.875,
+        "commercial_aircraft_domestic": 2212,
+        "commercial_aircraft_international": 35,
+        "commercial_aircraft_total": 2247,
+        "freight_tonnes_domestic": 2914.712,
+        "freight_tonnes_international": 102.105,
+        "freight_tonnes_total": 3016.817,
+        "passengers_domestic": 296451,
+        "passengers_international": 4430,
+        "passengers_total": 300881
+      }
+    },
+    {
+      "iata": "ONQ",
+      "icao": "LTAS",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Zonguldak Çaycuma Airport",
+        "tr": "Zonguldak Çaycuma"
+      },
+      "plaka": 67,
+      "point": [
+        32.0886,
+        41.506401
+      ],
+      "province": {
+        "en": "Zonguldak",
+        "tr": "Zonguldak"
+      },
+      "traffic": {
+        "aircraft_domestic": 234,
+        "aircraft_international": 63,
+        "aircraft_total": 297,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 38,
+        "commercial_aircraft_international": 48,
+        "commercial_aircraft_total": 86,
+        "freight_tonnes_domestic": 20.473,
+        "freight_tonnes_international": 160.404,
+        "freight_tonnes_total": 180.877,
+        "passengers_domestic": 2683,
+        "passengers_international": 7093,
+        "passengers_total": 9776
+      }
+    },
+    {
+      "iata": "MLX",
+      "icao": "LTAT",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Malatya Erhaç Airport",
+        "tr": "Malatya"
+      },
+      "plaka": 44,
+      "point": [
+        38.0909996033,
+        38.435298919699996
+      ],
+      "province": {
+        "en": "Malatya",
+        "tr": "Malatya"
+      },
+      "traffic": {
+        "aircraft_domestic": 4105,
+        "aircraft_international": 76,
+        "aircraft_total": 4181,
+        "cargo_tonnes_domestic": 70.546,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 70.546,
+        "commercial_aircraft_domestic": 3480,
+        "commercial_aircraft_international": 44,
+        "commercial_aircraft_total": 3524,
+        "freight_tonnes_domestic": 4425.77,
+        "freight_tonnes_international": 117.85400000000001,
+        "freight_tonnes_total": 4543.624000000001,
+        "passengers_domestic": 473665,
+        "passengers_international": 4417,
+        "passengers_total": 478082
+      }
+    },
+    {
+      "iata": "ASR",
+      "icao": "LTAU",
+      "kind": "large_airport",
+      "name": {
+        "en": "Kayseri Erkilet International Airport",
+        "tr": "Kayseri"
+      },
+      "plaka": 38,
+      "point": [
+        35.495399,
+        38.770401
+      ],
+      "province": {
+        "en": "Kayseri",
+        "tr": "Kayseri"
+      },
+      "traffic": {
+        "aircraft_domestic": 7531,
+        "aircraft_international": 1770,
+        "aircraft_total": 9301,
+        "cargo_tonnes_domestic": 595.4440000000001,
+        "cargo_tonnes_international": 10.685000000000002,
+        "cargo_tonnes_total": 606.1290000000001,
+        "commercial_aircraft_domestic": 7150,
+        "commercial_aircraft_international": 1677,
+        "commercial_aircraft_total": 8827,
+        "freight_tonnes_domestic": 9707.999,
+        "freight_tonnes_international": 4836.354,
+        "freight_tonnes_total": 14544.353,
+        "passengers_domestic": 957290,
+        "passengers_international": 203869,
+        "passengers_total": 1161159
+      }
+    },
+    {
+      "iata": "TJK",
+      "icao": "LTAW",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Tokat Airport",
+        "tr": "Tokat"
+      },
+      "plaka": 60,
+      "point": [
+        36.39056,
+        40.32472
+      ],
+      "province": {
+        "en": "Tokat",
+        "tr": "Tokat"
+      },
+      "traffic": {
+        "aircraft_domestic": 655,
+        "aircraft_international": 0,
+        "aircraft_total": 655,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    {
+      "iata": "DNZ",
+      "icao": "LTAY",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Çardak Airport",
+        "tr": "Denizli Çardak"
+      },
+      "plaka": 20,
+      "point": [
+        29.7012996674,
+        37.7855987549
+      ],
+      "province": {
+        "en": "Denizli",
+        "tr": "Denizli"
+      },
+      "traffic": {
+        "aircraft_domestic": 5615,
+        "aircraft_international": 93,
+        "aircraft_total": 5708,
+        "cargo_tonnes_domestic": 287.74899999999997,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 287.74899999999997,
+        "commercial_aircraft_domestic": 1945,
+        "commercial_aircraft_international": 56,
+        "commercial_aircraft_total": 2001,
+        "freight_tonnes_domestic": 2094.552,
+        "freight_tonnes_international": 215.522,
+        "freight_tonnes_total": 2310.074,
+        "passengers_domestic": 224970,
+        "passengers_international": 8227,
+        "passengers_total": 233197
+      }
+    },
+    {
+      "iata": "NAV",
+      "icao": "LTAZ",
+      "kind": "large_airport",
+      "name": {
+        "en": "Nevşehir Kapadokya Airport",
+        "tr": "Kapadokya"
+      },
+      "plaka": 50,
+      "point": [
+        34.5345,
+        38.7719
+      ],
+      "province": {
+        "en": "Nevşehir",
+        "tr": "Nevşehir"
+      },
+      "traffic": {
+        "aircraft_domestic": 11025,
+        "aircraft_international": 59,
+        "aircraft_total": 11084,
+        "cargo_tonnes_domestic": 10.856,
+        "cargo_tonnes_international": 0.693,
+        "cargo_tonnes_total": 11.549,
+        "commercial_aircraft_domestic": 1077,
+        "commercial_aircraft_international": 11,
+        "commercial_aircraft_total": 1088,
+        "freight_tonnes_domestic": 1274.0349999999999,
+        "freight_tonnes_international": 33.956,
+        "freight_tonnes_total": 1307.9909999999998,
+        "passengers_domestic": 132619,
+        "passengers_international": 1516,
+        "passengers_total": 134135
+      }
+    },
+    {
+      "iata": "ISL",
+      "icao": "LTBA",
+      "kind": "large_airport",
+      "name": {
+        "en": "İstanbul Atatürk Airport",
+        "tr": "İstanbul Atatürk"
+      },
+      "plaka": 34,
+      "point": [
+        28.823714,
+        40.971913
+      ],
+      "province": {
+        "en": "Istanbul",
+        "tr": "İstanbul"
+      },
+      "traffic": {
+        "aircraft_domestic": 10248,
+        "aircraft_international": 27220,
+        "aircraft_total": 37468,
+        "cargo_tonnes_domestic": 1964.63,
+        "cargo_tonnes_international": 795179.4970000006,
+        "cargo_tonnes_total": 797144.1270000006,
+        "commercial_aircraft_domestic": 112,
+        "commercial_aircraft_international": 19246,
+        "commercial_aircraft_total": 19358,
+        "freight_tonnes_domestic": 2032.9180000000001,
+        "freight_tonnes_international": 828174.6410000001,
+        "freight_tonnes_total": 830207.559,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    {
+      "iata": "CII",
+      "icao": "LTBD",
+      "kind": "small_airport",
+      "name": {
+        "en": "Aydın Çıldır Airport",
+        "tr": "Aydın Çıldır"
+      },
+      "plaka": 9,
+      "point": [
+        27.887566,
+        37.815389
+      ],
+      "province": {
+        "en": "Aydın",
+        "tr": "Aydın"
+      },
+      "traffic": {
+        "aircraft_domestic": 20452,
+        "aircraft_international": 0,
+        "aircraft_total": 20452,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    {
+      "iata": "BZI",
+      "icao": "LTBF",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Balıkesir Airport",
+        "tr": "Balıkesir Merkez"
+      },
+      "plaka": 10,
+      "point": [
+        27.926001,
+        39.619301
+      ],
+      "province": {
+        "en": "Balıkesir",
+        "tr": "Balıkesir"
+      },
+      "traffic": {
+        "aircraft_domestic": 85,
+        "aircraft_international": 0,
+        "aircraft_total": 85,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    {
+      "iata": "CKZ",
+      "icao": "LTBH",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Çanakkale Airport",
+        "tr": "Çanakkale"
+      },
+      "plaka": 17,
+      "point": [
+        26.4267997742,
+        40.1376991272
+      ],
+      "province": {
+        "en": "Çanakkale",
+        "tr": "Çanakkale"
+      },
+      "traffic": {
+        "aircraft_domestic": 4663,
+        "aircraft_international": 19,
+        "aircraft_total": 4682,
+        "cargo_tonnes_domestic": 0.938,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.938,
+        "commercial_aircraft_domestic": 652,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 660,
+        "freight_tonnes_domestic": 628.503,
+        "freight_tonnes_international": 30.266,
+        "freight_tonnes_total": 658.769,
+        "passengers_domestic": 95278,
+        "passengers_international": 1286,
+        "passengers_total": 96564
+      }
+    },
+    {
+      "iata": "ADB",
+      "icao": "LTBJ",
+      "kind": "large_airport",
+      "name": {
+        "en": "Adnan Menderes International Airport",
+        "tr": "İzmir Adnan Menderes"
+      },
+      "plaka": 35,
+      "point": [
+        27.157,
+        38.2924
+      ],
+      "province": {
+        "en": "İzmir",
+        "tr": "İzmir"
+      },
+      "traffic": {
+        "aircraft_domestic": 36236,
+        "aircraft_international": 9765,
+        "aircraft_total": 46001,
+        "cargo_tonnes_domestic": 10616.056999999999,
+        "cargo_tonnes_international": 3353.0039999999985,
+        "cargo_tonnes_total": 13969.060999999998,
+        "commercial_aircraft_domestic": 31076,
+        "commercial_aircraft_international": 8762,
+        "commercial_aircraft_total": 39838,
+        "freight_tonnes_domestic": 48024.439,
+        "freight_tonnes_international": 23652.395,
+        "freight_tonnes_total": 71676.834,
+        "passengers_domestic": 4469524,
+        "passengers_international": 995334,
+        "passengers_total": 5464858
+      }
+    },
+    {
+      "iata": "USQ",
+      "icao": "LTBO",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Uşak Airport",
+        "tr": "Uşak"
+      },
+      "plaka": 64,
+      "point": [
+        29.471701,
+        38.681499
+      ],
+      "province": {
+        "en": "Uşak",
+        "tr": "Uşak"
+      },
+      "traffic": {
+        "aircraft_domestic": 6861,
+        "aircraft_international": 11,
+        "aircraft_total": 6872,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 68,
+        "commercial_aircraft_international": 5,
+        "commercial_aircraft_total": 73,
+        "freight_tonnes_domestic": 50.70100000000001,
+        "freight_tonnes_international": 12.59,
+        "freight_tonnes_total": 63.29100000000001,
+        "passengers_domestic": 6792,
+        "passengers_international": 708,
+        "passengers_total": 7500
+      }
+    },
+    {
+      "iata": "KCO",
+      "icao": "LTBQ",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Cengiz Topel Airport",
+        "tr": "Kocaeli Cengiz Topel"
+      },
+      "plaka": 41,
+      "point": [
+        30.0833,
+        40.735001
+      ],
+      "province": {
+        "en": "Kocaeli",
+        "tr": "Kocaeli"
+      },
+      "traffic": {
+        "aircraft_domestic": 1465,
+        "aircraft_international": 38,
+        "aircraft_total": 1503,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 76,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 84,
+        "freight_tonnes_domestic": 109.32100000000001,
+        "freight_tonnes_international": 24.994,
+        "freight_tonnes_total": 134.315,
+        "passengers_domestic": 10784,
+        "passengers_international": 1067,
+        "passengers_total": 11851
+      }
+    },
+    {
+      "iata": "YEI",
+      "icao": "LTBR",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Bursa Yenişehir Airport",
+        "tr": "Bursa Yenişehir"
+      },
+      "plaka": 16,
+      "point": [
+        29.562599,
+        40.255199
+      ],
+      "province": {
+        "en": "Bursa",
+        "tr": "Bursa"
+      },
+      "traffic": {
+        "aircraft_domestic": 11025,
+        "aircraft_international": 111,
+        "aircraft_total": 11136,
+        "cargo_tonnes_domestic": 0.415,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.415,
+        "commercial_aircraft_domestic": 390,
+        "commercial_aircraft_international": 50,
+        "commercial_aircraft_total": 440,
+        "freight_tonnes_domestic": 508.66599999999994,
+        "freight_tonnes_international": 205.978,
+        "freight_tonnes_total": 714.644,
+        "passengers_domestic": 51092,
+        "passengers_international": 9479,
+        "passengers_total": 60571
+      }
+    },
+    {
+      "iata": "DLM",
+      "icao": "LTBS",
+      "kind": "large_airport",
+      "name": {
+        "en": "Dalaman International Airport",
+        "tr": "Muğla Dalaman"
+      },
+      "plaka": 48,
+      "point": [
+        28.7925,
+        36.7131
+      ],
+      "province": {
+        "en": "Muğla",
+        "tr": "Muğla"
+      },
+      "traffic": {
+        "aircraft_domestic": 16593,
+        "aircraft_international": 7307,
+        "aircraft_total": 23900,
+        "cargo_tonnes_domestic": 19.66,
+        "cargo_tonnes_international": 10.763,
+        "cargo_tonnes_total": 30.423000000000002,
+        "commercial_aircraft_domestic": 6024,
+        "commercial_aircraft_international": 5401,
+        "commercial_aircraft_total": 11425,
+        "freight_tonnes_domestic": 7533.780000000001,
+        "freight_tonnes_international": 12059.505,
+        "freight_tonnes_total": 19593.285,
+        "passengers_domestic": 756473,
+        "passengers_international": 830652,
+        "passengers_total": 1587125
+      }
+    },
+    {
+      "iata": "TEQ",
+      "icao": "LTBU",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Tekirdağ Çorlu Airport",
+        "tr": "Tekirdağ Çorlu Atatürk"
+      },
+      "plaka": 59,
+      "point": [
+        27.9191,
+        41.138199
+      ],
+      "province": {
+        "en": "Tekirdağ",
+        "tr": "Tekirdağ"
+      },
+      "traffic": {
+        "aircraft_domestic": 20212,
+        "aircraft_international": 608,
+        "aircraft_total": 20820,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 1109.01,
+        "cargo_tonnes_total": 1109.01,
+        "commercial_aircraft_domestic": 165,
+        "commercial_aircraft_international": 127,
+        "commercial_aircraft_total": 292,
+        "freight_tonnes_domestic": 155.275,
+        "freight_tonnes_international": 4133.496000000001,
+        "freight_tonnes_total": 4288.771000000001,
+        "passengers_domestic": 22460,
+        "passengers_international": 321,
+        "passengers_total": 22781
+      }
+    },
+    {
+      "iata": "AOE",
+      "icao": "LTBY",
+      "kind": "large_airport",
+      "name": {
+        "en": "Hasan Polatkan Airport",
+        "tr": "Eskişehir Hasan Polatkan"
+      },
+      "plaka": 26,
+      "point": [
+        30.519268,
+        39.811644
+      ],
+      "province": {
+        "en": "Eskişehir",
+        "tr": "Eskişehir"
+      },
+      "traffic": {
+        "aircraft_domestic": 3859,
+        "aircraft_international": 421,
+        "aircraft_total": 4280,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 3.4439999999999995,
+        "cargo_tonnes_total": 3.4439999999999995,
+        "commercial_aircraft_domestic": 2,
+        "commercial_aircraft_international": 408,
+        "commercial_aircraft_total": 410,
+        "freight_tonnes_domestic": 0.644,
+        "freight_tonnes_international": 1211.225,
+        "freight_tonnes_total": 1211.869,
+        "passengers_domestic": 78,
+        "passengers_international": 51080,
+        "passengers_total": 51158
+      }
+    },
+    {
+      "iata": "KZR",
+      "icao": "LTBZ",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Zafer Airport",
+        "tr": "Zafer"
+      },
+      "plaka": 43,
+      "point": [
+        30.130405,
+        39.111107
+      ],
+      "province": {
+        "en": "Kütahya",
+        "tr": "Kütahya"
+      },
+      "traffic": {
+        "aircraft_domestic": 362,
+        "aircraft_international": 74,
+        "aircraft_total": 436,
+        "cargo_tonnes_domestic": 0.131,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.131,
+        "commercial_aircraft_domestic": 98,
+        "commercial_aircraft_international": 49,
+        "commercial_aircraft_total": 147,
+        "freight_tonnes_domestic": 81.32499999999999,
+        "freight_tonnes_international": 156.501,
+        "freight_tonnes_total": 237.826,
+        "passengers_domestic": 9605,
+        "passengers_international": 7040,
+        "passengers_total": 16645
+      }
+    },
+    {
+      "iata": "EZS",
+      "icao": "LTCA",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Elazığ Airport",
+        "tr": "Elazığ"
+      },
+      "plaka": 23,
+      "point": [
+        39.28348,
+        38.597974
+      ],
+      "province": {
+        "en": "Elazığ",
+        "tr": "Elâzığ"
+      },
+      "traffic": {
+        "aircraft_domestic": 6249,
+        "aircraft_international": 244,
+        "aircraft_total": 6493,
+        "cargo_tonnes_domestic": 99.50899999999997,
+        "cargo_tonnes_international": 0.528,
+        "cargo_tonnes_total": 100.03699999999998,
+        "commercial_aircraft_domestic": 3669,
+        "commercial_aircraft_international": 220,
+        "commercial_aircraft_total": 3889,
+        "freight_tonnes_domestic": 5214.532000000001,
+        "freight_tonnes_international": 681.7180000000001,
+        "freight_tonnes_total": 5896.250000000001,
+        "passengers_domestic": 518548,
+        "passengers_international": 23279,
+        "passengers_total": 541827
+      }
+    },
+    {
+      "iata": "OGU",
+      "icao": "LTCB",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Ordu–Giresun Airport",
+        "tr": "Ordu-Giresun"
+      },
+      "plaka": 52,
+      "point": [
+        38.085995,
+        40.966872
+      ],
+      "province": {
+        "en": "Ordu",
+        "tr": "Ordu"
+      },
+      "traffic": {
+        "aircraft_domestic": 4857,
+        "aircraft_international": 148,
+        "aircraft_total": 5005,
+        "cargo_tonnes_domestic": 72.07099999999998,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 72.07099999999998,
+        "commercial_aircraft_domestic": 3844,
+        "commercial_aircraft_international": 70,
+        "commercial_aircraft_total": 3914,
+        "freight_tonnes_domestic": 4978.532,
+        "freight_tonnes_international": 229.88799999999998,
+        "freight_tonnes_total": 5208.42,
+        "passengers_domestic": 547536,
+        "passengers_international": 8896,
+        "passengers_total": 556432
+      }
+    },
+    {
+      "iata": "DIY",
+      "icao": "LTCC",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Diyarbakır Airport",
+        "tr": "Diyarbakır"
+      },
+      "plaka": 21,
+      "point": [
+        40.201,
+        37.893902
+      ],
+      "province": {
+        "en": "Diyarbakır",
+        "tr": "Diyarbakır"
+      },
+      "traffic": {
+        "aircraft_domestic": 7700,
+        "aircraft_international": 245,
+        "aircraft_total": 7945,
+        "cargo_tonnes_domestic": 347.8269999999999,
+        "cargo_tonnes_international": 20.186,
+        "cargo_tonnes_total": 368.01299999999986,
+        "commercial_aircraft_domestic": 7387,
+        "commercial_aircraft_international": 189,
+        "commercial_aircraft_total": 7576,
+        "freight_tonnes_domestic": 9757.776,
+        "freight_tonnes_international": 665.608,
+        "freight_tonnes_total": 10423.384,
+        "passengers_domestic": 1092261,
+        "passengers_international": 23381,
+        "passengers_total": 1115642
+      }
+    },
+    {
+      "iata": "ERC",
+      "icao": "LTCD",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Erzincan Airport",
+        "tr": "Erzincan"
+      },
+      "plaka": 24,
+      "point": [
+        39.527000427199994,
+        39.7102012634
+      ],
+      "province": {
+        "en": "Erzincan",
+        "tr": "Erzincan"
+      },
+      "traffic": {
+        "aircraft_domestic": 1887,
+        "aircraft_international": 31,
+        "aircraft_total": 1918,
+        "cargo_tonnes_domestic": 29.921000000000003,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 29.921000000000003,
+        "commercial_aircraft_domestic": 1677,
+        "commercial_aircraft_international": 17,
+        "commercial_aircraft_total": 1694,
+        "freight_tonnes_domestic": 2118.647,
+        "freight_tonnes_international": 53.05800000000001,
+        "freight_tonnes_total": 2171.705,
+        "passengers_domestic": 220785,
+        "passengers_international": 2882,
+        "passengers_total": 223667
+      }
+    },
+    {
+      "iata": "ERZ",
+      "icao": "LTCE",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Erzurum International Airport",
+        "tr": "Erzurum"
+      },
+      "plaka": 25,
+      "point": [
+        41.1702,
+        39.956501
+      ],
+      "province": {
+        "en": "Erzurum",
+        "tr": "Erzurum"
+      },
+      "traffic": {
+        "aircraft_domestic": 4782,
+        "aircraft_international": 117,
+        "aircraft_total": 4899,
+        "cargo_tonnes_domestic": 128.963,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 128.963,
+        "commercial_aircraft_domestic": 3780,
+        "commercial_aircraft_international": 22,
+        "commercial_aircraft_total": 3802,
+        "freight_tonnes_domestic": 5408.381999999999,
+        "freight_tonnes_international": 46.522999999999996,
+        "freight_tonnes_total": 5454.904999999999,
+        "passengers_domestic": 560532,
+        "passengers_international": 2516,
+        "passengers_total": 563048
+      }
+    },
+    {
+      "iata": "KSY",
+      "icao": "LTCF",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Kars Airport",
+        "tr": "Kars Harakani"
+      },
+      "plaka": 36,
+      "point": [
+        43.1150016784668,
+        40.562198638916016
+      ],
+      "province": {
+        "en": "Kars",
+        "tr": "Kars"
+      },
+      "traffic": {
+        "aircraft_domestic": 2854,
+        "aircraft_international": 4,
+        "aircraft_total": 2858,
+        "cargo_tonnes_domestic": 7.768000000000001,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 7.768000000000001,
+        "commercial_aircraft_domestic": 2596,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 2598,
+        "freight_tonnes_domestic": 4030.1510000000003,
+        "freight_tonnes_international": 5.198,
+        "freight_tonnes_total": 4035.349,
+        "passengers_domestic": 380904,
+        "passengers_international": 219,
+        "passengers_total": 381123
+      }
+    },
+    {
+      "iata": "TZX",
+      "icao": "LTCG",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Trabzon International Airport",
+        "tr": "Trabzon"
+      },
+      "plaka": 61,
+      "point": [
+        39.7897,
+        40.995098
+      ],
+      "province": {
+        "en": "Trabzon",
+        "tr": "Trabzon"
+      },
+      "traffic": {
+        "aircraft_domestic": 12856,
+        "aircraft_international": 1307,
+        "aircraft_total": 14163,
+        "cargo_tonnes_domestic": 461.78899999999993,
+        "cargo_tonnes_international": 8.139000000000001,
+        "cargo_tonnes_total": 469.92799999999994,
+        "commercial_aircraft_domestic": 12109,
+        "commercial_aircraft_international": 591,
+        "commercial_aircraft_total": 12700,
+        "freight_tonnes_domestic": 16351.656,
+        "freight_tonnes_international": 1636.1530000000002,
+        "freight_tonnes_total": 17987.809,
+        "passengers_domestic": 1740729,
+        "passengers_international": 60871,
+        "passengers_total": 1801600
+      }
+    },
+    {
+      "iata": "VAN",
+      "icao": "LTCI",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Van Ferit Melen Airport",
+        "tr": "Van Ferit Melen"
+      },
+      "plaka": 65,
+      "point": [
+        43.332298278808594,
+        38.46820068359375
+      ],
+      "province": {
+        "en": "Van",
+        "tr": "Van"
+      },
+      "traffic": {
+        "aircraft_domestic": 13286,
+        "aircraft_international": 82,
+        "aircraft_total": 13368,
+        "cargo_tonnes_domestic": 218.34100000000004,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 218.34100000000004,
+        "commercial_aircraft_domestic": 6270,
+        "commercial_aircraft_international": 15,
+        "commercial_aircraft_total": 6285,
+        "freight_tonnes_domestic": 9964.86,
+        "freight_tonnes_international": 30.948,
+        "freight_tonnes_total": 9995.808,
+        "passengers_domestic": 974550,
+        "passengers_international": 1761,
+        "passengers_total": 976311
+      }
+    },
+    {
+      "iata": "BAL",
+      "icao": "LTCJ",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Batman Airport",
+        "tr": "Batman"
+      },
+      "plaka": 72,
+      "point": [
+        41.1166,
+        37.929001
+      ],
+      "province": {
+        "en": "Batman",
+        "tr": "Batman"
+      },
+      "traffic": {
+        "aircraft_domestic": 2696,
+        "aircraft_international": 9,
+        "aircraft_total": 2705,
+        "cargo_tonnes_domestic": 248.44500000000002,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 248.44500000000002,
+        "commercial_aircraft_domestic": 2524,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 2532,
+        "freight_tonnes_domestic": 3856.678,
+        "freight_tonnes_international": 26.549,
+        "freight_tonnes_total": 3883.227,
+        "passengers_domestic": 370430,
+        "passengers_international": 1153,
+        "passengers_total": 371583
+      }
+    },
+    {
+      "iata": "MSR",
+      "icao": "LTCK",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Muş Airport",
+        "tr": "Muş Sultan Alparslan"
+      },
+      "plaka": 49,
+      "point": [
+        41.66120147705078,
+        38.747798919677734
+      ],
+      "province": {
+        "en": "Muş",
+        "tr": "Muş"
+      },
+      "traffic": {
+        "aircraft_domestic": 2163,
+        "aircraft_international": 13,
+        "aircraft_total": 2176,
+        "cargo_tonnes_domestic": 37.65000000000001,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 37.65000000000001,
+        "commercial_aircraft_domestic": 1898,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 1906,
+        "freight_tonnes_domestic": 2860.1030000000005,
+        "freight_tonnes_international": 29.621,
+        "freight_tonnes_total": 2889.7240000000006,
+        "passengers_domestic": 276697,
+        "passengers_international": 1263,
+        "passengers_total": 277960
+      }
+    },
+    {
+      "iata": "SXZ",
+      "icao": "LTCL",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Siirt Airport",
+        "tr": "Siirt"
+      },
+      "plaka": 56,
+      "point": [
+        41.84040069580078,
+        37.97890090942383
+      ],
+      "province": {
+        "en": "Siirt",
+        "tr": "Siirt"
+      },
+      "traffic": {
+        "aircraft_domestic": 440,
+        "aircraft_international": 0,
+        "aircraft_total": 440,
+        "cargo_tonnes_domestic": 5.306,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 5.306,
+        "commercial_aircraft_domestic": 331,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 331,
+        "freight_tonnes_domestic": 365.71500000000003,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 365.71500000000003,
+        "passengers_domestic": 33568,
+        "passengers_international": 0,
+        "passengers_total": 33568
+      }
+    },
+    {
+      "iata": "NOP",
+      "icao": "LTCM",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Sinop Airport",
+        "tr": "Sinop"
+      },
+      "plaka": 57,
+      "point": [
+        35.071774,
+        42.018313
+      ],
+      "province": {
+        "en": "Sinop",
+        "tr": "Sinop"
+      },
+      "traffic": {
+        "aircraft_domestic": 1188,
+        "aircraft_international": 5,
+        "aircraft_total": 1193,
+        "cargo_tonnes_domestic": 5.745,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 5.745,
+        "commercial_aircraft_domestic": 698,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 698,
+        "freight_tonnes_domestic": 720.316,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 720.316,
+        "passengers_domestic": 78028,
+        "passengers_international": 0,
+        "passengers_total": 78028
+      }
+    },
+    {
+      "iata": "KCM",
+      "icao": "LTCN",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Kahramanmaraş Airport",
+        "tr": "Kahramanmaraş"
+      },
+      "plaka": 46,
+      "point": [
+        36.9535217285,
+        37.5388259888
+      ],
+      "province": {
+        "en": "Kahramanmaraş",
+        "tr": "Kahramanmaraş"
+      },
+      "traffic": {
+        "aircraft_domestic": 1867,
+        "aircraft_international": 10,
+        "aircraft_total": 1877,
+        "cargo_tonnes_domestic": 20.706000000000003,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 20.706000000000003,
+        "commercial_aircraft_domestic": 1190,
+        "commercial_aircraft_international": 7,
+        "commercial_aircraft_total": 1197,
+        "freight_tonnes_domestic": 1319.9129999999998,
+        "freight_tonnes_international": 13.874,
+        "freight_tonnes_total": 1333.7869999999998,
+        "passengers_domestic": 140897,
+        "passengers_international": 574,
+        "passengers_total": 141471
+      }
+    },
+    {
+      "iata": "AJI",
+      "icao": "LTCO",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Ağrı Airport",
+        "tr": "Ağrı Ahmed-i Hani"
+      },
+      "plaka": 4,
+      "point": [
+        43.025742,
+        39.655642
+      ],
+      "province": {
+        "en": "Ağrı",
+        "tr": "Ağrı"
+      },
+      "traffic": {
+        "aircraft_domestic": 1723,
+        "aircraft_international": 4,
+        "aircraft_total": 1727,
+        "cargo_tonnes_domestic": 4.427,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 4.427,
+        "commercial_aircraft_domestic": 1489,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 1491,
+        "freight_tonnes_domestic": 2201.276,
+        "freight_tonnes_international": 8.716,
+        "freight_tonnes_total": 2209.9919999999997,
+        "passengers_domestic": 208620,
+        "passengers_international": 367,
+        "passengers_total": 208987
+      }
+    },
+    {
+      "iata": "ADF",
+      "icao": "LTCP",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Adıyaman Airport",
+        "tr": "Adıyaman"
+      },
+      "plaka": 2,
+      "point": [
+        38.468899,
+        37.7314
+      ],
+      "province": {
+        "en": "Adıyaman",
+        "tr": "Adıyaman"
+      },
+      "traffic": {
+        "aircraft_domestic": 1235,
+        "aircraft_international": 11,
+        "aircraft_total": 1246,
+        "cargo_tonnes_domestic": 60.16399999999998,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 60.16399999999998,
+        "commercial_aircraft_domestic": 928,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 936,
+        "freight_tonnes_domestic": 1244.1879999999999,
+        "freight_tonnes_international": 26.011999999999997,
+        "freight_tonnes_total": 1270.1999999999998,
+        "passengers_domestic": 122505,
+        "passengers_international": 1295,
+        "passengers_total": 123800
+      }
+    },
+    {
+      "iata": "MQM",
+      "icao": "LTCR",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Mardin Airport",
+        "tr": "Mardin"
+      },
+      "plaka": 47,
+      "point": [
+        40.6316986084,
+        37.223300933800004
+      ],
+      "province": {
+        "en": "Mardin",
+        "tr": "Mardin"
+      },
+      "traffic": {
+        "aircraft_domestic": 2929,
+        "aircraft_international": 7,
+        "aircraft_total": 2936,
+        "cargo_tonnes_domestic": 68.05600000000003,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 68.05600000000003,
+        "commercial_aircraft_domestic": 2698,
+        "commercial_aircraft_international": 4,
+        "commercial_aircraft_total": 2702,
+        "freight_tonnes_domestic": 4111.541,
+        "freight_tonnes_international": 11.062,
+        "freight_tonnes_total": 4122.603,
+        "passengers_domestic": 397050,
+        "passengers_international": 514,
+        "passengers_total": 397564
+      }
+    },
+    {
+      "iata": "GNY",
+      "icao": "LTCS",
+      "kind": "large_airport",
+      "name": {
+        "en": "Şanlıurfa GAP Airport",
+        "tr": "Şanlıurfa GAP"
+      },
+      "plaka": 63,
+      "point": [
+        38.895592,
+        37.445663
+      ],
+      "province": {
+        "en": "Şanlıurfa",
+        "tr": "Şanlıurfa"
+      },
+      "traffic": {
+        "aircraft_domestic": 4323,
+        "aircraft_international": 66,
+        "aircraft_total": 4389,
+        "cargo_tonnes_domestic": 54.80400000000001,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 54.80400000000001,
+        "commercial_aircraft_domestic": 2811,
+        "commercial_aircraft_international": 46,
+        "commercial_aircraft_total": 2857,
+        "freight_tonnes_domestic": 3643.82,
+        "freight_tonnes_international": 161.438,
+        "freight_tonnes_total": 3805.2580000000003,
+        "passengers_domestic": 400665,
+        "passengers_international": 6866,
+        "passengers_total": 407531
+      }
+    },
+    {
+      "iata": "IGD",
+      "icao": "LTCT",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Iğdır Airport",
+        "tr": "Iğdır Şehit Bülent Aydın"
+      },
+      "plaka": 76,
+      "point": [
+        43.876648,
+        39.976627
+      ],
+      "province": {
+        "en": "Iğdır",
+        "tr": "Iğdır"
+      },
+      "traffic": {
+        "aircraft_domestic": 1757,
+        "aircraft_international": 52,
+        "aircraft_total": 1809,
+        "cargo_tonnes_domestic": 19.762999999999995,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 19.762999999999995,
+        "commercial_aircraft_domestic": 930,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 932,
+        "freight_tonnes_domestic": 1582.376,
+        "freight_tonnes_international": 5.157,
+        "freight_tonnes_total": 1587.533,
+        "passengers_domestic": 134176,
+        "passengers_international": 296,
+        "passengers_total": 134472
+      }
+    },
+    {
+      "iata": "BGG",
+      "icao": "LTCU",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Bingöl Airport",
+        "tr": "Bingöl"
+      },
+      "plaka": 12,
+      "point": [
+        40.594489,
+        38.860131
+      ],
+      "province": {
+        "en": "Bingöl",
+        "tr": "Bingöl"
+      },
+      "traffic": {
+        "aircraft_domestic": 1104,
+        "aircraft_international": 4,
+        "aircraft_total": 1108,
+        "cargo_tonnes_domestic": 8.232000000000003,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 8.232000000000003,
+        "commercial_aircraft_domestic": 975,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 977,
+        "freight_tonnes_domestic": 1278.054,
+        "freight_tonnes_international": 6.108,
+        "freight_tonnes_total": 1284.162,
+        "passengers_domestic": 121111,
+        "passengers_international": 271,
+        "passengers_total": 121382
+      }
+    },
+    {
+      "iata": "NKT",
+      "icao": "LTCV",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Şırnak Şerafettin Elçi Airport",
+        "tr": "Şırnak Şerafettin Elçi"
+      },
+      "plaka": 73,
+      "point": [
+        42.0582,
+        37.3647
+      ],
+      "province": {
+        "en": "Şırnak",
+        "tr": "Şırnak"
+      },
+      "traffic": {
+        "aircraft_domestic": 3412,
+        "aircraft_international": 6,
+        "aircraft_total": 3418,
+        "cargo_tonnes_domestic": 3.6990000000000007,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 3.6990000000000007,
+        "commercial_aircraft_domestic": 1500,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 1502,
+        "freight_tonnes_domestic": 2692.113,
+        "freight_tonnes_international": 1.288,
+        "freight_tonnes_total": 2693.401,
+        "passengers_domestic": 227169,
+        "passengers_international": 117,
+        "passengers_total": 227286
+      }
+    },
+    {
+      "iata": "YKO",
+      "icao": "LTCW",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Hakkari Yüksekova Airport",
+        "tr": "Hakkari Yüksekova Selahaddin Eyyubi"
+      },
+      "plaka": 30,
+      "point": [
+        44.2381,
+        37.5497
+      ],
+      "province": {
+        "en": "Hakkâri",
+        "tr": "Hakkâri"
+      },
+      "traffic": {
+        "aircraft_domestic": 1234,
+        "aircraft_international": 8,
+        "aircraft_total": 1242,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 766,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 766,
+        "freight_tonnes_domestic": 1266.832,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 1266.832,
+        "passengers_domestic": 96025,
+        "passengers_international": 0,
+        "passengers_total": 96025
+      }
+    },
+    {
+      "iata": "HTY",
+      "icao": "LTDA",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Hatay Airport",
+        "tr": "Hatay"
+      },
+      "plaka": 31,
+      "point": [
+        36.285589,
+        36.36079
+      ],
+      "province": {
+        "en": "Hatay",
+        "tr": "Hatay"
+      },
+      "traffic": {
+        "aircraft_domestic": 5573,
+        "aircraft_international": 660,
+        "aircraft_total": 6233,
+        "cargo_tonnes_domestic": 23.444999999999997,
+        "cargo_tonnes_international": 0.12,
+        "cargo_tonnes_total": 23.564999999999998,
+        "commercial_aircraft_domestic": 4371,
+        "commercial_aircraft_international": 511,
+        "commercial_aircraft_total": 4882,
+        "freight_tonnes_domestic": 6194.4220000000005,
+        "freight_tonnes_international": 1028.7290000000003,
+        "freight_tonnes_total": 7223.151000000001,
+        "passengers_domestic": 576273,
+        "passengers_international": 59185,
+        "passengers_total": 635458
+      }
+    },
+    {
+      "iata": "ISE",
+      "icao": "LTFC",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Süleyman Demirel International Airport",
+        "tr": "Isparta Süleyman Demirel"
+      },
+      "plaka": 32,
+      "point": [
+        30.368401,
+        37.8554
+      ],
+      "province": {
+        "en": "Isparta",
+        "tr": "Isparta"
+      },
+      "traffic": {
+        "aircraft_domestic": 23071,
+        "aircraft_international": 90,
+        "aircraft_total": 23161,
+        "cargo_tonnes_domestic": 1.8570000000000002,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 1.8570000000000002,
+        "commercial_aircraft_domestic": 357,
+        "commercial_aircraft_international": 33,
+        "commercial_aircraft_total": 390,
+        "freight_tonnes_domestic": 348.293,
+        "freight_tonnes_international": 133.30799999999996,
+        "freight_tonnes_total": 481.601,
+        "passengers_domestic": 36917,
+        "passengers_international": 5330,
+        "passengers_total": 42247
+      }
+    },
+    {
+      "iata": "EDO",
+      "icao": "LTFD",
+      "kind": "large_airport",
+      "name": {
+        "en": "Balıkesir Koca Seyit Airport",
+        "tr": "Balıkesir Koca Seyit"
+      },
+      "plaka": 10,
+      "point": [
+        27.010192,
+        39.552533
+      ],
+      "province": {
+        "en": "Balıkesir",
+        "tr": "Balıkesir"
+      },
+      "traffic": {
+        "aircraft_domestic": 15443,
+        "aircraft_international": 62,
+        "aircraft_total": 15505,
+        "cargo_tonnes_domestic": 0.017,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.017,
+        "commercial_aircraft_domestic": 1245,
+        "commercial_aircraft_international": 37,
+        "commercial_aircraft_total": 1282,
+        "freight_tonnes_domestic": 1336.43,
+        "freight_tonnes_international": 118.258,
+        "freight_tonnes_total": 1454.688,
+        "passengers_domestic": 153777,
+        "passengers_international": 5249,
+        "passengers_total": 159026
+      }
+    },
+    {
+      "iata": "BJV",
+      "icao": "LTFE",
+      "kind": "large_airport",
+      "name": {
+        "en": "Milas Bodrum International Airport",
+        "tr": "Muğla Milas-Bodrum"
+      },
+      "plaka": 48,
+      "point": [
+        27.66401,
+        37.249314
+      ],
+      "province": {
+        "en": "Muğla",
+        "tr": "Muğla"
+      },
+      "traffic": {
+        "aircraft_domestic": 12349,
+        "aircraft_international": 5788,
+        "aircraft_total": 18137,
+        "cargo_tonnes_domestic": 41.148,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 41.148,
+        "commercial_aircraft_domestic": 7606,
+        "commercial_aircraft_international": 2804,
+        "commercial_aircraft_total": 10410,
+        "freight_tonnes_domestic": 9715.205999999998,
+        "freight_tonnes_international": 6336.997999999999,
+        "freight_tonnes_total": 16052.203999999998,
+        "passengers_domestic": 1010734,
+        "passengers_international": 469605,
+        "passengers_total": 1480339
+      }
+    },
+    {
+      "iata": "GZP",
+      "icao": "LTFG",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Gazipaşa-Alanya Airport",
+        "tr": "Gazipaşa Alanya"
+      },
+      "plaka": 7,
+      "point": [
+        32.297017,
+        36.298832
+      ],
+      "province": {
+        "en": "Antalya",
+        "tr": "Antalya"
+      },
+      "traffic": {
+        "aircraft_domestic": 2118,
+        "aircraft_international": 512,
+        "aircraft_total": 2630,
+        "cargo_tonnes_domestic": 1.065,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 1.065,
+        "commercial_aircraft_domestic": 1771,
+        "commercial_aircraft_international": 476,
+        "commercial_aircraft_total": 2247,
+        "freight_tonnes_domestic": 2146.832,
+        "freight_tonnes_international": 754.393,
+        "freight_tonnes_total": 2901.225,
+        "passengers_domestic": 212311,
+        "passengers_international": 58557,
+        "passengers_total": 270868
+      }
+    },
+    {
+      "iata": "SZF",
+      "icao": "LTFH",
+      "kind": "medium_airport",
+      "name": {
+        "en": "Samsun-Çarşamba Airport",
+        "tr": "Samsun Çarşamba"
+      },
+      "plaka": 55,
+      "point": [
+        36.567546,
+        41.253988
+      ],
+      "province": {
+        "en": "Samsun",
+        "tr": "Samsun"
+      },
+      "traffic": {
+        "aircraft_domestic": 11077,
+        "aircraft_international": 837,
+        "aircraft_total": 11914,
+        "cargo_tonnes_domestic": 274.11199999999997,
+        "cargo_tonnes_international": 4.156999999999999,
+        "cargo_tonnes_total": 278.26899999999995,
+        "commercial_aircraft_domestic": 5739,
+        "commercial_aircraft_international": 614,
+        "commercial_aircraft_total": 6353,
+        "freight_tonnes_domestic": 7504.792,
+        "freight_tonnes_international": 1971.3709999999999,
+        "freight_tonnes_total": 9476.163,
+        "passengers_domestic": 791736,
+        "passengers_international": 76405,
+        "passengers_total": 868141
+      }
+    },
+    {
+      "iata": "SAW",
+      "icao": "LTFJ",
+      "kind": "large_airport",
+      "name": {
+        "en": "Istanbul Sabiha Gökçen International Airport",
+        "tr": "İstanbul Sabiha Gökçen"
+      },
+      "plaka": 34,
+      "point": [
+        29.3092,
+        40.898602
+      ],
+      "province": {
+        "en": "Istanbul",
+        "tr": "İstanbul"
+      },
+      "traffic": {
+        "aircraft_domestic": 83521,
+        "aircraft_international": 42789,
+        "aircraft_total": 126310,
+        "cargo_tonnes_domestic": 5584.7390000000005,
+        "cargo_tonnes_international": 34437.71500000001,
+        "cargo_tonnes_total": 40022.45400000001,
+        "commercial_aircraft_domestic": 81249,
+        "commercial_aircraft_international": 41187,
+        "commercial_aircraft_total": 122436,
+        "freight_tonnes_domestic": 101870.262,
+        "freight_tonnes_international": 117326.287,
+        "freight_tonnes_total": 219196.549,
+        "passengers_domestic": 11687578,
+        "passengers_international": 5263612,
+        "passengers_total": 16951190
+      }
+    },
+    {
+      "iata": "GKD",
+      "icao": "LTFK",
+      "kind": "small_airport",
+      "name": {
+        "en": "Gökçeada Airport",
+        "tr": "Çanakkale Gökçeada"
+      },
+      "plaka": 17,
+      "point": [
+        25.883302,
+        40.204498
+      ],
+      "province": {
+        "en": "Çanakkale",
+        "tr": "Çanakkale"
+      },
+      "traffic": {
+        "aircraft_domestic": 120,
+        "aircraft_international": 0,
+        "aircraft_total": 120,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    {
+      "iata": "IST",
+      "icao": "LTFM",
+      "kind": "large_airport",
+      "name": {
+        "en": "İstanbul Airport",
+        "tr": "İstanbul"
+      },
+      "plaka": 34,
+      "point": [
+        28.732136,
+        41.274874
+      ],
+      "province": {
+        "en": "Istanbul",
+        "tr": "İstanbul"
+      },
+      "traffic": {
+        "aircraft_domestic": 59752,
+        "aircraft_international": 125672,
+        "aircraft_total": 185424,
+        "cargo_tonnes_domestic": 18292.479000000003,
+        "cargo_tonnes_international": 476309.70800000045,
+        "cargo_tonnes_total": 494602.18700000044,
+        "commercial_aircraft_domestic": 57457,
+        "commercial_aircraft_international": 121461,
+        "commercial_aircraft_total": 178918,
+        "freight_tonnes_domestic": 97493.535,
+        "freight_tonnes_international": 868146.4070000001,
+        "freight_tonnes_total": 965639.9420000002,
+        "passengers_domestic": 7473875,
+        "passengers_international": 15936505,
+        "passengers_total": 23410380
+      }
+    }
+  ],
+  "by_province": {
+    "by_plaka": {
+      "1": {
+        "aircraft_domestic": 25268,
+        "aircraft_international": 2271,
+        "aircraft_total": 27539,
+        "cargo_tonnes_domestic": 2726.321,
+        "cargo_tonnes_international": 614.587,
+        "cargo_tonnes_total": 3340.908,
+        "commercial_aircraft_domestic": 15684,
+        "commercial_aircraft_international": 1949,
+        "commercial_aircraft_total": 17633,
+        "freight_tonnes_domestic": 22544.445,
+        "freight_tonnes_international": 4930.927,
+        "freight_tonnes_total": 27475.372,
+        "passengers_domestic": 2283292,
+        "passengers_international": 224052,
+        "passengers_total": 2507344
+      },
+      "10": {
+        "aircraft_domestic": 15528,
+        "aircraft_international": 62,
+        "aircraft_total": 15590,
+        "cargo_tonnes_domestic": 0.017,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.017,
+        "commercial_aircraft_domestic": 1245,
+        "commercial_aircraft_international": 37,
+        "commercial_aircraft_total": 1282,
+        "freight_tonnes_domestic": 1336.43,
+        "freight_tonnes_international": 118.258,
+        "freight_tonnes_total": 1454.688,
+        "passengers_domestic": 153777,
+        "passengers_international": 5249,
+        "passengers_total": 159026
+      },
+      "12": {
+        "aircraft_domestic": 1104,
+        "aircraft_international": 4,
+        "aircraft_total": 1108,
+        "cargo_tonnes_domestic": 8.232,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 8.232,
+        "commercial_aircraft_domestic": 975,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 977,
+        "freight_tonnes_domestic": 1278.054,
+        "freight_tonnes_international": 6.108,
+        "freight_tonnes_total": 1284.162,
+        "passengers_domestic": 121111,
+        "passengers_international": 271,
+        "passengers_total": 121382
+      },
+      "16": {
+        "aircraft_domestic": 11025,
+        "aircraft_international": 111,
+        "aircraft_total": 11136,
+        "cargo_tonnes_domestic": 0.415,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.415,
+        "commercial_aircraft_domestic": 390,
+        "commercial_aircraft_international": 50,
+        "commercial_aircraft_total": 440,
+        "freight_tonnes_domestic": 508.666,
+        "freight_tonnes_international": 205.978,
+        "freight_tonnes_total": 714.644,
+        "passengers_domestic": 51092,
+        "passengers_international": 9479,
+        "passengers_total": 60571
+      },
+      "17": {
+        "aircraft_domestic": 4783,
+        "aircraft_international": 19,
+        "aircraft_total": 4802,
+        "cargo_tonnes_domestic": 0.938,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.938,
+        "commercial_aircraft_domestic": 652,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 660,
+        "freight_tonnes_domestic": 628.503,
+        "freight_tonnes_international": 30.266,
+        "freight_tonnes_total": 658.769,
+        "passengers_domestic": 95278,
+        "passengers_international": 1286,
+        "passengers_total": 96564
+      },
+      "2": {
+        "aircraft_domestic": 1235,
+        "aircraft_international": 11,
+        "aircraft_total": 1246,
+        "cargo_tonnes_domestic": 60.164,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 60.164,
+        "commercial_aircraft_domestic": 928,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 936,
+        "freight_tonnes_domestic": 1244.188,
+        "freight_tonnes_international": 26.012,
+        "freight_tonnes_total": 1270.2,
+        "passengers_domestic": 122505,
+        "passengers_international": 1295,
+        "passengers_total": 123800
+      },
+      "20": {
+        "aircraft_domestic": 5615,
+        "aircraft_international": 93,
+        "aircraft_total": 5708,
+        "cargo_tonnes_domestic": 287.749,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 287.749,
+        "commercial_aircraft_domestic": 1945,
+        "commercial_aircraft_international": 56,
+        "commercial_aircraft_total": 2001,
+        "freight_tonnes_domestic": 2094.552,
+        "freight_tonnes_international": 215.522,
+        "freight_tonnes_total": 2310.074,
+        "passengers_domestic": 224970,
+        "passengers_international": 8227,
+        "passengers_total": 233197
+      },
+      "21": {
+        "aircraft_domestic": 7700,
+        "aircraft_international": 245,
+        "aircraft_total": 7945,
+        "cargo_tonnes_domestic": 347.827,
+        "cargo_tonnes_international": 20.186,
+        "cargo_tonnes_total": 368.013,
+        "commercial_aircraft_domestic": 7387,
+        "commercial_aircraft_international": 189,
+        "commercial_aircraft_total": 7576,
+        "freight_tonnes_domestic": 9757.776,
+        "freight_tonnes_international": 665.608,
+        "freight_tonnes_total": 10423.384,
+        "passengers_domestic": 1092261,
+        "passengers_international": 23381,
+        "passengers_total": 1115642
+      },
+      "23": {
+        "aircraft_domestic": 6249,
+        "aircraft_international": 244,
+        "aircraft_total": 6493,
+        "cargo_tonnes_domestic": 99.509,
+        "cargo_tonnes_international": 0.528,
+        "cargo_tonnes_total": 100.037,
+        "commercial_aircraft_domestic": 3669,
+        "commercial_aircraft_international": 220,
+        "commercial_aircraft_total": 3889,
+        "freight_tonnes_domestic": 5214.532,
+        "freight_tonnes_international": 681.718,
+        "freight_tonnes_total": 5896.25,
+        "passengers_domestic": 518548,
+        "passengers_international": 23279,
+        "passengers_total": 541827
+      },
+      "24": {
+        "aircraft_domestic": 1887,
+        "aircraft_international": 31,
+        "aircraft_total": 1918,
+        "cargo_tonnes_domestic": 29.921,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 29.921,
+        "commercial_aircraft_domestic": 1677,
+        "commercial_aircraft_international": 17,
+        "commercial_aircraft_total": 1694,
+        "freight_tonnes_domestic": 2118.647,
+        "freight_tonnes_international": 53.058,
+        "freight_tonnes_total": 2171.705,
+        "passengers_domestic": 220785,
+        "passengers_international": 2882,
+        "passengers_total": 223667
+      },
+      "25": {
+        "aircraft_domestic": 4782,
+        "aircraft_international": 117,
+        "aircraft_total": 4899,
+        "cargo_tonnes_domestic": 128.963,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 128.963,
+        "commercial_aircraft_domestic": 3780,
+        "commercial_aircraft_international": 22,
+        "commercial_aircraft_total": 3802,
+        "freight_tonnes_domestic": 5408.382,
+        "freight_tonnes_international": 46.523,
+        "freight_tonnes_total": 5454.905,
+        "passengers_domestic": 560532,
+        "passengers_international": 2516,
+        "passengers_total": 563048
+      },
+      "26": {
+        "aircraft_domestic": 3859,
+        "aircraft_international": 421,
+        "aircraft_total": 4280,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 3.444,
+        "cargo_tonnes_total": 3.444,
+        "commercial_aircraft_domestic": 2,
+        "commercial_aircraft_international": 408,
+        "commercial_aircraft_total": 410,
+        "freight_tonnes_domestic": 0.644,
+        "freight_tonnes_international": 1211.225,
+        "freight_tonnes_total": 1211.869,
+        "passengers_domestic": 78,
+        "passengers_international": 51080,
+        "passengers_total": 51158
+      },
+      "27": {
+        "aircraft_domestic": 13505,
+        "aircraft_international": 1078,
+        "aircraft_total": 14583,
+        "cargo_tonnes_domestic": 595.228,
+        "cargo_tonnes_international": 368.864,
+        "cargo_tonnes_total": 964.092,
+        "commercial_aircraft_domestic": 9193,
+        "commercial_aircraft_international": 967,
+        "commercial_aircraft_total": 10160,
+        "freight_tonnes_domestic": 11915.499,
+        "freight_tonnes_international": 3101.352,
+        "freight_tonnes_total": 15016.851,
+        "passengers_domestic": 1271409,
+        "passengers_international": 119375,
+        "passengers_total": 1390784
+      },
+      "30": {
+        "aircraft_domestic": 1234,
+        "aircraft_international": 8,
+        "aircraft_total": 1242,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 766,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 766,
+        "freight_tonnes_domestic": 1266.832,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 1266.832,
+        "passengers_domestic": 96025,
+        "passengers_international": 0,
+        "passengers_total": 96025
+      },
+      "31": {
+        "aircraft_domestic": 5573,
+        "aircraft_international": 660,
+        "aircraft_total": 6233,
+        "cargo_tonnes_domestic": 23.445,
+        "cargo_tonnes_international": 0.12,
+        "cargo_tonnes_total": 23.565,
+        "commercial_aircraft_domestic": 4371,
+        "commercial_aircraft_international": 511,
+        "commercial_aircraft_total": 4882,
+        "freight_tonnes_domestic": 6194.422,
+        "freight_tonnes_international": 1028.729,
+        "freight_tonnes_total": 7223.151,
+        "passengers_domestic": 576273,
+        "passengers_international": 59185,
+        "passengers_total": 635458
+      },
+      "32": {
+        "aircraft_domestic": 23071,
+        "aircraft_international": 90,
+        "aircraft_total": 23161,
+        "cargo_tonnes_domestic": 1.857,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 1.857,
+        "commercial_aircraft_domestic": 357,
+        "commercial_aircraft_international": 33,
+        "commercial_aircraft_total": 390,
+        "freight_tonnes_domestic": 348.293,
+        "freight_tonnes_international": 133.308,
+        "freight_tonnes_total": 481.601,
+        "passengers_domestic": 36917,
+        "passengers_international": 5330,
+        "passengers_total": 42247
+      },
+      "34": {
+        "aircraft_domestic": 153521,
+        "aircraft_international": 195681,
+        "aircraft_total": 349202,
+        "cargo_tonnes_domestic": 25841.848,
+        "cargo_tonnes_international": 1305926.92,
+        "cargo_tonnes_total": 1331768.768,
+        "commercial_aircraft_domestic": 138818,
+        "commercial_aircraft_international": 181894,
+        "commercial_aircraft_total": 320712,
+        "freight_tonnes_domestic": 201396.715,
+        "freight_tonnes_international": 1813647.335,
+        "freight_tonnes_total": 2015044.05,
+        "passengers_domestic": 19161453,
+        "passengers_international": 21200117,
+        "passengers_total": 40361570
+      },
+      "35": {
+        "aircraft_domestic": 36236,
+        "aircraft_international": 9765,
+        "aircraft_total": 46001,
+        "cargo_tonnes_domestic": 10616.057,
+        "cargo_tonnes_international": 3353.004,
+        "cargo_tonnes_total": 13969.061,
+        "commercial_aircraft_domestic": 31076,
+        "commercial_aircraft_international": 8762,
+        "commercial_aircraft_total": 39838,
+        "freight_tonnes_domestic": 48024.439,
+        "freight_tonnes_international": 23652.395,
+        "freight_tonnes_total": 71676.834,
+        "passengers_domestic": 4469524,
+        "passengers_international": 995334,
+        "passengers_total": 5464858
+      },
+      "36": {
+        "aircraft_domestic": 2854,
+        "aircraft_international": 4,
+        "aircraft_total": 2858,
+        "cargo_tonnes_domestic": 7.768,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 7.768,
+        "commercial_aircraft_domestic": 2596,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 2598,
+        "freight_tonnes_domestic": 4030.151,
+        "freight_tonnes_international": 5.198,
+        "freight_tonnes_total": 4035.349,
+        "passengers_domestic": 380904,
+        "passengers_international": 219,
+        "passengers_total": 381123
+      },
+      "37": {
+        "aircraft_domestic": 717,
+        "aircraft_international": 19,
+        "aircraft_total": 736,
+        "cargo_tonnes_domestic": 1.575,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 1.575,
+        "commercial_aircraft_domestic": 238,
+        "commercial_aircraft_international": 11,
+        "commercial_aircraft_total": 249,
+        "freight_tonnes_domestic": 194.194,
+        "freight_tonnes_international": 29.614,
+        "freight_tonnes_total": 223.808,
+        "passengers_domestic": 23758,
+        "passengers_international": 1377,
+        "passengers_total": 25135
+      },
+      "38": {
+        "aircraft_domestic": 7531,
+        "aircraft_international": 1770,
+        "aircraft_total": 9301,
+        "cargo_tonnes_domestic": 595.444,
+        "cargo_tonnes_international": 10.685,
+        "cargo_tonnes_total": 606.129,
+        "commercial_aircraft_domestic": 7150,
+        "commercial_aircraft_international": 1677,
+        "commercial_aircraft_total": 8827,
+        "freight_tonnes_domestic": 9707.999,
+        "freight_tonnes_international": 4836.354,
+        "freight_tonnes_total": 14544.353,
+        "passengers_domestic": 957290,
+        "passengers_international": 203869,
+        "passengers_total": 1161159
+      },
+      "4": {
+        "aircraft_domestic": 1723,
+        "aircraft_international": 4,
+        "aircraft_total": 1727,
+        "cargo_tonnes_domestic": 4.427,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 4.427,
+        "commercial_aircraft_domestic": 1489,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 1491,
+        "freight_tonnes_domestic": 2201.276,
+        "freight_tonnes_international": 8.716,
+        "freight_tonnes_total": 2209.992,
+        "passengers_domestic": 208620,
+        "passengers_international": 367,
+        "passengers_total": 208987
+      },
+      "41": {
+        "aircraft_domestic": 1465,
+        "aircraft_international": 38,
+        "aircraft_total": 1503,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 76,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 84,
+        "freight_tonnes_domestic": 109.321,
+        "freight_tonnes_international": 24.994,
+        "freight_tonnes_total": 134.315,
+        "passengers_domestic": 10784,
+        "passengers_international": 1067,
+        "passengers_total": 11851
+      },
+      "42": {
+        "aircraft_domestic": 3836,
+        "aircraft_international": 520,
+        "aircraft_total": 4356,
+        "cargo_tonnes_domestic": 222.274,
+        "cargo_tonnes_international": 0.125,
+        "cargo_tonnes_total": 222.399,
+        "commercial_aircraft_domestic": 3279,
+        "commercial_aircraft_international": 461,
+        "commercial_aircraft_total": 3740,
+        "freight_tonnes_domestic": 4202.782,
+        "freight_tonnes_international": 1460.747,
+        "freight_tonnes_total": 5663.529,
+        "passengers_domestic": 438126,
+        "passengers_international": 57735,
+        "passengers_total": 495861
+      },
+      "43": {
+        "aircraft_domestic": 362,
+        "aircraft_international": 74,
+        "aircraft_total": 436,
+        "cargo_tonnes_domestic": 0.131,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0.131,
+        "commercial_aircraft_domestic": 98,
+        "commercial_aircraft_international": 49,
+        "commercial_aircraft_total": 147,
+        "freight_tonnes_domestic": 81.325,
+        "freight_tonnes_international": 156.501,
+        "freight_tonnes_total": 237.826,
+        "passengers_domestic": 9605,
+        "passengers_international": 7040,
+        "passengers_total": 16645
+      },
+      "44": {
+        "aircraft_domestic": 4105,
+        "aircraft_international": 76,
+        "aircraft_total": 4181,
+        "cargo_tonnes_domestic": 70.546,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 70.546,
+        "commercial_aircraft_domestic": 3480,
+        "commercial_aircraft_international": 44,
+        "commercial_aircraft_total": 3524,
+        "freight_tonnes_domestic": 4425.77,
+        "freight_tonnes_international": 117.854,
+        "freight_tonnes_total": 4543.624,
+        "passengers_domestic": 473665,
+        "passengers_international": 4417,
+        "passengers_total": 478082
+      },
+      "46": {
+        "aircraft_domestic": 1867,
+        "aircraft_international": 10,
+        "aircraft_total": 1877,
+        "cargo_tonnes_domestic": 20.706,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 20.706,
+        "commercial_aircraft_domestic": 1190,
+        "commercial_aircraft_international": 7,
+        "commercial_aircraft_total": 1197,
+        "freight_tonnes_domestic": 1319.913,
+        "freight_tonnes_international": 13.874,
+        "freight_tonnes_total": 1333.787,
+        "passengers_domestic": 140897,
+        "passengers_international": 574,
+        "passengers_total": 141471
+      },
+      "47": {
+        "aircraft_domestic": 2929,
+        "aircraft_international": 7,
+        "aircraft_total": 2936,
+        "cargo_tonnes_domestic": 68.056,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 68.056,
+        "commercial_aircraft_domestic": 2698,
+        "commercial_aircraft_international": 4,
+        "commercial_aircraft_total": 2702,
+        "freight_tonnes_domestic": 4111.541,
+        "freight_tonnes_international": 11.062,
+        "freight_tonnes_total": 4122.603,
+        "passengers_domestic": 397050,
+        "passengers_international": 514,
+        "passengers_total": 397564
+      },
+      "48": {
+        "aircraft_domestic": 28942,
+        "aircraft_international": 13095,
+        "aircraft_total": 42037,
+        "cargo_tonnes_domestic": 60.808,
+        "cargo_tonnes_international": 10.763,
+        "cargo_tonnes_total": 71.571,
+        "commercial_aircraft_domestic": 13630,
+        "commercial_aircraft_international": 8205,
+        "commercial_aircraft_total": 21835,
+        "freight_tonnes_domestic": 17248.986,
+        "freight_tonnes_international": 18396.503,
+        "freight_tonnes_total": 35645.489,
+        "passengers_domestic": 1767207,
+        "passengers_international": 1300257,
+        "passengers_total": 3067464
+      },
+      "49": {
+        "aircraft_domestic": 2163,
+        "aircraft_international": 13,
+        "aircraft_total": 2176,
+        "cargo_tonnes_domestic": 37.65,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 37.65,
+        "commercial_aircraft_domestic": 1898,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 1906,
+        "freight_tonnes_domestic": 2860.103,
+        "freight_tonnes_international": 29.621,
+        "freight_tonnes_total": 2889.724,
+        "passengers_domestic": 276697,
+        "passengers_international": 1263,
+        "passengers_total": 277960
+      },
+      "5": {
+        "aircraft_domestic": 791,
+        "aircraft_international": 56,
+        "aircraft_total": 847,
+        "cargo_tonnes_domestic": 16.212,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 16.212,
+        "commercial_aircraft_domestic": 710,
+        "commercial_aircraft_international": 24,
+        "commercial_aircraft_total": 734,
+        "freight_tonnes_domestic": 786.389,
+        "freight_tonnes_international": 92.607,
+        "freight_tonnes_total": 878.996,
+        "passengers_domestic": 85951,
+        "passengers_international": 4062,
+        "passengers_total": 90013
+      },
+      "50": {
+        "aircraft_domestic": 11025,
+        "aircraft_international": 59,
+        "aircraft_total": 11084,
+        "cargo_tonnes_domestic": 10.856,
+        "cargo_tonnes_international": 0.693,
+        "cargo_tonnes_total": 11.549,
+        "commercial_aircraft_domestic": 1077,
+        "commercial_aircraft_international": 11,
+        "commercial_aircraft_total": 1088,
+        "freight_tonnes_domestic": 1274.035,
+        "freight_tonnes_international": 33.956,
+        "freight_tonnes_total": 1307.991,
+        "passengers_domestic": 132619,
+        "passengers_international": 1516,
+        "passengers_total": 134135
+      },
+      "52": {
+        "aircraft_domestic": 4857,
+        "aircraft_international": 148,
+        "aircraft_total": 5005,
+        "cargo_tonnes_domestic": 72.071,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 72.071,
+        "commercial_aircraft_domestic": 3844,
+        "commercial_aircraft_international": 70,
+        "commercial_aircraft_total": 3914,
+        "freight_tonnes_domestic": 4978.532,
+        "freight_tonnes_international": 229.888,
+        "freight_tonnes_total": 5208.42,
+        "passengers_domestic": 547536,
+        "passengers_international": 8896,
+        "passengers_total": 556432
+      },
+      "55": {
+        "aircraft_domestic": 11077,
+        "aircraft_international": 837,
+        "aircraft_total": 11914,
+        "cargo_tonnes_domestic": 274.112,
+        "cargo_tonnes_international": 4.157,
+        "cargo_tonnes_total": 278.269,
+        "commercial_aircraft_domestic": 5739,
+        "commercial_aircraft_international": 614,
+        "commercial_aircraft_total": 6353,
+        "freight_tonnes_domestic": 7504.792,
+        "freight_tonnes_international": 1971.371,
+        "freight_tonnes_total": 9476.163,
+        "passengers_domestic": 791736,
+        "passengers_international": 76405,
+        "passengers_total": 868141
+      },
+      "56": {
+        "aircraft_domestic": 440,
+        "aircraft_international": 0,
+        "aircraft_total": 440,
+        "cargo_tonnes_domestic": 5.306,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 5.306,
+        "commercial_aircraft_domestic": 331,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 331,
+        "freight_tonnes_domestic": 365.715,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 365.715,
+        "passengers_domestic": 33568,
+        "passengers_international": 0,
+        "passengers_total": 33568
+      },
+      "57": {
+        "aircraft_domestic": 1188,
+        "aircraft_international": 5,
+        "aircraft_total": 1193,
+        "cargo_tonnes_domestic": 5.745,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 5.745,
+        "commercial_aircraft_domestic": 698,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 698,
+        "freight_tonnes_domestic": 720.316,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 720.316,
+        "passengers_domestic": 78028,
+        "passengers_international": 0,
+        "passengers_total": 78028
+      },
+      "58": {
+        "aircraft_domestic": 2845,
+        "aircraft_international": 60,
+        "aircraft_total": 2905,
+        "cargo_tonnes_domestic": 14.639,
+        "cargo_tonnes_international": 7.236,
+        "cargo_tonnes_total": 21.875,
+        "commercial_aircraft_domestic": 2212,
+        "commercial_aircraft_international": 35,
+        "commercial_aircraft_total": 2247,
+        "freight_tonnes_domestic": 2914.712,
+        "freight_tonnes_international": 102.105,
+        "freight_tonnes_total": 3016.817,
+        "passengers_domestic": 296451,
+        "passengers_international": 4430,
+        "passengers_total": 300881
+      },
+      "59": {
+        "aircraft_domestic": 20212,
+        "aircraft_international": 608,
+        "aircraft_total": 20820,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 1109.01,
+        "cargo_tonnes_total": 1109.01,
+        "commercial_aircraft_domestic": 165,
+        "commercial_aircraft_international": 127,
+        "commercial_aircraft_total": 292,
+        "freight_tonnes_domestic": 155.275,
+        "freight_tonnes_international": 4133.496,
+        "freight_tonnes_total": 4288.771,
+        "passengers_domestic": 22460,
+        "passengers_international": 321,
+        "passengers_total": 22781
+      },
+      "6": {
+        "aircraft_domestic": 41321,
+        "aircraft_international": 9073,
+        "aircraft_total": 50394,
+        "cargo_tonnes_domestic": 5599.083,
+        "cargo_tonnes_international": 5350.162,
+        "cargo_tonnes_total": 10949.245,
+        "commercial_aircraft_domestic": 32883,
+        "commercial_aircraft_international": 6891,
+        "commercial_aircraft_total": 39774,
+        "freight_tonnes_domestic": 39764.401,
+        "freight_tonnes_international": 19472.098,
+        "freight_tonnes_total": 59236.499,
+        "passengers_domestic": 4415805,
+        "passengers_international": 746764,
+        "passengers_total": 5162569
+      },
+      "60": {
+        "aircraft_domestic": 655,
+        "aircraft_international": 0,
+        "aircraft_total": 655,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      },
+      "61": {
+        "aircraft_domestic": 12856,
+        "aircraft_international": 1307,
+        "aircraft_total": 14163,
+        "cargo_tonnes_domestic": 461.789,
+        "cargo_tonnes_international": 8.139,
+        "cargo_tonnes_total": 469.928,
+        "commercial_aircraft_domestic": 12109,
+        "commercial_aircraft_international": 591,
+        "commercial_aircraft_total": 12700,
+        "freight_tonnes_domestic": 16351.656,
+        "freight_tonnes_international": 1636.153,
+        "freight_tonnes_total": 17987.809,
+        "passengers_domestic": 1740729,
+        "passengers_international": 60871,
+        "passengers_total": 1801600
+      },
+      "63": {
+        "aircraft_domestic": 4323,
+        "aircraft_international": 66,
+        "aircraft_total": 4389,
+        "cargo_tonnes_domestic": 54.804,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 54.804,
+        "commercial_aircraft_domestic": 2811,
+        "commercial_aircraft_international": 46,
+        "commercial_aircraft_total": 2857,
+        "freight_tonnes_domestic": 3643.82,
+        "freight_tonnes_international": 161.438,
+        "freight_tonnes_total": 3805.258,
+        "passengers_domestic": 400665,
+        "passengers_international": 6866,
+        "passengers_total": 407531
+      },
+      "64": {
+        "aircraft_domestic": 6861,
+        "aircraft_international": 11,
+        "aircraft_total": 6872,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 68,
+        "commercial_aircraft_international": 5,
+        "commercial_aircraft_total": 73,
+        "freight_tonnes_domestic": 50.701,
+        "freight_tonnes_international": 12.59,
+        "freight_tonnes_total": 63.291,
+        "passengers_domestic": 6792,
+        "passengers_international": 708,
+        "passengers_total": 7500
+      },
+      "65": {
+        "aircraft_domestic": 13286,
+        "aircraft_international": 82,
+        "aircraft_total": 13368,
+        "cargo_tonnes_domestic": 218.341,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 218.341,
+        "commercial_aircraft_domestic": 6270,
+        "commercial_aircraft_international": 15,
+        "commercial_aircraft_total": 6285,
+        "freight_tonnes_domestic": 9964.86,
+        "freight_tonnes_international": 30.948,
+        "freight_tonnes_total": 9995.808,
+        "passengers_domestic": 974550,
+        "passengers_international": 1761,
+        "passengers_total": 976311
+      },
+      "67": {
+        "aircraft_domestic": 234,
+        "aircraft_international": 63,
+        "aircraft_total": 297,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 38,
+        "commercial_aircraft_international": 48,
+        "commercial_aircraft_total": 86,
+        "freight_tonnes_domestic": 20.473,
+        "freight_tonnes_international": 160.404,
+        "freight_tonnes_total": 180.877,
+        "passengers_domestic": 2683,
+        "passengers_international": 7093,
+        "passengers_total": 9776
+      },
+      "7": {
+        "aircraft_domestic": 32037,
+        "aircraft_international": 41773,
+        "aircraft_total": 73810,
+        "cargo_tonnes_domestic": 2180.545,
+        "cargo_tonnes_international": 744.717,
+        "cargo_tonnes_total": 2925.262,
+        "commercial_aircraft_domestic": 23671,
+        "commercial_aircraft_international": 38032,
+        "commercial_aircraft_total": 61703,
+        "freight_tonnes_domestic": 32149.996,
+        "freight_tonnes_international": 87054.539,
+        "freight_tonnes_total": 119204.535,
+        "passengers_domestic": 3338522,
+        "passengers_international": 6643541,
+        "passengers_total": 9982063
+      },
+      "72": {
+        "aircraft_domestic": 2696,
+        "aircraft_international": 9,
+        "aircraft_total": 2705,
+        "cargo_tonnes_domestic": 248.445,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 248.445,
+        "commercial_aircraft_domestic": 2524,
+        "commercial_aircraft_international": 8,
+        "commercial_aircraft_total": 2532,
+        "freight_tonnes_domestic": 3856.678,
+        "freight_tonnes_international": 26.549,
+        "freight_tonnes_total": 3883.227,
+        "passengers_domestic": 370430,
+        "passengers_international": 1153,
+        "passengers_total": 371583
+      },
+      "73": {
+        "aircraft_domestic": 3412,
+        "aircraft_international": 6,
+        "aircraft_total": 3418,
+        "cargo_tonnes_domestic": 3.699,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 3.699,
+        "commercial_aircraft_domestic": 1500,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 1502,
+        "freight_tonnes_domestic": 2692.113,
+        "freight_tonnes_international": 1.288,
+        "freight_tonnes_total": 2693.401,
+        "passengers_domestic": 227169,
+        "passengers_international": 117,
+        "passengers_total": 227286
+      },
+      "76": {
+        "aircraft_domestic": 1757,
+        "aircraft_international": 52,
+        "aircraft_total": 1809,
+        "cargo_tonnes_domestic": 19.763,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 19.763,
+        "commercial_aircraft_domestic": 930,
+        "commercial_aircraft_international": 2,
+        "commercial_aircraft_total": 932,
+        "freight_tonnes_domestic": 1582.376,
+        "freight_tonnes_international": 5.157,
+        "freight_tonnes_total": 1587.533,
+        "passengers_domestic": 134176,
+        "passengers_international": 296,
+        "passengers_total": 134472
+      },
+      "9": {
+        "aircraft_domestic": 20452,
+        "aircraft_international": 0,
+        "aircraft_total": 20452,
+        "cargo_tonnes_domestic": 0,
+        "cargo_tonnes_international": 0,
+        "cargo_tonnes_total": 0,
+        "commercial_aircraft_domestic": 0,
+        "commercial_aircraft_international": 0,
+        "commercial_aircraft_total": 0,
+        "freight_tonnes_domestic": 0,
+        "freight_tonnes_international": 0,
+        "freight_tonnes_total": 0,
+        "passengers_domestic": 0,
+        "passengers_international": 0,
+        "passengers_total": 0
+      }
+    },
+    "formula": "a province's figure is the sum of the airports OurAirports places in it, each as DHMİ publishes it",
+    "provenance": "derived"
+  },
+  "generated_at": "2026-09-20T23:47:51Z",
+  "published_total": {
+    "aircraft_domestic": 572994,
+    "aircraft_international": 280756,
+    "aircraft_total": 853750,
+    "cargo_tonnes_domestic": 51043.28600000003,
+    "cargo_tonnes_international": 1317533.340000001,
+    "cargo_tonnes_total": 1368576.6260000018,
+    "commercial_aircraft_domestic": 358317,
+    "commercial_aircraft_international": 252132,
+    "commercial_aircraft_total": 610449,
+    "freight_tonnes_domestic": 500551.2200000004,
+    "freight_tonnes_international": 1989969.9470000006,
+    "freight_tonnes_total": 2490521.167,
+    "passengers_domestic": 49740303,
+    "passengers_international": 31875837,
+    "passengers_total": 81616140
+  },
+  "sources": [
+    {
+      "content_sha256": "",
+      "licence": "dhmi-unstated",
+      "provenance": "official_dataset",
+      "retrieved_at": "2026-09-20T23:47:51Z",
+      "url": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"
+    },
+    {
+      "content_sha256": "",
+      "licence": "public-domain",
+      "provenance": "official_dataset",
+      "retrieved_at": "2026-09-20T23:47:51Z",
+      "url": "https://ourairports.com/data/"
+    }
+  ],
+  "traffic": {
+    "label": {
+      "en": "Airport traffic",
+      "tr": "Havalimanı trafiği"
+    },
+    "measures": [
+      "aircraft",
+      "cargo_tonnes",
+      "commercial_aircraft",
+      "freight_tonnes",
+      "passengers"
+    ],
+    "slices": [
+      "domestic",
+      "international",
+      "total"
+    ],
+    "year": "2020"
+  }
+}

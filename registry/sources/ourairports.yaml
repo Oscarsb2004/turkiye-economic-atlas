@@ -1,0 +1,17 @@
+# registry/sources/ourairports.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: OurAirports — airports.csv
+publisher: OurAirports
+licence: public-domain
+attribution: OurAirports (public domain)
+page: https://ourairports.com/data/
+api: https://davidmegginson.github.io/ourairports-data/airports.csv
+# Every airport in the world, rebuilt nightly and placed in the public domain by
+# its maintainers. Read here for what DHMİ's tables do not carry: the ICAO and
+# IATA codes, the coordinates, and — in `iso_region` — the province, written as
+# TR-<plaka>, which is this project's join key already.
+#
+# That last one matters: the province an airport is in arrives from a publisher
+# rather than from a judgement of ours, and the declared checks then hold the
+# published coordinate against the published province's boundary.

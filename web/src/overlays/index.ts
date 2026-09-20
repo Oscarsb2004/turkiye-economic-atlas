@@ -11,6 +11,7 @@
  */
 
 import type { Lang } from "../data/bundle";
+import { AVIATION_ID, useAviationOverlay } from "./aviation";
 import { ELECTION_ID, useElectionOverlay } from "./elections";
 import { GDP_ID, useGdpOverlay } from "./gdp";
 import { MIGRATION_ID, useMigrationOverlay } from "./migration";
@@ -28,5 +29,6 @@ export function useOverlays({ lang, clock, activeId, selected }: {
     useGdpOverlay(context(GDP_ID)),
     useElectionOverlay(context(ELECTION_ID)),
     useMigrationOverlay(context(MIGRATION_ID)),
+    useAviationOverlay(context(AVIATION_ID)),
   ];
 }

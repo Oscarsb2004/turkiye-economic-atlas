@@ -76,6 +76,30 @@
         }
       },
       "additionalProperties": false
+    },
+    "attachments": {
+      "type": "object",
+      "description": "A published file per period, where the publisher addresses it by an opaque id. DHMİ's monthly workbooks are /Lists/Istatislikler/Attachments/<id>/TÜMÜ.xlsx, and the id has no pattern — each is read off the page and recorded here.",
+      "propertyNames": {
+        "pattern": "^(19|20)\\d\\d$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string",
+            "description": "The link text the publisher gives it, verbatim."
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

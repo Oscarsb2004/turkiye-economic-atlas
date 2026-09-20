@@ -19,7 +19,7 @@
 import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
-import type { Flow, Geo, GeoJson, Lang, ProvinceProps } from "../data/bundle";
+import type { Flow, Geo, GeoJson, Lang, Marker, ProvinceProps } from "../data/bundle";
 import type { Binning } from "./bins";
 
 /** Where the map looks if the geometry cannot say — it always can, in practice. */
@@ -69,6 +69,31 @@ interface Props {
    * are this map's business, because it is the half that holds the geometry.
    */
   flows: Flow[];
+  /** Places to draw, sized by their figure: airports today, stations later. */
+  markers: Marker[];
+}
+
+/**
+ * The markers, as GeoJSON, sized by AREA rather than by radius.
+ *
+ * A circle whose radius is proportional to its figure looks like the square of
+ * it: İstanbul against Sinop is 1 100 times the passengers, which as a radius
+ * is a disc that swallows the country. The square root puts the figure in the
+ * area, which is how a reader actually reads a circle.
+ *
+ * `r` is relative to the largest on screen, so sizes compare within one reading
+ * and never across years — the same rule the flow widths follow.
+ */
+function markersOf(markers: Marker[]): GeoJson {
+  const most = Math.max(1, ...markers.map((marker) => marker.value));
+  return {
+    type: "FeatureCollection",
+    features: markers.map((marker) => ({
+      type: "Feature" as const,
+      properties: { r: Math.sqrt(marker.value / most), label: marker.label, value: marker.value },
+      geometry: { type: "Point" as const, coordinates: marker.point },
+    })),
+  } as GeoJson;
 }
 
 /**
@@ -135,7 +160,40 @@ function fillColour(accent: string, noFigure: string, ramp: string[]) {
   ] as unknown as maplibregl.ExpressionSpecification;
 }
 
-export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows }: Props) {
+/**
+ * Put data on a source as soon as the source exists, and never wait for "load".
+ *
+ * THE TRAP, WHICH COST AN HOUR
+ *
+ * `map.once("load", ...)` sounds like "when the map is ready". It is not: the
+ * load event needs a rendered FRAME, and a browser pane that is hidden gives no
+ * animation frames at all — `map.loaded()` and `isStyleLoaded()` both stay
+ * false indefinitely while the style, the sources and the paint are all fine.
+ * Flows and markers queued behind "load" then never appear, silently, on a map
+ * that is otherwise drawing correctly (the province shading survived because it
+ * listens for `sourcedata` instead).
+ *
+ * `getSource` answers as soon as the style's sources are registered, which does
+ * not need a frame, so the rule is: try now, and retry on `styledata` until it
+ * answers. Returns the cleanup for the listener it may have added.
+ */
+function feedSource(instance: maplibregl.Map, id: string, data: GeoJson): () => void {
+  const apply = () => {
+    const source = instance.getSource(id) as maplibregl.GeoJSONSource | undefined;
+    if (!source) return false;
+    source.setData(data as never);
+    return true;
+  };
+  if (apply()) return () => undefined;
+  const retry = () => {
+    if (apply()) instance.off("styledata", retry);
+  };
+  instance.on("styledata", retry);
+  return () => instance.off("styledata", retry);
+}
+
+
+export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
@@ -168,8 +226,10 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
           // future data join key on the same number.
           provinces: { type: "geojson", data: geo.provinces, promoteId: "code" },
           water: { type: "geojson", data: geo.water },
-          // Empty until a province is selected; the effect below sets its data.
+          // Both empty until an overlay has something to put in them; the
+          // effects below set their data.
           flows: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+          markers: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
         },
         layers: [
           { id: "background", type: "background", paint: { "background-color": waterColour } },
@@ -213,6 +273,22 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
               ],
               "line-width": ["interpolate", ["linear"], ["get", "w"], 0, 1, 1, 7],
               "line-opacity": 0.85,
+            },
+          },
+          // Places, over everything: a marker is a published figure about a
+          // point, not about the province it happens to sit in.
+          {
+            id: "markers",
+            type: "circle",
+            source: "markers",
+            paint: {
+              "circle-radius": ["interpolate", ["linear"], ["get", "r"], 0, 3, 1, 22],
+              // Slot 4 of the validated palette: the ramp under it is blue, and
+              // a marker has to be a different thing at a glance (CLAUDE.md §9).
+              "circle-color": ink("--series-4", "#d6409f"),
+              "circle-opacity": 0.65,
+              "circle-stroke-color": ink("--text-1", "#eeeeee"),
+              "circle-stroke-width": 0.75,
             },
           },
         ],
@@ -260,6 +336,9 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     observer.observe(container.current);
 
     map.current = instance;
+    // A handle for the console while developing, and nothing in a build: the
+    // "load never fires in a hidden pane" bug above was invisible without one.
+    if (import.meta.env.DEV) (window as unknown as { __map?: unknown }).__map = instance;
     return () => {
       observer.disconnect();
       instance.remove();
@@ -337,22 +416,20 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     };
   }, [binning, geo]);
 
-  // The flows for the selected province. Set on the source rather than rebuilt
-  // into the style, so drawing them never disturbs the reader's pan or zoom.
+  // The flows for the selected province, and the places an overlay wants drawn.
+  // Both go on their source rather than into the style, so drawing them never
+  // disturbs the reader's pan or zoom.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;
-
-    const apply = () => {
-      const source = instance.getSource("flows") as maplibregl.GeoJSONSource | undefined;
-      source?.setData(arcsOf(geo.points, flows) as never);
-    };
-    if (instance.isStyleLoaded()) {
-      apply();
-      return;
-    }
-    instance.once("load", apply);
+    return feedSource(instance, "flows", arcsOf(geo.points, flows));
   }, [flows, geo]);
+
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    return feedSource(instance, "markers", markersOf(markers));
+  }, [markers]);
 
   // The language does not change the map today — province labels arrive with
   // the first overlay — but the effect is here so the map is not rebuilt when

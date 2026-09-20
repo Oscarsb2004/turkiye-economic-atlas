@@ -1,0 +1,28 @@
+# registry/sources/dhmi_airport_statistics.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Havalimanları Karşılaştırmalı İstatistikleri
+publisher: Devlet Hava Meydanları İşletmesi (DHMİ)
+licence: dhmi-unstated
+attribution: Devlet Hava Meydanları İşletmesi (DHMİ), Havalimanları Karşılaştırmalı İstatistikleri
+page: https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx
+# One workbook a month, five sheets — aircraft, commercial aircraft, passengers,
+# freight and cargo — each with every airport against İç Hat (domestic), Dış Hat
+# (international) and Toplam, and DHMİ's own national row beneath them.
+#
+# THE FIGURES ARE CUMULATIVE. "ARALIK SONU" is the whole year, which is why that
+# is the file each year's card reads. Every workbook also carries the SAME month
+# of the previous year beside the current one, so the year wanted is found by
+# reading the headers rather than by taking a column position.
+#
+# The download is /Lists/Istatislikler/Attachments/<id>/TÜMÜ.xlsx, and <id> is a
+# SharePoint list-item id with no pattern to it: 2020's December file is 201,
+# 2021's is 244, 2022's is 299. Each was read off the page on 2026-09-20 by
+# choosing the year and following the "Tümünü İndir" link for ARALIK SONU.
+attachments:
+  "2020": { id: 201, label: ARALIK SONU }
+  "2021": { id: 244, label: ARALIK SONU }
+  "2022": { id: 299, label: ARALIK SONU }
+  "2023": { id: 364, label: ARALIK SONU }
+  "2024": { id: 404, label: ARALIK SONU }
+  "2025": { id: 429, label: ARALIK SONU }

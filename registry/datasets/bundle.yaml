@@ -7,6 +7,8 @@ order: 10
 builder: atlas.export.bundle:build
 params: {}
 sources:
+- dhmi_airport_statistics
+- ourairports
 - tuik_provincial_gdp   # meta.json publishes each source and its licence
 - tuik_internal_migration
 - ysk_election_results
@@ -24,6 +26,12 @@ outputs:
 - web/public/data/migration/2023.json
 - web/public/data/migration/2024.json
 - web/public/data/migration/2025.json
+- web/public/data/airports/2020.json
+- web/public/data/airports/2021.json
+- web/public/data/airports/2022.json
+- web/public/data/airports/2023.json
+- web/public/data/airports/2024.json
+- web/public/data/airports/2025.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

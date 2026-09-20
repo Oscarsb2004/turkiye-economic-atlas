@@ -17,15 +17,27 @@ python run.py --check    # every registry file against its schema
 | 01 | `-m atlas.run economy` |
 | 02 | `-m atlas.run elections` |
 | 03 | `-m atlas.run migration` |
+| 04 | `-m atlas.run aviation` |
 | 99 | `-m atlas.run bundle` |
 
 ## Datasets
+
+### aviation
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **airport-traffic-2020**<br>Every airport's traffic in 2020, as DHMİ publishes it | `data/airports/2020.json` (93 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2021**<br>Every airport's traffic in 2021, as DHMİ publishes it | `data/airports/2021.json` (93 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2022**<br>Every airport's traffic in 2022, as DHMİ publishes it | `data/airports/2022.json` (95 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2023**<br>Every airport's traffic in 2023, as DHMİ publishes it | `data/airports/2023.json` (95 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2024**<br>Every airport's traffic in 2024, as DHMİ publishes it | `data/airports/2024.json` (96 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2025**<br>Every airport's traffic in 2025, as DHMİ publishes it | `data/airports/2025.json` (96 KB) | yes | `web/src/data/bundle.ts` |
 
 ### bundle
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/meta.json` (3 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/meta.json` (4 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
@@ -56,7 +68,7 @@ python run.py --check    # every registry file against its schema
 
 **1 shells** (`registry/shells/`): `fetcher`.
 
-**3 sources** (`registry/sources/`): `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
+**5 sources** (`registry/sources/`): `dhmi_airport_statistics`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.

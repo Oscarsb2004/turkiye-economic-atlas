@@ -56,6 +56,7 @@ class RegistryError(ValueError):
 #: A file not listed here is refused: a registry nobody loads is a registry
 #: whose mistakes nobody sees.
 REGISTRY_FILES = {
+    "airports.yaml": "airports",
     "checks.yaml": "checks",
     "licences.yaml": "licences",
     "palette.yaml": "palette",
@@ -169,6 +170,39 @@ def provinces() -> dict[int, dict[str, Any]]:
 def province_by_nuts3() -> dict[str, dict[str, Any]]:
     """The same 81, keyed the way TÜİK keys them."""
     return {row["nuts3"]: row for row in provinces().values()}
+
+
+# ── Airports ───────────────────────────────────────────────────────────────────
+
+@lru_cache(maxsize=1)
+def airports() -> dict[str, list[str]]:
+    """
+    ICAO code -> every name DHMİ has printed for that airport.
+
+    DHMİ's tables carry a name and no code of any kind, and OurAirports carries
+    everything else against the ICAO code, so this one join is made by hand and
+    written down (registry/airports.yaml). A name DHMİ prints that is not here
+    stops the run: a new airport must be added deliberately, not dropped from a
+    map quietly.
+    """
+    rows = _load("airports.yaml")["airports"]
+    by_icao = {row["icao"]: list(row["dhmi"]) for row in rows}
+    if len(by_icao) != len(rows):
+        raise RegistryError("airports.yaml: two entries share an ICAO code")
+    seen: dict[str, str] = {}
+    for icao, names in by_icao.items():
+        for name in names:
+            if name in seen:
+                raise RegistryError(
+                    f"airports.yaml: {name!r} is claimed by both {seen[name]} and {icao}"
+                )
+            seen[name] = icao
+    return by_icao
+
+
+def airport_by_dhmi_name() -> dict[str, str]:
+    """The same crosswalk, keyed the way DHMİ's tables are."""
+    return {name: icao for icao, names in airports().items() for name in names}
 
 
 # ── Everything at once ─────────────────────────────────────────────────────────

@@ -354,3 +354,71 @@ export function flowsFor(migration: Migration, plaka: number, kind: "received" |
   }
   return flows.sort((a, b) => b.value - a.value);
 }
+
+// ── Airports ─────────────────────────────────────────────────────────────────
+
+/**
+ * One year of airport traffic, from DHMİ, placed by OurAirports.
+ *
+ * `traffic` on an airport is published: fifteen figures, five measures split
+ * into domestic, international and total, exactly as DHMİ prints them, and
+ * `published_total` is DHMİ's own national row.
+ *
+ * `by_province` is OURS, by addition — an airport's figures added into the
+ * province OurAirports says it is in — and carries the formula that made it.
+ * A province with no airport is absent from it, which the map draws as "no
+ * published figure" rather than as a zero.
+ */
+export interface AirportTraffic {
+  generated_at: string;
+  traffic: { year: string; label: Text; measures: string[]; slices: string[] };
+  airports: Array<{
+    icao: string;
+    iata: string;
+    name: Text;
+    kind: string;
+    plaka: number;
+    province: Text;
+    /** [lon, lat], as published. */
+    point: [number, number];
+    traffic: Record<string, number>;
+  }>;
+  published_total: Record<string, number>;
+  by_province: {
+    provenance: string;
+    formula: string;
+    by_plaka: Record<string, Record<string, number>>;
+  };
+}
+
+/** The years the site offers, oldest first, each with the file it reads. */
+export const AIRPORTS = [
+  { year: "2020", file: "data/airports/2020.json" },
+  { year: "2021", file: "data/airports/2021.json" },
+  { year: "2022", file: "data/airports/2022.json" },
+  { year: "2023", file: "data/airports/2023.json" },
+  { year: "2024", file: "data/airports/2024.json" },
+  { year: "2025", file: "data/airports/2025.json" },
+] as const;
+
+export async function loadAirports(year: string): Promise<AirportTraffic> {
+  const entry = AIRPORTS.find((known) => known.year === year);
+  if (!entry) throw new Error(`no airport traffic for ${year}`);
+  const response = await fetch(asset(entry.file));
+  if (!response.ok) throw new Error(`${entry.file}: HTTP ${response.status}`);
+  return (await response.json()) as AirportTraffic;
+}
+
+/**
+ * A place on the map with a figure against it.
+ *
+ * The overlay says where and how much; the map decides how big to draw it, so
+ * the two halves stay separable — T9's stations and T12's projects are markers
+ * too.
+ */
+export interface Marker {
+  id: string;
+  point: [number, number];
+  label: string;
+  value: number;
+}

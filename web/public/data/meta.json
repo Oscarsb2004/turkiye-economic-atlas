@@ -1,6 +1,12 @@
 {
   "app": "turkiye-economic-atlas",
   "files": [
+    "airports/2020.json",
+    "airports/2021.json",
+    "airports/2022.json",
+    "airports/2023.json",
+    "airports/2024.json",
+    "airports/2025.json",
     "elections/2023-cumhurbaskani-1.json",
     "elections/2023-cumhurbaskani-2.json",
     "elections/2023-milletvekili.json",
@@ -15,7 +21,7 @@
     "palette.json",
     "provinces/gdp-per-capita.json"
   ],
-  "generated_at": "2026-09-20T20:54:37Z",
+  "generated_at": "2026-09-20T23:49:44Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -28,6 +34,12 @@
       "name": "Wikimedia Commons — per file",
       "redistribution": "per file; each file's own licence and author are published beside it",
       "url": "https://commons.wikimedia.org/wiki/Commons:Licensing"
+    },
+    "dhmi-unstated": {
+      "attribution": "Devlet Hava Meydanları İşletmesi (DHMİ)",
+      "name": "DHMİ — no published terms",
+      "redistribution": "unstated by the publisher",
+      "url": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"
     },
     "odbl-1.0": {
       "attribution": "© OpenStreetMap contributors, ODbL 1.0",
@@ -56,6 +68,18 @@
   },
   "schema_version": "1.0.0",
   "sources": {
+    "dhmi_airport_statistics": {
+      "licence": "dhmi-unstated",
+      "page": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx",
+      "publisher": "Devlet Hava Meydanları İşletmesi (DHMİ)",
+      "title": "Havalimanları Karşılaştırmalı İstatistikleri"
+    },
+    "ourairports": {
+      "licence": "public-domain",
+      "page": "https://ourairports.com/data/",
+      "publisher": "OurAirports",
+      "title": "OurAirports — airports.csv"
+    },
     "tuik_internal_migration": {
       "licence": "tuik-attribution",
       "page": "https://nip.tuik.gov.tr/?value=IllerArasiGoc",

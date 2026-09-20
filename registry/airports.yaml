@@ -1,0 +1,209 @@
+# airports.yaml — the crosswalk between what DHMİ prints and what everyone else keys on.
+#
+# DHMİ publishes its traffic tables with the airport's NAME in the first column
+# and no code of any kind. OurAirports publishes coordinates, the IATA code and
+# the province (its iso_region IS TR-<plaka>) against the ICAO code. So one
+# thing has to be matched by hand, once, and written down: DHMİ's name ->
+# the ICAO code.
+#
+# Nothing else lives here. The coordinates, the English name, the IATA code and
+# the province all come from OurAirports at build time, so this file cannot
+# drift from a source by holding a stale copy of it.
+#
+# `dhmi` is a LIST because DHMİ renames airports and respells them:
+#   Erzincan -> Erzincan Yıldırım Akbulut (2021)
+#   Mardin   -> Mardin Prof. Dr. Aziz Sancar (2022)
+#   Şanlıurfa GAP and Şanlıurfa Gap, the same airport in different years.
+# Every name a year's table prints must appear here or the reader refuses: a
+# new airport is a line in this file, never a row silently dropped from a map.
+#
+# DHMİ also marks privately operated airports with a trailing "(*)", and moved
+# the space in front of it in 2022 ("İstanbul(*)" -> "İstanbul (*)"). The marker
+# is stripped before the name is looked up; the footnote it refers to is about
+# who operates the airport, not what it is called.
+#
+# Built 2026-09-20 by matching six years of DHMİ tables against OurAirports and
+# reading every line. The two the matcher got wrong, and a human did not:
+# "İstanbul" is LTFM, the airport that opened in 2019 — not Atatürk (LTBA),
+# which DHMİ still lists on its own row with zeroes — and "Iğdır Şehit Bülent
+# Aydın" is LTCT, not the Aydın Çıldır its name happens to contain.
+
+version: 1
+airports:
+  - icao: LTAC
+    dhmi:
+      - Ankara Esenboğa
+  - icao: LTAF
+    dhmi:
+      - Adana
+  - icao: LTAI
+    dhmi:
+      - Antalya
+  - icao: LTAJ
+    dhmi:
+      - Gaziantep
+  - icao: LTAL
+    dhmi:
+      - Kastamonu
+  - icao: LTAN
+    dhmi:
+      - Konya
+  - icao: LTAP
+    dhmi:
+      - Amasya Merzifon
+  - icao: LTAR
+    dhmi:
+      - Sivas Nuri Demirağ
+  - icao: LTAS
+    dhmi:
+      - Zonguldak Çaycuma
+  - icao: LTAT
+    dhmi:
+      - Malatya
+  - icao: LTAU
+    dhmi:
+      - Kayseri
+  - icao: LTAW
+    dhmi:
+      - Tokat
+  - icao: LTAY
+    dhmi:
+      - Denizli Çardak
+  - icao: LTAZ
+    dhmi:
+      - Kapadokya
+  - icao: LTBA
+    dhmi:
+      - İstanbul Atatürk
+  - icao: LTBD
+    dhmi:
+      - Aydın Çıldır
+  - icao: LTBF
+    dhmi:
+      - Balıkesir Merkez
+  - icao: LTBH
+    dhmi:
+      - Çanakkale
+  - icao: LTBJ
+    dhmi:
+      - İzmir Adnan Menderes
+  - icao: LTBO
+    dhmi:
+      - Uşak
+  - icao: LTBQ
+    dhmi:
+      - Kocaeli Cengiz Topel
+  - icao: LTBR
+    dhmi:
+      - Bursa Yenişehir
+  - icao: LTBS
+    dhmi:
+      - Muğla Dalaman
+  - icao: LTBU
+    dhmi:
+      - Tekirdağ Çorlu Atatürk
+  - icao: LTBY
+    dhmi:
+      - Eskişehir Hasan Polatkan
+  - icao: LTBZ
+    dhmi:
+      - Zafer
+  - icao: LTCA
+    dhmi:
+      - Elazığ
+  - icao: LTCB
+    dhmi:
+      - Ordu-Giresun
+  - icao: LTCC
+    dhmi:
+      - Diyarbakır
+  - icao: LTCD
+    dhmi:
+      - Erzincan
+      - Erzincan Yıldırım Akbulut
+  - icao: LTCE
+    dhmi:
+      - Erzurum
+  - icao: LTCF
+    dhmi:
+      - Kars Harakani
+  - icao: LTCG
+    dhmi:
+      - Trabzon
+  - icao: LTCI
+    dhmi:
+      - Van Ferit Melen
+  - icao: LTCJ
+    dhmi:
+      - Batman
+  - icao: LTCK
+    dhmi:
+      - Muş Sultan Alparslan
+  - icao: LTCL
+    dhmi:
+      - Siirt
+  - icao: LTCM
+    dhmi:
+      - Sinop
+  - icao: LTCN
+    dhmi:
+      - Kahramanmaraş
+  - icao: LTCO
+    dhmi:
+      - Ağrı Ahmed-i Hani
+  - icao: LTCP
+    dhmi:
+      - Adıyaman
+  - icao: LTCR
+    dhmi:
+      - Mardin
+      - Mardin Prof. Dr. Aziz Sancar
+  - icao: LTCS
+    dhmi:
+      - Şanlıurfa GAP
+      - Şanlıurfa Gap
+  - icao: LTCT
+    dhmi:
+      - Iğdır Şehit Bülent Aydın
+  - icao: LTCU
+    dhmi:
+      - Bingöl
+  - icao: LTCV
+    dhmi:
+      - Şırnak Şerafettin Elçi
+  - icao: LTCW
+    dhmi:
+      - Hakkari Yüksekova Selahaddin Eyyubi
+  - icao: LTDA
+    dhmi:
+      - Hatay
+  - icao: LTDB
+    dhmi:
+      - Çukurova
+  - icao: LTFC
+    dhmi:
+      - Isparta Süleyman Demirel
+  - icao: LTFD
+    dhmi:
+      - Balıkesir Koca Seyit
+  - icao: LTFE
+    dhmi:
+      - Muğla Milas-Bodrum
+  - icao: LTFG
+    dhmi:
+      - Gazipaşa Alanya
+  - icao: LTFH
+    dhmi:
+      - Samsun Çarşamba
+  - icao: LTFJ
+    dhmi:
+      - İstanbul Sabiha Gökçen
+  - icao: LTFK
+    dhmi:
+      - Çanakkale Gökçeada
+  - icao: LTFM
+    dhmi:
+      - İstanbul
+  - icao: LTFO
+    dhmi:
+      - Rize-Artvin

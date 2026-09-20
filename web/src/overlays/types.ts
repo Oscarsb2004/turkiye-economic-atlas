@@ -19,7 +19,7 @@
 
 import type { ReactNode } from "react";
 
-import type { Flow, Lang } from "../data/bundle";
+import type { Flow, Lang, Marker } from "../data/bundle";
 import type { Clock, Period } from "./timeline";
 
 /**
@@ -80,6 +80,14 @@ export interface Overlay {
    * know about the other's half (T8's flights and T9's rail land here too).
    */
   flows?: Flow[];
+  /**
+   * Places to draw on the map, sized by their figure, or none.
+   *
+   * The same division as `flows`: the overlay knows what is worth drawing and
+   * how much it is, the map knows how to draw it. An overlay whose subject is
+   * not a province — airports, stations, projects — lives here.
+   */
+  markers?: Marker[];
   /** This overlay's own controls — a currency, a candidate — shown in the rail. */
   controls: ReactNode;
   /** What is known about one province under this overlay. */

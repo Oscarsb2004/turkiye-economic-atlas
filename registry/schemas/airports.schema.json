@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The crosswalk from DHMİ's airport names to ICAO codes",
+  "description": "DHMİ publishes traffic against a name and no code; OurAirports publishes everything else against the ICAO code. This is the one join that has to be made by hand, so it is written down and checked.",
+  "type": "object",
+  "required": ["version", "airports"],
+  "properties": {
+    "version": { "type": "integer" },
+    "airports": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["icao", "dhmi"],
+        "properties": {
+          "icao": {
+            "type": "string",
+            "pattern": "^LT[A-Z]{2}$",
+            "description": "The ICAO code, which OurAirports keys on. Every Turkish one begins LT."
+          },
+          "dhmi": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Every name DHMİ has printed for this airport, renames and respellings included."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

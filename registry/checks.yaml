@@ -248,3 +248,225 @@ datasets:
         The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
         and never the province itself, and each province's own flows reproduce the received, given and net
         totals the pipeline derived. For 2025 the same addition reproduces TÜİK's own published headline.
+
+  airport-traffic-2020:
+    path: data/airports/2020.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 56
+      note: >-
+        The airports DHMİ published figures for in 2020. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  airport-traffic-2021:
+    path: data/airports/2021.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 56
+      note: >-
+        The airports DHMİ published figures for in 2021. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  airport-traffic-2022:
+    path: data/airports/2022.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 57
+      note: >-
+        The airports DHMİ published figures for in 2022. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  airport-traffic-2023:
+    path: data/airports/2023.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 57
+      note: >-
+        The airports DHMİ published figures for in 2023. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  airport-traffic-2024:
+    path: data/airports/2024.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 58
+      note: >-
+        The airports DHMİ published figures for in 2024. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  airport-traffic-2025:
+    path: data/airports/2025.json
+    records: airports
+    id_field: icao
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per airport, and no airport twice.
+    - kind: record_count
+      expect: 58
+      note: >-
+        The airports DHMİ published figures for in 2025. The number moves when one opens or closes —
+        Rize-Artvin in 2022, Çukurova in 2024 — so it is written down per year rather than assumed constant.
+    - kind: fields_present
+      fields: [iata, name.tr, name.en, plaka, point, traffic.passengers_total]
+      note: The codes, both published names, the province OurAirports puts it in, its coordinate and its traffic.
+    - kind: map_sums_to_published_total
+      map_field: traffic
+      totals_path: published_total
+      tolerance: 0.01
+      note: >-
+        All 15 figures, summed over the airports, against DHMİ's own TÜRKİYE GENELİ row. Not DHMİ TOPLAMI,
+        which excludes the airports it marks as privately operated. The tolerance is a hundredth of a tonne:
+        freight and cargo are published to three decimals and adding 58 of them is not exact in binary.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every airport's published coordinate is inside the country it is published as being in.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
+        OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
+        A note, because an airport on a provincial boundary is a real thing and not an error.
