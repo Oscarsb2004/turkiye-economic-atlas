@@ -1,0 +1,21 @@
+# registry/datasets/bundle.yaml - the bundle the site fetches.
+# `python -m atlas.run bundle` builds it; atlas/core/registry.py checks every claim below.
+
+title: The bundle the site fetches, plus the generated meta and palette
+group: bundle
+order: 10
+builder: atlas.export.bundle:build
+params: {}
+sources:
+- tuik_provincial_gdp   # meta.json publishes this source and its licence
+shells: []
+after: []
+outputs:
+- web/public/data/provinces/gdp-per-capita.json
+- web/public/data/meta.json
+- web/public/data/palette.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches these paths at start-up

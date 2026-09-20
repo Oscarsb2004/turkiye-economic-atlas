@@ -79,3 +79,85 @@ export async function loadGeo(): Promise<Geo> {
 export function provinceName(props: ProvinceProps, lang: Lang): string {
   return t({ tr: props.name_tr, en: props.name_en }, lang);
 }
+
+// ── Published data ───────────────────────────────────────────────────────────
+
+/** `data/provinces/gdp-per-capita.json`, as the pipeline writes it. */
+export interface PerCapitaGdp {
+  generated_at: string;
+  measure: { key: string; label: Text; currencies: string[]; years: Record<string, string[]> };
+  provinces: Array<{
+    plaka: number;
+    nuts3: string;
+    name: Text;
+    per_capita_gdp: Record<string, Record<string, number>>;
+  }>;
+  sources: Array<{ url: string; licence: string; retrieved_at: string }>;
+}
+
+export async function loadPerCapitaGdp(): Promise<PerCapitaGdp> {
+  const response = await fetch(asset("data/provinces/gdp-per-capita.json"));
+  if (!response.ok) throw new Error(`gdp-per-capita.json: HTTP ${response.status}`);
+  return (await response.json()) as PerCapitaGdp;
+}
+
+/**
+ * The newest year a province has a figure for, in one currency, or null.
+ *
+ * Null is not zero: a province TÜİK has not published is shown as unpublished,
+ * never as a zero that would sit at the bottom of any future ramp.
+ */
+export function latestFigure(
+  gdp: PerCapitaGdp,
+  plaka: number,
+  currency: string,
+): { year: string; value: number } | null {
+  const series = gdp.provinces.find((p) => p.plaka === plaka)?.per_capita_gdp?.[currency];
+  if (!series) return null;
+  const years = Object.keys(series).sort();
+  const year = years[years.length - 1];
+  return year === undefined ? null : { year, value: series[year] };
+}
+
+/** `data/meta.json` — the sources and licences, generated from the cards. */
+export interface Meta {
+  app: string;
+  schema_version: string;
+  generated_at: string;
+  licences: Record<string, { name: string; url: string; attribution?: string }>;
+  sources: Record<string, { title: string; publisher: string; licence: string; page: string }>;
+  files: string[];
+}
+
+export async function loadMeta(): Promise<Meta> {
+  const response = await fetch(asset("data/meta.json"));
+  if (!response.ok) throw new Error(`meta.json: HTTP ${response.status}`);
+  return (await response.json()) as Meta;
+}
+
+/**
+ * `data/palette.json` — registry/palette.yaml, a validated artifact.
+ *
+ * The app reads the colours rather than carrying its own copy: the palette was
+ * produced by a documented derivation and checked by a validator, and a second
+ * copy in CSS would be an unvalidated one (CLAUDE.md §9).
+ */
+export interface Palette {
+  series?: Record<string, string>;
+  sequential?: Record<string, string[]>;
+}
+
+export async function loadPalette(): Promise<Palette | null> {
+  const response = await fetch(asset("data/palette.json"));
+  if (!response.ok) return null;
+  return (await response.json()) as Palette;
+}
+
+/** Apply a palette's data colours as CSS variables, leaving chrome alone. */
+export function applyPalette(palette: Palette | null): void {
+  if (!palette?.series) return;
+  const root = document.documentElement;
+  for (const [slot, colour] of Object.entries(palette.series)) {
+    root.style.setProperty(`--series-${slot}`, colour);
+  }
+}

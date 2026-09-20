@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """
-verify/golden.py — the golden master for the restructure (docs/REBUILD.md §3).
+verify/golden.py — the identity check: one recorded run, replayed exactly.
 
-    python verify/golden.py record --ref legacy-v1 --name legacy-v1
-    python verify/golden.py replay --name legacy-v1            # the working tree
-    python verify/golden.py replay --name legacy-v1 --ref HEAD
-    python verify/golden.py dist   --ref legacy-v1 --out verify/golden/legacy-v1/dist.json
-    python verify/golden.py dist   --ref main --out build/site.json --base /canada-economic-atlas/
-    python verify/golden.py live   --manifest build/site.json --url https://oscarsb2004.github.io/canada-economic-atlas
+    python verify/golden.py record --ref HEAD --name data-2026-09-20
+    python verify/golden.py replay --name data-2026-09-20            # the working tree
+    python verify/golden.py replay --name data-2026-09-20 --ref HEAD
+    python verify/golden.py dist   --ref main --out build/site.json --base /turkiye-economic-atlas/
+    python verify/golden.py live   --manifest build/site.json --url https://oscarsb2004.github.io/turkiye-economic-atlas
     python verify/golden.py compare A.json B.json
 
 WHY THIS EXISTS
 
-The restructure promises that the site does not change. That is a claim about
-bytes, so it is checked on bytes:
+"The pipeline still produces the same files" is a claim about bytes, so it is
+checked on bytes. A master is recorded per data state; the current one is named
+in STATUS.md. Carried over from canada-economic-atlas, where it proved a whole
+backend restructure changed no published byte:
 
   record   runs a revision's whole pipeline once, in a scratch copy, through a
            recorder that stores every HTTP exchange and on a frozen clock. The
@@ -38,7 +39,7 @@ WHAT COUNTS AS OUTPUT
 
 Every file under data/ except data/raw/, and every file under web/public/. A
 replay must start from the same committed outputs the recording started from,
-because a stage rewrites a file only when its content changed; two runs that
+because a step rewrites a file only when its content changed; two runs that
 start from different files are not comparable, and the harness refuses them.
 """
 
@@ -65,12 +66,16 @@ GOLDEN_ROOT = Path(os.environ.get("ATLAS_GOLDEN_HOME") or ROOT / "data" / "raw" 
 MANIFESTS = ROOT / "verify" / "golden"
 
 #: Raw folders the pipeline reads from disk rather than fetching every run.
-#: data/raw/cache is deliberately absent: every exchange goes through the recorder.
-#: data/raw/geo is absent because no Python stage reads it (scripts/build_geo.mjs does).
-SEEDED_RAW = ("statcan", "media", "transport-canada", "budgets", "nrcan")
+#: Empty, and so far correctly so: every dataset here fetches over HTTP, so every
+#: input arrives through the recorder. data/raw/cache is deliberately absent for
+#: that reason, and data/raw/geo because no Python step reads it — the committed
+#: geometry under web/public/geo/ is built by scripts/build_geo.mjs, separately
+#: and by hand. A source that must be downloaded once and read from disk (a
+#: budget PDF a server will not serve twice) gets its folder added here.
+SEEDED_RAW: tuple[str, ...] = ()
 
 #: The instant every run sees. Changing it changes every timestamp a run writes.
-DEFAULT_CLOCK = "2026-09-17T12:00:00+00:00"
+DEFAULT_CLOCK = "2026-09-20T12:00:00+00:00"
 
 WORKTREE = "WORKTREE"
 
@@ -156,6 +161,14 @@ def export(ref: str, dest: Path, *, eol: str = "native") -> str:
     proc = subprocess.Popen(["git", "-C", str(ROOT), *settings, "archive", "--format=tar", commit], stdout=subprocess.PIPE)
     with tarfile.open(fileobj=proc.stdout, mode="r|") as archive:
         archive.extractall(dest, filter="data")
+    # Drain whatever tarfile did not read before waiting. A tar stream ends at
+    # its end-of-archive marker, but git keeps writing block padding after it;
+    # if nobody reads that, git blocks on a full pipe and wait() never returns.
+    # It showed up only on the native-line-ending export, where CRLF conversion
+    # pushed the tail just past the pipe buffer, and it hung the whole test
+    # suite while leaving a stuck git process behind.
+    proc.stdout.read()
+    proc.stdout.close()
     if proc.wait() != 0:
         raise SystemExit(f"git archive {ref} failed")
     return label or commit

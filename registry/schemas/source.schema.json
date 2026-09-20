@@ -22,20 +22,8 @@
       "type": "string"
     },
     "page": {
-      "type": "object",
-      "required": [
-        "en",
-        "fr"
-      ],
-      "properties": {
-        "en": {
-          "type": "string"
-        },
-        "fr": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false
+      "type": "string",
+      "description": "The source's own page, where its terms and tables are published."
     },
     "docs": {
       "type": "string"
@@ -45,6 +33,49 @@
     },
     "base": {
       "type": "string"
+    },
+    "bulletin": {
+      "type": "object",
+      "description": "A TÜİK press bulletin and the tables published with it.",
+      "required": [
+        "id",
+        "page",
+        "tables"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The bulletin's own number, e.g. 53930."
+        },
+        "page": {
+          "type": "string"
+        },
+        "tables": {
+          "type": "object",
+          "description": "Each table's download token. TÜİK's portal builds a download URL as /api/tr/data/downloads?t=t&pid=<id>&p=<token>; the token is an opaque but STABLE identifier for the table (checked across page loads 2026-09-20), while the ts= the page also sends is only a cache-buster.",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "token",
+              "label"
+            ],
+            "properties": {
+              "token": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string",
+                "description": "The link text TÜİK gives the table, verbatim."
+              },
+              "years": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

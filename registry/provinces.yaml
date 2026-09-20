@@ -1,0 +1,344 @@
+# provinces.yaml — the 81 il, and the codes every publisher keys on.
+#
+# plaka      the vehicle plate number, 1..81. Natural Earth's iso_3166_2 is
+#            TR-<plaka>, and YSK's il_ID is the same number, so it is this
+#            project's join key and the id of every province on the map.
+# nuts3      TÜİK's İBBS level-3 code, which its workbooks key on instead.
+# name_tr    as the map publishes it; name_en likewise.
+# name_tuik  present only where TÜİK spells the name differently. Two do:
+#            TÜİK writes Elazığ and Hakkari where the map writes Elâzığ and
+#            Hakkâri. Recorded rather than folded away, because an accent
+#            fold that is right for these two could quietly merge others,
+#            and a silently dropped province is a hole in every overlay.
+#
+# Built 2026-09-20 from Natural Earth admin-1 and TÜİK's own workbook, and
+# checked both ways: 81 names on each side, none unmatched.
+
+version: 1
+provinces:
+  - plaka: 1
+    nuts3: TR621
+    name_tr: Adana
+    name_en: Adana
+  - plaka: 2
+    nuts3: TRC12
+    name_tr: Adıyaman
+    name_en: Adıyaman
+  - plaka: 3
+    nuts3: TR332
+    name_tr: Afyonkarahisar
+    name_en: Afyonkarahisar
+  - plaka: 4
+    nuts3: TRA21
+    name_tr: Ağrı
+    name_en: Ağrı
+  - plaka: 5
+    nuts3: TR834
+    name_tr: Amasya
+    name_en: Amasya
+  - plaka: 6
+    nuts3: TR510
+    name_tr: Ankara
+    name_en: Ankara
+  - plaka: 7
+    nuts3: TR611
+    name_tr: Antalya
+    name_en: Antalya
+  - plaka: 8
+    nuts3: TR905
+    name_tr: Artvin
+    name_en: Artvin
+  - plaka: 9
+    nuts3: TR321
+    name_tr: Aydın
+    name_en: Aydın
+  - plaka: 10
+    nuts3: TR221
+    name_tr: Balıkesir
+    name_en: Balıkesir
+  - plaka: 11
+    nuts3: TR413
+    name_tr: Bilecik
+    name_en: Bilecik
+  - plaka: 12
+    nuts3: TRB13
+    name_tr: Bingöl
+    name_en: Bingöl
+  - plaka: 13
+    nuts3: TRB23
+    name_tr: Bitlis
+    name_en: Bitlis
+  - plaka: 14
+    nuts3: TR424
+    name_tr: Bolu
+    name_en: Bolu
+  - plaka: 15
+    nuts3: TR613
+    name_tr: Burdur
+    name_en: Burdur
+  - plaka: 16
+    nuts3: TR411
+    name_tr: Bursa
+    name_en: Bursa
+  - plaka: 17
+    nuts3: TR222
+    name_tr: Çanakkale
+    name_en: Çanakkale
+  - plaka: 18
+    nuts3: TR822
+    name_tr: Çankırı
+    name_en: Çankırı
+  - plaka: 19
+    nuts3: TR833
+    name_tr: Çorum
+    name_en: Çorum
+  - plaka: 20
+    nuts3: TR322
+    name_tr: Denizli
+    name_en: Denizli
+  - plaka: 21
+    nuts3: TRC22
+    name_tr: Diyarbakır
+    name_en: Diyarbakır
+  - plaka: 22
+    nuts3: TR212
+    name_tr: Edirne
+    name_en: Edirne
+  - plaka: 23
+    nuts3: TRB12
+    name_tr: Elâzığ
+    name_en: Elazığ
+    name_tuik: Elazığ
+  - plaka: 24
+    nuts3: TRA12
+    name_tr: Erzincan
+    name_en: Erzincan
+  - plaka: 25
+    nuts3: TRA11
+    name_tr: Erzurum
+    name_en: Erzurum
+  - plaka: 26
+    nuts3: TR412
+    name_tr: Eskişehir
+    name_en: Eskişehir
+  - plaka: 27
+    nuts3: TRC11
+    name_tr: Gaziantep
+    name_en: Gaziantep
+  - plaka: 28
+    nuts3: TR903
+    name_tr: Giresun
+    name_en: Giresun
+  - plaka: 29
+    nuts3: TR906
+    name_tr: Gümüşhane
+    name_en: Gümüşhane
+  - plaka: 30
+    nuts3: TRB24
+    name_tr: Hakkâri
+    name_en: Hakkâri
+    name_tuik: Hakkari
+  - plaka: 31
+    nuts3: TR631
+    name_tr: Hatay
+    name_en: Hatay
+  - plaka: 32
+    nuts3: TR612
+    name_tr: Isparta
+    name_en: Isparta
+  - plaka: 33
+    nuts3: TR622
+    name_tr: Mersin
+    name_en: Mersin
+  - plaka: 34
+    nuts3: TR100
+    name_tr: İstanbul
+    name_en: Istanbul
+  - plaka: 35
+    nuts3: TR310
+    name_tr: İzmir
+    name_en: İzmir
+  - plaka: 36
+    nuts3: TRA22
+    name_tr: Kars
+    name_en: Kars
+  - plaka: 37
+    nuts3: TR821
+    name_tr: Kastamonu
+    name_en: Kastamonu
+  - plaka: 38
+    nuts3: TR721
+    name_tr: Kayseri
+    name_en: Kayseri
+  - plaka: 39
+    nuts3: TR213
+    name_tr: Kırklareli
+    name_en: Kırklareli
+  - plaka: 40
+    nuts3: TR715
+    name_tr: Kırşehir
+    name_en: Kırşehir
+  - plaka: 41
+    nuts3: TR421
+    name_tr: Kocaeli
+    name_en: Kocaeli
+  - plaka: 42
+    nuts3: TR521
+    name_tr: Konya
+    name_en: Konya
+  - plaka: 43
+    nuts3: TR333
+    name_tr: Kütahya
+    name_en: Kütahya
+  - plaka: 44
+    nuts3: TRB11
+    name_tr: Malatya
+    name_en: Malatya
+  - plaka: 45
+    nuts3: TR331
+    name_tr: Manisa
+    name_en: Manisa
+  - plaka: 46
+    nuts3: TR632
+    name_tr: Kahramanmaraş
+    name_en: Kahramanmaraş
+  - plaka: 47
+    nuts3: TRC31
+    name_tr: Mardin
+    name_en: Mardin
+  - plaka: 48
+    nuts3: TR323
+    name_tr: Muğla
+    name_en: Muğla
+  - plaka: 49
+    nuts3: TRB22
+    name_tr: Muş
+    name_en: Muş
+  - plaka: 50
+    nuts3: TR714
+    name_tr: Nevşehir
+    name_en: Nevşehir
+  - plaka: 51
+    nuts3: TR713
+    name_tr: Niğde
+    name_en: Niğde
+  - plaka: 52
+    nuts3: TR902
+    name_tr: Ordu
+    name_en: Ordu
+  - plaka: 53
+    nuts3: TR904
+    name_tr: Rize
+    name_en: Rize
+  - plaka: 54
+    nuts3: TR422
+    name_tr: Sakarya
+    name_en: Sakarya
+  - plaka: 55
+    nuts3: TR831
+    name_tr: Samsun
+    name_en: Samsun
+  - plaka: 56
+    nuts3: TRC34
+    name_tr: Siirt
+    name_en: Siirt
+  - plaka: 57
+    nuts3: TR823
+    name_tr: Sinop
+    name_en: Sinop
+  - plaka: 58
+    nuts3: TR722
+    name_tr: Sivas
+    name_en: Sivas
+  - plaka: 59
+    nuts3: TR211
+    name_tr: Tekirdağ
+    name_en: Tekirdağ
+  - plaka: 60
+    nuts3: TR832
+    name_tr: Tokat
+    name_en: Tokat
+  - plaka: 61
+    nuts3: TR901
+    name_tr: Trabzon
+    name_en: Trabzon
+  - plaka: 62
+    nuts3: TRB14
+    name_tr: Tunceli
+    name_en: Tunceli
+  - plaka: 63
+    nuts3: TRC21
+    name_tr: Şanlıurfa
+    name_en: Şanlıurfa
+  - plaka: 64
+    nuts3: TR334
+    name_tr: Uşak
+    name_en: Uşak
+  - plaka: 65
+    nuts3: TRB21
+    name_tr: Van
+    name_en: Van
+  - plaka: 66
+    nuts3: TR723
+    name_tr: Yozgat
+    name_en: Yozgat
+  - plaka: 67
+    nuts3: TR811
+    name_tr: Zonguldak
+    name_en: Zonguldak
+  - plaka: 68
+    nuts3: TR712
+    name_tr: Aksaray
+    name_en: Aksaray
+  - plaka: 69
+    nuts3: TRA13
+    name_tr: Bayburt
+    name_en: Bayburt
+  - plaka: 70
+    nuts3: TR522
+    name_tr: Karaman
+    name_en: Karaman
+  - plaka: 71
+    nuts3: TR711
+    name_tr: Kırıkkale
+    name_en: Kırıkkale
+  - plaka: 72
+    nuts3: TRC32
+    name_tr: Batman
+    name_en: Batman
+  - plaka: 73
+    nuts3: TRC33
+    name_tr: Şırnak
+    name_en: Şırnak
+  - plaka: 74
+    nuts3: TR813
+    name_tr: Bartın
+    name_en: Bartın
+  - plaka: 75
+    nuts3: TRA24
+    name_tr: Ardahan
+    name_en: Ardahan
+  - plaka: 76
+    nuts3: TRA23
+    name_tr: Iğdır
+    name_en: Iğdır
+  - plaka: 77
+    nuts3: TR425
+    name_tr: Yalova
+    name_en: Yalova
+  - plaka: 78
+    nuts3: TR812
+    name_tr: Karabük
+    name_en: Karabük
+  - plaka: 79
+    nuts3: TRC13
+    name_tr: Kilis
+    name_en: Kilis
+  - plaka: 80
+    nuts3: TR633
+    name_tr: Osmaniye
+    name_en: Osmaniye
+  - plaka: 81
+    nuts3: TR423
+    name_tr: Düzce
+    name_en: Düzce

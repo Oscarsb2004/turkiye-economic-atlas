@@ -45,7 +45,8 @@ const tr = {
   layerWater: "Göller",
   sources: "Kaynaklar",
   geometrySource: "Sınırlar: Natural Earth (kamu malı)",
-  dataComingSoon: "İlk veri kümesi hazırlanıyor (docs/PLAN.md, T3).",
+  dataComingSoon: "Veriler TÜİK'ten alınmıştır.",
+  perCapitaNote: "TÜİK'in yayımladığı değerler; tarafımızca hesaplanmamıştır.",
 };
 // Not `as const`: the literal types would make every English string a mismatch
 // rather than a translation. What must hold is the SHAPE — `en` is typed as
@@ -68,7 +69,8 @@ const en: Strings = {
   layerWater: "Lakes",
   sources: "Sources",
   geometrySource: "Boundaries: Natural Earth (public domain)",
-  dataComingSoon: "The first dataset is on its way (docs/PLAN.md, T3).",
+  dataComingSoon: "Figures published by TÜİK.",
+  perCapitaNote: "As TÜİK publishes them; nothing here is computed by this project.",
 };
 
 const STRINGS: Record<Lang, Strings> = { tr, en };
@@ -79,6 +81,22 @@ export function stringsFor(lang: Lang): Strings {
 
 export function formatInt(value: number, lang: Lang): string {
   return new Intl.NumberFormat(LOCALE[lang]).format(value);
+}
+
+/**
+ * A published amount in its own currency.
+ *
+ * The currency code comes from the data, not from the interface language: a
+ * dollar figure stays a dollar figure when read in Turkish. Intl supplies the
+ * symbol and the separators from CLDR, so "₺802.669" and "$24,452" are both
+ * the platform's conventions rather than ones invented here.
+ */
+export function formatMoney(value: number, currency: string, lang: Lang): string {
+  return new Intl.NumberFormat(LOCALE[lang], {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 /** Turkish first: this is a Turkish atlas, and every source speaks Turkish. */

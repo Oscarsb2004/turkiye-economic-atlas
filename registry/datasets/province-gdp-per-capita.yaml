@@ -1,0 +1,23 @@
+# registry/datasets/province-gdp-per-capita.yaml - one dataset the pipeline makes.
+# `python -m atlas.run --dataset province-gdp-per-capita` builds it;
+# atlas/core/registry.py checks every claim below.
+
+title: "Every province's gross domestic product per capita, in lira and in dollars, as TÜİK publishes it"
+group: economy
+order: 10
+builder: atlas.datasets.province_gdp:build
+params: {}
+sources:
+- tuik_provincial_gdp
+shells:
+- fetcher
+after: []
+outputs:
+- data/provinces/gdp-per-capita.json
+frame:
+  profile: panel
+  record_type: observation
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches gdp-per-capita.json and the panel shows the selected province's figure

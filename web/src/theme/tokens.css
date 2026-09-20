@@ -190,3 +190,10 @@ body {
     border-top: 1px solid var(--line);
   }
 }
+
+.figures__label {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text-2);
+}

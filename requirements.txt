@@ -22,3 +22,4 @@ jsonschema==4.26.0       # every registry file is checked against its schema (at
 # Test-only.
 pytest==9.1.1
 time-machine==2.19.0     # the golden master's frozen clock (verify/golden.py, docs/REBUILD.md §3)
+xlrd==2.0.2               # TÜİK publishes its workbooks as legacy .xls, which openpyxl cannot read

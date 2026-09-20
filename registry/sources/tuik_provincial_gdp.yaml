@@ -1,0 +1,28 @@
+# registry/sources/tuik_provincial_gdp.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: İl Bazında Gayrisafi Yurt İçi Hasıla
+publisher: Türkiye İstatistik Kurumu (TÜİK)
+licence: tuik-attribution
+attribution: Türkiye İstatistik Kurumu (TÜİK), İl Bazında Gayrisafi Yurt İçi Hasıla
+page: https://veriportali.tuik.gov.tr/tr/press/53930
+# Read for GDP per capita by province, in lira and in dollars, as published.
+#
+# The workbook is keyed on TÜİK's İBBS (NUTS-3) code, not the plaka number the
+# map and YSK use, so registry/provinces.yaml carries both and the join happens
+# on codes. Two provinces are spelled differently by TÜİK and by the map
+# (Elazığ/Elâzığ, Hakkari/Hakkâri) — another reason not to join on names.
+#
+# The file is a legacy .xls, not .xlsx, which is why the pipeline pins xlrd.
+bulletin:
+  id: 53930
+  page: https://veriportali.tuik.gov.tr/tr/press/53930
+  tables:
+    gdp_per_capita:
+      # Checked 2026-09-20: the portal builds a download as
+      # /api/tr/data/downloads?t=t&pid=<id>&p=<token>, and this token is the
+      # same on every page load — it identifies the table. The ts= the page
+      # also sends is a cache-buster and is not needed.
+      token: wsTazyi9qDR2KKSbu5u8XaTLiGZ5YbOGNzXPPlmovenPnHSXUdX/OOd+gEMEQzpTmUX1WJYxabDeGC1DjZr9QiccFIrhAGlNYUO15wrB8TS8B9T93LNLqfYrOEzIq0+4RQ5zmUNEQQmFGSg3no8bHBIC5WzH/xd/VLQmEAuDkss=
+      label: İl bazında kişi başına gayrisafi yurt içi hasıla 2020-2024
+      years: 2020-2024

@@ -1,0 +1,56 @@
+{
+  "app": "turkiye-economic-atlas",
+  "files": [
+    "meta.json",
+    "palette.json",
+    "provinces/gdp-per-capita.json"
+  ],
+  "generated_at": "2026-09-20T14:20:25Z",
+  "licences": {
+    "aisstream-unstated": {
+      "attribution": "aisstream.io",
+      "name": "aisstream.io — no published terms",
+      "redistribution": "unstated by the publisher",
+      "url": "https://aisstream.io/"
+    },
+    "commons-per-file": {
+      "attribution": "per file",
+      "name": "Wikimedia Commons — per file",
+      "redistribution": "per file; each file's own licence and author are published beside it",
+      "url": "https://commons.wikimedia.org/wiki/Commons:Licensing"
+    },
+    "odbl-1.0": {
+      "attribution": "© OpenStreetMap contributors, ODbL 1.0",
+      "name": "Open Database License 1.0",
+      "redistribution": "permitted with attribution and share-alike",
+      "url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    "public-domain": {
+      "attribution": "",
+      "name": "Public domain",
+      "redistribution": "permitted",
+      "url": ""
+    },
+    "tuik-attribution": {
+      "attribution": "Türkiye İstatistik Kurumu (TÜİK)",
+      "name": "TÜİK terms of use",
+      "redistribution": "permitted with attribution",
+      "url": "https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari"
+    },
+    "ysk-unstated": {
+      "attribution": "Yüksek Seçim Kurulu (YSK)",
+      "name": "YSK Açık Veri Portalı — no published terms",
+      "redistribution": "unstated by the publisher",
+      "url": "https://acikveri.ysk.gov.tr/"
+    }
+  },
+  "schema_version": "1.0.0",
+  "sources": {
+    "tuik_provincial_gdp": {
+      "licence": "tuik-attribution",
+      "page": "https://veriportali.tuik.gov.tr/tr/press/53930",
+      "publisher": "Türkiye İstatistik Kurumu (TÜİK)",
+      "title": "İl Bazında Gayrisafi Yurt İçi Hasıla"
+    }
+  }
+}

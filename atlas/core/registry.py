@@ -59,6 +59,7 @@ REGISTRY_FILES = {
     "checks.yaml": "checks",
     "licences.yaml": "licences",
     "palette.yaml": "palette",
+    "provinces.yaml": "provinces",
 }
 #: Folders of cards, one YAML file per card, and the schema every card meets.
 CARD_DIRS = {"sources": "source", "shells": "shell", "datasets": "dataset"}
@@ -141,6 +142,35 @@ def source(key: str) -> dict[str, Any]:
         raise RegistryError(f"no source card registry/sources/{key}.yaml")
     return srcs[key]
 
+# ── Provinces ──────────────────────────────────────────────────────────────────
+
+@lru_cache(maxsize=1)
+def provinces() -> dict[int, dict[str, Any]]:
+    """
+    The 81 il by plaka code.
+
+    The plaka number is this project's join key: Natural Earth's iso_3166_2 is
+    TR-<plaka>, YSK's il_ID is the same number, and TÜİK's own İBBS code is
+    carried here beside it so a workbook keyed on TR100 can be read into a map
+    keyed on 34. Nothing joins on a name — "İSTANBUL".lower() is not "istanbul"
+    outside a Turkish locale, and two provinces are spelled differently by TÜİK
+    and by the map anyway (see registry/provinces.yaml).
+    """
+    rows = _load("provinces.yaml")["provinces"]
+    by_plaka = {row["plaka"]: row for row in rows}
+    if len(by_plaka) != len(rows):
+        raise RegistryError("provinces.yaml: two provinces share a plaka code")
+    nuts = {row["nuts3"] for row in rows}
+    if len(nuts) != len(rows):
+        raise RegistryError("provinces.yaml: two provinces share an İBBS code")
+    return by_plaka
+
+
+def province_by_nuts3() -> dict[str, dict[str, Any]]:
+    """The same 81, keyed the way TÜİK keys them."""
+    return {row["nuts3"]: row for row in provinces().values()}
+
+
 # ── Everything at once ─────────────────────────────────────────────────────────
 
 def validate_all() -> list[str]:
@@ -180,7 +210,7 @@ def validate_all() -> list[str]:
     errors += shell_errors()
     errors += dataset_errors()
 
-    for loader in (sources,):
+    for loader in (sources, provinces):
         cache_clear = getattr(loader, "cache_clear", None)
         if cache_clear:
             cache_clear()
@@ -276,7 +306,13 @@ def run_steps() -> dict[str, str]:
     """run.py's STAGES mapping, read without importing run.py (importing it would bootstrap a venv)."""
     tree = ast.parse((ROOT / "run.py").read_text(encoding="utf-8"))
     for node in tree.body:
+        # Both forms: `STAGES = {...}` and `STAGES: dict[str, str] = {...}`. The
+        # annotated form is an AnnAssign, not an Assign, and reading only the
+        # latter made every group look like it was missing from a full run —
+        # with the steps sitting in the file all along.
         if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "STAGES" for t in node.targets):
+            return ast.literal_eval(node.value)
+        if isinstance(node, ast.AnnAssign) and getattr(node.target, "id", None) == "STAGES" and node.value:
             return ast.literal_eval(node.value)
     return {}
 

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The 81 il, and the codes every publisher keys on",
+  "type": "object",
+  "required": [
+    "version",
+    "provinces"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "provinces": {
+      "type": "array",
+      "minItems": 81,
+      "maxItems": 81,
+      "items": {
+        "type": "object",
+        "required": [
+          "plaka",
+          "nuts3",
+          "name_tr",
+          "name_en"
+        ],
+        "properties": {
+          "plaka": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 81,
+            "description": "The plate number; also Natural Earth's iso_3166_2 suffix and YSK's il_ID."
+          },
+          "nuts3": {
+            "type": "string",
+            "pattern": "^TR[A-Z0-9]{3}$",
+            "description": "TÜİK's İBBS level-3 code, which its workbooks key on."
+          },
+          "name_tr": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "name_tuik": {
+            "type": "string",
+            "description": "Only where TÜİK spells the name differently from the map."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

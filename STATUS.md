@@ -14,14 +14,28 @@ python run.py --check    # every registry file against its schema
 
 | Step | Runs |
 | --- | --- |
+| 01 | `-m atlas.run economy` |
+| 99 | `-m atlas.run bundle` |
 
 ## Datasets
+
+### bundle
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/meta.json` (2 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+
+### economy
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **province-gdp-per-capita**<br>Every province's gross domestic product per capita, in lira and in dollars, as TÜİK publishes it | `data/provinces/gdp-per-capita.json` (49 KB) | yes | `web/src/data/bundle.ts` |
 
 ## What they are built from
 
 **1 shells** (`registry/shells/`): `fetcher`.
 
-**0 sources** (`registry/sources/`): .
+**1 sources** (`registry/sources/`): `tuik_provincial_gdp`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.

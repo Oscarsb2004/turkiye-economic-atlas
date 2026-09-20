@@ -1,11 +1,11 @@
 # checks.yaml — verification declared, not coded (verify/checks.py).
 #
-# Each entry names a dataset, a kind of check, and what it expects. The kinds
-# live in verify/checks.py's KINDS table; adding a check to a dataset is an
-# entry here, not a branch in Python. `regions` names the geometry a
-# geometry_within_region check may refer to.
+# Each entry names a dataset's published file, the list of records inside it,
+# the field that identifies a record, and the checks to run. The kinds live in
+# verify/checks.py's KINDS table, so covering a new dataset is an entry here
+# rather than a branch in Python.
 #
-# Empty of datasets until the first one lands (docs/PLAN.md, T3).
+# `regions` names geometry a geometry_within_region check may refer to.
 
 version: 1
 
@@ -17,4 +17,17 @@ regions:
     file: web/public/geo/provinces.json
     name_fields: [name_tr, name_en]
 
-datasets: {}
+datasets:
+  province-gdp-per-capita:
+    path: data/provinces/gdp-per-capita.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. A province missing here is a hole in every overlay keyed on the plaka code.
+    - kind: fields_present
+      fields: [nuts3, name.tr, name.en, per_capita_gdp.TRY, per_capita_gdp.USD]
+      note: Both currencies TÜİK publishes, and the İBBS code the workbook was joined on.

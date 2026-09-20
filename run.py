@@ -52,7 +52,10 @@ STAMP = VENV / ".atlas-requirements"
 #: A step is either a stage script or `-m atlas.run <group>`, which makes every
 #: dataset card in that group (registry/datasets/). The restructure
 #: (docs/REBUILD.md) moves stages onto cards one group at a time.
-STAGES: dict[str, str] = {}
+STAGES: dict[str, str] = {
+    "01": "-m atlas.run economy",
+    "99": "-m atlas.run bundle",
+}
 
 
 def _requirements_digest() -> str:
