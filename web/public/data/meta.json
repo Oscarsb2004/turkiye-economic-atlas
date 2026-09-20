@@ -6,10 +6,16 @@
     "elections/2023-milletvekili.json",
     "elections/index.json",
     "meta.json",
+    "migration/2020.json",
+    "migration/2021.json",
+    "migration/2022.json",
+    "migration/2023.json",
+    "migration/2024.json",
+    "migration/2025.json",
     "palette.json",
     "provinces/gdp-per-capita.json"
   ],
-  "generated_at": "2026-09-20T20:24:17Z",
+  "generated_at": "2026-09-20T20:54:37Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -50,6 +56,12 @@
   },
   "schema_version": "1.0.0",
   "sources": {
+    "tuik_internal_migration": {
+      "licence": "tuik-attribution",
+      "page": "https://nip.tuik.gov.tr/?value=IllerArasiGoc",
+      "publisher": "Türkiye İstatistik Kurumu (TÜİK)",
+      "title": "İller Arası Göç (Nüfus İstatistikleri Portalı)"
+    },
     "tuik_provincial_gdp": {
       "licence": "tuik-attribution",
       "page": "https://veriportali.tuik.gov.tr/tr/press/53930",

@@ -52,6 +52,8 @@ export type GeoJson = FeatureCollection<Geometry, GeoJsonProperties>;
 
 export interface Geo {
   provinces: GeoJson;
+  /** One point inside each province, where a flow arc starts and ends. */
+  points: GeoJson;
   turkiye: GeoJson;
   world: GeoJson;
   water: GeoJson;
@@ -64,7 +66,7 @@ export function asset(path: string): string {
 }
 
 export async function loadGeo(): Promise<Geo> {
-  const names = ["provinces", "turkiye", "world", "water"] as const;
+  const names = ["provinces", "points", "turkiye", "world", "water"] as const;
   const bodies = await Promise.all(
     names.map(async (name) => {
       const response = await fetch(asset(`geo/${name}.json`));
@@ -258,4 +260,97 @@ export function voteShare(election: Election, plaka: number, option: string): nu
   const votes = province.votes[option];
   if (!valid || votes === undefined) return null;
   return (votes / valid) * 100;
+}
+
+// ── Migration ────────────────────────────────────────────────────────────────
+
+/**
+ * One year of TÜİK's province-to-province migration matrix.
+ *
+ * `out` is published: for each province, how many people moved from it to each
+ * other province that year, keyed by the destination's plaka code as a string,
+ * because JSON object keys are strings.
+ *
+ * `totals` and `national` are OURS, by addition over those published flows, and
+ * carry the formula that made them. The pipeline marks them `derived` and the
+ * interface repeats it — a figure this project computed never appears as though
+ * a publisher printed it (CLAUDE.md §1).
+ */
+export interface Migration {
+  generated_at: string;
+  migration: { year: string; measure: { key: string; label: Text; unit: string } };
+  provinces: Array<{
+    plaka: number;
+    name: Text;
+    name_nip: string;
+    population: number;
+    out: Record<string, number>;
+  }>;
+  totals: {
+    provenance: string;
+    formula: string;
+    by_plaka: Record<string, { received: number; given: number; net: number }>;
+  };
+  national: { provenance: string; formula: string; moved: number };
+}
+
+/**
+ * The years the site offers, oldest first, each with the file it reads.
+ *
+ * Spelled out for the same reason as ELECTIONS: a dataset card names its output
+ * and `run.py --check` refuses a card whose declared consumer never mentions
+ * the file, which a template literal would hide.
+ */
+export const MIGRATION = [
+  { year: "2020", file: "data/migration/2020.json" },
+  { year: "2021", file: "data/migration/2021.json" },
+  { year: "2022", file: "data/migration/2022.json" },
+  { year: "2023", file: "data/migration/2023.json" },
+  { year: "2024", file: "data/migration/2024.json" },
+  { year: "2025", file: "data/migration/2025.json" },
+] as const;
+
+export async function loadMigration(year: string): Promise<Migration> {
+  const entry = MIGRATION.find((known) => known.year === year);
+  if (!entry) throw new Error(`no migration for ${year}`);
+  const response = await fetch(asset(entry.file));
+  if (!response.ok) throw new Error(`${entry.file}: HTTP ${response.status}`);
+  return (await response.json()) as Migration;
+}
+
+/** People who moved between two provinces, as published. */
+export interface Flow {
+  from: number;
+  to: number;
+  value: number;
+  /** Which way it runs for the province the reader has selected. */
+  tone: "in" | "out";
+}
+
+/**
+ * One province's flows with every other, biggest first.
+ *
+ * `out` is read in both directions — the province's own row for what left it,
+ * and every other province's row for what arrived — so nothing here is a figure
+ * this project made up. `net` is the difference, which IS ours, and the caller
+ * labels it.
+ */
+export function flowsFor(migration: Migration, plaka: number, kind: "received" | "given" | "net"): Flow[] {
+  const mine = migration.provinces.find((province) => province.plaka === plaka);
+  if (!mine) return [];
+  const flows: Flow[] = [];
+  for (const other of migration.provinces) {
+    if (other.plaka === plaka) continue;
+    const arrived = other.out[String(plaka)] ?? 0;   // other -> me, as published
+    const left = mine.out[String(other.plaka)] ?? 0; // me -> other, as published
+    if (kind === "received") flows.push({ from: other.plaka, to: plaka, value: arrived, tone: "in" });
+    else if (kind === "given") flows.push({ from: plaka, to: other.plaka, value: left, tone: "out" });
+    else {
+      const net = arrived - left;
+      flows.push(net >= 0
+        ? { from: other.plaka, to: plaka, value: net, tone: "in" }
+        : { from: plaka, to: other.plaka, value: -net, tone: "out" });
+    }
+  }
+  return flows.sort((a, b) => b.value - a.value);
 }

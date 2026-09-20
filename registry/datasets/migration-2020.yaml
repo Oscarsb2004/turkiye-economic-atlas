@@ -1,0 +1,23 @@
+# registry/datasets/migration-2020.yaml - one year of the migration matrix.
+# atlas/core/registry.py checks every claim below.
+
+title: "Province-to-province migration in 2020, as TÜİK publishes it"
+group: migration
+order: 2020
+builder: atlas.datasets.migration_flows:build
+params:
+  year: 2020
+sources:
+- tuik_internal_migration
+shells:
+- fetcher
+after: []
+outputs:
+- data/migration/2020.json
+frame:
+  profile: panel
+  record_type: observation
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches 2020.json, shades the map by a province's totals and draws its flows as arcs

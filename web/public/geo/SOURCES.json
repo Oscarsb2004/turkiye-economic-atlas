@@ -29,6 +29,10 @@
       "features": 81,
       "command": "-i {admin1} -filter \"iso_a2 === 'TR'\" -each \"code = +iso_3166_2.slice(3), name_tr = name_tr || name, name_en = name_en || name\" -filter-fields code,name_tr,name_en -simplify 8% keep-shapes -clean -o {out}/provinces.json format=geojson precision=0.0001 id-field=code"
     },
+    "points": {
+      "features": 81,
+      "command": "-i {out}/provinces.json -points inner -o {out}/points.json format=geojson precision=0.0001 id-field=code"
+    },
     "turkiye": {
       "features": 1,
       "command": "-i {out}/provinces.json -dissolve2 -each \"name = 'Türkiye'\" -o {out}/turkiye.json format=geojson precision=0.0001"

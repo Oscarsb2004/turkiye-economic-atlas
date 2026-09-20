@@ -1,0 +1,22 @@
+# registry/sources/tuik_internal_migration.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: İller Arası Göç (Nüfus İstatistikleri Portalı)
+publisher: Türkiye İstatistik Kurumu (TÜİK)
+licence: tuik-attribution
+attribution: Türkiye İstatistik Kurumu (TÜİK), Nüfus İstatistikleri Portalı
+page: https://nip.tuik.gov.tr/?value=IllerArasiGoc
+api: https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable
+# The province-to-province migration matrix: 81 × 80 ordered pairs a year, 2008
+# to the newest, each saying how many people moved in both directions and what
+# TÜİK published as each province's population that year.
+#
+# The reader (atlas/readers/nip.py) documents the two things that matter: the
+# endpoint is a DataTables back end with NO year filter — the year is found
+# through the global search and then filtered and counted here — and every flow
+# is published twice, once from each side, which is what the reader checks it
+# against.
+#
+# Same publisher and same terms as the GDP bulletin: TÜİK's legal notice covers
+# its site and its databases (registry/licences.yaml, read 2026-09-19). The
+# portal itself states no separate terms.

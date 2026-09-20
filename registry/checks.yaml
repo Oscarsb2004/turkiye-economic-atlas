@@ -122,3 +122,129 @@ datasets:
     - kind: fields_present
       fields: [date, title.tr]
       note: A stop is labelled with the date and the Turkish title the pipeline published (CLAUDE.md §2b).
+
+  migration-2020:
+    path: data/migration/2020.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2020, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2020 the same addition reproduces TÜİK's own published headline.
+
+  migration-2021:
+    path: data/migration/2021.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2021, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2021 the same addition reproduces TÜİK's own published headline.
+
+  migration-2022:
+    path: data/migration/2022.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2022, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2022 the same addition reproduces TÜİK's own published headline.
+
+  migration-2023:
+    path: data/migration/2023.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2023, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2023 the same addition reproduces TÜİK's own published headline.
+
+  migration-2024:
+    path: data/migration/2024.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2024, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2024 the same addition reproduces TÜİK's own published headline.
+
+  migration-2025:
+    path: data/migration/2025.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Every province both sends and receives, so a missing one is a hole in the matrix.
+    - kind: fields_present
+      fields: [name.tr, population, out]
+      note: The name, the population TÜİK published for 2025, and the flows out of the province.
+    - kind: flow_totals
+      map_field: out
+      totals_path: totals.by_plaka
+      note: >-
+        The 6 480 published flows, added up here rather than trusted: every destination is one of the 81
+        and never the province itself, and each province's own flows reproduce the received, given and net
+        totals the pipeline derived. For 2025 the same addition reproduces TÜİK's own published headline.

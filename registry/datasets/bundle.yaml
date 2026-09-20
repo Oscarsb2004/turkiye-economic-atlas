@@ -8,6 +8,7 @@ builder: atlas.export.bundle:build
 params: {}
 sources:
 - tuik_provincial_gdp   # meta.json publishes each source and its licence
+- tuik_internal_migration
 - ysk_election_results
 shells: []
 after: []
@@ -17,6 +18,12 @@ outputs:
 - web/public/data/elections/2023-cumhurbaskani-2.json
 - web/public/data/elections/2023-milletvekili.json
 - web/public/data/elections/index.json
+- web/public/data/migration/2020.json
+- web/public/data/migration/2021.json
+- web/public/data/migration/2022.json
+- web/public/data/migration/2023.json
+- web/public/data/migration/2024.json
+- web/public/data/migration/2025.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

@@ -19,7 +19,7 @@
 
 import type { ReactNode } from "react";
 
-import type { Lang } from "../data/bundle";
+import type { Flow, Lang } from "../data/bundle";
 import type { Clock, Period } from "./timeline";
 
 /**
@@ -39,6 +39,14 @@ export interface OverlayContext {
   clock: Clock | null;
   /** True only for the overlay on screen: an overlay must not fetch unasked. */
   active: boolean;
+  /**
+   * The province the reader has selected, if any.
+   *
+   * Most overlays ignore it: a choropleth shades all 81 whatever is selected.
+   * A FLOW overlay cannot — "who moved here" is a question about one province —
+   * so the selection is part of what an overlay is given (T7).
+   */
+  selected: number | null;
 }
 
 /** What every overlay hook returns. */
@@ -64,6 +72,14 @@ export interface Overlay {
   format: (value: number) => string;
   /** What the legend is titled, already in the reader's language. */
   legendTitle: string;
+  /**
+   * Lines to draw between provinces, biggest first, or none.
+   *
+   * The overlay says WHICH flows and how big; the map owns the geometry and
+   * turns them into arcs between the provinces' inner points. Neither has to
+   * know about the other's half (T8's flights and T9's rail land here too).
+   */
+  flows?: Flow[];
   /** This overlay's own controls — a currency, a candidate — shown in the rail. */
   controls: ReactNode;
   /** What is known about one province under this overlay. */

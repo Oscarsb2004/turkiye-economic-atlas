@@ -585,6 +585,76 @@ def check_map_sums_to_published_total(records, spec, ctx):
     )
 
 
+def check_flow_totals(records, spec, ctx):
+    """
+    A flow matrix against the totals published beside it.
+
+    Written for TÜİK's province-to-province migration, where each province
+    carries `out` — how many people moved from it to each other province — and
+    the file publishes a total per province beside it. This recomputes those
+    totals from the flows, INDEPENDENTLY of the pipeline that derived them
+    (CLAUDE.md §7), and checks three things at once:
+
+      · every destination is one of the records, and never the record itself;
+      · every province's flows add up to its published `given`;
+      · every province's incoming flows add up to its published `received`,
+        and the two differ by its published `net`.
+
+    A derived figure that nothing recomputes is an assertion. Generic over the
+    shape, so any flow dataset — flights, rail, vessels — can declare it.
+    """
+    idf = ctx["dataset"]["id_field"]
+    field = spec["map_field"]
+    totals = resolve_one(ctx.get("document", {}), spec["totals_path"])
+    if not isinstance(totals, dict) or not totals:
+        return (False, f"{ctx['name']}: totals at {spec['totals_path']}",
+                "the document carries no totals at that path")
+    given_key = spec.get("given_key", "given")
+    received_key = spec.get("received_key", "received")
+    net_key = spec.get("net_key", "net")
+
+    ids = {str(record.get(idf)) for record in records}
+    if set(totals) != ids:
+        missing = sorted(ids - set(totals))[:5]
+        extra = sorted(set(totals) - ids)[:5]
+        return (False, f"{ctx['name']}: one total per record",
+                f"missing {missing}, unexpected {extra}")
+
+    given = {key: 0 for key in ids}
+    received = {key: 0 for key in ids}
+    for record in records:
+        me = str(record.get(idf))
+        flows = resolve_one(record, field)
+        if not isinstance(flows, dict):
+            return (False, f"{ctx['name']}: every record carries {field}",
+                    f"{me} has {flows!r}")
+        for key, value in flows.items():
+            if key not in ids:
+                return (False, f"{ctx['name']}: every {field} key is one of the records",
+                        f"{me} flows to {key!r}")
+            if key == me:
+                return (False, f"{ctx['name']}: no record flows to itself",
+                        f"{me} has a flow to {me}")
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                return (False, f"{ctx['name']}: {field} values are numeric",
+                        f"{me}.{key} is {value!r}")
+            given[me] += value
+            received[key] += value
+
+    problems = []
+    for key in sorted(ids, key=lambda k: (len(k), k)):
+        published = totals[key]
+        for name, computed in ((given_key, given[key]), (received_key, received[key]),
+                               (net_key, received[key] - given[key])):
+            if published.get(name) != computed:
+                problems.append(f"{key}.{name}: {published.get(name):,} published, {computed:,} from the flows")
+    return (
+        not problems,
+        f"{ctx['name']}: {len(ids)} records' flows add up to the totals published beside them",
+        " · ".join(problems[:8]),
+    )
+
+
 KINDS: dict[str, Callable] = {
     "unique_ids": check_unique_ids,
     "record_count": check_record_count,
@@ -598,6 +668,7 @@ KINDS: dict[str, Callable] = {
     "cross_source_agreement": check_cross_source_agreement,
     "sums_to_published_totals": check_sums_to_published_totals,
     "map_sums_to_published_total": check_map_sums_to_published_total,
+    "flow_totals": check_flow_totals,
 }
 
 

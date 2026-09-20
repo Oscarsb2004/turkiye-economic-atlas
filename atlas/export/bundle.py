@@ -48,6 +48,12 @@ COPIES = (
     "elections/2023-cumhurbaskani-1.json",
     "elections/2023-cumhurbaskani-2.json",
     "elections/2023-milletvekili.json",
+    "migration/2020.json",
+    "migration/2021.json",
+    "migration/2022.json",
+    "migration/2023.json",
+    "migration/2024.json",
+    "migration/2025.json",
 )
 
 SCHEMA_VERSION = "1.0.0"

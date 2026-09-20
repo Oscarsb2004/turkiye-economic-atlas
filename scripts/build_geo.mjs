@@ -24,6 +24,7 @@
  * WHAT IS WRITTEN
  *
  *     provinces.json   81 il, simplified, keyed on the plaka code
+ *     points.json      one point inside each il, where a flow arc starts and ends
  *     turkiye.json     the country outline, DISSOLVED from provinces.json
  *     world.json       every other country, for context around the edges
  *     water.json       lakes, so Van and Tuz are not painted as land
@@ -96,6 +97,17 @@ const BUILDS = {
     "-simplify 8% keep-shapes",
     "-clean",
     "-o {out}/provinces.json format=geojson precision=0.0001 id-field=code",
+  ],
+  // One point inside each province, for the ends of a flow arc. `inner` is not
+  // a bbox centre and not a centroid: mapshaper picks a point that actually
+  // lies within the polygon, which for a country of crescents and peninsulas
+  // is the difference between an arc leaving the province and an arc leaving
+  // the sea. Built FROM the simplified provinces, so a point and its province
+  // can never drift apart.
+  points: [
+    "-i {out}/provinces.json",
+    "-points inner",
+    "-o {out}/points.json format=geojson precision=0.0001 id-field=code",
   ],
   turkiye: [
     "-i {out}/provinces.json",
@@ -170,6 +182,13 @@ const codes = provinces.features.map((f) => f.properties.code).sort((a, b) => a 
 const missing = Array.from({ length: 81 }, (_, i) => i + 1).filter((c) => !codes.includes(c));
 if (missing.length) throw new Error(`provinces.json is missing plaka codes: ${missing.join(", ")}`);
 console.log(`  checked ${codes.length} provinces, plaka ${codes[0]}..${codes[codes.length - 1]}, none missing`);
+
+// Every province needs its point, or an arc would have nowhere to start.
+const points = JSON.parse(await readFile(join(OUT, "points.json"), "utf8"));
+const pointCodes = new Set(points.features.map((f) => f.properties.code));
+const withoutPoint = codes.filter((c) => !pointCodes.has(c));
+if (withoutPoint.length) throw new Error(`points.json is missing plaka codes: ${withoutPoint.join(", ")}`);
+console.log(`  checked ${pointCodes.size} inner points, one per province`);
 
 await writeFile(join(OUT, "SOURCES.json"), JSON.stringify({
   generated_by: "scripts/build_geo.mjs",

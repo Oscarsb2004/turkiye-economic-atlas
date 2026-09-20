@@ -149,6 +149,10 @@ The dotted and dotless İ/ı: `"İSTANBUL".lower()` is wrong in any locale-naive
 **join on codes, never on names** · province names differ between YSK and TÜİK spellings ·
 YSK's `getSecimList` returns HTTP 200 with the right row count and every field null — it is a
 dead stub, use `getSecimDetayList` · YSK results need `sandikTuru=0&sorguTuru=1`; `sandikTuru=1`
-returns `[]` · the 2012 metropolitan municipality reform changed district counts, so a district
+returns `[]` · TÜİK's population portal (nip.tuik.gov.tr) answers the migration matrix only to a
+POST and has NO year filter: the year goes in DataTables' global search, which also matches any
+population or count containing those digits, so the year is filtered and the 6 480 pairs counted
+in the reader · every migration flow is published twice, once from each end, so a disagreement
+between them is the publisher catching us · the 2012 metropolitan municipality reform changed district counts, so a district
 series crosses a definition break · TÜİK revises provincial GDP, so a year's figure is not
 final when first published.

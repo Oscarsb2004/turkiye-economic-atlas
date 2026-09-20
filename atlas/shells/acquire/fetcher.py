@@ -50,6 +50,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlencode
 
 import requests
 
@@ -58,11 +59,10 @@ log = logging.getLogger(__name__)
 
 # ── Settings ───────────────────────────────────────────────────────────────────
 
-#: Identifies us and points at the project. A real UA is the minimum courtesy
-#: when scraping; it lets an administrator tell a research crawler from a bot.
-USER_AGENT = (
-    "canada-economic-atlas/0.1 (research; +https://github.com/Oscarsb2004/canada-economic-atlas)"
-)
+#: Identifies this project to the administrator reading a server log. It said
+#: canada-economic-atlas until T7, which was the seed's name and a link to a
+#: different repository — wrong on both counts to a Turkish publisher.
+USER_AGENT = "turkiye-economic-atlas/0.1 (personal research project)"
 
 #: Seconds between requests to the same host.
 MIN_INTERVAL = 1.0
@@ -112,7 +112,9 @@ class Fetcher:
         self._session = requests.Session()
         self._session.headers.update({
             "User-Agent": USER_AGENT,
-            "Accept-Language": "en-CA,en;q=0.9,fr-CA;q=0.8",
+            # Turkish first: every publisher this reads is Turkish, and several
+            # serve a different page in each language.
+            "Accept-Language": "tr-TR,tr;q=0.9,en;q=0.8",
         })
         self._last_request_at = 0.0
         #: Counted so a run can report how much of it came off disk. A scrape
@@ -171,16 +173,62 @@ class Fetcher:
         """
         POST `payload` as JSON and parse the response.
 
-        Deliberately NOT cached. The cache is keyed on URL alone, so caching a
-        POST would serve one request body's answer to a different body — which
-        is the kind of bug that produces plausible wrong numbers rather than an
-        error. StatCan's WDS needs POST for cube metadata and for vector reads.
+        Not cached: see `post_form` for the one POST that is, and why.
         """
+        return json.loads(self._post_with_retries(url, json_body=payload))
+
+    def post_form(self, url: str, fields: dict[str, str], *, force: bool = False) -> Any:
+        """
+        POST a form-encoded body and parse the JSON answer, THROUGH THE CACHE.
+
+        The cache was originally keyed on the URL alone, which is why POSTs were
+        excluded from it: one body's answer would be served to a different body,
+        producing plausible wrong numbers rather than an error. The key here is
+        the URL **and a hash of the body**, so two different forms are two
+        different entries and that cannot happen.
+
+        It is cached because of what needs it. TÜİK's population portal answers
+        one year of the 81x81 migration matrix in about thirty seconds and two
+        megabytes, per year, through a POST-only endpoint (a GET answers 405).
+        Uncached, every run of the pipeline would ask a public service to do
+        that work again for data that changes once a year.
+
+        The body is built from `fields` in the order given, so the same request
+        is the same key on every run — which is also what the golden-master
+        recorder keys a POST on (verify/golden_site/golden_io.py).
+        """
+        body = urlencode(fields)
+        key = self._key_for_form(url, fields)
+        cached = None if (force or not self.use_cache) else self._cache_read(key)
+        if cached is not None:
+            self.hits += 1
+            log.debug("cache hit  %s", key)
+            return json.loads(cached)
+
+        self.fetches += 1
+        content = self._post_with_retries(
+            url, data=body.encode("utf-8"),
+            headers={"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"},
+        )
+        if self.use_cache:
+            self._cache_write(key, content)
+        return json.loads(content)
+
+    @staticmethod
+    def _key_for_form(url: str, fields: dict[str, str]) -> str:
+        """The cache key for one form POST: the endpoint, and what was asked of it."""
+        body = urlencode(fields).encode("utf-8")
+        return f"POST {url} body:{hashlib.sha256(body).hexdigest()}"
+
+    def _post_with_retries(self, url: str, *, json_body: Any = None, data: bytes | None = None,
+                           headers: dict[str, str] | None = None) -> bytes:
+        """One POST, retried on transient answers, returning the raw body."""
         last: Exception | None = None
         for attempt in range(MAX_RETRIES + 1):
             self._throttle()
             try:
-                resp = self._session.post(url, json=payload, timeout=TIMEOUT)
+                resp = self._session.post(url, json=json_body, data=data, headers=headers,
+                                          timeout=TIMEOUT)
             except (requests.Timeout, requests.ConnectionError) as exc:
                 last = exc
                 if attempt == MAX_RETRIES:
@@ -189,7 +237,7 @@ class Fetcher:
                 continue
 
             if resp.status_code == 200:
-                return resp.json()
+                return resp.content
             if resp.status_code in TRANSIENT_STATUS and attempt < MAX_RETRIES:
                 self._sleep_for_retry(attempt, url, f"HTTP {resp.status_code}")
                 continue
@@ -252,12 +300,14 @@ class Fetcher:
             time.sleep(self.min_interval - elapsed)
         self._last_request_at = time.monotonic()
 
-    def _cache_path(self, url: str) -> Path:
-        # Hashed, not slugified: federal URLs are long and contain characters
-        # Windows rejects in filenames.
-        return self.cache_dir / f"{hashlib.sha256(url.encode('utf-8')).hexdigest()}.bin"
+    def _cache_path(self, key: str) -> Path:
+        # Hashed, not slugified: these URLs are long and contain characters
+        # Windows rejects in filenames. `key` is the URL for a GET and
+        # "POST <url> body:<sha>" for a form POST, so two different bodies to
+        # one endpoint are two different entries (see post_form).
+        return self.cache_dir / f"{hashlib.sha256(key.encode('utf-8')).hexdigest()}.bin"
 
-    def _cache_read(self, url: str) -> bytes | None:
+    def _cache_read(self, key: str) -> bytes | None:
         """
         A cached body, or None if there isn't a usable one.
 
@@ -265,12 +315,12 @@ class Fetcher:
         deleted: leaving it costs nothing and makes the directory readable when
         debugging what a previous run actually saw.
         """
-        path = self._cache_path(url)
+        path = self._cache_path(key)
         if not path.exists():
             return None
         if self.cache_ttl and (time.time() - path.stat().st_mtime) > self.cache_ttl:
             self.expired += 1
-            log.debug("cache expired  %s", url)
+            log.debug("cache expired  %s", key)
             return None
         return path.read_bytes()
 
@@ -279,7 +329,7 @@ class Fetcher:
         return (f"network: {self.fetches} fetched, {self.hits} from cache"
                 f"{f', {self.expired} expired' if self.expired else ''}")
 
-    def _cache_write(self, url: str, body: bytes) -> None:
-        self._cache_path(url).write_bytes(body)
+    def _cache_write(self, key: str, body: bytes) -> None:
+        self._cache_path(key).write_bytes(body)
         # A sidecar so a human can tell what a hashed cache file holds.
-        self._cache_path(url).with_suffix(".url").write_text(url, encoding="utf-8")
+        self._cache_path(key).with_suffix(".url").write_text(key, encoding="utf-8")

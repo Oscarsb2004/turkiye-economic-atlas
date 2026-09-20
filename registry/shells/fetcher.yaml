@@ -4,15 +4,18 @@
 kind: acquire
 module: atlas.shells.acquire.fetcher
 title: Polite, cached HTTP for every request the pipeline makes
-contract: Given a URL, return its body as bytes, text or JSON, or write it to a path; POST JSON and parse the answer.
-  Every outbound request in the project goes through here.
+contract: Given a URL, return its body as bytes, text or JSON, or write it to a path; POST JSON or a form and
+  parse the answer. Every outbound request in the project goes through here.
 functions:
 - Fetcher
 - FetchError
 invariants:
 - At most one request a second to the same host.
 - A cached body older than 24 hours is a miss, so change detection keeps working.
-- POST answers are never cached; the cache is keyed on URL alone.
+- A cache key is the URL for a GET and the URL plus a hash of the body for a form POST, so one body's answer
+  can never be served to another.
+- post_json is not cached; post_form is, because TÜİK's population portal spends ~30 seconds and ~2 MB on one
+  year of the migration matrix through a POST-only endpoint.
 - TLS verification stays on.
 refusals:
 - 403 and 404 fail at once rather than being retried.
@@ -21,10 +24,12 @@ benchmark:
 - Not yet measured against a Turkish publisher; the first golden master sets it (docs/PLAN.md, T3).
 tests:
 - tests/test_fetcher.py::test_cache_entries_expire
+- tests/test_fetcher.py::test_a_form_post_is_cached_on_its_body
 limits:
 - Not for live streams; aisstream.io is a WebSocket (docs/PLAN.md, T13).
 gotchas:
 - An immortal cache silently turned change detection off; entries now expire.
+- A POST cached on the URL alone would serve one form's answer to another; the body is in the key.
 - 'Measured on canada.ca in the atlas this was forked from: over 45 seconds to first byte, which is why the read
   timeout is long. Turkish publishers have not been measured yet.'
 used_by:

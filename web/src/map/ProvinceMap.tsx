@@ -19,7 +19,7 @@
 import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
-import type { Geo, GeoJson, Lang, ProvinceProps } from "../data/bundle";
+import type { Flow, Geo, GeoJson, Lang, ProvinceProps } from "../data/bundle";
 import type { Binning } from "./bins";
 
 /** Where the map looks if the geometry cannot say — it always can, in practice. */
@@ -62,6 +62,50 @@ interface Props {
   binning: Binning | null;
   /** The sequential ramp from the validated palette. */
   ramp: string[];
+  /**
+   * Flows to draw between provinces, or none.
+   *
+   * The overlay decides WHICH flows and how big (overlays/types.ts); the ends
+   * are this map's business, because it is the half that holds the geometry.
+   */
+  flows: Flow[];
+}
+
+/**
+ * The arcs, as GeoJSON, between the provinces' own inner points.
+ *
+ * `points.json` carries a point INSIDE each province, built from the same
+ * simplified polygons (scripts/build_geo.mjs), so an arc leaves the province it
+ * says it leaves rather than a bounding box's middle — which for Muğla or
+ * Hatay is out at sea.
+ *
+ * A flow whose province has no point is DROPPED rather than drawn from
+ * somewhere plausible. `w` is the flow against the largest flow on screen, so
+ * the widths compare within one reading and never across years.
+ */
+function arcsOf(points: GeoJson, flows: Flow[]): GeoJson {
+  const at = new Map<number, [number, number]>();
+  for (const feature of points.features ?? []) {
+    const code = Number((feature.properties as { code?: number } | null)?.code);
+    const where = (feature.geometry as { coordinates?: unknown })?.coordinates;
+    if (Number.isFinite(code) && Array.isArray(where) && where.length >= 2) {
+      at.set(code, [Number(where[0]), Number(where[1])]);
+    }
+  }
+  const most = Math.max(1, ...flows.map((flow) => flow.value));
+  return {
+    type: "FeatureCollection",
+    features: flows.flatMap((flow) => {
+      const from = at.get(flow.from);
+      const to = at.get(flow.to);
+      if (!from || !to) return [];
+      return [{
+        type: "Feature" as const,
+        properties: { w: flow.value / most, tone: flow.tone, value: flow.value },
+        geometry: { type: "LineString" as const, coordinates: [from, to] },
+      }];
+    }),
+  } as GeoJson;
 }
 
 function ink(name: string, fallback: string): string {
@@ -91,7 +135,7 @@ function fillColour(accent: string, noFigure: string, ramp: string[]) {
   ] as unknown as maplibregl.ExpressionSpecification;
 }
 
-export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Props) {
+export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
@@ -124,6 +168,8 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Pr
           // future data join key on the same number.
           provinces: { type: "geojson", data: geo.provinces, promoteId: "code" },
           water: { type: "geojson", data: geo.water },
+          // Empty until a province is selected; the effect below sets its data.
+          flows: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
         },
         layers: [
           { id: "background", type: "background", paint: { "background-color": waterColour } },
@@ -147,6 +193,27 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Pr
             type: "line",
             source: "turkiye",
             paint: { "line-color": ink("--text-2", "#9aa3b2"), "line-width": 1.4 },
+          },
+          // Flows sit above everything: they are the answer to a question the
+          // reader asked by selecting a province.
+          {
+            id: "flows",
+            type: "line",
+            source: "flows",
+            layout: { "line-cap": "round" },
+            paint: {
+              // Two data colours from the validated palette: one for what came
+              // in, one for what left (CLAUDE.md §9 — --series-* is data).
+              // Slots 3 and 2 rather than 1, which is the accent a selected
+              // province is already painted in.
+              "line-color": [
+                "match", ["get", "tone"],
+                "in", ink("--series-3", "#46a758"),
+                ink("--series-2", "#a35829"),
+              ],
+              "line-width": ["interpolate", ["linear"], ["get", "w"], 0, 1, 1, 7],
+              "line-opacity": 0.85,
+            },
           },
         ],
       },
@@ -269,6 +336,23 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Pr
       instance.off("sourcedata", whenReady);
     };
   }, [binning, geo]);
+
+  // The flows for the selected province. Set on the source rather than rebuilt
+  // into the style, so drawing them never disturbs the reader's pan or zoom.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+
+    const apply = () => {
+      const source = instance.getSource("flows") as maplibregl.GeoJSONSource | undefined;
+      source?.setData(arcsOf(geo.points, flows) as never);
+    };
+    if (instance.isStyleLoaded()) {
+      apply();
+      return;
+    }
+    instance.once("load", apply);
+  }, [flows, geo]);
 
   // The language does not change the map today — province labels arrive with
   // the first overlay — but the effect is here so the map is not rebuilt when

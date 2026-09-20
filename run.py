@@ -55,6 +55,7 @@ STAMP = VENV / ".atlas-requirements"
 STAGES: dict[str, str] = {
     "01": "-m atlas.run economy",
     "02": "-m atlas.run elections",
+    "03": "-m atlas.run migration",
     "99": "-m atlas.run bundle",
 }
 

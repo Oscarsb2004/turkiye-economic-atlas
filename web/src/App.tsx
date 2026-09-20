@@ -74,7 +74,9 @@ export function App() {
     rememberLang(lang);
   }, [lang]);
 
-  const overlays = useOverlays({ lang, clock, activeId });
+  // The selection is part of what an overlay is given: a flow overlay answers
+  // a question about one province (overlays/types.ts).
+  const overlays = useOverlays({ lang, clock, activeId, selected: selected?.code ?? null });
   // `??` rather than a lookup that can fail: the rail can only offer what this
   // list contains, and an unknown id falls back to the first overlay.
   const overlay = overlays.find((entry) => entry.id === activeId) ?? overlays[0];
@@ -130,6 +132,7 @@ export function App() {
                   onSelect={onSelect}
                   binning={binning}
                   ramp={palette?.sequential.steps ?? []}
+                  flows={overlay.flows ?? []}
                 />
                 {binning && palette ? (
                   <Legend
@@ -172,9 +175,15 @@ export function App() {
           <footer className="panel__sources">
             <h3>{s.sources}</h3>
             <p>{s.geometrySource}</p>
+            {/* One line per publisher AND licence, not per source card: TÜİK's
+                GDP bulletin and its migration portal are two sources under one
+                name and one set of terms, and saying so twice reads as a bug.
+                Every card is still represented — the line is just shared. */}
             {meta
-              ? Object.values(meta.sources).map((source) => (
-                  <p key={source.page}>
+              ? [...new Map(Object.values(meta.sources).map((source) => [
+                  `${source.publisher}|${source.licence}`, source,
+                ])).values()].map((source) => (
+                  <p key={`${source.publisher}|${source.licence}`}>
                     {source.publisher} — {meta.licences[source.licence]?.name ?? source.licence}
                   </p>
                 ))
