@@ -1,0 +1,30 @@
+{
+  "mode": "record",
+  "steps": [
+    {
+      "exit": 0,
+      "seconds": 3,
+      "step": "01"
+    },
+    {
+      "exit": 0,
+      "seconds": 14,
+      "step": "02"
+    },
+    {
+      "exit": 0,
+      "seconds": 200,
+      "step": "03"
+    },
+    {
+      "exit": 0,
+      "seconds": 0,
+      "step": "99"
+    },
+    {
+      "exit": 0,
+      "seconds": 0,
+      "step": "verify"
+    }
+  ]
+}
