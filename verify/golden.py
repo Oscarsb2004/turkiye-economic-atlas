@@ -178,7 +178,12 @@ def stages_of(tree: Path) -> dict[str, str]:
     """The STAGES mapping from a revision's run.py, read without importing it."""
     module = ast.parse((tree / "run.py").read_text(encoding="utf-8"))
     for node in module.body:
+        # `STAGES = {...}` and `STAGES: dict[str, str] = {...}` are different
+        # AST nodes, and reading only the first made a run.py with steps in it
+        # look like a run.py with none.
         if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "STAGES" for t in node.targets):
+            return ast.literal_eval(node.value)
+        if isinstance(node, ast.AnnAssign) and getattr(node.target, "id", None) == "STAGES" and node.value:
             return ast.literal_eval(node.value)
     raise SystemExit("run.py has no STAGES mapping")
 
