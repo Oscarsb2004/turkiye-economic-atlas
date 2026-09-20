@@ -47,6 +47,11 @@ const tr = {
   geometrySource: "Sınırlar: Natural Earth (kamu malı)",
   dataComingSoon: "Veriler TÜİK'ten alınmıştır.",
   perCapitaNote: "TÜİK'in yayımladığı değerler; tarafımızca hesaplanmamıştır.",
+  legendTitle: "Kişi başına GSYH",
+  legendMethod: "Her renk eşit sayıda il içerir (yüzdelik dilim). Aralıklar TÜİK verisinden; dilimlendirme bu projenin sunum tercihidir.",
+  noFigureLegend: "Yayımlanmış veri yok",
+  currency: "Para birimi",
+  year: "Yıl",
 };
 // Not `as const`: the literal types would make every English string a mismatch
 // rather than a translation. What must hold is the SHAPE — `en` is typed as
@@ -71,6 +76,11 @@ const en: Strings = {
   geometrySource: "Boundaries: Natural Earth (public domain)",
   dataComingSoon: "Figures published by TÜİK.",
   perCapitaNote: "As TÜİK publishes them; nothing here is computed by this project.",
+  legendTitle: "GDP per capita",
+  legendMethod: "Each shade holds an equal number of provinces (quantiles). The ranges are TÜİK's figures; the banding is this project's presentation choice.",
+  noFigureLegend: "No published figure",
+  currency: "Currency",
+  year: "Year",
 };
 
 const STRINGS: Record<Lang, Strings> = { tr, en };

@@ -44,6 +44,11 @@ jobs:
       - run: npx tsc --noEmit
         working-directory: web
 
+      # The banding rules decide what every province is shaded, and a wrong
+      # shade looks exactly like a right one.
+      - run: npm test
+        working-directory: web
+
       # A project site is served from /<repo>/, so the build needs that prefix.
       # Derived from the repository name rather than hardcoded, so a rename or a
       # fork does not silently ship a site whose assets all 404.

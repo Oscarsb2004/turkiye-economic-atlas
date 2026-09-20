@@ -20,6 +20,7 @@ import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
 import type { Geo, Lang, ProvinceProps } from "../data/bundle";
+import type { Binning } from "./bins";
 
 /** Türkiye, framed so the whole country sits in view at the opening zoom. */
 const HOME = { center: [35.2, 39.0] as [number, number], zoom: 4.9 };
@@ -29,6 +30,10 @@ interface Props {
   lang: Lang;
   selected: number | null;
   onSelect: (code: number | null, props: ProvinceProps | null) => void;
+  /** Which shade each province takes, or null before any figures are loaded. */
+  binning: Binning | null;
+  /** The sequential ramp from the validated palette. */
+  ramp: string[];
 }
 
 function ink(name: string, fallback: string): string {
@@ -37,7 +42,28 @@ function ink(name: string, fallback: string): string {
   return value || fallback;
 }
 
-export function ProvinceMap({ geo, lang, selected, onSelect }: Props) {
+/**
+ * What colour a province takes.
+ *
+ * Selection and hover win, so a reader pointing at a province always sees which
+ * one they are pointing at, whatever it is shaded. Below that the band decides.
+ * A province with no band — none published — falls through to `noFigure` and is
+ * never painted as the lowest shade (CLAUDE.md §10). With no ramp yet, every
+ * province falls through, which is the neutral map T2 shipped.
+ */
+function fillColour(accent: string, noFigure: string, ramp: string[]) {
+  const bands = ramp.flatMap((hex, index) => [index, hex]);
+  return [
+    "case",
+    ["boolean", ["feature-state", "selected"], false], accent,
+    ["boolean", ["feature-state", "hover"], false], accent,
+    bands.length
+      ? ["match", ["coalesce", ["feature-state", "band"], -1], ...bands, noFigure]
+      : noFigure,
+  ] as unknown as maplibregl.ExpressionSpecification;
+}
+
+export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
@@ -48,10 +74,11 @@ export function ProvinceMap({ geo, lang, selected, onSelect }: Props) {
   useEffect(() => {
     if (!container.current || map.current) return;
 
-    const accent = ink("--accent-9", "#3b82f6");
-    const surface = ink("--surface-2", "#16181d");
-    const line = ink("--line", "#2a2e37");
-    const waterColour = ink("--surface-1", "#0f1115");
+    const accent = ink("--accent-9", "#0090ff");
+    const surface = ink("--surface-2", "#222222");
+    const line = ink("--line", "#3a3a3a");
+    const waterColour = ink("--surface-1", "#191919");
+    const noFigure = ink("--no-figure", "#2a2a2a");
 
     const instance = new maplibregl.Map({
       container: container.current,
@@ -77,12 +104,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect }: Props) {
             type: "fill",
             source: "provinces",
             paint: {
-              "fill-color": [
-                "case",
-                ["any", ["boolean", ["feature-state", "hover"], false], ["boolean", ["feature-state", "selected"], false]],
-                accent,
-                surface,
-              ],
+              "fill-color": fillColour(accent, noFigure, []),
               "fill-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0.85, 7, 0.95],
             },
           },
@@ -132,8 +154,17 @@ export function ProvinceMap({ geo, lang, selected, onSelect }: Props) {
       if (hits.length === 0) onSelect(null, null);
     });
 
+    // MapLibre sizes its canvas once and does not watch its container, so a
+    // pane that changes width leaves the map drawing at the old size — the
+    // country slides out of frame without anything erroring. Observing the
+    // container keeps the two in step, and resize() also gives the map the
+    // paint it needs after a spell where the page was not drawing at all.
+    const observer = new ResizeObserver(() => instance.resize());
+    observer.observe(container.current);
+
     map.current = instance;
     return () => {
+      observer.disconnect();
       instance.remove();
       map.current = null;
     };
@@ -150,6 +181,64 @@ export function ProvinceMap({ geo, lang, selected, onSelect }: Props) {
       instance.setFeatureState({ source: "provinces", id: selected }, { selected: true });
     }
   }, [selected]);
+
+  // The ramp arrives with palette.json, after the map is already on screen, so
+  // the paint is updated rather than the map rebuilt — rebuilding would throw
+  // away the reader's pan and zoom.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance || ramp.length === 0) return;
+    const apply = () => instance.setPaintProperty(
+      "provinces-fill", "fill-color",
+      fillColour(ink("--accent-9", "#0090ff"), ink("--no-figure", "#2a2a2a"), ramp),
+    );
+    if (instance.isStyleLoaded()) apply();
+    else instance.once("load", apply);
+  }, [ramp]);
+
+  // Each province's band, as feature-state. Set per feature rather than baked
+  // into the source, so changing currency or year repaints without rebuilding
+  // the GeoJSON.
+  //
+  // WAITING FOR THE SOURCE, NOT THE STYLE
+  //
+  // `isStyleLoaded()` goes true while a GeoJSON source is still parsing, and
+  // feature state set before its source has data is dropped without an error.
+  // The map then paints every province in the "no figure" colour, which is a
+  // plausible-looking map of nothing: shades gone, legend intact, console
+  // clean. It survived a first look only because the source happened to win
+  // the race that time.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+
+    const apply = () => {
+      for (const feature of geo.provinces.features ?? []) {
+        const plaka = Number((feature.properties as { code: number }).code);
+        const band = binning?.byProvince.get(plaka);
+        instance.setFeatureState(
+          { source: "provinces", id: plaka },
+          // undefined would leave the previous band in place; null is what the
+          // expression's coalesce reads as "no figure published".
+          { band: band === undefined ? null : band },
+        );
+      }
+    };
+
+    if (instance.isStyleLoaded() && instance.isSourceLoaded("provinces")) {
+      apply();
+      return;
+    }
+    const whenReady = () => {
+      if (!instance.isStyleLoaded() || !instance.isSourceLoaded("provinces")) return;
+      apply();
+      instance.off("sourcedata", whenReady);
+    };
+    instance.on("sourcedata", whenReady);
+    return () => {
+      instance.off("sourcedata", whenReady);
+    };
+  }, [binning, geo]);
 
   // The language does not change the map today — province labels arrive with
   // the first overlay — but the effect is here so the map is not rebuilt when

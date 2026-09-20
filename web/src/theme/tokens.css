@@ -1,27 +1,41 @@
 /*
  * tokens.css — the surfaces and type the app is built from.
  *
- * Data colours do NOT live here. `--series-*` comes from registry/palette.yaml,
- * which is a validated artifact with its own recorded output, and arrives in
- * the app as palette.json when the first dataset does (docs/PLAN.md, T3). What
- * is here is chrome: surfaces, lines, text and one accent.
+ * Data colours do NOT live here. `--series-*` and `--seq-*` come from
+ * registry/palette.yaml, a validated artifact with its own recorded output, and
+ * are set from palette.json at runtime by applyPalette().
+ *
+ * The surfaces below are the palette's own (`surface.chart`, `surface.page`)
+ * and its ink. That matters: the palette records its contrast results as
+ * measured AGAINST #191919. Inventing a different background here — as this
+ * file first did — would leave the recorded validation describing a surface the
+ * app no longer uses, which is a validated palette quietly becoming an
+ * unvalidated one.
  */
 
 :root {
   color-scheme: dark;
 
-  --surface-0: #0b0d10;
-  --surface-1: #0f1115;
-  --surface-2: #16181d;
-  --surface-3: #1d2027;
-  --line: #2a2e37;
+  /* palette.yaml: surface.page, surface.chart, ink.* — the values its recorded
+     validation was measured against. applyPalette() re-asserts them from
+     palette.json so the two cannot drift apart. */
+  --surface-0: #111111;
+  --surface-1: #191919;
+  --surface-2: #222222;
+  --surface-3: #2a2a2a;
+  --line: #3a3a3a;
 
-  --text-1: #e7eaf0;
-  --text-2: #9aa3b2;
+  --text-1: #eeeeee;
+  --text-2: #b4b4b4;
+  --text-3: #7c7c7c;
 
-  --accent-9: #3b82f6;
+  --accent-9: #0090ff;
   --accent-contrast: #ffffff;
   --bad: #f87171;
+
+  /* A province with no published figure. Not a ramp step, deliberately: it must
+     not read as "low" (CLAUDE.md §10). */
+  --no-figure: #2a2a2a;
 
   --gutter: 16px;
   --radius: 10px;
@@ -196,4 +210,94 @@ body {
   font-size: 13px;
   font-weight: 650;
   color: var(--text-2);
+}
+
+/* ── The legend ─────────────────────────────────────────────────────────────
+   Over the map rather than beside it: a reader compares a shade with the map,
+   and a legend in the far panel makes that a memory test. */
+.legend {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 1;
+  margin: 0;
+  padding: 10px 12px;
+  max-width: 280px;
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.legend__title {
+  font-size: 12px;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+
+.legend__bands {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.legend__band {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.legend__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.legend__swatch--none {
+  background: var(--no-figure);
+  border: 1px dashed var(--text-3);
+}
+
+.legend__range {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.legend__count {
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.legend__method {
+  margin: 8px 0 0;
+  color: var(--text-3);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.app__controls {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.control__select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-1);
+  font: inherit;
+  font-size: 12px;
 }

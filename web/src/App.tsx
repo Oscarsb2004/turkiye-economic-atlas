@@ -6,7 +6,7 @@
  * published figure is not a province with a figure of zero (CLAUDE.md §10).
  */
 
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   latestFigure,
@@ -20,10 +20,13 @@ import {
   type Geo,
   type Lang,
   type Meta,
+  type Palette,
   type PerCapitaGdp,
   type ProvinceProps,
 } from "./data/bundle";
 import { LANGUAGE_NAME, formatInt, formatMoney, initialLang, rememberLang, stringsFor } from "./i18n";
+import { quantileBands } from "./map/bins";
+import { Legend } from "./map/Legend";
 import { ProvinceMap } from "./map/ProvinceMap";
 
 /**
@@ -62,6 +65,8 @@ export function App() {
   const [geo, setGeo] = useState<Geo | null>(null);
   const [gdp, setGdp] = useState<PerCapitaGdp | null>(null);
   const [meta, setMeta] = useState<Meta | null>(null);
+  const [palette, setPalette] = useState<Palette | null>(null);
+  const [currency, setCurrency] = useState("TRY");
   const [failed, setFailed] = useState<string | null>(null);
   const [lang, setLang] = useState<Lang>(initialLang);
   const [selected, setSelected] = useState<{ code: number; props: ProvinceProps } | null>(null);
@@ -75,13 +80,29 @@ export function App() {
     loadMeta().then(setMeta, () => undefined);
     // The palette is data, not chrome: read it rather than keeping a second,
     // unvalidated copy of its colours in CSS.
-    loadPalette().then(applyPalette, () => undefined);
+    loadPalette().then((loaded) => {
+      applyPalette(loaded);
+      setPalette(loaded);
+    }, () => undefined);
   }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
     rememberLang(lang);
   }, [lang]);
+
+  // The newest year TÜİK publishes for this currency, read from the data
+  // rather than assumed: a year is added every December.
+  const year = gdp ? (gdp.measure.years[currency] ?? []).slice(-1)[0] ?? "" : "";
+
+  const binning = useMemo(() => {
+    if (!gdp || !year) return null;
+    const values = new Map<number, number | null>();
+    for (const province of gdp.provinces) {
+      values.set(province.plaka, province.per_capita_gdp?.[currency]?.[year] ?? null);
+    }
+    return quantileBands(values, palette?.sequential.steps.length ?? 6);
+  }, [gdp, currency, year, palette]);
 
   const onSelect = useCallback((code: number | null, props: ProvinceProps | null) => {
     setSelected(code === null || !props ? null : { code, props });
@@ -93,6 +114,20 @@ export function App() {
         <div>
           <h1 className="app__title">{s.title}</h1>
           <p className="app__subtitle">{s.subtitle}</p>
+        </div>
+        <div className="app__controls">
+          <label className="control">
+            <span className="control__label">{s.currency}</span>
+            <select
+              className="control__select"
+              value={currency}
+              onChange={(event) => setCurrency(event.target.value)}
+            >
+              {(gdp?.measure.currencies ?? ["TRY"]).map((code) => (
+                <option key={code} value={code}>{code}</option>
+              ))}
+            </select>
+          </label>
         </div>
         <div className="app__langs" role="group" aria-label="Language">
           {(["tr", "en"] as const).map((code) => (
@@ -114,7 +149,25 @@ export function App() {
           {failed ? (
             <p className="notice notice--bad">{s.failed}: {failed}</p>
           ) : geo ? (
-            <ProvinceMap geo={geo} lang={lang} selected={selected?.code ?? null} onSelect={onSelect} />
+            <>
+              <ProvinceMap
+                geo={geo}
+                lang={lang}
+                selected={selected?.code ?? null}
+                onSelect={onSelect}
+                binning={binning}
+                ramp={palette?.sequential.steps ?? []}
+              />
+              {binning && palette && (
+                <Legend
+                  binning={binning}
+                  ramp={palette.sequential.steps}
+                  currency={currency}
+                  year={year}
+                  lang={lang}
+                />
+              )}
+            </>
           ) : (
             <p className="notice">{s.loading}</p>
           )}

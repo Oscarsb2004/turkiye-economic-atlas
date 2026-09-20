@@ -143,8 +143,10 @@ export async function loadMeta(): Promise<Meta> {
  * copy in CSS would be an unvalidated one (CLAUDE.md §9).
  */
 export interface Palette {
-  series?: Record<string, string>;
-  sequential?: Record<string, string[]>;
+  surface: { chart: string; page: string };
+  ink: Record<string, string>;
+  categorical: Array<{ slot: number; hue: string; step: number; hex: string }>;
+  sequential: { hue: string; steps: string[] };
 }
 
 export async function loadPalette(): Promise<Palette | null> {
@@ -153,11 +155,26 @@ export async function loadPalette(): Promise<Palette | null> {
   return (await response.json()) as Palette;
 }
 
-/** Apply a palette's data colours as CSS variables, leaving chrome alone. */
+/**
+ * Set every colour the palette defines, so the file is the single source.
+ *
+ * Surfaces included: the palette's contrast results were measured against its
+ * own surface, so a page that paints a different background is not the page
+ * that was validated.
+ */
 export function applyPalette(palette: Palette | null): void {
-  if (!palette?.series) return;
+  if (!palette) return;
   const root = document.documentElement;
-  for (const [slot, colour] of Object.entries(palette.series)) {
-    root.style.setProperty(`--series-${slot}`, colour);
+  root.style.setProperty("--surface-0", palette.surface.page);
+  root.style.setProperty("--surface-1", palette.surface.chart);
+  root.style.setProperty("--text-1", palette.ink.primary);
+  root.style.setProperty("--text-2", palette.ink.secondary);
+  root.style.setProperty("--text-3", palette.ink.muted);
+  root.style.setProperty("--line", palette.ink.axis);
+  for (const entry of palette.categorical) {
+    root.style.setProperty(`--series-${entry.slot}`, entry.hex);
   }
+  palette.sequential.steps.forEach((hex, i) => {
+    root.style.setProperty(`--seq-${i}`, hex);
+  });
 }
