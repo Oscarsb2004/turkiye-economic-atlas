@@ -29,7 +29,7 @@ that would otherwise look redundant:
 Design notes:
   - stdlib dataclasses, no pydantic, no new dependencies
   - every type round-trips through to_dict()/from_dict() for JSON transport
-  - bilingual text is a `Text` pair rather than parallel `_en`/`_fr` fields, so
+  - bilingual text is a `Text` pair rather than parallel `_tr`/`_en` fields, so
     a language can never be silently dropped by a partial write
 """
 
@@ -53,8 +53,8 @@ from typing import Any
 # Türkiye's own arrive with the datasets that need them.
 #
 # Two known Canada-shaped edges, for whoever extracts these into athena-core:
-#   - Text(en, fr) is a two-language pair because bilingual EN/FR is a federal
-#     requirement, not a general one. The general form is a language-keyed map
+#   - Text(tr, en) is a two-language pair because that is what this atlas
+#     publishes, not a general truth. The general form is a language-keyed map
 #     with the same .get(lang) fallback. Nothing may depend on Text having
 #     exactly two fields.
 #   - Geometry.provinces holds subdivision codes here; the general form is a
@@ -124,26 +124,37 @@ def _flat_distance(a: tuple[float, float], b: tuple[float, float]) -> float:
 @dataclass(frozen=True, slots=True)
 class Text:
     """
-    One string in both official languages.
+    One string in the two languages this atlas publishes: Turkish, then English.
 
-    A pair rather than two loose fields: the scrapers fetch EN and FR from
-    separate pages, and a pair makes a half-written record a type error at
+    A pair rather than two loose fields: a reader fetches each language from a
+    different page, and a pair makes a half-written record a type error at
     construction instead of an empty panel in the UI.
+
+    TURKISH IS THE REQUIRED SIDE, and that is not a preference. TÜİK publishes
+    bilingually, but YSK, SBB, AYGM and KGM publish in Turkish only, so English
+    is the side that is routinely absent. `tr` has no default and `en` does, so a
+    record cannot exist without the language every source actually has, and
+    `.get("en")` falls back to Turkish rather than rendering nothing.
+
+    The atlas this was forked from carried Text(en, fr) because bilingual EN/FR
+    is a Canadian federal requirement. Nothing may depend on a pair having
+    exactly these two sides; the general form is a language-keyed map with the
+    same .get(lang) fallback.
     """
 
-    en: str
-    fr: str = ""
+    tr: str
+    en: str = ""
 
     def get(self, lang: str) -> str:
-        """The text in `lang`, falling back to English when FR is missing."""
-        return self.fr if (lang == "fr" and self.fr) else self.en
+        """The text in `lang`, falling back to Turkish when English is missing."""
+        return self.en if (lang == "en" and self.en) else self.tr
 
     def to_dict(self) -> dict[str, str]:
-        return {"en": self.en, "fr": self.fr}
+        return {"tr": self.tr, "en": self.en}
 
     @classmethod
     def from_dict(cls, d: dict[str, str]) -> Text:
-        return cls(en=d.get("en", ""), fr=d.get("fr", ""))
+        return cls(tr=d.get("tr", ""), en=d.get("en", ""))
 
 
 @dataclass(frozen=True, slots=True)

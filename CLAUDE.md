@@ -31,6 +31,16 @@ reproduced as written. Do not summarise, paraphrase, round, or "clean up" a sent
 embedded in prose stay in prose: if a number needs plotting it comes from a machine-readable
 dataset, not from a sentence.
 
+## 2b. Turkish is the required side of every pair
+
+Published strings are a `Text` pair, `{tr, en}`. `tr` has no default and `en` does, because
+TÜİK publishes bilingually but YSK, SBB, AYGM and KGM publish in Turkish only — English is the
+side that is routinely absent, and a record must not be constructable without the language its
+source actually has. `.get("en")` falls back to Turkish rather than rendering nothing.
+
+Frame columns follow: `name_tr`/`name_en`, `text_tr`/`text_en`. A pair whose English side is
+empty is normal and is shown as Turkish, never hidden and never machine-translated.
+
 ## 3. A source's terms are read before its data is used
 
 Every entry in `registry/licences.yaml` records what the publisher's terms actually say, read

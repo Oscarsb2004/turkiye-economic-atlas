@@ -122,8 +122,8 @@ Each stage ends green and is one PR, as S0–S9 were.
 | Stage | What |
 | --- | --- |
 | **T0** | Seed the repo; strip Canadian readers/cards/data; fix the two duplicate definitions; `run.py --check` green and tests passing with zero datasets |
-| **T1** | `Text{tr,en}` and `Lang` across Python and TypeScript; `i18n` rebuilt Turkish-first; palette untouched |
-| **T2** | Geometry: `build_geo.mjs` repointed at Türkiye (Natural Earth admin-1, OSM water/places); map recentres; one detail tier, not Canada's two |
+| **T1** | ✅ `Text{tr,en}` through the Python half: Turkish required, English optional and falling back to Turkish; every frame column renamed `_tr`/`_en`. The TypeScript mirror moved to T2, where the app and `tsc --noEmit` exist to prove it |
+| **T2** | The app: `web/` seeded with the portable pieces, `Lang = "tr" \| "en"` and the `i18n` dictionary Turkish-first, then geometry — `build_geo.mjs` repointed at Türkiye (Natural Earth admin-1, OSM water/places), map recentred, one detail tier rather than Canada's two |
 | **T3** | `province-gdp-per-capita` from TÜİK; the bundle; **first golden master recorded** |
 | **T4** | Choropleth + legend + a sequential ramp added to the palette and run through its validator; GDP per capita as the first overlay |
 | **T5** | `ysk_api` acquire shell + `atlas/readers/ysk.py` → `election-results` cards (one per election, sharing a builder as the Canadian `economy` cards do) → party selector |

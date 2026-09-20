@@ -59,10 +59,10 @@ class Place:
 
     def row(self) -> dict[str, Any]:
         return {
-            "key": self.key, "kind": self.kind, "name_en": self.name.en, "name_fr": self.name.fr,
+            "key": self.key, "kind": self.kind, "name_tr": self.name.tr, "name_en": self.name.en,
             "parent": self.parent, "vintage": self.vintage, "type_code": self.type_code,
+            "type_tr": self.type_name.tr if self.type_name else "",
             "type_en": self.type_name.en if self.type_name else "",
-            "type_fr": self.type_name.fr if self.type_name else "",
             "source_table": self.source_table,
         }
 
@@ -73,8 +73,8 @@ class Passage:
 
     entity: str             # what the passage is about: "ON"
     kind: str               # what it is: "budget_risk", "motto", "flag_description"
+    text_tr: str
     text_en: str
-    text_fr: str
     source_url: str
     locator: str = ""       # a page number, a heading — where in the document
     content_sha256: str = ""
@@ -90,16 +90,16 @@ class Asset:
 
     key: str
     kind: str                       # "project_site", "port", "border_crossing"
+    name_tr: str
     name_en: str
-    name_fr: str
     parent: str = ""                # the project or corridor it belongs to
     category: str = ""              # the publisher's own class: a sector, a mode
     lon: float | None = None
     lat: float | None = None
     geometry_kind: str = ""         # point | corridor | region | absent
     coordinate_provenance: str = ""
+    status_tr: str = ""
     status_en: str = ""
-    status_fr: str = ""
     source_url: str = ""
     provenance: str = ""
 
@@ -114,8 +114,8 @@ class Event:
     entity: str
     period: str                     # ISO, as precise as the source was
     category: str                   # "project_update"
+    text_tr: str
     text_en: str
-    text_fr: str
     date_verbatim: str = ""         # the publisher's own wording of the date
     source_url: str = ""
     provenance: str = ""

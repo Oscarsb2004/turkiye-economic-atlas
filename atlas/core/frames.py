@@ -70,13 +70,13 @@ OBSERVATION_KEYS = ("entity", "category", "period", "measure", "slice")
 PLACE_COLUMNS = (
     Column("key", "string", "entity"),
     Column("kind", "string", "attribute"),
+    Column("name_tr", "string", "label"),
     Column("name_en", "string", "label"),
-    Column("name_fr", "string", "label"),
     Column("parent", "string", "attribute"),
     Column("vintage", "string", "time"),
     Column("type_code", "string", "category"),
+    Column("type_tr", "string", "label"),
     Column("type_en", "string", "label"),
-    Column("type_fr", "string", "label"),
     Column("source_table", "string", "source_ref"),
 )
 PLACE_KEYS = ("key",)
@@ -84,28 +84,28 @@ PLACE_KEYS = ("key",)
 PASSAGE_COLUMNS = (
     Column("entity", "string", "entity"),
     Column("kind", "string", "category"),
+    Column("text_tr", "string", "label"),
     Column("text_en", "string", "label"),
-    Column("text_fr", "string", "label"),
     Column("source_url", "string", "source_ref"),
     Column("locator", "string", "source_ref"),
     Column("content_sha256", "string", "source_ref"),
     Column("provenance", "string", "status"),
 )
-PASSAGE_KEYS = ("entity", "kind", "locator", "text_en")
+PASSAGE_KEYS = ("entity", "kind", "locator", "text_tr")
 
 ASSET_COLUMNS = (
     Column("key", "string", "entity"),
     Column("kind", "string", "category"),
+    Column("name_tr", "string", "label"),
     Column("name_en", "string", "label"),
-    Column("name_fr", "string", "label"),
     Column("parent", "string", "attribute"),
     Column("category", "string", "category"),
     Column("lon", "number", "geometry_ref"),
     Column("lat", "number", "geometry_ref"),
     Column("geometry_kind", "string", "geometry_ref"),
     Column("coordinate_provenance", "string", "status"),
+    Column("status_tr", "string", "status"),
     Column("status_en", "string", "status"),
-    Column("status_fr", "string", "status"),
     Column("source_url", "string", "source_ref"),
     Column("provenance", "string", "status"),
 )
@@ -115,13 +115,13 @@ EVENT_COLUMNS = (
     Column("entity", "string", "entity"),
     Column("period", "string", "time"),
     Column("category", "string", "category"),
+    Column("text_tr", "string", "label"),
     Column("text_en", "string", "label"),
-    Column("text_fr", "string", "label"),
     Column("date_verbatim", "string", "time"),
     Column("source_url", "string", "source_ref"),
     Column("provenance", "string", "status"),
 )
-EVENT_KEYS = ("entity", "period", "category", "text_en")
+EVENT_KEYS = ("entity", "period", "category", "text_tr")
 
 _TYPES = {"string": (str,), "number": (int, float), "integer": (int,)}
 
