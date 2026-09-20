@@ -123,8 +123,9 @@ python run.py --status   # rewrite STATUS.md from the registry
 python run.py --test     # pytest
 python -m atlas.run --list               # every dataset card, by group
 python -m atlas.run --dataset <id>       # one dataset
-python verify/golden.py record --ref HEAD --name <name>   # record a golden master
-python verify/golden.py replay --name <name>              # the identity check
+python run.py --verify   # the declared gates in registry/checks.yaml
+python verify/golden.py replay --name data-2026-09-20   # the identity check
+python verify/golden.py record --ref HEAD --name <name>   # a new master, per data state
 ```
 
 ## House style

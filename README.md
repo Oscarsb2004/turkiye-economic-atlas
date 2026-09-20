@@ -4,9 +4,10 @@ A map and charts of Türkiye built only from published data: election results by
 time slider, GDP per capita by province, migration between provinces, transport networks, and
 what activity looks like from orbit at night.
 
-**Status: seeded, no data yet.** This repository is at step T0 of [`docs/PLAN.md`](docs/PLAN.md)
-— the machinery is in place and verified, and the first dataset arrives at T3. `STATUS.md`
-is generated from `registry/` and always says what actually exists.
+**Status: the first dataset is in.** GDP per capita for all 81 provinces, 2020–2024, from
+TÜİK. Next is the choropleth that shades the map by it (T4 of
+[`docs/PLAN.md`](docs/PLAN.md)). `STATUS.md` is generated from `registry/` and always says
+what actually exists.
 
 ## Where it comes from
 
