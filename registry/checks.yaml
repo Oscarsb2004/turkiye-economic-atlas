@@ -1,0 +1,20 @@
+# checks.yaml — verification declared, not coded (verify/checks.py).
+#
+# Each entry names a dataset, a kind of check, and what it expects. The kinds
+# live in verify/checks.py's KINDS table; adding a check to a dataset is an
+# entry here, not a branch in Python. `regions` names the geometry a
+# geometry_within_region check may refer to.
+#
+# Empty of datasets until the first one lands (docs/PLAN.md, T3).
+
+version: 1
+
+regions:
+  country:
+    file: web/public/geo/turkiye.json
+    label: Türkiye
+  provinces:
+    file: web/public/geo/provinces.json
+    name_fields: [name_tr, name_en]
+
+datasets: {}

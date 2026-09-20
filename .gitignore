@@ -1,0 +1,40 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+node_modules/
+web/dist/
+.vite/
+
+# ── What is and is not committed under data/ ──────────────────────────────────
+#
+# Stage OUTPUTS are committed, so the app is clone-and-run with no API pull.
+# Everything under data/raw/ is an INPUT and is ignored wholesale, because every
+# one of them is re-fetchable by re-running its stage:
+#
+#   data/raw/cache/    the polite-fetch HTTP cache. Scratch by definition.
+#   data/raw/media/    full-resolution federal renderings, ~34 MB. Stage 01
+#                      derives the committed thumb/ and web/ variants from these.
+#   data/raw/statcan/  bulk cube zips, ~28 MB. Stage 02 reads and discards them.
+#   data/raw/geo/      Natural Earth + StatCan boundaries, ~129 MB. The committed
+#                      artifacts are web/public/geo/, built by scripts/build_geo.mjs.
+#
+# The rule is deliberately the whole directory rather than a list. An earlier
+# version listed only cache/ and media/, and 28 MB of cube zips were committed
+# before anyone noticed — a per-directory allowlist fails open, which is the
+# wrong direction for a rule about repository weight.
+data/raw/
+
+# Vite dev/build artefacts under web/
+web/node_modules/
+web/dist/
+
+# ── Live vessel positions (BACKLOG S2) ─────────────────────────────────────────
+# The aisstream.io key, and the snapshot the build copies in from the
+# `vessel-positions` branch. Neither is ever committed to main.
+.env
+web/public/data/vessels/
+
+# Frames and receipts the runner writes (atlas/run.py). Always rebuildable.
+build/

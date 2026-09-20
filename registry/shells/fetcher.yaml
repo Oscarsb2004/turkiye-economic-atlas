@@ -1,0 +1,32 @@
+# registry/shells/fetcher.yaml - the card for one shell (docs/PLAN.md).
+# atlas/core/registry.py checks that its module, functions, users and tests exist.
+
+kind: acquire
+module: atlas.shells.acquire.fetcher
+title: Polite, cached HTTP for every request the pipeline makes
+contract: Given a URL, return its body as bytes, text or JSON, or write it to a path; POST JSON and parse the answer.
+  Every outbound request in the project goes through here.
+functions:
+- Fetcher
+- FetchError
+invariants:
+- At most one request a second to the same host.
+- A cached body older than 24 hours is a miss, so change detection keeps working.
+- POST answers are never cached; the cache is keyed on URL alone.
+- TLS verification stays on.
+refusals:
+- 403 and 404 fail at once rather than being retried.
+- A transient status (429, 5xx, 520-524) is retried three times with backoff, then fails.
+benchmark:
+- Not yet measured against a Turkish publisher; the first golden master sets it (docs/PLAN.md, T3).
+tests:
+- tests/test_fetcher.py::test_cache_entries_expire
+limits:
+- Not for live streams; aisstream.io is a WebSocket (docs/PLAN.md, T13).
+gotchas:
+- An immortal cache silently turned change detection off; entries now expire.
+- 'Measured on canada.ca in the atlas this was forked from: over 45 seconds to first byte, which is why the read
+  timeout is long. Turkish publishers have not been measured yet.'
+used_by:
+- atlas/datasets/__init__.py
+- atlas/run.py

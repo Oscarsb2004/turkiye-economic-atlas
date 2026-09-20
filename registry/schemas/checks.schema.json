@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "registry/checks.yaml",
+  "type": "object",
+  "required": [
+    "version",
+    "regions",
+    "datasets"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "regions": {
+      "type": "object",
+      "required": [
+        "country",
+        "provinces"
+      ],
+      "properties": {
+        "provinces": {
+          "type": "object",
+          "required": [
+            "file",
+            "name_fields"
+          ],
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "name_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "country": {
+          "type": "object",
+          "required": [
+            "file",
+            "label"
+          ],
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "datasets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "path",
+          "records",
+          "id_field",
+          "checks"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "records": {
+            "type": "string"
+          },
+          "id_field": {
+            "type": "string"
+          },
+          "geometry_path": {
+            "type": "string"
+          },
+          "geometry_path_root": {
+            "type": "string"
+          },
+          "place_text_path": {
+            "type": "string"
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true,
+              "description": "Fields vary by kind; verify/checks.py validates each kind."
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "May be empty: a fork has no datasets until its first one lands, and a check declared against a dataset that does not exist is worse than no check."
+    }
+  },
+  "additionalProperties": false
+}

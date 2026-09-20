@@ -1,0 +1,64 @@
+# licences.yaml — every licence a source card may name.
+#
+# A card's `licence` must be a key here; atlas/core/registry.py refuses one that
+# is not. `attribution` is the exact wording the licensor asks for — never a
+# paraphrase. Each entry says when its terms were read, because a licence page
+# with no date of its own can only be quoted as of a day someone looked at it.
+#
+# This project is personal and non-commercial. Where a publisher's terms forbid
+# reproduction outright, its data is not reproduced here at all: the atlas links
+# to it and reproduces an openly licensed alternative instead. KGM is the case
+# that forced the rule (see docs/SOURCES.md).
+
+licences:
+  tuik-attribution:
+    name: TÜİK terms of use
+    url: https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari
+    redistribution: permitted with attribution
+    # Read 2026-09-19, verbatim: "İnternet sitemizden, yayınlarımızdan veya veri
+    # tabanlarımızdan elde edilen verilerin, kaynak gösterilmek suretiyle herhangi
+    # bir izine gerek duymaksızın yeniden kullanımı mümkündür." — reuse is possible
+    # without any permission, provided the source is shown. The page carries no
+    # date of its own.
+    attribution: Türkiye İstatistik Kurumu (TÜİK)
+
+  ysk-unstated:
+    name: YSK Açık Veri Portalı — no published terms
+    url: https://acikveri.ysk.gov.tr/
+    redistribution: unstated by the publisher
+    # Checked 2026-09-20: the portal publishes election results through a public,
+    # unauthenticated API and states no terms of use anywhere on it. Recorded as
+    # unstated rather than assumed permissive.
+    attribution: Yüksek Seçim Kurulu (YSK)
+
+  odbl-1.0:
+    name: Open Database License 1.0
+    url: https://opendatacommons.org/licenses/odbl/1-0/
+    redistribution: permitted with attribution and share-alike
+    # OpenStreetMap contributors, via the Geofabrik Türkiye extract. Share-alike
+    # binds derived databases, which is why OSM-derived geometry is published
+    # here as its own files rather than merged into other datasets.
+    attribution: © OpenStreetMap contributors, ODbL 1.0
+
+  public-domain:
+    name: Public domain
+    url: ""
+    redistribution: permitted
+    # Natural Earth and OurAirports both release to the public domain, each
+    # stated on its own download page (read 2026-09-19).
+    attribution: ""
+
+  commons-per-file:
+    name: Wikimedia Commons — per file
+    url: https://commons.wikimedia.org/wiki/Commons:Licensing
+    redistribution: per file; each file's own licence and author are published beside it
+    attribution: per file
+
+  aisstream-unstated:
+    name: aisstream.io — no published terms
+    url: https://aisstream.io/
+    redistribution: unstated by the publisher
+    # Checked 2026-09-19: aisstream.io/terms is a 404 and the privacy policy
+    # covers only personal data. Two requests for clarification on the project's
+    # own issue tracker (#181, #289) are open and unanswered.
+    attribution: aisstream.io

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A source card: one publisher this project reads",
+  "description": "Deliberately small. The Canadian atlas's copy grew to 51 properties, one per thing some card happened to need, and additionalProperties:false then made it the real definition of a source. This one grows a property at a time, as each Turkish source card is written, so the schema always describes sources that exist.",
+  "type": "object",
+  "required": [
+    "title",
+    "publisher",
+    "licence"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "publisher": {
+      "type": "string"
+    },
+    "licence": {
+      "type": "string"
+    },
+    "attribution": {
+      "type": "string"
+    },
+    "page": {
+      "type": "object",
+      "required": [
+        "en",
+        "fr"
+      ],
+      "properties": {
+        "en": {
+          "type": "string"
+        },
+        "fr": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "docs": {
+      "type": "string"
+    },
+    "api": {
+      "type": "string"
+    },
+    "base": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

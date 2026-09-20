@@ -1,0 +1,24 @@
+# Pinned deliberately.
+#
+# African-Stability-Index leaves its requirements unpinned and compensates with a
+# `pip freeze` step in CI, with the note "when a build breaks for no apparent
+# reason, this is the first thing worth reading". That note is the argument for
+# pinning: this pipeline scrapes federal pages and parses a government CSV
+# schema, so a silent parser upgrade changes output without changing code, and
+# the committed data diff is the only place it would show.
+
+requests==2.32.5
+beautifulsoup4==4.14.2
+lxml==6.0.2
+PyYAML==6.0.3
+pandas==3.0.5
+Pillow==12.0.0
+openpyxl==3.1.5          # NRCan publishes the Major Projects Inventory only as .xlsx
+pypdf==5.4.0             # budget passages are checked against each budget PDF (stage 08)
+cryptography==44.0.2     # Quebec's budget plan PDF is AES-encrypted; pypdf needs this to read it
+websockets==17.1         # aisstream.io is a WebSocket stream (live/collect_ais.py)
+jsonschema==4.26.0       # every registry file is checked against its schema (atlas/core/registry.py)
+
+# Test-only.
+pytest==9.1.1
+time-machine==2.19.0     # the golden master's frozen clock (verify/golden.py, docs/REBUILD.md §3)
