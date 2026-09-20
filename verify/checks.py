@@ -535,6 +535,56 @@ def check_sums_to_published_totals(records, spec, ctx):
     )
 
 
+
+def check_map_sums_to_published_total(records, spec, ctx):
+    """
+    Every key of a per-record map, summed, against the publisher's own total.
+
+    Written for election results, where each province carries `votes` keyed on
+    the ballot options and the publisher prints its own national row beside the
+    provinces. Summing our 81 and comparing with YSK's total catches what a
+    record count cannot: a province filed under the wrong plaka, a column read
+    as the wrong option, or an electoral district counted twice when four
+    provinces are split and have to be added up.
+
+    Generic over the shape, not the dataset: any file with a map per record and
+    a published map of totals can declare it.
+    """
+    idf = ctx["dataset"]["id_field"]
+    field = spec["map_field"]
+    tolerance = float(spec.get("tolerance", 0))
+    totals = resolve_one(ctx.get("document", {}), spec["totals_path"])
+    if not isinstance(totals, dict) or not totals:
+        return (False, f"{ctx['name']}: published totals at {spec['totals_path']}",
+                "the document carries no totals at that path")
+
+    sums: dict[str, float] = {key: 0 for key in totals}
+    for record in records:
+        published = resolve_one(record, field)
+        if not isinstance(published, dict):
+            return (False, f"{ctx['name']}: every record carries {field}",
+                    f"{record.get(idf)} has {published!r}")
+        for key, value in published.items():
+            if key not in sums:
+                return (False, f"{ctx['name']}: {field} keys match the published total",
+                        f"{record.get(idf)} has {key!r}, which the total does not")
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                return (False, f"{ctx['name']}: {field} values are numeric",
+                        f"{record.get(idf)}.{key} is {value!r}")
+            sums[key] += value
+
+    problems = [
+        f"{key}: parts sum to {sums[key]:,} against a published {totals[key]:,}"
+        for key in sorted(totals)
+        if abs(sums[key] - totals[key]) > tolerance
+    ]
+    return (
+        not problems,
+        f"{ctx['name']}: every {field} key sums to the publisher's own total ({len(totals)} of them)",
+        " · ".join(problems[:8]),
+    )
+
+
 KINDS: dict[str, Callable] = {
     "unique_ids": check_unique_ids,
     "record_count": check_record_count,
@@ -547,6 +597,7 @@ KINDS: dict[str, Callable] = {
     "records_are_reachable": check_records_are_reachable,
     "cross_source_agreement": check_cross_source_agreement,
     "sums_to_published_totals": check_sums_to_published_totals,
+    "map_sums_to_published_total": check_map_sums_to_published_total,
 }
 
 

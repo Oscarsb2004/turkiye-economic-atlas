@@ -1,0 +1,28 @@
+# registry/datasets/election-2023-milletvekili.yaml - one election, every province, as YSK publishes it.
+# atlas/core/registry.py checks every claim below.
+
+title: "Parliamentary general election, 28th term — every province's published result"
+group: elections
+order: 30
+builder: atlas.datasets.election_results:build
+params:
+  secim_id: 20230
+  secim_turu: 8
+  slug: 2023-milletvekili
+  date: "2023-05-14"
+  title_tr: "28. Dönem Milletvekili Genel Seçimi"
+  title_en: "Parliamentary general election, 28th term"
+sources:
+- ysk_election_results
+shells:
+- fetcher
+after: []
+outputs:
+- data/elections/2023-milletvekili.json
+frame:
+  profile: panel
+  record_type: observation
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches this election and shades the map by the chosen option's share

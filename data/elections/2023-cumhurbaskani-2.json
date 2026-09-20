@@ -1,0 +1,1587 @@
+{
+  "election": {
+    "date": "2023-05-28",
+    "secim_id": 20240,
+    "secim_turu": 9,
+    "slug": "2023-cumhurbaskani-2",
+    "title": {
+      "en": "Presidential election, second round",
+      "tr": "Cumhurbaşkanı Seçimi, ikinci oylama"
+    }
+  },
+  "generated_at": "2026-09-20T20:03:33Z",
+  "options": [
+    {
+      "column": "bagimsiz1_ALDIGI_OY",
+      "name": "RECEP TAYYİP ERDOĞAN",
+      "order": 1
+    },
+    {
+      "column": "bagimsiz2_ALDIGI_OY",
+      "name": "KEMAL KILIÇDAROĞLU",
+      "order": 2
+    }
+  ],
+  "provinces": [
+    {
+      "name": {
+        "en": "Adana",
+        "tr": "Adana"
+      },
+      "name_ysk": "ADANA",
+      "plaka": 1,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 16007,
+        "registered": 1614592,
+        "valid": 1349207,
+        "voted": 1365214
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 728735,
+        "RECEP TAYYİP ERDOĞAN": 620472
+      }
+    },
+    {
+      "name": {
+        "en": "Adıyaman",
+        "tr": "Adıyaman"
+      },
+      "name_ysk": "ADIYAMAN",
+      "plaka": 2,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4901,
+        "registered": 399703,
+        "valid": 314473,
+        "voted": 319374
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 97982,
+        "RECEP TAYYİP ERDOĞAN": 216491
+      }
+    },
+    {
+      "name": {
+        "en": "Afyonkarahisar",
+        "tr": "Afyonkarahisar"
+      },
+      "name_ysk": "AFYONKARAHİSAR",
+      "plaka": 3,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 8593,
+        "registered": 536632,
+        "valid": 459863,
+        "voted": 468456
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 147660,
+        "RECEP TAYYİP ERDOĞAN": 312203
+      }
+    },
+    {
+      "name": {
+        "en": "Ağrı",
+        "tr": "Ağrı"
+      },
+      "name_ysk": "AĞRI",
+      "plaka": 4,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3660,
+        "registered": 307149,
+        "valid": 198035,
+        "voted": 201695
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 129283,
+        "RECEP TAYYİP ERDOĞAN": 68752
+      }
+    },
+    {
+      "name": {
+        "en": "Amasya",
+        "tr": "Amasya"
+      },
+      "name_ysk": "AMASYA",
+      "plaka": 5,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3338,
+        "registered": 256833,
+        "valid": 227082,
+        "voted": 230420
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 92706,
+        "RECEP TAYYİP ERDOĞAN": 134376
+      }
+    },
+    {
+      "name": {
+        "en": "Ankara",
+        "tr": "Ankara"
+      },
+      "name_ysk": "ANKARA",
+      "plaka": 6,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 45393,
+        "registered": 4286019,
+        "valid": 3724611,
+        "voted": 3770004
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 1907443,
+        "RECEP TAYYİP ERDOĞAN": 1817168
+      }
+    },
+    {
+      "name": {
+        "en": "Antalya",
+        "tr": "Antalya"
+      },
+      "name_ysk": "ANTALYA",
+      "plaka": 7,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 18922,
+        "registered": 1906937,
+        "valid": 1613977,
+        "voted": 1632899
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 925273,
+        "RECEP TAYYİP ERDOĞAN": 688704
+      }
+    },
+    {
+      "name": {
+        "en": "Artvin",
+        "tr": "Artvin"
+      },
+      "name_ysk": "ARTVİN",
+      "plaka": 8,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 1769,
+        "registered": 132339,
+        "valid": 113112,
+        "voted": 114881
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 55814,
+        "RECEP TAYYİP ERDOĞAN": 57298
+      }
+    },
+    {
+      "name": {
+        "en": "Aydın",
+        "tr": "Aydın"
+      },
+      "name_ysk": "AYDIN",
+      "plaka": 9,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 9512,
+        "registered": 877385,
+        "valid": 750912,
+        "voted": 760424
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 449297,
+        "RECEP TAYYİP ERDOĞAN": 301615
+      }
+    },
+    {
+      "name": {
+        "en": "Balıkesir",
+        "tr": "Balıkesir"
+      },
+      "name_ysk": "BALIKESİR",
+      "plaka": 10,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 10847,
+        "registered": 990156,
+        "valid": 862528,
+        "voted": 873375
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 450085,
+        "RECEP TAYYİP ERDOĞAN": 412443
+      }
+    },
+    {
+      "name": {
+        "en": "Bilecik",
+        "tr": "Bilecik"
+      },
+      "name_ysk": "BİLECİK",
+      "plaka": 11,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2276,
+        "registered": 167164,
+        "valid": 146202,
+        "voted": 148478
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 67996,
+        "RECEP TAYYİP ERDOĞAN": 78206
+      }
+    },
+    {
+      "name": {
+        "en": "Bingöl",
+        "tr": "Bingöl"
+      },
+      "name_ysk": "BİNGÖL",
+      "plaka": 12,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3897,
+        "registered": 193697,
+        "valid": 140615,
+        "voted": 144512
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 44885,
+        "RECEP TAYYİP ERDOĞAN": 95730
+      }
+    },
+    {
+      "name": {
+        "en": "Bitlis",
+        "tr": "Bitlis"
+      },
+      "name_ysk": "BİTLİS",
+      "plaka": 13,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3892,
+        "registered": 220914,
+        "valid": 164799,
+        "voted": 168691
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 82620,
+        "RECEP TAYYİP ERDOĞAN": 82179
+      }
+    },
+    {
+      "name": {
+        "en": "Bolu",
+        "tr": "Bolu"
+      },
+      "name_ysk": "BOLU",
+      "plaka": 14,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2960,
+        "registered": 236164,
+        "valid": 206216,
+        "voted": 209176
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 72672,
+        "RECEP TAYYİP ERDOĞAN": 133544
+      }
+    },
+    {
+      "name": {
+        "en": "Burdur",
+        "tr": "Burdur"
+      },
+      "name_ysk": "BURDUR",
+      "plaka": 15,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3395,
+        "registered": 204393,
+        "valid": 175353,
+        "voted": 178748
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 77427,
+        "RECEP TAYYİP ERDOĞAN": 97926
+      }
+    },
+    {
+      "name": {
+        "en": "Bursa",
+        "tr": "Bursa"
+      },
+      "name_ysk": "BURSA",
+      "plaka": 16,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 24980,
+        "registered": 2368156,
+        "valid": 2045277,
+        "voted": 2070257
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 927168,
+        "RECEP TAYYİP ERDOĞAN": 1118109
+      }
+    },
+    {
+      "name": {
+        "en": "Çanakkale",
+        "tr": "Çanakkale"
+      },
+      "name_ysk": "ÇANAKKALE",
+      "plaka": 17,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4519,
+        "registered": 436251,
+        "valid": 383261,
+        "voted": 387780
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 222579,
+        "RECEP TAYYİP ERDOĞAN": 160682
+      }
+    },
+    {
+      "name": {
+        "en": "Çankırı",
+        "tr": "Çankırı"
+      },
+      "name_ysk": "ÇANKIRI",
+      "plaka": 18,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2016,
+        "registered": 141965,
+        "valid": 120633,
+        "voted": 122649
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 28040,
+        "RECEP TAYYİP ERDOĞAN": 92593
+      }
+    },
+    {
+      "name": {
+        "en": "Çorum",
+        "tr": "Çorum"
+      },
+      "name_ysk": "ÇORUM",
+      "plaka": 19,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 5198,
+        "registered": 398884,
+        "valid": 347790,
+        "voted": 352988
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 122335,
+        "RECEP TAYYİP ERDOĞAN": 225455
+      }
+    },
+    {
+      "name": {
+        "en": "Denizli",
+        "tr": "Denizli"
+      },
+      "name_ysk": "DENİZLİ",
+      "plaka": 20,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 10410,
+        "registered": 795302,
+        "valid": 692924,
+        "voted": 703334
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 367018,
+        "RECEP TAYYİP ERDOĞAN": 325906
+      }
+    },
+    {
+      "name": {
+        "en": "Diyarbakır",
+        "tr": "Diyarbakır"
+      },
+      "name_ysk": "DİYARBAKIR",
+      "plaka": 21,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 17736,
+        "registered": 1145856,
+        "valid": 851664,
+        "voted": 869400
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 609811,
+        "RECEP TAYYİP ERDOĞAN": 241853
+      }
+    },
+    {
+      "name": {
+        "en": "Edirne",
+        "tr": "Edirne"
+      },
+      "name_ysk": "EDİRNE",
+      "plaka": 22,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2920,
+        "registered": 319972,
+        "valid": 276876,
+        "voted": 279796
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 185225,
+        "RECEP TAYYİP ERDOĞAN": 91651
+      }
+    },
+    {
+      "name": {
+        "en": "Elazığ",
+        "tr": "Elâzığ"
+      },
+      "name_ysk": "ELAZIĞ",
+      "plaka": 23,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 6351,
+        "registered": 431125,
+        "valid": 347981,
+        "voted": 354332
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 103210,
+        "RECEP TAYYİP ERDOĞAN": 244771
+      }
+    },
+    {
+      "name": {
+        "en": "Erzincan",
+        "tr": "Erzincan"
+      },
+      "name_ysk": "ERZİNCAN",
+      "plaka": 24,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2158,
+        "registered": 169765,
+        "valid": 148291,
+        "voted": 150449
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 56163,
+        "RECEP TAYYİP ERDOĞAN": 92128
+      }
+    },
+    {
+      "name": {
+        "en": "Erzurum",
+        "tr": "Erzurum"
+      },
+      "name_ysk": "ERZURUM",
+      "plaka": 25,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7267,
+        "registered": 510238,
+        "valid": 416122,
+        "voted": 423389
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 109825,
+        "RECEP TAYYİP ERDOĞAN": 306297
+      }
+    },
+    {
+      "name": {
+        "en": "Eskişehir",
+        "tr": "Eskişehir"
+      },
+      "name_ysk": "ESKİŞEHİR",
+      "plaka": 26,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7633,
+        "registered": 689458,
+        "valid": 596126,
+        "voted": 603759
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 330225,
+        "RECEP TAYYİP ERDOĞAN": 265901
+      }
+    },
+    {
+      "name": {
+        "en": "Gaziantep",
+        "tr": "Gaziantep"
+      },
+      "name_ysk": "GAZİANTEP",
+      "plaka": 27,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 13770,
+        "registered": 1360925,
+        "valid": 1109373,
+        "voted": 1123143
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 412900,
+        "RECEP TAYYİP ERDOĞAN": 696473
+      }
+    },
+    {
+      "name": {
+        "en": "Giresun",
+        "tr": "Giresun"
+      },
+      "name_ysk": "GİRESUN",
+      "plaka": 28,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4478,
+        "registered": 349478,
+        "valid": 294173,
+        "voted": 298651
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 103829,
+        "RECEP TAYYİP ERDOĞAN": 190344
+      }
+    },
+    {
+      "name": {
+        "en": "Gümüşhane",
+        "tr": "Gümüşhane"
+      },
+      "name_ysk": "GÜMÜŞHANE",
+      "plaka": 29,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 1344,
+        "registered": 96579,
+        "valid": 76797,
+        "voted": 78141
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 16423,
+        "RECEP TAYYİP ERDOĞAN": 60374
+      }
+    },
+    {
+      "name": {
+        "en": "Hakkâri",
+        "tr": "Hakkâri"
+      },
+      "name_ysk": "HAKKARİ",
+      "plaka": 30,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3188,
+        "registered": 186493,
+        "valid": 142409,
+        "voted": 145597
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 102661,
+        "RECEP TAYYİP ERDOĞAN": 39748
+      }
+    },
+    {
+      "name": {
+        "en": "Hatay",
+        "tr": "Hatay"
+      },
+      "name_ysk": "HATAY",
+      "plaka": 31,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 10871,
+        "registered": 1063539,
+        "valid": 858554,
+        "voted": 869425
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 428036,
+        "RECEP TAYYİP ERDOĞAN": 430518
+      }
+    },
+    {
+      "name": {
+        "en": "Isparta",
+        "tr": "Isparta"
+      },
+      "name_ysk": "ISPARTA",
+      "plaka": 32,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 5272,
+        "registered": 328442,
+        "valid": 278845,
+        "voted": 284117
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 117964,
+        "RECEP TAYYİP ERDOĞAN": 160881
+      }
+    },
+    {
+      "name": {
+        "en": "Mersin",
+        "tr": "Mersin"
+      },
+      "name_ysk": "MERSİN",
+      "plaka": 33,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 13723,
+        "registered": 1379761,
+        "valid": 1175313,
+        "voted": 1189036
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 707972,
+        "RECEP TAYYİP ERDOĞAN": 467341
+      }
+    },
+    {
+      "name": {
+        "en": "Istanbul",
+        "tr": "İstanbul"
+      },
+      "name_ysk": "İSTANBUL",
+      "plaka": 34,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 94178,
+        "registered": 11366352,
+        "valid": 9880601,
+        "voted": 9974779
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 5114789,
+        "RECEP TAYYİP ERDOĞAN": 4765812
+      }
+    },
+    {
+      "name": {
+        "en": "İzmir",
+        "tr": "İzmir"
+      },
+      "name_ysk": "İZMİR",
+      "plaka": 35,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 28028,
+        "registered": 3444651,
+        "valid": 2973650,
+        "voted": 3001678
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 1996010,
+        "RECEP TAYYİP ERDOĞAN": 977640
+      }
+    },
+    {
+      "name": {
+        "en": "Kars",
+        "tr": "Kars"
+      },
+      "name_ysk": "KARS",
+      "plaka": 36,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2171,
+        "registered": 185290,
+        "valid": 135324,
+        "voted": 137495
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 76289,
+        "RECEP TAYYİP ERDOĞAN": 59035
+      }
+    },
+    {
+      "name": {
+        "en": "Kastamonu",
+        "tr": "Kastamonu"
+      },
+      "name_ysk": "KASTAMONU",
+      "plaka": 37,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4454,
+        "registered": 295629,
+        "valid": 246904,
+        "voted": 251358
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 74709,
+        "RECEP TAYYİP ERDOĞAN": 172195
+      }
+    },
+    {
+      "name": {
+        "en": "Kayseri",
+        "tr": "Kayseri"
+      },
+      "name_ysk": "KAYSERİ",
+      "plaka": 38,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 12712,
+        "registered": 1027278,
+        "valid": 890066,
+        "voted": 902778
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 285531,
+        "RECEP TAYYİP ERDOĞAN": 604535
+      }
+    },
+    {
+      "name": {
+        "en": "Kırklareli",
+        "tr": "Kırklareli"
+      },
+      "name_ysk": "KIRKLARELİ",
+      "plaka": 39,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2367,
+        "registered": 291786,
+        "valid": 255950,
+        "voted": 258317
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 175131,
+        "RECEP TAYYİP ERDOĞAN": 80819
+      }
+    },
+    {
+      "name": {
+        "en": "Kırşehir",
+        "tr": "Kırşehir"
+      },
+      "name_ysk": "KIRŞEHİR",
+      "plaka": 40,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2090,
+        "registered": 174092,
+        "valid": 143594,
+        "voted": 145684
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 61222,
+        "RECEP TAYYİP ERDOĞAN": 82372
+      }
+    },
+    {
+      "name": {
+        "en": "Kocaeli",
+        "tr": "Kocaeli"
+      },
+      "name_ysk": "KOCAELİ",
+      "plaka": 41,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 17138,
+        "registered": 1516405,
+        "valid": 1323114,
+        "voted": 1340252
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 568602,
+        "RECEP TAYYİP ERDOĞAN": 754512
+      }
+    },
+    {
+      "name": {
+        "en": "Konya",
+        "tr": "Konya"
+      },
+      "name_ysk": "KONYA",
+      "plaka": 42,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 22079,
+        "registered": 1630747,
+        "valid": 1380380,
+        "voted": 1402459
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 372373,
+        "RECEP TAYYİP ERDOĞAN": 1008007
+      }
+    },
+    {
+      "name": {
+        "en": "Kütahya",
+        "tr": "Kütahya"
+      },
+      "name_ysk": "KÜTAHYA",
+      "plaka": 43,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7310,
+        "registered": 430584,
+        "valid": 377162,
+        "voted": 384472
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 110816,
+        "RECEP TAYYİP ERDOĞAN": 266346
+      }
+    },
+    {
+      "name": {
+        "en": "Malatya",
+        "tr": "Malatya"
+      },
+      "name_ysk": "MALATYA",
+      "plaka": 44,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4920,
+        "registered": 531620,
+        "valid": 419763,
+        "voted": 424683
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 117589,
+        "RECEP TAYYİP ERDOĞAN": 302174
+      }
+    },
+    {
+      "name": {
+        "en": "Manisa",
+        "tr": "Manisa"
+      },
+      "name_ysk": "MANİSA",
+      "plaka": 45,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 14364,
+        "registered": 1107127,
+        "valid": 966184,
+        "voted": 980548
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 480935,
+        "RECEP TAYYİP ERDOĞAN": 485249
+      }
+    },
+    {
+      "name": {
+        "en": "Kahramanmaraş",
+        "tr": "Kahramanmaraş"
+      },
+      "name_ysk": "KAHRAMANMARAŞ",
+      "plaka": 46,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 8275,
+        "registered": 754323,
+        "valid": 619052,
+        "voted": 627327
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 150013,
+        "RECEP TAYYİP ERDOĞAN": 469039
+      }
+    },
+    {
+      "name": {
+        "en": "Mardin",
+        "tr": "Mardin"
+      },
+      "name_ysk": "MARDİN",
+      "plaka": 47,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7362,
+        "registered": 542375,
+        "valid": 420348,
+        "voted": 427710
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 274174,
+        "RECEP TAYYİP ERDOĞAN": 146174
+      }
+    },
+    {
+      "name": {
+        "en": "Muğla",
+        "tr": "Muğla"
+      },
+      "name_ysk": "MUĞLA",
+      "plaka": 48,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 8287,
+        "registered": 806290,
+        "valid": 693072,
+        "voted": 701359
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 461121,
+        "RECEP TAYYİP ERDOĞAN": 231951
+      }
+    },
+    {
+      "name": {
+        "en": "Muş",
+        "tr": "Muş"
+      },
+      "name_ysk": "MUŞ",
+      "plaka": 49,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4246,
+        "registered": 242930,
+        "valid": 174418,
+        "voted": 178664
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 101738,
+        "RECEP TAYYİP ERDOĞAN": 72680
+      }
+    },
+    {
+      "name": {
+        "en": "Nevşehir",
+        "tr": "Nevşehir"
+      },
+      "name_ysk": "NEVŞEHİR",
+      "plaka": 50,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3136,
+        "registered": 225541,
+        "valid": 195043,
+        "voted": 198179
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 65224,
+        "RECEP TAYYİP ERDOĞAN": 129819
+      }
+    },
+    {
+      "name": {
+        "en": "Niğde",
+        "tr": "Niğde"
+      },
+      "name_ysk": "NİĞDE",
+      "plaka": 51,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3632,
+        "registered": 258360,
+        "valid": 215742,
+        "voted": 219374
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 81843,
+        "RECEP TAYYİP ERDOĞAN": 133899
+      }
+    },
+    {
+      "name": {
+        "en": "Ordu",
+        "tr": "Ordu"
+      },
+      "name_ysk": "ORDU",
+      "plaka": 52,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7526,
+        "registered": 590942,
+        "valid": 490621,
+        "voted": 498147
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 170615,
+        "RECEP TAYYİP ERDOĞAN": 320006
+      }
+    },
+    {
+      "name": {
+        "en": "Rize",
+        "tr": "Rize"
+      },
+      "name_ysk": "RİZE",
+      "plaka": 53,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2952,
+        "registered": 265346,
+        "valid": 228224,
+        "voted": 231176
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 55049,
+        "RECEP TAYYİP ERDOĞAN": 173175
+      }
+    },
+    {
+      "name": {
+        "en": "Sakarya",
+        "tr": "Sakarya"
+      },
+      "name_ysk": "SAKARYA",
+      "plaka": 54,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 9653,
+        "registered": 784465,
+        "valid": 685177,
+        "voted": 694830
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 215640,
+        "RECEP TAYYİP ERDOĞAN": 469537
+      }
+    },
+    {
+      "name": {
+        "en": "Samsun",
+        "tr": "Samsun"
+      },
+      "name_ysk": "SAMSUN",
+      "plaka": 55,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 11803,
+        "registered": 1024746,
+        "valid": 871877,
+        "voted": 883680
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 302153,
+        "RECEP TAYYİP ERDOĞAN": 569724
+      }
+    },
+    {
+      "name": {
+        "en": "Siirt",
+        "tr": "Siirt"
+      },
+      "name_ysk": "SİİRT",
+      "plaka": 56,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3886,
+        "registered": 202135,
+        "valid": 155105,
+        "voted": 158991
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 85992,
+        "RECEP TAYYİP ERDOĞAN": 69113
+      }
+    },
+    {
+      "name": {
+        "en": "Sinop",
+        "tr": "Sinop"
+      },
+      "name_ysk": "SİNOP",
+      "plaka": 57,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2406,
+        "registered": 171848,
+        "valid": 144542,
+        "voted": 146948
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 55133,
+        "RECEP TAYYİP ERDOĞAN": 89409
+      }
+    },
+    {
+      "name": {
+        "en": "Sivas",
+        "tr": "Sivas"
+      },
+      "name_ysk": "SİVAS",
+      "plaka": 58,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 5866,
+        "registered": 460927,
+        "valid": 394027,
+        "voted": 399893
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 105963,
+        "RECEP TAYYİP ERDOĞAN": 288064
+      }
+    },
+    {
+      "name": {
+        "en": "Tekirdağ",
+        "tr": "Tekirdağ"
+      },
+      "name_ysk": "TEKİRDAĞ",
+      "plaka": 59,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7185,
+        "registered": 858198,
+        "valid": 742202,
+        "voted": 749387
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 440240,
+        "RECEP TAYYİP ERDOĞAN": 301962
+      }
+    },
+    {
+      "name": {
+        "en": "Tokat",
+        "tr": "Tokat"
+      },
+      "name_ysk": "TOKAT",
+      "plaka": 60,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 5638,
+        "registered": 440039,
+        "valid": 384779,
+        "voted": 390417
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 129628,
+        "RECEP TAYYİP ERDOĞAN": 255151
+      }
+    },
+    {
+      "name": {
+        "en": "Trabzon",
+        "tr": "Trabzon"
+      },
+      "name_ysk": "TRABZON",
+      "plaka": 61,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 8041,
+        "registered": 612387,
+        "valid": 520766,
+        "voted": 528807
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 161931,
+        "RECEP TAYYİP ERDOĞAN": 358835
+      }
+    },
+    {
+      "name": {
+        "en": "Tunceli",
+        "tr": "Tunceli"
+      },
+      "name_ysk": "TUNCELİ",
+      "plaka": 62,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 495,
+        "registered": 65606,
+        "valid": 56879,
+        "voted": 57374
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 47102,
+        "RECEP TAYYİP ERDOĞAN": 9777
+      }
+    },
+    {
+      "name": {
+        "en": "Şanlıurfa",
+        "tr": "Şanlıurfa"
+      },
+      "name_ysk": "ŞANLIURFA",
+      "plaka": 63,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 10740,
+        "registered": 1221484,
+        "valid": 939006,
+        "voted": 949746
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 329336,
+        "RECEP TAYYİP ERDOĞAN": 609670
+      }
+    },
+    {
+      "name": {
+        "en": "Uşak",
+        "tr": "Uşak"
+      },
+      "name_ysk": "UŞAK",
+      "plaka": 64,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4376,
+        "registered": 280674,
+        "valid": 242321,
+        "voted": 246697
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 118614,
+        "RECEP TAYYİP ERDOĞAN": 123707
+      }
+    },
+    {
+      "name": {
+        "en": "Van",
+        "tr": "Van"
+      },
+      "name_ysk": "VAN",
+      "plaka": 65,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 9636,
+        "registered": 707521,
+        "valid": 500186,
+        "voted": 509822
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 307255,
+        "RECEP TAYYİP ERDOĞAN": 192931
+      }
+    },
+    {
+      "name": {
+        "en": "Yozgat",
+        "tr": "Yozgat"
+      },
+      "name_ysk": "YOZGAT",
+      "plaka": 66,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3743,
+        "registered": 300200,
+        "valid": 249433,
+        "voted": 253176
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 58680,
+        "RECEP TAYYİP ERDOĞAN": 190753
+      }
+    },
+    {
+      "name": {
+        "en": "Zonguldak",
+        "tr": "Zonguldak"
+      },
+      "name_ysk": "ZONGULDAK",
+      "plaka": 67,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7836,
+        "registered": 457959,
+        "valid": 386649,
+        "voted": 394485
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 174718,
+        "RECEP TAYYİP ERDOĞAN": 211931
+      }
+    },
+    {
+      "name": {
+        "en": "Aksaray",
+        "tr": "Aksaray"
+      },
+      "name_ysk": "AKSARAY",
+      "plaka": 68,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3507,
+        "registered": 296571,
+        "valid": 245947,
+        "voted": 249454
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 60431,
+        "RECEP TAYYİP ERDOĞAN": 185516
+      }
+    },
+    {
+      "name": {
+        "en": "Bayburt",
+        "tr": "Bayburt"
+      },
+      "name_ysk": "BAYBURT",
+      "plaka": 69,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 773,
+        "registered": 57185,
+        "valid": 48144,
+        "voted": 48917
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 8435,
+        "RECEP TAYYİP ERDOĞAN": 39709
+      }
+    },
+    {
+      "name": {
+        "en": "Karaman",
+        "tr": "Karaman"
+      },
+      "name_ysk": "KARAMAN",
+      "plaka": 70,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2685,
+        "registered": 188089,
+        "valid": 159719,
+        "voted": 162404
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 54463,
+        "RECEP TAYYİP ERDOĞAN": 105256
+      }
+    },
+    {
+      "name": {
+        "en": "Kırıkkale",
+        "tr": "Kırıkkale"
+      },
+      "name_ysk": "KIRIKKALE",
+      "plaka": 71,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2482,
+        "registered": 203153,
+        "valid": 169749,
+        "voted": 172231
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 61478,
+        "RECEP TAYYİP ERDOĞAN": 108271
+      }
+    },
+    {
+      "name": {
+        "en": "Batman",
+        "tr": "Batman"
+      },
+      "name_ysk": "BATMAN",
+      "plaka": 72,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 7495,
+        "registered": 400071,
+        "valid": 313169,
+        "voted": 320664
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 213060,
+        "RECEP TAYYİP ERDOĞAN": 100109
+      }
+    },
+    {
+      "name": {
+        "en": "Şırnak",
+        "tr": "Şırnak"
+      },
+      "name_ysk": "ŞIRNAK",
+      "plaka": 73,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 5510,
+        "registered": 324738,
+        "valid": 253453,
+        "voted": 258963
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 193352,
+        "RECEP TAYYİP ERDOĞAN": 60101
+      }
+    },
+    {
+      "name": {
+        "en": "Bartın",
+        "tr": "Bartın"
+      },
+      "name_ysk": "BARTIN",
+      "plaka": 74,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2957,
+        "registered": 156131,
+        "valid": 129878,
+        "voted": 132835
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 51931,
+        "RECEP TAYYİP ERDOĞAN": 77947
+      }
+    },
+    {
+      "name": {
+        "en": "Ardahan",
+        "tr": "Ardahan"
+      },
+      "name_ysk": "ARDAHAN",
+      "plaka": 75,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 858,
+        "registered": 68115,
+        "valid": 53076,
+        "voted": 53934
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 30605,
+        "RECEP TAYYİP ERDOĞAN": 22471
+      }
+    },
+    {
+      "name": {
+        "en": "Iğdır",
+        "tr": "Iğdır"
+      },
+      "name_ysk": "IĞDIR",
+      "plaka": 76,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 1509,
+        "registered": 133959,
+        "valid": 94663,
+        "voted": 96172
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 63182,
+        "RECEP TAYYİP ERDOĞAN": 31481
+      }
+    },
+    {
+      "name": {
+        "en": "Yalova",
+        "tr": "Yalova"
+      },
+      "name_ysk": "YALOVA",
+      "plaka": 77,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2405,
+        "registered": 204943,
+        "valid": 168971,
+        "voted": 171376
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 83778,
+        "RECEP TAYYİP ERDOĞAN": 85193
+      }
+    },
+    {
+      "name": {
+        "en": "Karabük",
+        "tr": "Karabük"
+      },
+      "name_ysk": "KARABÜK",
+      "plaka": 78,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 2883,
+        "registered": 182053,
+        "valid": 154474,
+        "voted": 157357
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 55986,
+        "RECEP TAYYİP ERDOĞAN": 98488
+      }
+    },
+    {
+      "name": {
+        "en": "Kilis",
+        "tr": "Kilis"
+      },
+      "name_ysk": "KİLİS",
+      "plaka": 79,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 1287,
+        "registered": 97046,
+        "valid": 81703,
+        "voted": 82990
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 24454,
+        "RECEP TAYYİP ERDOĞAN": 57249
+      }
+    },
+    {
+      "name": {
+        "en": "Osmaniye",
+        "tr": "Osmaniye"
+      },
+      "name_ysk": "OSMANİYE",
+      "plaka": 80,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 4512,
+        "registered": 386479,
+        "valid": 321185,
+        "voted": 325697
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 108378,
+        "RECEP TAYYİP ERDOĞAN": 212807
+      }
+    },
+    {
+      "name": {
+        "en": "Düzce",
+        "tr": "Düzce"
+      },
+      "name_ysk": "DÜZCE",
+      "plaka": 81,
+      "provenance": "official_dataset",
+      "turnout": {
+        "invalid": 3513,
+        "registered": 294580,
+        "valid": 260836,
+        "voted": 264349
+      },
+      "votes": {
+        "KEMAL KILIÇDAROĞLU": 73135,
+        "RECEP TAYYİP ERDOĞAN": 187701
+      }
+    }
+  ],
+  "published_total": {
+    "turnout": {
+      "invalid": 674103,
+      "registered": 60771236,
+      "valid": 51366522,
+      "voted": 52040625
+    },
+    "votes": {
+      "KEMAL KILIÇDAROĞLU": 24690088,
+      "RECEP TAYYİP ERDOĞAN": 26676434
+    }
+  },
+  "sources": [
+    {
+      "content_sha256": "",
+      "licence": "ysk-unstated",
+      "provenance": "official_dataset",
+      "retrieved_at": "2026-09-20T20:03:33Z",
+      "url": "https://acikveri.ysk.gov.tr/"
+    }
+  ]
+}

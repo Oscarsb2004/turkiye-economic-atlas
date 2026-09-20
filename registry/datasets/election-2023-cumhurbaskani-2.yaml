@@ -1,0 +1,28 @@
+# registry/datasets/election-2023-cumhurbaskani-2.yaml - one election, every province, as YSK publishes it.
+# atlas/core/registry.py checks every claim below.
+
+title: "Presidential election, second round — every province's published result"
+group: elections
+order: 20
+builder: atlas.datasets.election_results:build
+params:
+  secim_id: 20240
+  secim_turu: 9
+  slug: 2023-cumhurbaskani-2
+  date: "2023-05-28"
+  title_tr: "Cumhurbaşkanı Seçimi, ikinci oylama"
+  title_en: "Presidential election, second round"
+sources:
+- ysk_election_results
+shells:
+- fetcher
+after: []
+outputs:
+- data/elections/2023-cumhurbaskani-2.json
+frame:
+  profile: panel
+  record_type: observation
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app fetches this election and shades the map by the chosen option's share

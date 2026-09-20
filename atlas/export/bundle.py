@@ -35,7 +35,12 @@ from atlas.datasets import Built, Context
 log = logging.getLogger(__name__)
 
 #: Dataset outputs the site reads, copied under web/public/data/ at the same path.
-COPIES = ("provinces/gdp-per-capita.json",)
+COPIES = (
+    "provinces/gdp-per-capita.json",
+    "elections/2023-cumhurbaskani-1.json",
+    "elections/2023-cumhurbaskani-2.json",
+    "elections/2023-milletvekili.json",
+)
 
 SCHEMA_VERSION = "1.0.0"
 

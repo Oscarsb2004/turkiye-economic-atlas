@@ -9,32 +9,32 @@
  */
 
 import type { Lang } from "../data/bundle";
-import { formatMoney, stringsFor } from "../i18n";
+import { stringsFor } from "../i18n";
 import type { Binning } from "./bins";
 
 interface Props {
   binning: Binning;
   ramp: string[];
-  currency: string;
-  year: string;
+  /** What is being shaded, already in the reader's language. */
+  title: string;
+  /** How a band's bound reads: money for GDP, a percentage for a vote share. */
+  format: (value: number) => string;
   lang: Lang;
 }
 
-export function Legend({ binning, ramp, currency, year, lang }: Props) {
+export function Legend({ binning, ramp, title, format, lang }: Props) {
   const s = stringsFor(lang);
   if (binning.bands.length === 0) return null;
 
   return (
     <figure className="legend">
-      <figcaption className="legend__title">
-        {s.legendTitle} · {currency} · {year}
-      </figcaption>
+      <figcaption className="legend__title">{title}</figcaption>
       <ul className="legend__bands">
         {binning.bands.map((band) => (
           <li key={band.index} className="legend__band">
             <span className="legend__swatch" style={{ background: ramp[band.index] }} aria-hidden="true" />
             <span className="legend__range">
-              {formatMoney(band.min, currency, lang)} – {formatMoney(band.max, currency, lang)}
+              {format(band.min)} – {format(band.max)}
             </span>
             <span className="legend__count">{band.count}</span>
           </li>

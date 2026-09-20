@@ -31,3 +31,77 @@ datasets:
     - kind: fields_present
       fields: [nuts3, name.tr, name.en, per_capita_gdp.TRY, per_capita_gdp.USD]
       note: Both currencies TÜİK publishes, and the İBBS code the workbook was joined on.
+  election-2023-cumhurbaskani-1:
+    path: data/elections/2023-cumhurbaskani-1.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Presidential election, first round.
+    - kind: fields_present
+      fields: [name.tr, votes, turnout.registered, turnout.voted, turnout.valid, turnout.invalid, provenance]
+      note: Every province carries its votes, the turnout YSK publishes beside them, and how it was obtained.
+    - kind: map_sums_to_published_total
+      map_field: votes
+      totals_path: published_total.votes
+      note: >-
+        The 81 provinces sum to YSK's own national row, for each of the 4 ballot
+        options. This is what catches a province filed under the wrong plaka, a column read
+        as the wrong option, or an electoral district double-counted where a province is split.
+    - kind: map_sums_to_published_total
+      map_field: turnout
+      totals_path: published_total.turnout
+      note: Registered, voted, valid and invalid likewise.
+
+  election-2023-cumhurbaskani-2:
+    path: data/elections/2023-cumhurbaskani-2.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Presidential election, second round.
+    - kind: fields_present
+      fields: [name.tr, votes, turnout.registered, turnout.voted, turnout.valid, turnout.invalid, provenance]
+      note: Every province carries its votes, the turnout YSK publishes beside them, and how it was obtained.
+    - kind: map_sums_to_published_total
+      map_field: votes
+      totals_path: published_total.votes
+      note: >-
+        The 81 provinces sum to YSK's own national row, for each of the 2 ballot
+        options. This is what catches a province filed under the wrong plaka, a column read
+        as the wrong option, or an electoral district double-counted where a province is split.
+    - kind: map_sums_to_published_total
+      map_field: turnout
+      totals_path: published_total.turnout
+      note: Registered, voted, valid and invalid likewise.
+
+  election-2023-milletvekili:
+    path: data/elections/2023-milletvekili.json
+    records: provinces
+    id_field: plaka
+    checks:
+    - kind: unique_ids
+      note: One record per province, and no province twice.
+    - kind: record_count
+      expect: 81
+      note: All 81 il. Parliamentary general election.
+    - kind: fields_present
+      fields: [name.tr, votes, turnout.registered, turnout.voted, turnout.valid, turnout.invalid, provenance]
+      note: Every province carries its votes, the turnout YSK publishes beside them, and how it was obtained.
+    - kind: map_sums_to_published_total
+      map_field: votes
+      totals_path: published_total.votes
+      note: >-
+        The 81 provinces sum to YSK's own national row, for each of the 29 ballot
+        options. This is what catches a province filed under the wrong plaka, a column read
+        as the wrong option, or an electoral district double-counted where a province is split.
+    - kind: map_sums_to_published_total
+      map_field: turnout
+      totals_path: published_total.turnout
+      note: Registered, voted, valid and invalid likewise.

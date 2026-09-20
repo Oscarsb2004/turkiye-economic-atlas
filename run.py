@@ -54,6 +54,7 @@ STAMP = VENV / ".atlas-requirements"
 #: (docs/REBUILD.md) moves stages onto cards one group at a time.
 STAGES: dict[str, str] = {
     "01": "-m atlas.run economy",
+    "02": "-m atlas.run elections",
     "99": "-m atlas.run bundle",
 }
 

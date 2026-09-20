@@ -1,0 +1,20 @@
+# registry/sources/ysk_election_results.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Seçim sonuçları (Açık Veri Portalı)
+publisher: Yüksek Seçim Kurulu (YSK)
+licence: ysk-unstated
+attribution: Yüksek Seçim Kurulu (YSK), Açık Veri Portalı
+page: https://acikveri.ysk.gov.tr/
+api: https://acikveri.ysk.gov.tr/api
+# An unauthenticated JSON API behind a JavaScript portal. The reader
+# (atlas/readers/ysk.py) documents the four calls and the two traps: getSecimList
+# is a dead stub that answers 200 with every field null, and results need
+# sandikTuru=0&sorguTuru=1 or the portal returns [] with status 200.
+#
+# Asking for ilId=0 returns YSK's OWN province-level rows plus its national
+# total, so this project reproduces province figures rather than summing
+# districts into figures of its own.
+#
+# The portal states no terms of use anywhere (checked 2026-09-20), which is what
+# `ysk-unstated` records. Its archive reaches back to 2009.

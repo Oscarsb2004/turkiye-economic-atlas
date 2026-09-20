@@ -1,11 +1,14 @@
 {
   "app": "turkiye-economic-atlas",
   "files": [
+    "elections/2023-cumhurbaskani-1.json",
+    "elections/2023-cumhurbaskani-2.json",
+    "elections/2023-milletvekili.json",
     "meta.json",
     "palette.json",
     "provinces/gdp-per-capita.json"
   ],
-  "generated_at": "2026-09-20T14:20:25Z",
+  "generated_at": "2026-09-20T20:03:45Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -51,6 +54,12 @@
       "page": "https://veriportali.tuik.gov.tr/tr/press/53930",
       "publisher": "Türkiye İstatistik Kurumu (TÜİK)",
       "title": "İl Bazında Gayrisafi Yurt İçi Hasıla"
+    },
+    "ysk_election_results": {
+      "licence": "ysk-unstated",
+      "page": "https://acikveri.ysk.gov.tr/",
+      "publisher": "Yüksek Seçim Kurulu (YSK)",
+      "title": "Seçim sonuçları (Açık Veri Portalı)"
     }
   }
 }

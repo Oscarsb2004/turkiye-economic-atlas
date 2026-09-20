@@ -15,6 +15,7 @@ python run.py --check    # every registry file against its schema
 | Step | Runs |
 | --- | --- |
 | 01 | `-m atlas.run economy` |
+| 02 | `-m atlas.run elections` |
 | 99 | `-m atlas.run bundle` |
 
 ## Datasets
@@ -23,7 +24,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/meta.json` (2 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/meta.json` (2 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
@@ -31,11 +32,19 @@ python run.py --check    # every registry file against its schema
 | --- | --- | --- | --- |
 | **province-gdp-per-capita**<br>Every province's gross domestic product per capita, in lira and in dollars, as TÜİK publishes it | `data/provinces/gdp-per-capita.json` (49 KB) | yes | `web/src/data/bundle.ts` |
 
+### elections
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **election-2023-cumhurbaskani-1**<br>Presidential election, first round — every province's published result | `data/elections/2023-cumhurbaskani-1.json` (42 KB) | yes | `web/src/data/bundle.ts` |
+| **election-2023-cumhurbaskani-2**<br>Presidential election, second round — every province's published result | `data/elections/2023-cumhurbaskani-2.json` (36 KB) | yes | `web/src/data/bundle.ts` |
+| **election-2023-milletvekili**<br>Parliamentary general election, 28th term — every province's published result | `data/elections/2023-milletvekili.json` (112 KB) | yes | `web/src/data/bundle.ts` |
+
 ## What they are built from
 
 **1 shells** (`registry/shells/`): `fetcher`.
 
-**1 sources** (`registry/sources/`): `tuik_provincial_gdp`.
+**2 sources** (`registry/sources/`): `tuik_provincial_gdp`, `ysk_election_results`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.

@@ -7,11 +7,15 @@ order: 10
 builder: atlas.export.bundle:build
 params: {}
 sources:
-- tuik_provincial_gdp   # meta.json publishes this source and its licence
+- tuik_provincial_gdp   # meta.json publishes each source and its licence
+- ysk_election_results
 shells: []
 after: []
 outputs:
 - web/public/data/provinces/gdp-per-capita.json
+- web/public/data/elections/2023-cumhurbaskani-1.json
+- web/public/data/elections/2023-cumhurbaskani-2.json
+- web/public/data/elections/2023-milletvekili.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

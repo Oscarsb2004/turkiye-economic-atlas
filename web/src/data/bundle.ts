@@ -178,3 +178,65 @@ export function applyPalette(palette: Palette | null): void {
     root.style.setProperty(`--seq-${i}`, hex);
   });
 }
+
+// ── Elections ────────────────────────────────────────────────────────────────
+
+/**
+ * One election as the pipeline publishes it.
+ *
+ * Votes are counts, because counts are what YSK publishes. A share is
+ * arithmetic over them, computed here and labelled in the interface rather than
+ * written into the data as though a publisher had printed it.
+ */
+export interface Election {
+  election: { slug: string; date: string; title: Text; secim_id: number; secim_turu: number };
+  options: Array<{ order: number; name: string; column: string }>;
+  provinces: Array<{
+    plaka: number;
+    name: Text;
+    name_ysk: string;
+    votes: Record<string, number>;
+    turnout: { registered: number; voted: number; valid: number; invalid: number };
+    provenance: string;
+    formula?: string;
+  }>;
+  published_total: { votes: Record<string, number>; turnout: Record<string, number> };
+}
+
+/**
+ * The elections the site offers, newest first, each with the file it reads.
+ *
+ * The paths are written out rather than built from the slug, because a dataset
+ * card names its output and `run.py --check` refuses a card whose declared
+ * consumer never mentions the file. A template literal satisfies the compiler
+ * and leaves the registry unable to see the link — so the link is spelled out.
+ */
+export const ELECTIONS = [
+  { slug: "2023-cumhurbaskani-2", file: "data/elections/2023-cumhurbaskani-2.json" },
+  { slug: "2023-cumhurbaskani-1", file: "data/elections/2023-cumhurbaskani-1.json" },
+  { slug: "2023-milletvekili", file: "data/elections/2023-milletvekili.json" },
+] as const;
+
+export async function loadElection(slug: string): Promise<Election> {
+  const entry = ELECTIONS.find((election) => election.slug === slug);
+  if (!entry) throw new Error(`no such election: ${slug}`);
+  const response = await fetch(asset(entry.file));
+  if (!response.ok) throw new Error(`${entry.file}: HTTP ${response.status}`);
+  return (await response.json()) as Election;
+}
+
+/**
+ * An option's share of the valid votes in one province, as a percentage.
+ *
+ * DERIVED, and the interface says so: YSK publishes the counts, and this is our
+ * division of one by the other. Null where the province recorded no valid votes
+ * — never 0, which would read as "nobody voted for them".
+ */
+export function voteShare(election: Election, plaka: number, option: string): number | null {
+  const province = election.provinces.find((p) => p.plaka === plaka);
+  if (!province) return null;
+  const valid = province.turnout.valid;
+  const votes = province.votes[option];
+  if (!valid || votes === undefined) return null;
+  return (votes / valid) * 100;
+}

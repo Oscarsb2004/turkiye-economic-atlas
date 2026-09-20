@@ -48,10 +48,21 @@ const tr = {
   dataComingSoon: "Veriler TÜİK'ten alınmıştır.",
   perCapitaNote: "TÜİK'in yayımladığı değerler; tarafımızca hesaplanmamıştır.",
   legendTitle: "Kişi başına GSYH",
-  legendMethod: "Her renk eşit sayıda il içerir (yüzdelik dilim). Aralıklar TÜİK verisinden; dilimlendirme bu projenin sunum tercihidir.",
+  legendMethod: "Her renk eşit sayıda il içerir (yüzdelik dilim). Değerler yayımlandığı gibidir; dilimlendirme bu projenin sunum tercihidir.",
   noFigureLegend: "Yayımlanmış veri yok",
   currency: "Para birimi",
   year: "Yıl",
+  overlay: "Katman",
+  overlayGdp: "Kişi başına GSYH",
+  overlayElection: "Seçim",
+  election: "Seçim",
+  option: "Aday / Parti",
+  share: "Oy oranı",
+  shareNote: "Oy oranı = geçerli oylara bölünmüş oy sayısı; YSK oy sayılarını yayımlar, oranı bu proje hesaplar.",
+  votes: "Oy",
+  turnoutValid: "Geçerli oy",
+  turnoutRegistered: "Kayıtlı seçmen",
+  summedNote: "Bu ilin rakamı, YSK'nın yayımladığı seçim çevrelerinin toplamıdır.",
 };
 // Not `as const`: the literal types would make every English string a mismatch
 // rather than a translation. What must hold is the SHAPE — `en` is typed as
@@ -77,10 +88,21 @@ const en: Strings = {
   dataComingSoon: "Figures published by TÜİK.",
   perCapitaNote: "As TÜİK publishes them; nothing here is computed by this project.",
   legendTitle: "GDP per capita",
-  legendMethod: "Each shade holds an equal number of provinces (quantiles). The ranges are TÜİK's figures; the banding is this project's presentation choice.",
+  legendMethod: "Each shade holds an equal number of provinces (quantiles). The values are as published; the banding is this project's presentation choice.",
   noFigureLegend: "No published figure",
   currency: "Currency",
   year: "Year",
+  overlay: "Overlay",
+  overlayGdp: "GDP per capita",
+  overlayElection: "Election",
+  election: "Election",
+  option: "Candidate / party",
+  share: "Vote share",
+  shareNote: "Vote share = votes divided by valid votes. YSK publishes the counts; this project does the division.",
+  votes: "Votes",
+  turnoutValid: "Valid votes",
+  turnoutRegistered: "Registered voters",
+  summedNote: "This province's figure is the sum of its electoral districts, each as published by YSK.",
 };
 
 const STRINGS: Record<Lang, Strings> = { tr, en };
@@ -107,6 +129,19 @@ export function formatMoney(value: number, currency: string, lang: Lang): string
     currency,
     maximumFractionDigits: 0,
   }).format(value);
+}
+
+/**
+ * A share, as a percentage.
+ *
+ * The value arrives already in percent (votes / valid * 100), so this formats
+ * rather than converts; `style: "percent"` would multiply by 100 again.
+ */
+export function formatPercent(value: number, lang: Lang, digits = 1): string {
+  return `${new Intl.NumberFormat(LOCALE[lang], {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(value)}%`;
 }
 
 /** Turkish first: this is a Turkish atlas, and every source speaks Turkish. */
