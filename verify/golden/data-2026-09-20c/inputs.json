@@ -1,0 +1,62 @@
+{
+  "clock": "2026-09-20T12:00:00+00:00",
+  "exported": "1b31c8d849945fe3808c405388af3f0eba3f3200",
+  "http": [
+    {
+      "content_type": "application/vnd.ms-excel",
+      "encoding": null,
+      "key": "GET https://veriportali.tuik.gov.tr/api/tr/data/downloads?t=t&pid=53930&p=wsTazyi9qDR2KKSbu5u8XaTLiGZ5YbOGNzXPPlmovenPnHSXUdX%2FOOd%2BgEMEQzpTmUX1WJYxabDeGC1DjZr9QiccFIrhAGlNYUO15wrB8TS8B9T93LNLqfYrOEzIq0%2B4RQ5zmUNEQQmFGSg3no8bHBIC5WzH%2Fxd%2FVLQmEAuDkss%3D",
+      "sha256": "33cd4de0ad45cad8cb9e213ac74322089d9211b2be2bbf42f5c123b06f05b75f",
+      "status": 200
+    },
+    {
+      "error": "ConnectionError",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=9",
+      "message": "('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=9",
+      "sha256": "d7f507fc6dab51ab21051b5a23304179e68a69d462c330834e01b4a225e167cb",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "72a6bdd375556fe9cc51d62d79e9c8c3f648a5347fa3001c623d9e444550a598",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20240&secimTuru=9",
+      "sha256": "77ad4950fc95203b526dd01ece110f10a0d8a6a552488d6ce70e3e46cdba362a",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20240&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "31796e664f9d153ab5d448b89baeeee72878047d97ef9bd16a3494abbbc6eb5e",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=8",
+      "sha256": "99c2df6a3afa0c66966b3dedd221fc001cf5213cda909e1cc1d5c7a78f2ae83d",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=8&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "22428101f4fdd1de45a35fc81619c7088e7884153d9b3a43c9b221e858bb870f",
+      "status": 200
+    }
+  ],
+  "raw_files": {},
+  "ref": "HEAD"
+}

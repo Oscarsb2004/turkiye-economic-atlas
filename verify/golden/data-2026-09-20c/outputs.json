@@ -1,0 +1,66 @@
+{
+  "data/elections/2023-cumhurbaskani-1.json": {
+    "bytes": 41619,
+    "sha256": "514680cadb9e7bc755f0076b7fb589d80fb825504dd7a5571d01b910dae31e1d"
+  },
+  "data/elections/2023-cumhurbaskani-2.json": {
+    "bytes": 36102,
+    "sha256": "5559e75ca35255c71c21ad8d998484b7942fcc55cb82c4cdd62c08dcd461a4e6"
+  },
+  "data/elections/2023-milletvekili.json": {
+    "bytes": 111718,
+    "sha256": "ae8ee91bc630bb00efbc461ad5b93fdb7709983678b6369f4284388733719693"
+  },
+  "data/provinces/gdp-per-capita.json": {
+    "bytes": 49394,
+    "sha256": "e2ed52795b338e0b479601318a274fe1edb30834d9ba0a0f41dab509d504a3ee"
+  },
+  "web/public/data/elections/2023-cumhurbaskani-1.json": {
+    "bytes": 41619,
+    "sha256": "514680cadb9e7bc755f0076b7fb589d80fb825504dd7a5571d01b910dae31e1d"
+  },
+  "web/public/data/elections/2023-cumhurbaskani-2.json": {
+    "bytes": 36102,
+    "sha256": "5559e75ca35255c71c21ad8d998484b7942fcc55cb82c4cdd62c08dcd461a4e6"
+  },
+  "web/public/data/elections/2023-milletvekili.json": {
+    "bytes": 111718,
+    "sha256": "ae8ee91bc630bb00efbc461ad5b93fdb7709983678b6369f4284388733719693"
+  },
+  "web/public/data/elections/index.json": {
+    "bytes": 731,
+    "sha256": "b1af156be934bdcf0812d65e35e0ad014e208dc0dd37b3eee7e68f6c654cf60f"
+  },
+  "web/public/data/meta.json": {
+    "bytes": 2321,
+    "sha256": "3384a6eeeb29052888de02cf6784ebab3055afc37b43639670a1873454e2e6b2"
+  },
+  "web/public/data/palette.json": {
+    "bytes": 2561,
+    "sha256": "216a1cd4a41d66b30b7b937565d873f039849db4886aeffe902fcf825d71ab9d"
+  },
+  "web/public/data/provinces/gdp-per-capita.json": {
+    "bytes": 49394,
+    "sha256": "e2ed52795b338e0b479601318a274fe1edb30834d9ba0a0f41dab509d504a3ee"
+  },
+  "web/public/geo/SOURCES.json": {
+    "bytes": 2723,
+    "sha256": "43fec8f4d6f265e3c296e085fc21e365785bd04299644dfcea4a2cc786e04ad5"
+  },
+  "web/public/geo/provinces.json": {
+    "bytes": 48767,
+    "sha256": "036da20196fe7667aa67138a4937f67671e938f05d6c6d59a9f771c9ecad37d9"
+  },
+  "web/public/geo/turkiye.json": {
+    "bytes": 6368,
+    "sha256": "09f92b579f9e2f0faaa496e9fb660f7641df858c69aede0c37d849bcb0284060"
+  },
+  "web/public/geo/water.json": {
+    "bytes": 6743,
+    "sha256": "a0d82a762bebcadf12f631690eadd702a0b3679cc71d2e5164bbc0b4724d0513"
+  },
+  "web/public/geo/world.json": {
+    "bytes": 17262,
+    "sha256": "e5566f69a34bb6137589809b0b38d6c09555964e35cd378a46f39858eb34f11a"
+  }
+}

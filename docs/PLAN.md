@@ -151,8 +151,10 @@ Existing declarative kinds (`unique_ids`, `record_count`, `fields_present`,
 `cross_source_agreement`) cover the new datasets in **YAML, not Python**. Genuinely new gates:
 all 81 provinces present per election; vote shares reconcile to YSK's published totals; turnout
 reproduces the published figure; every migration row's origin and destination are real il codes
-and the matrix totals match TÜİK's own. Golden master recorded at T3 and re-recorded per data
-state, exactly as `data-2026-09-18` was.
+and the matrix totals match TÜİK's own. Golden master recorded at T3 and re-recorded whenever the
+published set changes: `data-2026-09-20` (GDP), `data-2026-09-20b` (the elections),
+`data-2026-09-20c` (the election index the time slider reads). Each replays byte-identical on
+its own recorded inputs; the current one is `data-2026-09-20c`.
 
 ## Other avenues worth considering later
 

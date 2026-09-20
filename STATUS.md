@@ -54,12 +54,12 @@ source card carries its licence, read and dated before its data was used.
 ```bash
 python run.py --test                             # the test suite
 python run.py --verify                           # independent verification of the published files
-python verify/golden.py replay --name data-2026-09-20b  # the identity check
-python verify/golden.py live --manifest verify/golden/data-2026-09-20b/deployed.json \
+python verify/golden.py replay --name data-2026-09-20c  # the identity check
+python verify/golden.py live --manifest verify/golden/data-2026-09-20c/deployed.json \
     --url https://oscarsb2004.github.io/turkiye-economic-atlas   # what the published site serves
 ```
 
 A golden master is one whole run, recorded: every download stored and the clock frozen, so any
 later revision can be run on exactly those inputs and its output compared byte for byte. The
-current one is `data-2026-09-20b`, and a master is recorded per data state. The site the published URL
+current one is `data-2026-09-20c`, and a master is recorded per data state. The site the published URL
 serves must also be the site this repository builds, which is what `golden.py live` checks.

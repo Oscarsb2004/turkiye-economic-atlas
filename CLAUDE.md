@@ -124,7 +124,7 @@ python run.py --test     # pytest
 python -m atlas.run --list               # every dataset card, by group
 python -m atlas.run --dataset <id>       # one dataset
 python run.py --verify   # the declared gates in registry/checks.yaml
-python verify/golden.py replay --name data-2026-09-20b   # the identity check
+python verify/golden.py replay --name data-2026-09-20c   # the identity check
 python verify/golden.py record --ref HEAD --name <name>   # a new master, per data state
 ```
 
