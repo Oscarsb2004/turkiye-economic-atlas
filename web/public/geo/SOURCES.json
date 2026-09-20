@@ -1,0 +1,51 @@
+{
+  "generated_by": "scripts/build_geo.mjs",
+  "mapshaper": "0.7.56",
+  "sources": {
+    "admin1": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "file": "ne_10m_admin_1_states_provinces.geojson",
+      "publisher": "Natural Earth",
+      "licence": "public domain",
+      "note": "Provinces of every country at 1:10m; the 81 Turkish features carry iso_3166_2 TR-01..TR-81."
+    },
+    "countries": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_0_countries.geojson",
+      "file": "ne_10m_admin_0_countries.geojson",
+      "publisher": "Natural Earth",
+      "licence": "public domain",
+      "note": "Neighbouring countries, drawn as context and never as data."
+    },
+    "lakes": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_lakes.geojson",
+      "file": "ne_10m_lakes.geojson",
+      "publisher": "Natural Earth",
+      "licence": "public domain",
+      "note": "Van, Tuz and the rest, painted over the province fill so they are not land."
+    }
+  },
+  "builds": {
+    "provinces": {
+      "features": 81,
+      "command": "-i {admin1} -filter \"iso_a2 === 'TR'\" -each \"code = +iso_3166_2.slice(3), name_tr = name_tr || name, name_en = name_en || name\" -filter-fields code,name_tr,name_en -simplify 8% keep-shapes -clean -o {out}/provinces.json format=geojson precision=0.0001 id-field=code"
+    },
+    "turkiye": {
+      "features": 1,
+      "command": "-i {out}/provinces.json -dissolve2 -each \"name = 'Türkiye'\" -o {out}/turkiye.json format=geojson precision=0.0001"
+    },
+    "world": {
+      "features": 32,
+      "command": "-i {countries} -filter \"ISO_A2 !== 'TR'\" -each \"name = NAME_EN\" -filter-fields name -clip bbox=19,32,52,46 -simplify 4% keep-shapes -clean -o {out}/world.json format=geojson precision=0.01"
+    },
+    "water": {
+      "features": 23,
+      "command": "-i {lakes} -clip bbox=19,32,52,46 -filter \"this.area > 0.02\" -each \"name = name || ''\" -filter-fields name -simplify 10% keep-shapes -o {out}/water.json format=geojson precision=0.001"
+    }
+  },
+  "notes": [
+    "Natural Earth is pinned at tag v5.1.2; a moving source would change coastlines with no commit.",
+    "turkiye.json is dissolved from the already-simplified provinces.json, so the outline sits exactly on the fills.",
+    "iso_3166_2 TR-01..TR-81 are the plaka codes, which YSK's il_ID and TÜİK's province tables also use.",
+    "Türkiye's own TUCBS geodata forbids redistribution, which is why the boundaries here are Natural Earth's."
+  ]
+}

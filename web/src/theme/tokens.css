@@ -1,0 +1,192 @@
+/*
+ * tokens.css — the surfaces and type the app is built from.
+ *
+ * Data colours do NOT live here. `--series-*` comes from registry/palette.yaml,
+ * which is a validated artifact with its own recorded output, and arrives in
+ * the app as palette.json when the first dataset does (docs/PLAN.md, T3). What
+ * is here is chrome: surfaces, lines, text and one accent.
+ */
+
+:root {
+  color-scheme: dark;
+
+  --surface-0: #0b0d10;
+  --surface-1: #0f1115;
+  --surface-2: #16181d;
+  --surface-3: #1d2027;
+  --line: #2a2e37;
+
+  --text-1: #e7eaf0;
+  --text-2: #9aa3b2;
+
+  --accent-9: #3b82f6;
+  --accent-contrast: #ffffff;
+  --bad: #f87171;
+
+  --gutter: 16px;
+  --radius: 10px;
+  --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--surface-0);
+  color: var(--text-1);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app__bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gutter);
+  padding: 12px var(--gutter);
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--line);
+}
+
+.app__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.app__subtitle {
+  margin: 2px 0 0;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.app__langs {
+  display: flex;
+  gap: 6px;
+}
+
+.lang {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.lang--on {
+  background: var(--accent-9);
+  border-color: var(--accent-9);
+  color: var(--accent-contrast);
+}
+
+.app__body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  flex: 1;
+  min-height: 0;
+}
+
+.app__map {
+  position: relative;
+  min-height: 0;
+}
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.app__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--gutter);
+  background: var(--surface-1);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+}
+
+.panel__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.panel__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.panel__facts dt {
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.panel__facts dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.notice {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.notice--bad {
+  color: var(--bad);
+}
+
+.panel__sources {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.panel__sources h3 {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.panel__sources p {
+  margin: 0 0 4px;
+}
+
+/* The map pane stacks above the panel once there is no room beside it. */
+@media (max-width: 760px) {
+  .app__body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60vh auto;
+  }
+
+  .app__panel {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
