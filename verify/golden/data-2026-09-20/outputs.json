@@ -1,0 +1,38 @@
+{
+  "data/provinces/gdp-per-capita.json": {
+    "bytes": 49394,
+    "sha256": "e2ed52795b338e0b479601318a274fe1edb30834d9ba0a0f41dab509d504a3ee"
+  },
+  "web/public/data/meta.json": {
+    "bytes": 1932,
+    "sha256": "c827a9b3c33083bb7b3f650beeb33b4438659fa7c16c1e7ce5f6e53cf0b1704e"
+  },
+  "web/public/data/palette.json": {
+    "bytes": 2561,
+    "sha256": "216a1cd4a41d66b30b7b937565d873f039849db4886aeffe902fcf825d71ab9d"
+  },
+  "web/public/data/provinces/gdp-per-capita.json": {
+    "bytes": 49394,
+    "sha256": "e2ed52795b338e0b479601318a274fe1edb30834d9ba0a0f41dab509d504a3ee"
+  },
+  "web/public/geo/SOURCES.json": {
+    "bytes": 2723,
+    "sha256": "43fec8f4d6f265e3c296e085fc21e365785bd04299644dfcea4a2cc786e04ad5"
+  },
+  "web/public/geo/provinces.json": {
+    "bytes": 48767,
+    "sha256": "036da20196fe7667aa67138a4937f67671e938f05d6c6d59a9f771c9ecad37d9"
+  },
+  "web/public/geo/turkiye.json": {
+    "bytes": 6368,
+    "sha256": "09f92b579f9e2f0faaa496e9fb660f7641df858c69aede0c37d849bcb0284060"
+  },
+  "web/public/geo/water.json": {
+    "bytes": 6743,
+    "sha256": "a0d82a762bebcadf12f631690eadd702a0b3679cc71d2e5164bbc0b4724d0513"
+  },
+  "web/public/geo/world.json": {
+    "bytes": 17262,
+    "sha256": "e5566f69a34bb6137589809b0b38d6c09555964e35cd378a46f39858eb34f11a"
+  }
+}

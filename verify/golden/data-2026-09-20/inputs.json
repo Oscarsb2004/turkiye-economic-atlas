@@ -1,0 +1,15 @@
+{
+  "clock": "2026-09-20T12:00:00+00:00",
+  "exported": "72072abb94ec3b8ee2346b37436f9e76b2e2bf66",
+  "http": [
+    {
+      "content_type": "application/vnd.ms-excel",
+      "encoding": null,
+      "key": "GET https://veriportali.tuik.gov.tr/api/tr/data/downloads?t=t&pid=53930&p=wsTazyi9qDR2KKSbu5u8XaTLiGZ5YbOGNzXPPlmovenPnHSXUdX%2FOOd%2BgEMEQzpTmUX1WJYxabDeGC1DjZr9QiccFIrhAGlNYUO15wrB8TS8B9T93LNLqfYrOEzIq0%2B4RQ5zmUNEQQmFGSg3no8bHBIC5WzH%2Fxd%2FVLQmEAuDkss%3D",
+      "sha256": "33cd4de0ad45cad8cb9e213ac74322089d9211b2be2bbf42f5c123b06f05b75f",
+      "status": 200
+    }
+  ],
+  "raw_files": {},
+  "ref": "HEAD"
+}
