@@ -230,7 +230,8 @@ def test_a_linux_export_writes_lf_where_a_native_one_writes_the_platform_ending(
     lf = golden.export("HEAD", tmp_path / "lf", eol="lf")
     native = golden.export("HEAD", tmp_path / "native")
     assert lf == native
-    body = (tmp_path / "lf" / "web" / "index.html").read_bytes()
+    # Any committed text file shows it; README.md is one this repository always has.
+    body = (tmp_path / "lf" / "README.md").read_bytes()
     assert b"\r\n" not in body
     if os.linesep == "\r\n":
-        assert b"\r\n" in (tmp_path / "native" / "web" / "index.html").read_bytes()
+        assert b"\r\n" in (tmp_path / "native" / "README.md").read_bytes()
