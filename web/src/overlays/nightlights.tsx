@@ -32,6 +32,7 @@ import {
   type Nightlights,
 } from "../data/bundle";
 import { formatInstant, stringsFor } from "../i18n";
+import { LegendBox } from "../map/LegendBox";
 import { snapPeriod, type Period } from "./timeline";
 import type { Overlay, OverlayContext } from "./types";
 
@@ -45,8 +46,7 @@ function NightlightsLegend({ layer, date, lang }: {
 }) {
   const s = stringsFor(lang);
   return (
-    <figure className="legend">
-      <figcaption className="legend__title">{t(layer.label, lang)}</figcaption>
+    <LegendBox title={t(layer.label, lang)}>
       <ul className="legend__bands">
         <li className="legend__band">
           <span className="legend__range">{s.nightlightsNight}</span>
@@ -60,7 +60,7 @@ function NightlightsLegend({ layer, date, lang }: {
         <br />
         {layer.attribution} — {s.nightlightsLive}
       </p>
-    </figure>
+    </LegendBox>
   );
 }
 

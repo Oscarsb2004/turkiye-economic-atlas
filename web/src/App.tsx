@@ -37,9 +37,11 @@ import {
   type ProvinceProps,
 } from "./data/bundle";
 import { LANGUAGE_NAME, formatInt, initialLang, rememberLang, stringsFor } from "./i18n";
+import { Sources } from "./Sources";
 import { Legend } from "./map/Legend";
 import { ProvinceMap } from "./map/ProvinceMap";
 import { quantileBands } from "./map/bins";
+import { shadingOfBands, shadingOfClasses } from "./map/shading";
 import { DEFAULT_OVERLAY, useOverlays } from "./overlays";
 import { OverlayRail } from "./overlays/OverlayRail";
 import { TimeSlider } from "./overlays/TimeSlider";
@@ -56,6 +58,10 @@ export function App() {
   // period, which is the figure a reader arriving at the atlas should see.
   const [clock, setClock] = useState<Clock | null>(null);
   const [selected, setSelected] = useState<{ code: number; props: ProvinceProps } | null>(null);
+  // The rail and the province panel are both chrome around the map, and on a
+  // laptop they are half its width between them. The rail folds by choice; the
+  // panel is simply not there until the reader has picked a province to read.
+  const [railOpen, setRailOpen] = useState(true);
   const s = stringsFor(lang);
 
   useEffect(() => {
@@ -107,6 +113,21 @@ export function App() {
     [values, palette],
   );
 
+  /**
+   * What colour each province takes, whichever question the overlay is asking.
+   *
+   * An amount goes through the quantile bands and the sequential ramp; a class
+   * — which party led a province — goes through the palette's five categorical
+   * slots. Both arrive at the map as an index and a list of colours, so the map
+   * draws one thing and this is the only place that knows there are two
+   * (map/shading.ts).
+   */
+  const shading = useMemo(() => {
+    if (overlay.classes) return shadingOfClasses(overlay.classes);
+    if (binning && palette) return shadingOfBands(binning, palette.sequential.steps);
+    return null;
+  }, [overlay.classes, binning, palette]);
+
   const onSelect = useCallback((code: number | null, props: ProvinceProps | null) => {
     setSelected(code === null || !props ? null : { code, props });
   }, []);
@@ -131,12 +152,19 @@ export function App() {
         </div>
       </header>
 
-      <main className="app__body">
+      <main className={[
+        "app__body",
+        selected ? "app__body--panel" : "",
+        railOpen ? "" : "app__body--folded",
+      ].filter(Boolean).join(" ")}>
         <OverlayRail
           overlays={overlays}
           activeId={overlay.id}
           onPick={setActiveId}
           publisher={(source) => meta?.sources[source]?.publisher ?? ""}
+          open={railOpen}
+          onToggle={() => setRailOpen((open) => !open)}
+          sources={<Sources meta={meta} lang={lang} />}
           lang={lang}
         />
 
@@ -151,8 +179,8 @@ export function App() {
                   lang={lang}
                   selected={selected?.code ?? null}
                   onSelect={onSelect}
-                  binning={binning}
-                  ramp={palette?.sequential.steps ?? []}
+                  shading={shading}
+                  hint={overlay.hint}
                   flows={overlay.flows ?? []}
                   markers={overlay.markers ?? []}
                   network={overlay.network ?? []}
@@ -168,6 +196,7 @@ export function App() {
                     ramp={palette.sequential.steps}
                     title={overlay.legendTitle}
                     format={overlay.format}
+                    bands={overlay.bands}
                     lang={lang}
                   />
                 ) : (
@@ -187,37 +216,20 @@ export function App() {
           />
         </section>
 
-        <aside className="app__panel">
-          {selected ? (
-            <>
-              <h2 className="panel__name">{provinceName(selected.props, lang)}</h2>
-              <dl className="panel__facts">
-                <dt>{s.plaka}</dt>
-                <dd>{formatInt(selected.code, lang)}</dd>
-              </dl>
-              {overlay.panel(selected.code)}
-            </>
-          ) : (
-            <p className="notice">{s.noSelection}</p>
-          )}
-          <footer className="panel__sources">
-            <h3>{s.sources}</h3>
-            <p>{s.geometrySource}</p>
-            {/* One line per publisher AND licence, not per source card: TÜİK's
-                GDP bulletin and its migration portal are two sources under one
-                name and one set of terms, and saying so twice reads as a bug.
-                Every card is still represented — the line is just shared. */}
-            {meta
-              ? [...new Map(Object.values(meta.sources).map((source) => [
-                  `${source.publisher}|${source.licence}`, source,
-                ])).values()].map((source) => (
-                  <p key={`${source.publisher}|${source.licence}`}>
-                    {source.publisher} — {meta.licences[source.licence]?.name ?? source.licence}
-                  </p>
-                ))
-              : <p>{s.dataComingSoon}</p>}
-          </footer>
-        </aside>
+        {/* No province, no panel: an empty box saying "select a province" is
+            320px of the map spent telling the reader what the cursor already
+            tells them. The credits moved to the rail, where they are always
+            present rather than behind a click (Sources.tsx). */}
+        {selected && (
+          <aside className="app__panel">
+            <h2 className="panel__name">{provinceName(selected.props, lang)}</h2>
+            <dl className="panel__facts">
+              <dt>{s.plaka}</dt>
+              <dd>{formatInt(selected.code, lang)}</dd>
+            </dl>
+            {overlay.panel(selected.code)}
+          </aside>
+        )}
       </main>
     </div>
   );

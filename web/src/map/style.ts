@@ -30,6 +30,25 @@ export function ink(name: string, fallback: string): string {
 }
 
 /**
+ * The colour a published line takes for its palette slot.
+ *
+ * Tone 0 is the muted line a network is drawn in when nothing distinguishes
+ * it; 1..5 are the palette's five validated slots, and there is no sixth
+ * (CLAUDE.md §9). Exported because a legend has to name the same colours the
+ * map draws — two lists of hexes that drift apart is a legend that lies.
+ */
+export function toneInk(tone: number): string {
+  switch (tone) {
+    case 1: return ink("--series-1", "#0090ff");
+    case 2: return ink("--series-2", "#a35829");
+    case 3: return ink("--series-3", "#46a758");
+    case 4: return ink("--series-4", "#d6409f");
+    case 5: return ink("--series-5", "#6e56cf");
+    default: return ink("--text-2", "#b4b4b4");
+  }
+}
+
+/**
  * What colour a province takes.
  *
  * Selection and hover win, so a reader pointing at a province always sees which
@@ -126,17 +145,10 @@ export function mapStyle(geo: Geo): StyleSpecification {
       source: "network",
       layout: { "line-cap": "round", "line-join": "round" },
       paint: {
-        // Tone 0 is the muted line a network is drawn in when nothing
-        // distinguishes it; 1..5 are the palette's five validated slots,
-        // and there is no sixth (CLAUDE.md §9).
         "line-color": [
           "match", ["get", "tone"],
-          1, ink("--series-1", "#0090ff"),
-          2, ink("--series-2", "#a35829"),
-          3, ink("--series-3", "#46a758"),
-          4, ink("--series-4", "#d6409f"),
-          5, ink("--series-5", "#6e56cf"),
-          ink("--text-2", "#b4b4b4"),
+          1, toneInk(1), 2, toneInk(2), 3, toneInk(3), 4, toneInk(4), 5, toneInk(5),
+          toneInk(0),
         ],
         "line-width": ["interpolate", ["linear"], ["zoom"],
                        4, ["case", ["==", ["get", "tone"], 0], 1.1, 2.2],

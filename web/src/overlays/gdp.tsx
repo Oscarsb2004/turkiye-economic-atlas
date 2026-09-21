@@ -79,13 +79,17 @@ export function useGdpOverlay({ lang, clock, active }: OverlayContext): Overlay 
 
   return {
     id: GDP_ID,
-    group: "provinces",
+    group: "economic",
     label: s.overlayGdp,
     source: SOURCE,
     periods,
     period,
     values,
     format: (value: number) => formatMoney(value, currency, lang),
+    // Six bands of six-digit lira ranges is a table sitting on the map. The
+    // shades say where a province stands against the others; the figure itself
+    // is one click away in the panel, which is where it reads (map/Legend.tsx).
+    bands: "relative",
     legendTitle: gdp ? `${t(gdp.measure.label, lang)} · ${currency} · ${year}` : s.overlayGdp,
     controls: (
       <label className="control">

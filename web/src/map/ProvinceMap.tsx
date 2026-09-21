@@ -19,8 +19,9 @@
 import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
+import { provinceName } from "../data/bundle";
 import type { Flow, Geo, GeoJson, Lang, Marker, NetworkLine, ProvinceProps, Raster } from "../data/bundle";
-import type { Binning } from "./bins";
+import type { Shading } from "./shading";
 import { fillColour, ink, mapStyle } from "./style";
 
 /** Where the map looks if the geometry cannot say — it always can, in practice. */
@@ -59,10 +60,14 @@ interface Props {
   lang: Lang;
   selected: number | null;
   onSelect: (code: number | null, props: ProvinceProps | null) => void;
-  /** Which shade each province takes, or null before any figures are loaded. */
-  binning: Binning | null;
-  /** The sequential ramp from the validated palette. */
-  ramp: string[];
+  /**
+   * Which colour each province takes, or null when nothing is shaded.
+   *
+   * A band on the ramp and a categorical class arrive here as the same thing —
+   * an index and the colours it points at (map/shading.ts) — so this file does
+   * not know whether it is drawing an amount or a winner.
+   */
+  shading: Shading | null;
   /**
    * Flows to draw between provinces, or none.
    *
@@ -83,6 +88,14 @@ interface Props {
   focus?: number[];
   /** Imagery to draw beneath the map, from a publisher's own tile service. */
   raster?: Raster;
+  /**
+   * One line about the province under the cursor, or nothing.
+   *
+   * The map supplies the name — it holds the geometry that carries it — and
+   * the overlay supplies the figure, because only the overlay knows what the
+   * reader is asking about (overlays/types.ts).
+   */
+  hint?: (plaka: number) => string | null;
 }
 
 /**
@@ -195,23 +208,56 @@ function feedSource(instance: maplibregl.Map, id: string, data: GeoJson): () => 
  * Do something to the style as soon as the style will take it.
  *
  * `apply` returns whether it managed; if it did not, it is tried again on every
- * `styledata` until it does. See feedSource for why this is not `once("load")`.
+ * `styledata` AND every `sourcedata` until it does. See feedSource for why this
+ * is not `once("load")`.
+ *
+ * THE SECOND TRAP, WHICH LOOKED EXACTLY LIKE THE FIRST
+ *
+ * `styledata` alone is not enough, and the failure is the same blank-looking
+ * map: an unshaded country, a correct legend, correct feature-state, and a
+ * clean console. `styledata` STOPS FIRING once the style has settled, so a test
+ * that was false when the listener went on — `isStyleLoaded()`, a frame later
+ * than it looks — and true a moment afterwards never gets a retry. The pending
+ * listener is still attached, waiting for an event that will not come again.
+ *
+ * Two changes, either of which would have been enough: `sourcedata` keeps
+ * firing (which is why the feature-state effect below never had this bug), and
+ * the callers now test for the LAYER rather than for a loaded style, because
+ * `getLayer` answers as soon as the style is parsed.
  */
 function whenReady(instance: maplibregl.Map, apply: () => boolean): () => void {
   if (apply()) return () => undefined;
   const retry = () => {
-    if (apply()) instance.off("styledata", retry);
+    if (!apply()) return;
+    instance.off("styledata", retry);
+    instance.off("sourcedata", retry);
   };
   instance.on("styledata", retry);
-  return () => instance.off("styledata", retry);
+  instance.on("sourcedata", retry);
+  return () => {
+    instance.off("styledata", retry);
+    instance.off("sourcedata", retry);
+  };
 }
 
 
-export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers, network, focus, raster }: Props) {
+export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, markers, network, focus, raster, hint }: Props) {
   const container = useRef<HTMLDivElement>(null);
+  const tip = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
   const chosen = useRef<number | null>(null);
+  // The map is built once, so its handlers read these rather than their own
+  // closure: a new overlay or a new language reaches the cursor without the
+  // map being rebuilt under the reader's pan.
+  const hinting = useRef<Props["hint"]>(undefined);
+  const reading = useRef<Lang>(lang);
+  /** What the map is meant to be showing, so a resize can show it again. */
+  const framing = useRef<[number, number, number, number] | null>(null);
+  /** True once the READER has moved the map. After that the view is theirs. */
+  const touched = useRef(false);
+  hinting.current = hint;
+  reading.current = lang;
 
   // One effect builds the map; the language and selection effects below only
   // update it. Rebuilding on every prop change would reset the reader's pan.
@@ -219,6 +265,40 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     if (!container.current || map.current) return;
 
     const extent = extentOf(geo.turkiye);
+    /** Put the label beside the cursor, and inside the map rather than off it. */
+    const place = (at: { x: number; y: number }) => {
+      const node = tip.current;
+      if (!node) return;
+      const box = container.current?.getBoundingClientRect();
+      const right = box ? at.x > box.width - node.offsetWidth - 24 : false;
+      node.style.left = String(right ? at.x - node.offsetWidth - 14 : at.x + 14) + "px";
+      node.style.top = String(at.y + 14) + "px";
+    };
+
+    /**
+     * What the cursor is over, in words, or nothing.
+     *
+     * Built with textContent, never innerHTML: the name comes from published
+     * geometry and the figure from a published file, and neither is markup.
+     */
+    const say = (props: ProvinceProps, code: number, at: { x: number; y: number }) => {
+      const node = tip.current;
+      if (!node) return;
+      const line = hinting.current ? hinting.current(code) : null;
+      if (line === null) {
+        node.hidden = true;
+        return;
+      }
+      node.textContent = "";
+      const name = document.createElement("strong");
+      name.textContent = provinceName(props, reading.current);
+      const figure = document.createElement("span");
+      figure.textContent = line;
+      node.append(name, figure);
+      node.hidden = false;
+      place(at);
+    };
+
     const instance = new maplibregl.Map({
       container: container.current,
       ...(extent
@@ -240,6 +320,12 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
       hovered.current = code;
       instance.setFeatureState({ source: "provinces", id: code }, { hover: true });
       instance.getCanvas().style.cursor = "pointer";
+      say(feature.properties as unknown as ProvinceProps, code, event.point);
+    });
+    // Moving WITHIN one province still has to carry the label along, and the
+    // handler above returns early as soon as the province stops changing.
+    instance.on("mousemove", "provinces-fill", (event) => {
+      if (tip.current && !tip.current.hidden) place(event.point);
     });
     instance.on("mouseleave", "provinces-fill", () => {
       if (hovered.current !== null) {
@@ -247,6 +333,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
       }
       hovered.current = null;
       instance.getCanvas().style.cursor = "";
+      if (tip.current) tip.current.hidden = true;
     });
     instance.on("click", "provinces-fill", (event) => {
       const feature = event.features?.[0];
@@ -260,14 +347,49 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
       if (hits.length === 0) onSelect(null, null);
     });
 
+    // A map the reader has not moved is the atlas's framing, and it is kept
+    // through every change of size. Once they pan or zoom it is theirs, and
+    // nothing here moves it again. `originalEvent` is what separates the two:
+    // fitBounds raises the same events, without one.
+    const byHand = (event: { originalEvent?: unknown }) => {
+      if (event.originalEvent) touched.current = true;
+    };
+    instance.on("dragstart", byHand);
+    instance.on("zoomstart", byHand);
+
+    /** Show what the map is meant to be showing, at whatever size it now is. */
+    const reframe = () => {
+      if (touched.current || !framing.current) return;
+      instance.fitBounds(framing.current, { padding: 16, duration: 0 });
+    };
+
     // MapLibre sizes its canvas once and does not watch its container, so a
     // pane that changes width leaves the map drawing at the old size — the
     // country slides out of frame without anything erroring. Observing the
     // container keeps the two in step, and resize() also gives the map the
     // paint it needs after a spell where the page was not drawing at all.
-    const observer = new ResizeObserver(() => instance.resize());
+    //
+    // AND TWO THINGS CHANGE THIS CONTAINER'S SIZE ON PURPOSE
+    //
+    // Selecting a province opens a 320px panel beside the map and folding the
+    // rail gives 174px back, so the map is a different width several times in
+    // a reading. Keeping the centre and the zoom through that crops the east of
+    // the country off the screen; refitting keeps the whole country in view,
+    // which is what an untouched map is for.
+    //
+    // It also repairs a map built into a container that had NO size yet.
+    // `bounds` is turned into a centre and a zoom against the VIEWPORT, and a
+    // viewport of 0×0 makes that arithmetic meaningless: the map opens at the
+    // centre of the world with the country three pixels across, nothing errors,
+    // and no later resize fixes it. In dev the stylesheet arrives after the
+    // first render often enough that this is the usual case, not the rare one.
+    const observer = new ResizeObserver(() => {
+      instance.resize();
+      reframe();
+    });
     observer.observe(container.current);
 
+    framing.current = extent;
     map.current = instance;
     // A handle for the console while developing, and nothing in a build: the
     // "load never fires in a hidden pane" bug above was invisible without one.
@@ -291,19 +413,22 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     }
   }, [selected]);
 
-  // The ramp arrives with palette.json, after the map is already on screen, so
-  // the paint is updated rather than the map rebuilt — rebuilding would throw
-  // away the reader's pan and zoom.
+  // The colours arrive with palette.json, after the map is already on screen,
+  // and change again when an overlay shades by class instead of by band, so the
+  // paint is updated rather than the map rebuilt — rebuilding would throw away
+  // the reader's pan and zoom.
   useEffect(() => {
     const instance = map.current;
-    if (!instance || ramp.length === 0) return;
-    const apply = () => instance.setPaintProperty(
-      "provinces-fill", "fill-color",
-      fillColour(ink("--accent-9", "#0090ff"), ink("--no-figure", "#2a2a2a"), ramp),
-    );
-    if (instance.isStyleLoaded()) apply();
-    else instance.once("load", apply);
-  }, [ramp]);
+    if (!instance || !shading || shading.colours.length === 0) return;
+    return whenReady(instance, () => {
+      if (!instance.getLayer("provinces-fill")) return false;
+      instance.setPaintProperty(
+        "provinces-fill", "fill-color",
+        fillColour(ink("--accent-9", "#0090ff"), ink("--no-figure", "#2a2a2a"), shading.colours),
+      );
+      return true;
+    });
+  }, [shading]);
 
   // Each province's band, as feature-state. Set per feature rather than baked
   // into the source, so changing currency or year repaints without rebuilding
@@ -327,11 +452,11 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
       // in the style, so hover, selection and clicking still work.
       instance.setPaintProperty(
         "provinces-fill", "fill-opacity",
-        binning ? ["interpolate", ["linear"], ["zoom"], 4, 0.85, 7, 0.95] : 0,
+        shading ? ["interpolate", ["linear"], ["zoom"], 4, 0.85, 7, 0.95] : 0,
       );
       for (const feature of geo.provinces.features ?? []) {
         const plaka = Number((feature.properties as { code: number }).code);
-        const band = binning?.byProvince.get(plaka);
+        const band = shading?.byProvince.get(plaka);
         instance.setFeatureState(
           { source: "provinces", id: plaka },
           // undefined would leave the previous band in place; null is what the
@@ -354,7 +479,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     return () => {
       instance.off("sourcedata", whenReady);
     };
-  }, [binning, geo]);
+  }, [shading, geo]);
 
   // Where the map is looking. An overlay that is about one city says so with a
   // focus; without one the frame is the country, so switching back comes back.
@@ -367,9 +492,15 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     if (!extent) return;
     const key = extent.join(",");
     if (framed.current === key) return;
+    framing.current = extent;
     // The first framing is the one the map was built with; only a CHANGE moves
-    // the reader, and never while they are reading the same overlay.
-    if (framed.current !== "") instance.fitBounds(extent, { padding: 24, duration: 600 });
+    // the reader, and never while they are reading the same overlay. An overlay
+    // that asks for a different part of the country is asking on the reader's
+    // behalf, so it overrides a pan they made under the previous one.
+    if (framed.current !== "") {
+      touched.current = false;
+      instance.fitBounds(extent, { padding: 24, duration: 600 });
+    }
     framed.current = key;
   }, [focus, geo]);
 
@@ -380,7 +511,8 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     const instance = map.current;
     if (!instance) return;
     return whenReady(instance, () => {
-      if (!instance.isStyleLoaded()) return false;
+      // The layer the imagery is inserted UNDER has to exist before it can be.
+      if (!instance.getLayer("world")) return false;
       const existing = instance.getSource("imagery") as maplibregl.RasterTileSource | undefined;
       if (!raster) {
         if (existing) {
@@ -438,5 +570,13 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
   // it does.
   useEffect(() => void lang, [lang]);
 
-  return <div ref={container} className="map" />;
+  return (
+    <div className="map">
+      <div ref={container} className="map__canvas" />
+      {/* Filled by the hover handler above rather than by React: a label that
+          re-renders the map on every mouse move is a label nobody can
+          afford. */}
+      <div ref={tip} className="maptip" hidden />
+    </div>
+  );
 }

@@ -112,12 +112,23 @@ body {
   color: var(--accent-contrast);
 }
 
-/* The rail, the map with its clock under it, and the province panel. */
+/* The rail, the map with its clock under it, and — only once a province is
+   selected — the panel about it. The panel is a column that exists or does
+   not; an empty one is 320px of map spent saying "select a province". */
 .app__body {
+  --rail: 220px;
   display: grid;
-  grid-template-columns: 220px 1fr 320px;
+  grid-template-columns: var(--rail) 1fr;
   flex: 1;
   min-height: 0;
+}
+
+.app__body--panel {
+  grid-template-columns: var(--rail) 1fr 320px;
+}
+
+.app__body--folded {
+  --rail: 46px;
 }
 
 .app__stage {
@@ -136,6 +147,40 @@ body {
 .map {
   position: absolute;
   inset: 0;
+}
+
+/* MapLibre owns this element; the hover label is its sibling, not its child. */
+.map__canvas {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── The hover label ────────────────────────────────────────────────────────
+   Written by the map's own mouse handler with textContent, never by React:
+   re-rendering the map on every mouse move is not a thing a map can afford
+   (web/src/map/ProvinceMap.tsx). */
+.maptip {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 1px;
+  max-width: 240px;
+  padding: 6px 9px;
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.maptip[hidden] {
+  display: none;
+}
+
+.maptip span {
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
 }
 
 .app__panel {
@@ -215,6 +260,11 @@ body {
 
   .app__body {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 60vh;
+  }
+
+  .app__body--panel {
+    grid-template-columns: 1fr;
     grid-template-rows: auto 60vh auto;
   }
 
@@ -236,6 +286,41 @@ body {
   .rail__heading {
     display: none;
   }
+}
+
+/* Every option on the ballot, votes and share, ordered by votes. Three
+   columns rather than a definition list: a party name, a percentage and a
+   count are three different widths and the numbers have to line up. */
+.ballot {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ballot__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.ballot__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-2);
+}
+
+.ballot__share,
+.ballot__votes {
+  font-variant-numeric: tabular-nums;
+}
+
+.ballot__votes {
+  color: var(--text-3);
 }
 
 .figures__label {
@@ -261,10 +346,35 @@ body {
   border-radius: var(--radius);
 }
 
+/* A <details>, so the element itself knows how to open and close and the
+   reader's choice survives a change of measure or year (map/LegendBox.tsx). */
 .legend__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   font-size: 12px;
   font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+
+.legend__title::-webkit-details-marker {
+  display: none;
+}
+
+.legend__title::after {
+  content: "+";
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+.legend[open] > .legend__title {
   margin-bottom: 6px;
+}
+
+.legend[open] > .legend__title::after {
+  content: "–";
 }
 
 .legend__bands {
@@ -294,6 +404,14 @@ body {
   border: 1px dashed var(--text-3);
 }
 
+/* A line's key is a line, not a square: the railway legend has to look like
+   what the railway looks like. */
+.legend__swatch--line {
+  height: 4px;
+  border-radius: 2px;
+  align-self: center;
+}
+
 .legend__range {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -302,6 +420,27 @@ body {
 .legend__count {
   color: var(--text-3);
   font-variant-numeric: tabular-nums;
+}
+
+/* The whole ramp as one strip: there are no numbers on it, so there is
+   nothing to line a swatch up with (map/Legend.tsx, "relative"). */
+.ramp {
+  display: flex;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.ramp__step {
+  flex: 1;
+}
+
+.ramp__ends {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0 0;
+  color: var(--text-3);
+  font-size: 11px;
 }
 
 .legend__method {
@@ -340,6 +479,70 @@ body {
   background: var(--surface-1);
   border-right: 1px solid var(--line);
   overflow-y: auto;
+}
+
+/* Folded, the rail IS this button: a sliver of nothing to grab would be
+   worse than a wide one that says what it does. */
+.rail__fold {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.rail--shut {
+  padding: var(--gutter) 6px;
+  align-items: center;
+}
+
+.rail--shut .rail__foldName {
+  display: none;
+}
+
+/* ── The credits ────────────────────────────────────────────────────────────
+   At the foot of the rail rather than under the province panel, because a
+   panel that is not there cannot carry an attribution (web/src/Sources.tsx).
+   Folded: it is a claim about where the figures came from, not a caption. */
+.sources {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.sources__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  cursor: pointer;
+  list-style: none;
+}
+
+.sources__title::-webkit-details-marker {
+  display: none;
+}
+
+.sources__count {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.sources p {
+  margin: 6px 0 0;
 }
 
 .rail__group {

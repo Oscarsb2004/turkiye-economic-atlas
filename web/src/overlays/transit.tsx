@@ -29,6 +29,7 @@ import {
   type Transit,
 } from "../data/bundle";
 import { formatInstant, formatInt, stringsFor } from "../i18n";
+import { LegendBox } from "../map/LegendBox";
 import { snapPeriod, type Period } from "./timeline";
 import type { Overlay, OverlayContext } from "./types";
 
@@ -55,8 +56,7 @@ function TransitLegend({ transit, lang }: { transit: Transit; lang: Lang }) {
   const modes = Object.entries(transit.feed.modes).filter(([, count]) => count > 0);
 
   return (
-    <figure className="legend">
-      <figcaption className="legend__title">{t(transit.feed.label, lang)}</figcaption>
+    <LegendBox title={t(transit.feed.label, lang)}>
       <ul className="legend__bands">
         {modes.map(([mode, count]) => (
           <li className="legend__band" key={mode}>
@@ -73,7 +73,7 @@ function TransitLegend({ transit, lang }: { transit: Transit; lang: Lang }) {
         <br />
         {s.transitNotIncluded} ({formatInt(transit.feed.not_included.routes, lang)}).
       </p>
-    </figure>
+    </LegendBox>
   );
 }
 

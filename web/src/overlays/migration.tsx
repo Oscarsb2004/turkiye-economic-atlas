@@ -16,6 +16,15 @@
  * are ours, by addition, and the panel says so under every one of them. The
  * arcs are the published flows themselves, unaggregated.
  *
+ * AND THE OTHER SEVENTY PROVINCES
+ *
+ * Ten arcs are drawn, so seventy of the eighty flows a selected province has
+ * are on the map only as an absence. Pointing at a province answers for that
+ * one: its name, and its flow with the selected province under the measure on
+ * screen. It is the same arithmetic the arcs are drawn from — not a second
+ * figure computed a second way — and it appears only once a province is
+ * selected, because before that there is no pair to report.
+ *
  * ONE ARC PER LINE, TEN OF THEM
  *
  * A province has eighty flows in each direction and drawing all of them draws
@@ -46,6 +55,26 @@ const ARCS = 10;
 
 /** The three figures a province can be shaded by. All three are DERIVED. */
 type Measure = "net" | "received" | "given";
+
+/**
+ * One province's flow with another, from the FIRST one's point of view.
+ *
+ * `received` is what came to it from the other, `given` is what left it for the
+ * other, and `net` is the difference — signed, so a province that lost people
+ * to the one under the cursor reads as a negative rather than as a magnitude
+ * with a colour to interpret. Both halves are published; the subtraction is
+ * ours, and it is the same one flowsFor() draws the arcs from.
+ */
+function between(migration: Migration, plaka: number, other: number, measure: Measure): number | null {
+  const mine = migration.provinces.find((province) => province.plaka === plaka);
+  const theirs = migration.provinces.find((province) => province.plaka === other);
+  if (!mine || !theirs) return null;
+  const arrived = theirs.out[String(plaka)] ?? 0;
+  const left = mine.out[String(other)] ?? 0;
+  if (measure === "received") return arrived;
+  if (measure === "given") return left;
+  return arrived - left;
+}
 
 const MEASURES: Array<{ key: Measure; label: (s: Strings) => string }> = [
   { key: "net", label: (s) => s.migrationNet },
@@ -149,6 +178,27 @@ export function useMigrationOverlay({ lang, clock, active, selected }: OverlayCo
 
   const measureLabel = MEASURES.find((entry) => entry.key === measure)?.label(s) ?? s.overlayMigration;
 
+  /**
+   * What the province under the cursor is, with the selected one.
+   *
+   * Nothing until a province is selected: without a pair there is no flow to
+   * report, and a label that says only the province's name is the map already
+   * telling the reader what they are pointing at.
+   */
+  const hint = useMemo(() => {
+    if (!shown || selected === null) return undefined;
+    return (plaka: number): string | null => {
+      if (plaka === selected) {
+        const totals = shown.totals.by_plaka[String(plaka)];
+        if (!totals) return null;
+        return `${measureLabel}: ${formatInt(totals[measure], lang)} (${s.migrationSelf})`;
+      }
+      const value = between(shown, selected, plaka, measure);
+      if (value === null) return null;
+      return `${measureLabel}: ${formatInt(value, lang)} (${s.migrationWith})`;
+    };
+  }, [shown, selected, measure, measureLabel, lang, s]);
+
   return {
     id: MIGRATION_ID,
     group: "connections",
@@ -158,6 +208,7 @@ export function useMigrationOverlay({ lang, clock, active, selected }: OverlayCo
     period,
     values,
     flows,
+    hint,
     format: (value: number) => formatInt(value, lang),
     legendTitle: `${measureLabel} · ${year}`,
     controls: (

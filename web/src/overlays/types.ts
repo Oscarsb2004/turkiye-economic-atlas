@@ -20,16 +20,23 @@
 import type { ReactNode } from "react";
 
 import type { Flow, Lang, Marker, NetworkLine, Raster } from "../data/bundle";
+import type { BandsRead } from "../map/Legend";
+import type { Classes } from "../map/shading";
 import type { Clock, Period } from "./timeline";
 
 /**
  * The rail's sections, in the order they are shown.
  *
- * `connections` holds the flow and network layers; `activity` holds what the
- * country looks like rather than what it reports — the nightlights today, and
- * whatever else is observed rather than published as figures.
+ * `economic` holds what a province produces and what it is connected to by
+ * rail; `elections` holds how it voted; `connections` holds the flow layers;
+ * `activity` holds what the country looks like rather than what it reports —
+ * the nightlights today, and whatever else is observed rather than published.
+ *
+ * The railway sits with GDP per capita rather than with the flows because a
+ * reader comparing provinces reads them together, which is the owner's call
+ * and the reason this list is declared rather than inferred from the overlays.
  */
-export const OVERLAY_GROUPS = ["provinces", "connections", "activity"] as const;
+export const OVERLAY_GROUPS = ["economic", "elections", "connections", "activity"] as const;
 
 export type OverlayGroup = (typeof OVERLAY_GROUPS)[number];
 
@@ -69,8 +76,24 @@ export interface Overlay {
    * (CLAUDE.md §10).
    */
   values: Map<number, number | null> | null;
+  /**
+   * A categorical shading instead of a banded one: each province takes one of
+   * a few named classes, in the palette's own five slots.
+   *
+   * An election's winner is the case this exists for. `values` and `classes`
+   * are alternatives — a province is shaded by a figure or by a class, never
+   * by both — and the overlay chooses which question its map answers.
+   */
+  classes?: Classes;
   /** How one value reads: money, a percentage, a count. */
   format: (value: number) => string;
+  /**
+   * Whether the legend prints each band's range, or only the direction.
+   *
+   * `relative` is for a figure a reader compares rather than reads; the exact
+   * figure is in the panel (map/Legend.tsx). Defaults to printing ranges.
+   */
+  bands?: BandsRead;
   /** What the legend is titled, already in the reader's language. */
   legendTitle: string;
   /**
@@ -120,6 +143,14 @@ export interface Overlay {
   controls: ReactNode;
   /** What is known about one province under this overlay. */
   panel: (plaka: number) => ReactNode;
+  /**
+   * One line about a province the reader is pointing at, or nothing.
+   *
+   * A choropleth needs none: the shade is the answer. A flow overlay does —
+   * once a province is selected, every OTHER province carries a figure that is
+   * only visible as an arc's width, and hovering is how a reader asks for it.
+   */
+  hint?: (plaka: number) => string | null;
   /** Why there is nothing to draw, in the reader's language; null when there is. */
   unavailable: string | null;
 }

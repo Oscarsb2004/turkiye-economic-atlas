@@ -102,9 +102,16 @@ before anyone noticed.
 `registry/palette.yaml` carries its validator's recorded output. **Five categorical slots, and
 five is the cap** — all-pairs normal-vision ΔE is 15.9 against a floor of 15. A sixth breaks it.
 
-This is why an election map shades **one party at a time** on a sequential ramp rather than
-colouring each province by its winner: the 2023 parliamentary ballot had 29 parties, and 29
-categorical colours cannot be distinguished. `--accent-*` is chrome; `--series-*` is data.
+`--accent-*` is chrome; `--series-*` is data.
+
+**The election map colours each province by whichever option led it** (decided by the owner,
+2026-09-21, replacing "one party at a time on a sequential ramp"). The cap is unchanged and the
+reasoning that set it was measured rather than assumed: the number of options that LEAD A
+PROVINCE is not the number on the ballot. Across the three elections published here it is 2, 2
+and 3, out of 4, 2 and 29 standing. `leaders()` gives the five largest classes the five slots
+and puts anything past the fifth in one muted class the legend names, so a future election with
+six leaders loses a distinction rather than the palette losing its validation
+(`web/src/map/shading.ts`, `shading.test.ts`).
 
 ## 10. Rendering a collection is a TOTAL function, never a filter
 
@@ -189,6 +196,22 @@ has nine. Both are repaired, counted, and published as counted.
 coordinate lands in Kocaeli, and the Princes' Islands are gone entirely, which puts four ferry
 piers 6–8 km out to sea. A point is therefore placed in the province that contains
 it, or in the nearest one within a stated distance, and the record says which.
+
+**And `styledata` stops firing.** The retry that works around the `load` trap below was
+written to re-try on `styledata` alone, which fires while a style is settling and then never
+again — so a check that was false when the listener went on and true a moment later never gets
+its retry. The failure looks identical to the one it was written to fix: an unshaded country,
+a correct legend, correct feature-state, a clean console, and a listener still attached waiting
+for an event that will not come. `whenReady` now retries on `sourcedata` too, and its callers
+test for the LAYER rather than for a loaded style.
+
+**A map built into a container with no size fits its bounds to nothing.** `bounds` is turned
+into a centre and a zoom against the viewport, and a viewport of 0×0 makes that meaningless:
+the map opens at the centre of the world with Türkiye three pixels across, nothing errors, and
+`resize()` afterwards keeps whatever framing it has. In dev the stylesheet arrives after the
+first render often enough that this is the usual case. The framing is therefore re-applied
+whenever the container's size changes and the READER has not moved the map — which is also what
+keeps the whole country in view when the province panel opens beside it.
 
 **MapLibre's `load` event needs a rendered frame.** A hidden desktop pane gives no animation
 frames at all, so `map.loaded()` and `isStyleLoaded()` stay false indefinitely while the style,
