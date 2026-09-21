@@ -100,6 +100,10 @@
         },
         "additionalProperties": false
       }
+    },
+    "package": {
+      "type": "string",
+      "description": "A CKAN dataset name, where the publisher addresses its files through a portal rather than at fixed URLs. The resource URLs and the date each was last replaced come from package_show."
     }
   },
   "additionalProperties": false

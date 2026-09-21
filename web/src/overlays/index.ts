@@ -16,6 +16,7 @@ import { ELECTION_ID, useElectionOverlay } from "./elections";
 import { GDP_ID, useGdpOverlay } from "./gdp";
 import { MIGRATION_ID, useMigrationOverlay } from "./migration";
 import { RAIL_ID, useRailOverlay } from "./rail";
+import { TRANSIT_ID, useTransitOverlay } from "./transit";
 import type { Clock } from "./timeline";
 import type { Overlay } from "./types";
 
@@ -32,5 +33,6 @@ export function useOverlays({ lang, clock, activeId, selected }: {
     useMigrationOverlay(context(MIGRATION_ID)),
     useAviationOverlay(context(AVIATION_ID)),
     useRailOverlay(context(RAIL_ID)),
+    useTransitOverlay(context(TRANSIT_ID)),
   ];
 }

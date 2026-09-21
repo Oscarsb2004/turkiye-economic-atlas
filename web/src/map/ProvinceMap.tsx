@@ -73,6 +73,13 @@ interface Props {
   markers: Marker[];
   /** Published lines to draw as they are: the railway, and later a corridor. */
   network: NetworkLine[];
+  /**
+   * [west, south, east, north] to frame, or none for the whole country.
+   *
+   * An overlay about one city has to be able to say so; leaving the reader
+   * over İstanbul when they switch back to a national overlay would be worse.
+   */
+  focus?: number[];
 }
 
 /**
@@ -104,13 +111,13 @@ function markersOf(markers: Marker[]): GeoJson {
   } as GeoJson;
 }
 
-/** Published lines, as they were published. */
+/** Published lines, as they were published, each carrying its palette slot. */
 function networkOf(lines: NetworkLine[]): GeoJson {
   return {
     type: "FeatureCollection",
     features: lines.map((line) => ({
       type: "Feature" as const,
-      properties: { highspeed: line.highspeed ? 1 : 0 },
+      properties: { tone: line.tone ?? 0 },
       geometry: { type: "LineString" as const, coordinates: line.line },
     })),
   } as GeoJson;
@@ -213,7 +220,7 @@ function feedSource(instance: maplibregl.Map, id: string, data: GeoJson): () => 
 }
 
 
-export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers, network }: Props) {
+export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers, network, focus }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
@@ -305,11 +312,21 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
             source: "network",
             layout: { "line-cap": "round", "line-join": "round" },
             paint: {
-              "line-color": ["case", ["==", ["get", "highspeed"], 1],
-                             ink("--series-2", "#a35829"), ink("--text-2", "#b4b4b4")],
+              // Tone 0 is the muted line a network is drawn in when nothing
+              // distinguishes it; 1..5 are the palette's five validated slots,
+              // and there is no sixth (CLAUDE.md §9).
+              "line-color": [
+                "match", ["get", "tone"],
+                1, ink("--series-1", "#0090ff"),
+                2, ink("--series-2", "#a35829"),
+                3, ink("--series-3", "#46a758"),
+                4, ink("--series-4", "#d6409f"),
+                5, ink("--series-5", "#6e56cf"),
+                ink("--text-2", "#b4b4b4"),
+              ],
               "line-width": ["interpolate", ["linear"], ["zoom"],
-                             4, ["case", ["==", ["get", "highspeed"], 1], 2.2, 1.1],
-                             9, ["case", ["==", ["get", "highspeed"], 1], 5, 2.4]],
+                             4, ["case", ["==", ["get", "tone"], 0], 1.1, 2.2],
+                             9, ["case", ["==", ["get", "tone"], 0], 2.4, 5]],
               "line-opacity": 0.9,
             },
           },
@@ -325,10 +342,15 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
               // a dotted line and hides the railway it is sitting on. Those grow
               // with the zoom instead: a texture on the line from far away, a
               // station you can point at once you are close.
+              //
+              // ZOOM HAS TO BE THE OUTSIDE OF THE EXPRESSION. MapLibre refuses
+              // a style where ["zoom"] sits inside anything but a top-level
+              // step or interpolate — and refusing the style means no layers at
+              // all, so the map draws nothing and the console says why once.
               "circle-radius": [
-                "case", ["==", ["get", "r"], 0],
-                ["interpolate", ["linear"], ["zoom"], 4, 1.6, 9, 5],
-                ["interpolate", ["linear"], ["get", "r"], 0, 4, 1, 22],
+                "interpolate", ["linear"], ["zoom"],
+                4, ["case", ["==", ["get", "r"], 0], 1.6, ["+", 4, ["*", 18, ["get", "r"]]]],
+                9, ["case", ["==", ["get", "r"], 0], 5, ["+", 4, ["*", 18, ["get", "r"]]]],
               ],
               // Slot 4 of the validated palette: the ramp under it is blue, and
               // a marker has to be a different thing at a glance (CLAUDE.md §9).
@@ -462,6 +484,23 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
       instance.off("sourcedata", whenReady);
     };
   }, [binning, geo]);
+
+  // Where the map is looking. An overlay that is about one city says so with a
+  // focus; without one the frame is the country, so switching back comes back.
+  const framed = useRef<string>("");
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    const extent = (focus && focus.length === 4 ? focus : extentOf(geo.turkiye)) as
+      [number, number, number, number] | null;
+    if (!extent) return;
+    const key = extent.join(",");
+    if (framed.current === key) return;
+    // The first framing is the one the map was built with; only a CHANGE moves
+    // the reader, and never while they are reading the same overlay.
+    if (framed.current !== "") instance.fitBounds(extent, { padding: 24, duration: 600 });
+    framed.current = key;
+  }, [focus, geo]);
 
   // The flows for the selected province, and the places an overlay wants drawn.
   // Both go on their source rather than into the style, so drawing them never

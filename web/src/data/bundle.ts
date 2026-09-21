@@ -518,9 +518,75 @@ export async function loadRailStations(): Promise<RailStations> {
   return (await response.json()) as RailStations;
 }
 
-/** A published line to draw, and whether it is high-speed. */
+/**
+ * A published line to draw, and which of the palette's colours it takes.
+ *
+ * `tone` is a slot in registry/palette.yaml, not a colour: an overlay says
+ * WHICH kind of line this is, and the map — which owns the palette — decides
+ * what that looks like (CLAUDE.md §9). Absent, or 0, means the muted line a
+ * network is drawn in when nothing distinguishes it.
+ */
 export interface NetworkLine {
   id: string;
-  highspeed: boolean;
   line: Array<[number, number]>;
+  tone?: number;
+}
+
+// ── İstanbul's transit ───────────────────────────────────────────────────────
+
+/**
+ * İstanbul's rail and sea network, from the city's GTFS feed.
+ *
+ * Routes, their stops in the published order, and their shapes — simplified at
+ * 20 m, which `feed.derivation` states along with the rest of what is ours: the
+ * longest trip in each direction stands for that direction, and the opening
+ * view is the extent of the published stops.
+ *
+ * The feed also carries 376 minibüs and taxi-dolmuş routes. `not_included`
+ * says so, and why they are not here.
+ */
+export interface Transit {
+  generated_at: string;
+  feed: {
+    city: Text;
+    label: Text;
+    published_on: string;
+    services_from: string;
+    services_to: string;
+    modes: Record<string, number>;
+    mode_labels: Record<string, Text>;
+    agencies: string[];
+    not_included: { routes: number; why: string };
+    repaired_rows: number;
+    derivation: {
+      provenance: string;
+      simplified: string;
+      tolerance_m: number;
+      representative_trip: string;
+      view: string;
+    };
+    /** [west, south, east, north] — where the map should open. */
+    view: number[];
+  };
+  routes: Array<{
+    id: string;
+    short_name: string;
+    long_name: string;
+    route_type: number;
+    mode: string;
+    mode_label: Text;
+    agency: string;
+    trips: number;
+    stops: string[];
+    shapes: Array<Array<[number, number]>>;
+  }>;
+  stops: Array<{ id: string; name: string; point: [number, number] }>;
+}
+
+export const TRANSIT_FILE = "data/transit/istanbul.json";
+
+export async function loadTransit(): Promise<Transit> {
+  const response = await fetch(asset(TRANSIT_FILE));
+  if (!response.ok) throw new Error(`istanbul.json: HTTP ${response.status}`);
+  return (await response.json()) as Transit;
 }

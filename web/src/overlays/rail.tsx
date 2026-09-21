@@ -132,7 +132,9 @@ export function useRailOverlay({ lang, clock, active }: OverlayContext): Overlay
     : [];
 
   const lines: NetworkLine[] = network
-    ? network.lines.map((line) => ({ id: line.id, highspeed: line.highspeed, line: line.line }))
+    // Slot 2 for high-speed, the muted line for the rest: the distinction is a
+    // published tag, and the palette decides what it looks like.
+    ? network.lines.map((line) => ({ id: line.id, line: line.line, tone: line.highspeed ? 2 : 0 }))
     : [];
 
   return {

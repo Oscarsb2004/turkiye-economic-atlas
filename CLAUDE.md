@@ -167,9 +167,15 @@ for the main-line network), so fragments are joined before anything is published
 is recorded, way id by way id, so it can be undone. OSM has no edition: the period is
 `timestamp_osm_base`, the moment the answer was current.
 
+**A GTFS feed is not automatically GTFS.** İstanbul's is Windows-1254 where the spec requires
+UTF-8 — `BEŞİKTAŞ` is not valid UTF-8 and a spec-trusting reader dies on the fourth line — and two
+of its records are wrapped in quotes end to end, so a CSV reader sees one field where the header
+has nine. Both are repaired, counted, and published as counted.
+
 **Published boundaries are simplified, and things fall outside them.** At Natural Earth 8%,
-49 of 1 334 railway stations — 18 of them Marmaray — sit outside every province, and Sabiha
-Gökçen's coordinate lands in Kocaeli. A point is therefore placed in the province that contains
+49 of 1 334 railway stations — 18 of them Marmaray — sit outside every province, Sabiha Gökçen's
+coordinate lands in Kocaeli, and the Princes' Islands are gone entirely, which puts four ferry
+piers 6–8 km out to sea. A point is therefore placed in the province that contains
 it, or in the nearest one within a stated distance, and the record says which.
 
 **MapLibre's `load` event needs a rendered frame.** A hidden desktop pane gives no animation

@@ -156,8 +156,12 @@ export function App() {
                   flows={overlay.flows ?? []}
                   markers={overlay.markers ?? []}
                   network={overlay.network ?? []}
+                  focus={overlay.focus}
                 />
-                {binning && palette ? (
+                {/* An overlay that shades nothing brings its own key; one that
+                    shades brings bands, and the shared legend explains them. */}
+                {overlay.legend ? overlay.legend
+                  : binning && palette ? (
                   <Legend
                     binning={binning}
                     ramp={palette.sequential.steps}

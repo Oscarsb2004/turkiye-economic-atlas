@@ -95,6 +95,19 @@ export interface Overlay {
    * geometry a publisher published, and the map draws them as they are.
    */
   network?: NetworkLine[];
+  /**
+   * A legend of this overlay's own, where the shared one cannot speak for it.
+   *
+   * The shared legend explains a choropleth's bands. An overlay that shades
+   * nothing — İstanbul's transit is lines and stops in one city — would
+   * otherwise leave the reader with colours and no key.
+   */
+  legend?: ReactNode;
+  /**
+   * [west, south, east, north] the map should open on, where the country is the
+   * wrong frame. Clearing it returns the map to Türkiye.
+   */
+  focus?: number[];
   /** This overlay's own controls — a currency, a candidate — shown in the rail. */
   controls: ReactNode;
   /** What is known about one province under this overlay. */

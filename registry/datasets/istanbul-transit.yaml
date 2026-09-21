@@ -1,0 +1,23 @@
+# registry/datasets/istanbul-transit.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "İstanbul's metro, tram, funicular, cable car and ferry network, as İBB publishes it"
+group: transit
+order: 10
+builder: atlas.datasets.istanbul_transit:build
+params: {}
+sources:
+- ibb_gtfs
+shells:
+- fetcher
+- geometry
+after: []
+outputs:
+- data/transit/istanbul.json
+frame:
+  profile: points
+  record_type: asset
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app draws each line in its mode's colour and every stop it calls at

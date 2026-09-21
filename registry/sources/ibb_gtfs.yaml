@@ -1,0 +1,24 @@
+# registry/sources/ibb_gtfs.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Toplu Ulaşım GTFS Verisi (Public Transport GTFS Data)
+publisher: İstanbul Büyükşehir Belediyesi (İBB)
+licence: ibb-open-data
+attribution: İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı, Toplu Ulaşım GTFS Verisi
+page: https://data.ibb.gov.tr/dataset/public-transport-gtfs-data
+api: https://data.ibb.gov.tr/api/3/action
+package: public-transport-gtfs-data
+# İstanbul's metro and Marmaray, trams, funiculars, cable cars, the ferries of
+# Şehir Hatları, İDO, Turyol and Dentur Avrasya — and 376 minibüs and
+# taxi-dolmuş routes, which atlas/datasets/istanbul_transit.py does not publish
+# and says why.
+#
+# Published as EIGHT SEPARATE CSVs rather than the one zip GTFS expects, so the
+# resource URLs are read from the portal's own package_show rather than written
+# down here: the ids are long, and the same call reports when each file was last
+# replaced, which is the only edition this feed has (there is no feed_info.txt).
+#
+# TWO THINGS THE SPEC SAYS THAT THIS FEED DOES NOT DO, both in
+# atlas/readers/gtfs.py: the files are Windows-1254 rather than UTF-8, and two
+# lines — one in routes.csv, one in stops.csv — are wrapped in quotes as a
+# whole, so a CSV reader sees one field where the header has nine.

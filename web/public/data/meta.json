@@ -21,9 +21,10 @@
     "palette.json",
     "provinces/gdp-per-capita.json",
     "rail/network.json",
-    "rail/stations.json"
+    "rail/stations.json",
+    "transit/istanbul.json"
   ],
-  "generated_at": "2026-09-21T00:59:10Z",
+  "generated_at": "2026-09-21T01:22:21Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -42,6 +43,12 @@
       "name": "DHMİ — no published terms",
       "redistribution": "unstated by the publisher",
       "url": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"
+    },
+    "ibb-open-data": {
+      "attribution": "İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı",
+      "name": "İstanbul Büyükşehir Belediyesi Açık Veri Lisansı",
+      "redistribution": "permitted, commercially and non-commercially, with attribution",
+      "url": "https://data.ibb.gov.tr/license"
     },
     "odbl-1.0": {
       "attribution": "© OpenStreetMap contributors, ODbL 1.0",
@@ -75,6 +82,12 @@
       "page": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx",
       "publisher": "Devlet Hava Meydanları İşletmesi (DHMİ)",
       "title": "Havalimanları Karşılaştırmalı İstatistikleri"
+    },
+    "ibb_gtfs": {
+      "licence": "ibb-open-data",
+      "page": "https://data.ibb.gov.tr/dataset/public-transport-gtfs-data",
+      "publisher": "İstanbul Büyükşehir Belediyesi (İBB)",
+      "title": "Toplu Ulaşım GTFS Verisi (Public Transport GTFS Data)"
     },
     "natural_earth_admin1": {
       "licence": "public-domain",

@@ -44,6 +44,20 @@ licences:
     # not a licence, so it is recorded here rather than read as permission.
     attribution: Devlet Hava Meydanları İşletmesi (DHMİ)
 
+  ibb-open-data:
+    name: İstanbul Büyükşehir Belediyesi Açık Veri Lisansı
+    url: https://data.ibb.gov.tr/license
+    redistribution: permitted, commercially and non-commercially, with attribution
+    # Read 2026-09-20. The licence grants a worldwide, royalty-free, perpetual,
+    # non-exclusive licence to "Bilgileri kopyalamak, yayınlamak, dağıtmak ve
+    # iletmek" (copy, publish, distribute and transmit), "Bilgiyi uyarlamak"
+    # (adapt it) and use it "ticari olarak ve ticari olmayan şekilde"
+    # (commercially and non-commercially), on the condition that the source is
+    # referenced. Where the provider states no wording of its own it prescribes:
+    # "Atıf 4.0 Uluslararası (CC BY 4.0) kapsamında lisanslanan kamu sektörü
+    # bilgilerini içerir." Modelled on the UK Open Government Licence.
+    attribution: İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı
+
   odbl-1.0:
     name: Open Database License 1.0
     url: https://opendatacommons.org/licenses/odbl/1-0/

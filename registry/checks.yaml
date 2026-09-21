@@ -523,3 +523,48 @@ datasets:
         The province this pipeline derived, recomputed here from the same published boundary — verify/
         never imports atlas/, so the two are independent. A station the boundary does not contain is
         skipped by this check and covered by `placement` instead.
+
+  istanbul-transit:
+    path: data/transit/istanbul.json
+    records: routes
+    id_field: id
+    checks:
+    - kind: unique_ids
+      note: One record per route, keyed on İBB's own route_id.
+    - kind: record_count
+      expect: 123
+      note: >-
+        The metro, tram, funicular, cable car and ferry routes in the feed. The other 376 are minibüs
+        and taxi-dolmuş, which this dataset says it does not include.
+    - kind: fields_present
+      fields: [short_name, long_name, mode, mode_label.tr, trips, stops, shapes]
+      note: >-
+        Both published names, the mode, the count of trips the feed schedules, the stops it calls at
+        and the geometry it follows. A route with no stops or no shape would draw as nothing.
+    - kind: enum_field
+      field: mode
+      allowed: [metro, tram, ferry, funicular, cable_car]
+      note: >-
+        Five modes and five validated palette slots. A sixth would have to be a decision about colour
+        before it could be a line on the map (CLAUDE.md §9).
+
+  istanbul-transit-stops:
+    path: data/transit/istanbul.json
+    records: stops
+    id_field: id
+    geometry_path: point
+    checks:
+    - kind: unique_ids
+      note: One record per stop, keyed on İBB's own stop_id.
+    - kind: fields_present
+      fields: [name, point]
+      note: Every stop has the name and the coordinate the feed publishes for it.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 10
+      note: >-
+        Every stop is inside Türkiye — at ten kilometres, and the number is the boundary's fault
+        rather than the feed's. Natural Earth admin-1 simplified to 8% reduces İstanbul to two
+        polygons of 13 and 9 points and loses the Princes' Islands altogether, so the ferry piers at
+        Büyükada, Heybeliada, Burgazada and Kınalıada sit 6 to 8 km outside a coastline that does not
+        include the islands they are on. The stops are where İBB says they are.

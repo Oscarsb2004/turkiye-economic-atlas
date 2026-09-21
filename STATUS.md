@@ -19,6 +19,7 @@ python run.py --check    # every registry file against its schema
 | 03 | `-m atlas.run migration` |
 | 04 | `-m atlas.run aviation` |
 | 05 | `-m atlas.run rail` |
+| 06 | `-m atlas.run transit` |
 | 99 | `-m atlas.run bundle` |
 
 ## Datasets
@@ -38,7 +39,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (632 KB)<br>`web/public/data/meta.json` (4 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (632 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/meta.json` (5 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
@@ -72,11 +73,17 @@ python run.py --check    # every registry file against its schema
 | **rail-network**<br>Every main-line and high-speed railway, joined into lines, as OpenStreetMap has it | `data/rail/network.json` (1.5 MB) | yes | `web/src/data/bundle.ts` |
 | **rail-stations**<br>Every railway station and halt, placed in a province, as OpenStreetMap has it | `data/rail/stations.json` (632 KB) | yes | `web/src/data/bundle.ts` |
 
+### transit
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **istanbul-transit**<br>İstanbul's metro, tram, funicular, cable car and ferry network, as İBB publishes it | `data/transit/istanbul.json` (432 KB) | yes | `web/src/data/bundle.ts` |
+
 ## What they are built from
 
 **2 shells** (`registry/shells/`): `fetcher`, `geometry`.
 
-**7 sources** (`registry/sources/`): `dhmi_airport_statistics`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
+**8 sources** (`registry/sources/`): `dhmi_airport_statistics`, `ibb_gtfs`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.
