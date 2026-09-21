@@ -157,8 +157,8 @@
         "urban": 0
       },
       "44": {
-        "halt": 6,
-        "total": 25,
+        "halt": 5,
+        "total": 24,
         "urban": 0
       },
       "45": {
@@ -300,27 +300,27 @@
     "formula": "the number of stations whose published coordinate falls inside the province's published boundary, or within 2000 m of it where the simplified boundary contains none; `halt` counts those published as railway=halt, and `urban` those whose published station tag is one of funicular, light_rail, monorail, subway",
     "provenance": "derived"
   },
-  "generated_at": "2026-09-21T12:29:08Z",
+  "generated_at": "2026-09-21T13:36:48Z",
   "sources": [
     {
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T12:29:08Z",
+      "retrieved_at": "2026-09-21T13:36:48Z",
       "url": "https://www.openstreetmap.org/copyright"
     },
     {
       "content_sha256": "",
       "licence": "public-domain",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T12:29:08Z",
+      "retrieved_at": "2026-09-21T13:36:48Z",
       "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/"
     }
   ],
   "station_info": {
     "current_as_of": "2026-09-21",
     "kinds": {
-      "halt": 239,
+      "halt": 238,
       "station": 1096
     },
     "label": {
@@ -13389,8 +13389,8 @@
       "placement": "contains",
       "plaka": 44,
       "point": [
-        37.69022,
-        37.92926
+        37.68334,
+        37.91626
       ],
       "province": {
         "en": "Malatya",
@@ -18925,8 +18925,8 @@
       "id": "6982425707",
       "kind": "station",
       "name": {
-        "en": "Eryaman high-speed railway station",
-        "tr": "Eryaman YHT Garı"
+        "en": "",
+        "tr": "Eryaman"
       },
       "network": "Türkiye Cumhuriyeti Devlet Demiryolları",
       "operator": "TCDD Taşımacılık",
@@ -29675,28 +29675,6 @@
       "province": {
         "en": "Manisa",
         "tr": "Manisa"
-      },
-      "station": "",
-      "train": "yes"
-    },
-    {
-      "id": "14203469417",
-      "kind": "halt",
-      "name": {
-        "en": "",
-        "tr": "KM 155+800"
-      },
-      "network": "TR-railway",
-      "operator": "",
-      "placement": "contains",
-      "plaka": 44,
-      "point": [
-        37.68336,
-        37.91639
-      ],
-      "province": {
-        "en": "Malatya",
-        "tr": "Malatya"
       },
       "station": "",
       "train": "yes"

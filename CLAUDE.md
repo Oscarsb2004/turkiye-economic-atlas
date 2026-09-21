@@ -117,7 +117,8 @@ renders as "no figure published" and says so.
 ## Commands
 
 ```bash
-python run.py            # every step, then verification
+python run.py            # every stage, the tests, verification, and a summary of the three
+python run.py --web      # the atlas in a browser, on a port it prints before it opens
 python run.py --check    # every registry file against its schema, and STATUS.md
 python run.py --status   # rewrite STATUS.md from the registry
 python run.py --test     # pytest

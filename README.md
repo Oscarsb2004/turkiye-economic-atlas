@@ -50,8 +50,26 @@ happens next.
 ## Running it
 
 ```bash
+python run.py            # every stage, the tests, verification, and a summary of what they found
 python run.py --check    # registry against its schemas, and STATUS.md
-python run.py --test     # the test suite
+python run.py --test     # the test suite: pytest, and the web tests
+python run.py --web      # the atlas in a browser; it prints the address before it opens
 ```
+
+A full run ends like this, and the last line is where to read the result:
+
+```
+=== summary ===
+  registry   ok
+  stages     8 of 8 ran
+  data       43 published files, 8.1 MB
+  tests      106 passed · web 16 passed
+  gates      95 passed, 6 note(s)
+  site       python run.py --web  ->  http://localhost:5173/
+```
+
+Nothing in that block is recounted: each figure is what the step itself printed, or what was
+measured off disk. A failing gate is quoted under it, word for word, with the numbers that
+disagreed.
 
 The first run bootstraps a virtual environment from `requirements.txt`.

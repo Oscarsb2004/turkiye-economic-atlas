@@ -2,16 +2,15 @@
 """
 run.py — the only command this project needs.
 
-    python run.py                 run the whole pipeline, then verify
+    python run.py                 the whole pipeline, then the tests, then verification,
+                                  and a summary that says what was found and where to read it
     python run.py --stage 01      run one stage (see --help for the list)
     python run.py --check         validate every registry file against its schema
     python run.py --status        rewrite STATUS.md from the registry
     python run.py --verify        independent verification only
-    python run.py --test          pytest only
-    python run.py --live          the atlas in your browser, with live Canadian vessel positions
-                                  on the globe (needs `npm install` in web/, and AISSTREAM_API_KEY
-                                  in .env for the ships; without it the published snapshot shows)
-    python run.py --web           the same
+    python run.py --test          the tests: pytest, and the web tests if npm install has been run
+    python run.py --web           the atlas in your browser (needs `npm install` in web/)
+    python run.py --live          the same
     python run.py --refresh       bypass the HTTP cache when pulling
 
 On first use it creates `.venv`, installs `requirements.txt` into it, and
@@ -27,8 +26,10 @@ from __future__ import annotations
 
 import hashlib
 import os
+import re
 import shlex
 import shutil
+import socket
 import subprocess
 import sys
 from pathlib import Path
@@ -97,19 +98,80 @@ def run(*args: str) -> int:
     return subprocess.run([sys.executable, *args], cwd=ROOT).returncode
 
 
+def plain(output: str) -> str:
+    """The same text without the colours a test runner writes into it.
+
+    vitest prints "Tests  16 passed" with an escape sequence between the word
+    and the number, so a summary that reads its own output has to read what was
+    meant rather than what was painted.
+    """
+    return re.sub(r"\x1b\[[0-9;]*m", "", output)
+
+
+def tee(*args: str) -> tuple[int, str]:
+    """
+    Run a step, show its output as it happens, AND keep it.
+
+    The summary at the end of a run reports what each step said about itself —
+    how many gates passed, how many tests — and the alternative to keeping the
+    output is running everything twice or parsing a log file afterwards.
+    Nothing is buffered until the end: a stage that takes a minute still prints
+    while it works.
+    """
+    process = subprocess.Popen(
+        [sys.executable, *args], cwd=ROOT, stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", bufsize=1,
+    )
+    kept = []
+    assert process.stdout is not None
+    for line in process.stdout:
+        print(line, end="")
+        kept.append(line)
+    return process.wait(), "".join(kept)
+
+
+def tee_exec(command: list[str], cwd: Path) -> tuple[int, str]:
+    """The same, for a command that is not this interpreter — the web tests."""
+    process = subprocess.Popen(
+        command, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        text=True, encoding="utf-8", errors="replace", bufsize=1,
+    )
+    kept = []
+    assert process.stdout is not None
+    for line in process.stdout:
+        print(line, end="")
+        kept.append(line)
+    return process.wait(), "".join(kept)
+
+
+def free_port(first: int = 5173) -> int:
+    """
+    A port nothing is listening on, starting at Vite's own default.
+
+    The summary prints an address, and an address that is already somebody
+    else's is worse than no address at all — a second copy of the dev server
+    would otherwise silently open on 5174 while the printed link pointed at
+    whatever was on 5173.
+    """
+    for port in range(first, first + 20):
+        with socket.socket() as probe:
+            if probe.connect_ex(("127.0.0.1", port)) != 0:
+                return port
+    return first
+
+
 def app() -> int:
     """
-    The atlas in the browser, with live Canadian vessel positions on its globe.
+    The atlas in the browser, on a port this prints before it opens.
 
-    One command starts both halves. They were two once — `--live` ran only the
-    collector, which answers with raw JSON, and `--web` only the app — so on
-    2026-09-12 the feed was opened in a browser tab and read as a page of text
-    while the globe that draws it was never started.
+    The port is chosen here rather than by Vite, and passed with --strictPort,
+    so the address printed IS the address served. Vite otherwise steps to the
+    next free port on its own, which leaves a printed link pointing at whatever
+    was already on 5173.
 
-    The collector is a child process, not a stage: live positions never satisfy
-    a zero-line re-run, so they stay out of the pipeline and out of data/
-    (docs/AIS.md). Without an aisstream.io key it prints why and exits, and the
-    atlas runs on the published snapshot.
+    The live AIS collector was a second half of this command in the atlas this
+    was forked from. It is not here: vessels arrive at T13 (docs/PLAN.md), and
+    starting a script that does not exist is how `--web` half-worked for a week.
     """
     web = ROOT / "web"
     vite = web / "node_modules" / "vite" / "bin" / "vite.js"
@@ -118,20 +180,88 @@ def app() -> int:
         print("the app needs Node.js and `npm install` in web/ first", file=sys.stderr)
         return 1
 
-    collector = subprocess.Popen([sys.executable, "live/collect_ais.py", "--serve"], cwd=ROOT)
+    port = free_port()
+    print(f"\n  the atlas -> http://localhost:{port}/\n", flush=True)
     try:
         # Vite directly rather than `npm run dev`: npm is a .cmd on Windows, and
         # Ctrl+C in a .cmd stops at "Terminate batch job (Y/N)?".
-        return subprocess.run([node, str(vite), "--open"], cwd=web).returncode
+        return subprocess.run(
+            [node, str(vite), "--port", str(port), "--strictPort", "--open"], cwd=web
+        ).returncode
     except KeyboardInterrupt:
         return 0
-    finally:
-        # Ctrl+C reaches the collector through the console too, and it writes
-        # data/raw/live/positions.json on the way out; give it time to.
-        try:
-            collector.wait(timeout=10)
-        except subprocess.TimeoutExpired:
-            collector.terminate()
+
+
+def tests() -> tuple[int, str]:
+    """
+    Both suites: pytest here, and the web tests where the web is.
+
+    The web ones are skipped, not failed, when `npm install` has not been run —
+    a clone that only wants the data should not be told its tests are broken.
+    """
+    code, output = tee("-m", "pytest", "tests/", "-q")
+    found = re.search(r"(\d+) passed", plain(output))
+    summary = f"{found.group(1)} passed" if found and code == 0 else "FAILED"
+
+    vitest = ROOT / "web" / "node_modules" / "vitest" / "vitest.mjs"
+    node = shutil.which("node")
+    if not (vitest.exists() and node):
+        return code, f"{summary} · web skipped (no npm install)"
+
+    print()
+    web_code, web_output = tee_exec([node, str(vitest), "run"], ROOT / "web")
+    web_found = re.search(r"Tests\s+(\d+) passed", plain(web_output))
+    web = f"{web_found.group(1)} passed" if web_found and web_code == 0 else "FAILED"
+    return (code or web_code), f"{summary} · web {web}"
+
+
+def gate_summary(output: str) -> tuple[str, list[str]]:
+    """
+    What verification found, from what it printed: a line, and what failed.
+
+    verify/run.py already says it better than this could — "95 gate(s) passed,
+    6 note(s)", and the failures listed under it — so the summary quotes it
+    rather than recounting anything. A shape it does not recognise says so
+    instead of guessing at a number.
+    """
+    text = plain(output)
+    passed = re.search(r"(\d+) gate\(s\) passed, (\d+) note\(s\)", text)
+    failed = re.search(r"(\d+) gate\(s\) failed, (\d+) passed", text)
+    if passed:
+        line = f"{passed.group(1)} passed, {passed.group(2)} note(s)"
+    elif failed:
+        line = f"{failed.group(1)} FAILED, {failed.group(2)} passed"
+    else:
+        line = "no result"
+    failures = [row.strip()[2:] for row in text.splitlines() if row.strip().startswith("- ")]
+    return line, failures
+
+
+def published_files() -> tuple[int, float]:
+    """How many files the registry says this atlas publishes, and their weight."""
+    from atlas.core import registry as R
+
+    paths = {ROOT / out for card in R.datasets().values() for out in card["outputs"]}
+    present = [path for path in sorted(paths) if path.exists()]
+    return len(present), sum(path.stat().st_size for path in present) / 1_048_576
+
+
+def summarise(lines: list[tuple[str, str]], failures: list[str]) -> None:
+    """
+    What the run found, in the order a reader wants it, and where to look next.
+
+    Every figure here is something a step printed about itself or something
+    counted off disk — this does not restate a result it did not see.
+    """
+    width = max(len(label) for label, _ in lines)
+    print("\n=== summary ===")
+    for label, value in lines:
+        print(f"  {label.ljust(width)}   {value}")
+    if failures:
+        print("\n  what failed:")
+        for failure in failures:
+            print(f"    - {failure}")
+    print()
 
 
 def check() -> int:
@@ -165,7 +295,9 @@ def main() -> int:
     args = ap.parse_args()
 
     if args.test:
-        return run("-m", "pytest", "tests/", "-q")
+        code, summary = tests()
+        print(f"\n  tests: {summary}\n")
+        return code
 
     if args.verify:
         return run("-m", "verify.run")
@@ -192,6 +324,43 @@ def main() -> int:
     if code != 0:
         return code
 
+    # Full run: stages in order, then the tests, then verification, then a
+    # summary of what all three found. Any stage failing stops the run — a
+    # later stage reading a half-written earlier output is how a bad bundle
+    # gets committed — and the summary still says where it stopped.
+    failures: list[str] = []
+    for key in sorted(STAGES):
+        print(f"\n=== stage {key} ===")
+        code = run(*shlex.split(STAGES[key]), *extra)
+        if code != 0:
+            print(f"stage {key} failed", file=sys.stderr)
+            summarise([("registry", "ok"), ("stages", f"stopped at {key}")],
+                      [f"stage {key}: {STAGES[key]}"])
+            return code
+
+    print("\n=== tests ===")
+    test_code, test_summary = tests()
+    if test_code != 0:
+        failures.append("the tests")
+
+    print("\n=== verify ===")
+    verify_code, verify_output = tee("-m", "verify.run")
+    gates, gate_failures = gate_summary(verify_output)
+    failures.extend(gate_failures)
+
+    count, megabytes = published_files()
+    summarise(
+        [
+            ("registry", "ok"),
+            ("stages", f"{len(STAGES)} of {len(STAGES)} ran"),
+            ("data", f"{count} published files, {megabytes:.1f} MB"),
+            ("tests", test_summary),
+            ("gates", gates),
+            ("site", f"python run.py --web  ->  http://localhost:{free_port()}/"),
+        ],
+        failures,
+    )
+    return test_code or verify_code
     # Full run: stages in order, then verification. Any stage failing stops the
     # run — a later stage reading a half-written earlier output is how a bad
     # bundle gets committed.
