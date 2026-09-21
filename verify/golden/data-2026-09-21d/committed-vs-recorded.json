@@ -1,0 +1,12 @@
+{
+  "changed": [
+    "data/nightlights/viirs.json",
+    "data/rail/network.json",
+    "data/rail/stations.json",
+    "web/public/data/nightlights/viirs.json",
+    "web/public/data/rail/network.json",
+    "web/public/data/rail/stations.json"
+  ],
+  "extra": [],
+  "missing": []
+}

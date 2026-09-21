@@ -1,0 +1,218 @@
+{
+  "data/airports/2020.json": {
+    "bytes": 92911,
+    "sha256": "0dca3d7df67b994656415639371c9f084f9bd3b5d5c75aa22f8e148a80664c03"
+  },
+  "data/airports/2021.json": {
+    "bytes": 92938,
+    "sha256": "62cde0751eca3694e3284b78ce4bc5ae975bcceefdc618d8cb7a4013e8627c19"
+  },
+  "data/airports/2022.json": {
+    "bytes": 94999,
+    "sha256": "b09e6874cc60cb6da34a1e12ce6c56bf6428cc23c5aa9580f319d766296fdeb1"
+  },
+  "data/airports/2023.json": {
+    "bytes": 95217,
+    "sha256": "4dc382fa9131d29fa22f86a3242f76d99c2ba23bbf3c31b1b0584fbdfa7c4f1f"
+  },
+  "data/airports/2024.json": {
+    "bytes": 96046,
+    "sha256": "eb0f99fbb6e17c1d068f8531a36a79b88498000e662ec0f68383ff0874685061"
+  },
+  "data/airports/2025.json": {
+    "bytes": 96491,
+    "sha256": "2fe591046dd713f652a952209e0f53eaf766a31afa7de9290c15add37abdb28b"
+  },
+  "data/elections/2023-cumhurbaskani-1.json": {
+    "bytes": 41619,
+    "sha256": "514680cadb9e7bc755f0076b7fb589d80fb825504dd7a5571d01b910dae31e1d"
+  },
+  "data/elections/2023-cumhurbaskani-2.json": {
+    "bytes": 36102,
+    "sha256": "5559e75ca35255c71c21ad8d998484b7942fcc55cb82c4cdd62c08dcd461a4e6"
+  },
+  "data/elections/2023-milletvekili.json": {
+    "bytes": 111718,
+    "sha256": "ae8ee91bc630bb00efbc461ad5b93fdb7709983678b6369f4284388733719693"
+  },
+  "data/migration/2020.json": {
+    "bytes": 150616,
+    "sha256": "3f53ac5d7cd0e0ec3e17e1899b454dfbf0e1b50e5fc288231c93f4664f60a97b"
+  },
+  "data/migration/2021.json": {
+    "bytes": 151414,
+    "sha256": "41d52cce3e2210953d9033da6b9aabf459aca90fcf6fc2673d8416519f307a3c"
+  },
+  "data/migration/2022.json": {
+    "bytes": 151557,
+    "sha256": "453e30718d0a8786c8d7c4bd1fdb5b45aea21c5d4877f6f549863e92fb65e3f1"
+  },
+  "data/migration/2023.json": {
+    "bytes": 151905,
+    "sha256": "6865ec2eb80155c60fc52a5fe99e266a6c44fc43fd5525d4128cccde6a0d7b09"
+  },
+  "data/migration/2024.json": {
+    "bytes": 151359,
+    "sha256": "1e9c0b8fc58e09755470ff53461c4a6af69b06d0eb1e341ff7fa535fd4f23a3d"
+  },
+  "data/migration/2025.json": {
+    "bytes": 151130,
+    "sha256": "fbb0fe4a3d14a210ade40497eaa57c15deb06079edb632c1a3bb150b3c25aa03"
+  },
+  "data/nightlights/viirs.json": {
+    "bytes": 35810,
+    "sha256": "197be47b70aa7da76aa9cb6c8db2214d0e2e7c38c95c2249bd458cc34382fa19"
+  },
+  "data/places/settlements.json": {
+    "bytes": 365721,
+    "sha256": "5fb7a67115e41ef66994a2c78f75ab5f77d8b8e178181e5320e7de900cfc8952"
+  },
+  "data/provinces/gdp-per-capita.json": {
+    "bytes": 68294,
+    "sha256": "ea74a52c6b97b4eeb3666b552d0fe550b54da7d7c9cd4b75eda2cd92df4b350c"
+  },
+  "data/rail/network.json": {
+    "bytes": 1474929,
+    "sha256": "d499daef2379f58839ff19526da9755b85b01c995654d04f7d66c0ec905ebacb"
+  },
+  "data/rail/stations.json": {
+    "bytes": 632467,
+    "sha256": "08221d69b274145c06f384dcaabdb6534f8f567f8a39e10253db3e9b19c5e998"
+  },
+  "data/transit/istanbul.json": {
+    "bytes": 431548,
+    "sha256": "b305d23b1b515c39f825997cf356040ebee68589e352fee12e21c5d0e18b358a"
+  },
+  "web/public/data/airports/2020.json": {
+    "bytes": 92911,
+    "sha256": "0dca3d7df67b994656415639371c9f084f9bd3b5d5c75aa22f8e148a80664c03"
+  },
+  "web/public/data/airports/2021.json": {
+    "bytes": 92938,
+    "sha256": "62cde0751eca3694e3284b78ce4bc5ae975bcceefdc618d8cb7a4013e8627c19"
+  },
+  "web/public/data/airports/2022.json": {
+    "bytes": 94999,
+    "sha256": "b09e6874cc60cb6da34a1e12ce6c56bf6428cc23c5aa9580f319d766296fdeb1"
+  },
+  "web/public/data/airports/2023.json": {
+    "bytes": 95217,
+    "sha256": "4dc382fa9131d29fa22f86a3242f76d99c2ba23bbf3c31b1b0584fbdfa7c4f1f"
+  },
+  "web/public/data/airports/2024.json": {
+    "bytes": 96046,
+    "sha256": "eb0f99fbb6e17c1d068f8531a36a79b88498000e662ec0f68383ff0874685061"
+  },
+  "web/public/data/airports/2025.json": {
+    "bytes": 96491,
+    "sha256": "2fe591046dd713f652a952209e0f53eaf766a31afa7de9290c15add37abdb28b"
+  },
+  "web/public/data/elections/2023-cumhurbaskani-1.json": {
+    "bytes": 41619,
+    "sha256": "514680cadb9e7bc755f0076b7fb589d80fb825504dd7a5571d01b910dae31e1d"
+  },
+  "web/public/data/elections/2023-cumhurbaskani-2.json": {
+    "bytes": 36102,
+    "sha256": "5559e75ca35255c71c21ad8d998484b7942fcc55cb82c4cdd62c08dcd461a4e6"
+  },
+  "web/public/data/elections/2023-milletvekili.json": {
+    "bytes": 111718,
+    "sha256": "ae8ee91bc630bb00efbc461ad5b93fdb7709983678b6369f4284388733719693"
+  },
+  "web/public/data/elections/index.json": {
+    "bytes": 731,
+    "sha256": "b1af156be934bdcf0812d65e35e0ad014e208dc0dd37b3eee7e68f6c654cf60f"
+  },
+  "web/public/data/meta.json": {
+    "bytes": 6718,
+    "sha256": "5e21215128c34377144db0ddcae30435710ca2bd6a11df5200925cfb4c6bbd24"
+  },
+  "web/public/data/migration/2020.json": {
+    "bytes": 150616,
+    "sha256": "3f53ac5d7cd0e0ec3e17e1899b454dfbf0e1b50e5fc288231c93f4664f60a97b"
+  },
+  "web/public/data/migration/2021.json": {
+    "bytes": 151414,
+    "sha256": "41d52cce3e2210953d9033da6b9aabf459aca90fcf6fc2673d8416519f307a3c"
+  },
+  "web/public/data/migration/2022.json": {
+    "bytes": 151557,
+    "sha256": "453e30718d0a8786c8d7c4bd1fdb5b45aea21c5d4877f6f549863e92fb65e3f1"
+  },
+  "web/public/data/migration/2023.json": {
+    "bytes": 151905,
+    "sha256": "6865ec2eb80155c60fc52a5fe99e266a6c44fc43fd5525d4128cccde6a0d7b09"
+  },
+  "web/public/data/migration/2024.json": {
+    "bytes": 151359,
+    "sha256": "1e9c0b8fc58e09755470ff53461c4a6af69b06d0eb1e341ff7fa535fd4f23a3d"
+  },
+  "web/public/data/migration/2025.json": {
+    "bytes": 151130,
+    "sha256": "fbb0fe4a3d14a210ade40497eaa57c15deb06079edb632c1a3bb150b3c25aa03"
+  },
+  "web/public/data/nightlights/viirs.json": {
+    "bytes": 35810,
+    "sha256": "197be47b70aa7da76aa9cb6c8db2214d0e2e7c38c95c2249bd458cc34382fa19"
+  },
+  "web/public/data/palette.json": {
+    "bytes": 2561,
+    "sha256": "216a1cd4a41d66b30b7b937565d873f039849db4886aeffe902fcf825d71ab9d"
+  },
+  "web/public/data/places/settlements.json": {
+    "bytes": 365721,
+    "sha256": "5fb7a67115e41ef66994a2c78f75ab5f77d8b8e178181e5320e7de900cfc8952"
+  },
+  "web/public/data/provinces/gdp-per-capita.json": {
+    "bytes": 68294,
+    "sha256": "ea74a52c6b97b4eeb3666b552d0fe550b54da7d7c9cd4b75eda2cd92df4b350c"
+  },
+  "web/public/data/rail/network.json": {
+    "bytes": 1474929,
+    "sha256": "d499daef2379f58839ff19526da9755b85b01c995654d04f7d66c0ec905ebacb"
+  },
+  "web/public/data/rail/stations.json": {
+    "bytes": 632467,
+    "sha256": "08221d69b274145c06f384dcaabdb6534f8f567f8a39e10253db3e9b19c5e998"
+  },
+  "web/public/data/transit/istanbul.json": {
+    "bytes": 431548,
+    "sha256": "b305d23b1b515c39f825997cf356040ebee68589e352fee12e21c5d0e18b358a"
+  },
+  "web/public/geo/SOURCES.json": {
+    "bytes": 5257,
+    "sha256": "f44f7f0ea3542cb4feea082b033e6d77d6fa60c08ecad1f493224119b2df8482"
+  },
+  "web/public/geo/points.json": {
+    "bytes": 13233,
+    "sha256": "615b217d10e1f2d9746319752f5835f9217f8e3df12d9482b57374389a680250"
+  },
+  "web/public/geo/provinces-detail.json": {
+    "bytes": 1415290,
+    "sha256": "135ec861fe6de8c8dd00e555431cba025bef93a74ec36701536d8f314b529de0"
+  },
+  "web/public/geo/provinces.json": {
+    "bytes": 208007,
+    "sha256": "84d4241fa5d1f482da3cf3466791b27a09757f963a973fa20100d41215a871fd"
+  },
+  "web/public/geo/roads.json": {
+    "bytes": 252177,
+    "sha256": "6482261f04b61d98600cbbe5d1057a6f886896a7556312c931b83d24162375d2"
+  },
+  "web/public/geo/turkiye-detail.json": {
+    "bytes": 435141,
+    "sha256": "5052e3bf308949b8ff2144040189a9becbfd6065e9852ed8fcd0f926d11c4809"
+  },
+  "web/public/geo/turkiye.json": {
+    "bytes": 32748,
+    "sha256": "957ef25fb7e439aaa3c903f550c98898a7c656c2d1423e7778ebc5282fdf3b62"
+  },
+  "web/public/geo/water.json": {
+    "bytes": 6743,
+    "sha256": "a0d82a762bebcadf12f631690eadd702a0b3679cc71d2e5164bbc0b4724d0513"
+  },
+  "web/public/geo/world.json": {
+    "bytes": 17262,
+    "sha256": "e5566f69a34bb6137589809b0b38d6c09555964e35cd378a46f39858eb34f11a"
+  }
+}
