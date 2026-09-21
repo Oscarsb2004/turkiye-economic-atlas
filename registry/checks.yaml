@@ -568,3 +568,34 @@ datasets:
         polygons of 13 and 9 points and loses the Princes' Islands altogether, so the ferry piers at
         Büyükada, Heybeliada, Burgazada and Kınalıada sit 6 to 8 km outside a coastline that does not
         include the islands they are on. The stops are where İBB says they are.
+
+  nightlights-viirs:
+    path: data/nightlights/viirs.json
+    records: dates
+    id_field: date
+    checks:
+    - kind: unique_ids
+      note: One record per night offered, and no night twice.
+    - kind: record_count
+      expect: 15
+      note: >-
+        One night a year from 2012 to the newest the layer publishes. The number grows by one each
+        January, which is a change worth making deliberately.
+    - kind: fields_present
+      fields: [year, period, tile, tile_bytes, tile_sha256]
+      note: >-
+        The year it stands for, the published period it falls in, the tile fetched as proof, and what
+        came back.
+    - kind: date_in_declared_ranges
+      field: date
+      ranges_path: layer.periods
+      note: >-
+        Every night this atlas offers is inside one of the intervals NASA's own capabilities document
+        publishes for the layer — recomputed here from those intervals, not taken from the field the
+        pipeline wrote beside them. A date the service does not hold is a black map with no error.
+    - kind: numeric_at_least
+      field: tile_bytes
+      minimum: 1000
+      note: >-
+        Each proof tile is a real PNG rather than an empty answer. This is the only layer whose
+        imagery the reader's browser fetches live, so "the date works" has to be checked here.

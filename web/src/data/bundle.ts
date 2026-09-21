@@ -590,3 +590,74 @@ export async function loadTransit(): Promise<Transit> {
   if (!response.ok) throw new Error(`istanbul.json: HTTP ${response.status}`);
   return (await response.json()) as Transit;
 }
+
+// ── Nightlights ──────────────────────────────────────────────────────────────
+
+/**
+ * The VIIRS nightlights layer, as NASA's own capabilities document describes it.
+ *
+ * Nothing here is imagery: it is the tile template, the dates this atlas
+ * offers, and the periods the service publishes. The pictures themselves are
+ * fetched by the browser, live, from NASA — the one layer in this atlas that
+ * is not committed — which is why the template comes from the pipeline rather
+ * than being written into the app.
+ */
+export interface Nightlights {
+  generated_at: string;
+  layer: {
+    id: string;
+    title: string;
+    label: Text;
+    template: string;
+    tile_matrix_set: string;
+    max_zoom: number;
+    formats: string[];
+    default_time: string;
+    capabilities: string;
+    attribution: string;
+    periods: string[];
+    chosen: { provenance: string; rule: string; caution: string };
+  };
+  dates: Array<{
+    date: string;
+    year: string;
+    period: string;
+    tile: string;
+    tile_bytes: number;
+    tile_sha256: string;
+  }>;
+}
+
+export const NIGHTLIGHTS_FILE = "data/nightlights/viirs.json";
+
+export async function loadNightlights(): Promise<Nightlights> {
+  const response = await fetch(asset(NIGHTLIGHTS_FILE));
+  if (!response.ok) throw new Error(`viirs.json: HTTP ${response.status}`);
+  return (await response.json()) as Nightlights;
+}
+
+/**
+ * One night's tiles, in the form MapLibre asks for.
+ *
+ * WMTS names its placeholders {TileMatrix}/{TileRow}/{TileCol}; MapLibre wants
+ * {z}/{y}/{x}, which is the same three numbers in the same order. The date and
+ * the matrix set are filled in here because they are ours to choose; nothing
+ * else about the URL is.
+ */
+export function tilesFor(layer: Nightlights["layer"], date: string): string {
+  return layer.template
+    .replace("{Time}", date)
+    .replace("{TileMatrixSet}", layer.tile_matrix_set)
+    .replace("{TileMatrix}", "{z}")
+    .replace("{TileRow}", "{y}")
+    .replace("{TileCol}", "{x}");
+}
+
+/** A tiled image layer an overlay wants drawn under everything. */
+export interface Raster {
+  id: string;
+  tiles: string;
+  maxZoom: number;
+  attribution: string;
+  opacity?: number;
+}

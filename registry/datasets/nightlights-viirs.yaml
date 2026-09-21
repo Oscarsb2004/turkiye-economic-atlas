@@ -1,0 +1,20 @@
+# registry/datasets/nightlights-viirs.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "The VIIRS nightlights layer, its dates, and a tile proving each one"
+group: nightlights
+order: 10
+builder: atlas.datasets.nightlights:build
+params: {}
+sources:
+- nasa_gibs
+shells:
+- fetcher
+after: []
+outputs:
+- data/nightlights/viirs.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app draws the layer from this template and offers these dates on the clock

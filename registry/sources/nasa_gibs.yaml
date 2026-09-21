@@ -1,0 +1,23 @@
+# registry/sources/nasa_gibs.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Global Imagery Browse Services (GIBS) — VIIRS Day/Night Band
+publisher: NASA Earth Observing System Data and Information System (EOSDIS)
+licence: nasa-cc0
+attribution: NASA EOSDIS GIBS — VIIRS Day/Night Band, Suomi NPP
+page: https://nasa-gibs.github.io/gibs-api-docs/
+api: https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml
+docs: https://nasa-gibs.github.io/gibs-api-docs/access-basics/
+# Nightlights, as tiles. The layer read is the gap-filled, BRDF-corrected
+# Day/Night Band radiance from Suomi NPP: NASA has already taken the moonlight
+# out and filled the cloud gaps, which is the difference between a map of
+# Türkiye and a map of last night's weather.
+#
+# THIS IS THE ONE LAYER THE READER'S BROWSER FETCHES LIVE. Nothing of it is
+# committed here — only the service's own description of it, read from the
+# capabilities document above, and one tile per offered date fetched as proof
+# that the date has imagery behind it. If NASA changes the template, the check
+# that reads this card fails rather than the map quietly going black.
+#
+# No key, no account: GIBS is open, and asks to be acknowledged, which the map
+# does on the layer itself.

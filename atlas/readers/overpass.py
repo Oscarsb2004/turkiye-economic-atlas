@@ -92,9 +92,15 @@ class Node:
     point: tuple[float, float]
 
 
-def ask(fetch, query: str) -> dict[str, Any]:
-    """Run one Overpass query and return its answer, checked for shape."""
-    answer = fetch.post_form(ENDPOINT, {"data": query})
+def ask(fetch, query: str, *, force: bool = False) -> dict[str, Any]:
+    """
+    Run one Overpass query and return its answer, checked for shape.
+
+    `force` goes through to the cache, because `--refresh` means "I know
+    something just moved" and a query that quietly answered from a day-old
+    entry would be the one case the flag exists for.
+    """
+    answer = fetch.post_form(ENDPOINT, {"data": query}, force=force)
     if not isinstance(answer, dict) or "elements" not in answer:
         raise OverpassError(f"the API returned no `elements`: {str(answer)[:200]}")
     if not answer["elements"]:

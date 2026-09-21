@@ -63,6 +63,7 @@ COPIES = (
     "rail/network.json",
     "rail/stations.json",
     "transit/istanbul.json",
+    "nightlights/viirs.json",
 )
 
 SCHEMA_VERSION = "1.0.0"

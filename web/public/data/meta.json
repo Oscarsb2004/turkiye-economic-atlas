@@ -18,13 +18,14 @@
     "migration/2023.json",
     "migration/2024.json",
     "migration/2025.json",
+    "nightlights/viirs.json",
     "palette.json",
     "provinces/gdp-per-capita.json",
     "rail/network.json",
     "rail/stations.json",
     "transit/istanbul.json"
   ],
-  "generated_at": "2026-09-21T01:22:21Z",
+  "generated_at": "2026-09-21T12:13:25Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -49,6 +50,12 @@
       "name": "İstanbul Büyükşehir Belediyesi Açık Veri Lisansı",
       "redistribution": "permitted, commercially and non-commercially, with attribution",
       "url": "https://data.ibb.gov.tr/license"
+    },
+    "nasa-cc0": {
+      "attribution": "NASA Earth Observing System Data and Information System (EOSDIS) GIBS",
+      "name": "NASA Earthdata — CC0, with acknowledgement asked",
+      "redistribution": "permitted; NASA asks to be acknowledged as the source",
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-policy"
     },
     "odbl-1.0": {
       "attribution": "© OpenStreetMap contributors, ODbL 1.0",
@@ -88,6 +95,12 @@
       "page": "https://data.ibb.gov.tr/dataset/public-transport-gtfs-data",
       "publisher": "İstanbul Büyükşehir Belediyesi (İBB)",
       "title": "Toplu Ulaşım GTFS Verisi (Public Transport GTFS Data)"
+    },
+    "nasa_gibs": {
+      "licence": "nasa-cc0",
+      "page": "https://nasa-gibs.github.io/gibs-api-docs/",
+      "publisher": "NASA Earth Observing System Data and Information System (EOSDIS)",
+      "title": "Global Imagery Browse Services (GIBS) — VIIRS Day/Night Band"
     },
     "natural_earth_admin1": {
       "licence": "public-domain",

@@ -93,7 +93,7 @@ def _province_features() -> list[dict]:
 def build_network(ctx: Context, *, dataset: str) -> Built:
     """Every main-line and high-speed railway, joined into lines and simplified."""
     src = R.source(SOURCE_KEY)
-    answer = overpass.ask(ctx.fetch, overpass.RAIL_QUERY)
+    answer = overpass.ask(ctx.fetch, overpass.RAIL_QUERY, force=ctx.refresh)
     ways = overpass.ways(answer)
     instant = overpass.current_as_of(answer)
     current = instant[:10]                      # the day; see the module docstring
@@ -174,7 +174,7 @@ def build_stations(ctx: Context, *, dataset: str) -> Built:
     """Every station and halt, placed in the province whose boundary contains it."""
     src = R.source(SOURCE_KEY)
     boundaries = R.source(BOUNDARY_KEY)
-    answer = overpass.ask(ctx.fetch, overpass.STATION_QUERY)
+    answer = overpass.ask(ctx.fetch, overpass.STATION_QUERY, force=ctx.refresh)
     nodes = overpass.nodes(answer)
     instant = overpass.current_as_of(answer)
     current = instant[:10]                      # the day; see the module docstring

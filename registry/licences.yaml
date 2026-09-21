@@ -58,6 +58,18 @@ licences:
     # bilgilerini içerir." Modelled on the UK Open Government Licence.
     attribution: İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı
 
+  nasa-cc0:
+    name: NASA Earthdata — CC0, with acknowledgement asked
+    url: https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-policy
+    redistribution: permitted; NASA asks to be acknowledged as the source
+    # Read 2026-09-21, verbatim: "Unless the content is marked with a use
+    # restriction or license, data provided from a NASA-led mission are licensed
+    # as Creative Commons Zero (CC0). While there are no restrictions on the use
+    # of these data, data users are very strongly urged to cite the data used in
+    # their work products." And: "NASA should be acknowledged as the source of
+    # the material." Suomi NPP is a NASA-led mission.
+    attribution: NASA Earth Observing System Data and Information System (EOSDIS) GIBS
+
   odbl-1.0:
     name: Open Database License 1.0
     url: https://opendatacommons.org/licenses/odbl/1-0/

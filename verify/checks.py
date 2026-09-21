@@ -655,6 +655,70 @@ def check_flow_totals(records, spec, ctx):
     )
 
 
+def check_date_in_declared_ranges(records, spec, ctx):
+    """
+    Is every date this atlas offers one the publisher says it holds?
+
+    Written for the nightlights layer, where the dates are ours — one night a
+    year, by a stated rule — and the imagery is NASA's. The file carries the
+    service's own published intervals beside them, so this recomputes the
+    containment rather than trusting the field the pipeline wrote.
+
+    A date outside them all is a black map with no error, which is the failure
+    mode this whole project is arranged against.
+    """
+    idf = ctx["dataset"]["id_field"]
+    field = spec.get("field", idf)
+    ranges = resolve_one(ctx.get("document", {}), spec["ranges_path"])
+    if not isinstance(ranges, list) or not ranges:
+        return (False, f"{ctx['name']}: published ranges at {spec['ranges_path']}",
+                "the document publishes none")
+
+    def covered(day: str) -> bool:
+        for published in ranges:
+            parts = str(published).split("/")
+            if len(parts) < 2:
+                if parts and parts[0][:10] == day:
+                    return True
+                continue
+            if parts[0][:10] <= day <= parts[1][:10]:
+                return True
+        return False
+
+    strays = [f"{r.get(idf)}: {resolve_one(r, field)}" for r in records
+              if not covered(str(resolve_one(r, field) or ""))]
+    return (
+        not strays,
+        f"{ctx['name']}: every date is inside one of the {len(ranges)} periods the service publishes",
+        " · ".join(strays[:8]),
+    )
+
+
+def check_numeric_at_least(records, spec, ctx):
+    """
+    Every record's figure is at least `minimum`.
+
+    A floor, not a range: it exists for the cases where zero — or nearly zero —
+    means "there was nothing here" rather than a measurement. A 200-byte PNG is
+    a valid image of nothing at all.
+    """
+    idf = ctx["dataset"]["id_field"]
+    field = spec["field"]
+    minimum = float(spec["minimum"])
+    small = []
+    for record in records:
+        value = resolve_one(record, field)
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            small.append(f"{record.get(idf)}: {value!r} is not a number")
+        elif value < minimum:
+            small.append(f"{record.get(idf)}: {value:,} < {minimum:,.0f}")
+    return (
+        not small,
+        f"{ctx['name']}: every {field} is at least {minimum:,.0f}",
+        " · ".join(small[:8]),
+    )
+
+
 KINDS: dict[str, Callable] = {
     "unique_ids": check_unique_ids,
     "record_count": check_record_count,
@@ -669,6 +733,8 @@ KINDS: dict[str, Callable] = {
     "sums_to_published_totals": check_sums_to_published_totals,
     "map_sums_to_published_total": check_map_sums_to_published_total,
     "flow_totals": check_flow_totals,
+    "date_in_declared_ranges": check_date_in_declared_ranges,
+    "numeric_at_least": check_numeric_at_least,
 }
 
 

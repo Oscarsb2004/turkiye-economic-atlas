@@ -300,20 +300,20 @@
     "formula": "the number of stations whose published coordinate falls inside the province's published boundary, or within 2000 m of it where the simplified boundary contains none; `halt` counts those published as railway=halt, and `urban` those whose published station tag is one of funicular, light_rail, monorail, subway",
     "provenance": "derived"
   },
-  "generated_at": "2026-09-21T11:11:25Z",
+  "generated_at": "2026-09-21T12:17:35Z",
   "sources": [
     {
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T11:11:25Z",
+      "retrieved_at": "2026-09-21T12:17:35Z",
       "url": "https://www.openstreetmap.org/copyright"
     },
     {
       "content_sha256": "",
       "licence": "public-domain",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T11:11:25Z",
+      "retrieved_at": "2026-09-21T12:17:35Z",
       "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/"
     }
   ],
@@ -18925,8 +18925,8 @@
       "id": "6982425707",
       "kind": "station",
       "name": {
-        "en": "Eryaman high-speed railway station",
-        "tr": "Eryaman YHT Garı"
+        "en": "",
+        "tr": "Eryaman"
       },
       "network": "Türkiye Cumhuriyeti Devlet Demiryolları",
       "operator": "TCDD Taşımacılık",

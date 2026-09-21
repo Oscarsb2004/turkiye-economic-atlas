@@ -157,6 +157,7 @@ export function App() {
                   markers={overlay.markers ?? []}
                   network={overlay.network ?? []}
                   focus={overlay.focus}
+                  raster={overlay.raster}
                 />
                 {/* An overlay that shades nothing brings its own key; one that
                     shades brings bands, and the shared legend explains them. */}

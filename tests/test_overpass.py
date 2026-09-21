@@ -20,8 +20,8 @@ class _Fetch:
         self.answer = answer
         self.asked: list[dict] = []
 
-    def post_form(self, url: str, fields: dict[str, str]):
-        self.asked.append({"url": url, **fields})
+    def post_form(self, url: str, fields: dict[str, str], *, force: bool = False):
+        self.asked.append({"url": url, "force": force, **fields})
         return self.answer
 
 
@@ -51,6 +51,15 @@ def test_a_query_is_posted_as_a_form_and_its_answer_read():
     assert [w.osm_id for w in ways] == [246722935]
     assert ways[0].points == [(32.1, 39.1), (32.2, 39.2)]
     assert ways[0].tags["name"] == "Bağdat Demiryolu"
+
+
+def test_refresh_reaches_the_service_rather_than_the_cache():
+    """`--refresh` means "I know something just moved", and OSM moves hourly."""
+    fetch = _Fetch(_answer([WAY]))
+    overpass.ask(fetch, overpass.RAIL_QUERY, force=True)
+    assert fetch.asked[0]["force"] is True
+    overpass.ask(fetch, overpass.RAIL_QUERY)
+    assert fetch.asked[1]["force"] is False
 
 
 def test_an_empty_answer_is_never_read_as_there_is_none():

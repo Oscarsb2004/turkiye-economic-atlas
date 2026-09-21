@@ -22,6 +22,7 @@ import { OVERLAY_GROUPS, type Overlay, type OverlayGroup } from "./types";
 const GROUP_LABEL: Record<OverlayGroup, (s: Strings) => string> = {
   provinces: (s) => s.groupProvinces,
   connections: (s) => s.groupConnections,
+  activity: (s) => s.groupActivity,
 };
 
 interface Props {

@@ -19,16 +19,17 @@
 
 import type { ReactNode } from "react";
 
-import type { Flow, Lang, Marker, NetworkLine } from "../data/bundle";
+import type { Flow, Lang, Marker, NetworkLine, Raster } from "../data/bundle";
 import type { Clock, Period } from "./timeline";
 
 /**
  * The rail's sections, in the order they are shown.
  *
- * `connections` is declared now and filled at T7: it is where the flow layers
- * go, and declaring it here means they arrive without moving anything.
+ * `connections` holds the flow and network layers; `activity` holds what the
+ * country looks like rather than what it reports — the nightlights today, and
+ * whatever else is observed rather than published as figures.
  */
-export const OVERLAY_GROUPS = ["provinces", "connections"] as const;
+export const OVERLAY_GROUPS = ["provinces", "connections", "activity"] as const;
 
 export type OverlayGroup = (typeof OVERLAY_GROUPS)[number];
 
@@ -103,6 +104,13 @@ export interface Overlay {
    * otherwise leave the reader with colours and no key.
    */
   legend?: ReactNode;
+  /**
+   * Imagery to draw under the map, from a publisher's own tile service.
+   *
+   * The only thing in this atlas the reader's browser fetches from a publisher
+   * live, which is why the template comes from a dataset and not from here.
+   */
+  raster?: Raster;
   /**
    * [west, south, east, north] the map should open on, where the country is the
    * wrong frame. Clearing it returns the map to Türkiye.

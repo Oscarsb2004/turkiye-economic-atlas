@@ -167,6 +167,12 @@ for the main-line network), so fragments are joined before anything is published
 is recorded, way id by way id, so it can be undone. OSM has no edition: the period is
 `timestamp_osm_base`, the moment the answer was current.
 
+**An invalid MapLibre style is refused WHOLE.** Not the bad layer — the whole style: no layers, no
+sources, a blank map, and one line in a console nobody is watching. `["zoom"]` inside a `case` did
+it. The style is therefore built as a value (`web/src/map/style.ts`) and handed to the style
+specification's own validator in a test, which is the only way to know a map draws without looking
+at it — reintroduce the bug and `style.test.ts` prints the same message the browser did.
+
 **A live source moves under the golden master.** OSM has no edition and edits arrive continuously:
 a recording made two hours after T9 was built reported two committed files changed, and the change
 was one station renamed to "Eryaman YHT Garı". That line in a recording is the source moving, not

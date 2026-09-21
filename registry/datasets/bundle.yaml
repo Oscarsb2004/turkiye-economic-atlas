@@ -8,6 +8,7 @@ builder: atlas.export.bundle:build
 params: {}
 sources:
 - dhmi_airport_statistics
+- nasa_gibs
 - ibb_gtfs
 - natural_earth_admin1
 - osm_overpass
@@ -38,6 +39,7 @@ outputs:
 - web/public/data/rail/network.json
 - web/public/data/rail/stations.json
 - web/public/data/transit/istanbul.json
+- web/public/data/nightlights/viirs.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null
