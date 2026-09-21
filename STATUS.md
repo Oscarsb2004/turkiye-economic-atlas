@@ -21,6 +21,7 @@ python run.py --check    # every registry file against its schema
 | 05 | `-m atlas.run rail` |
 | 06 | `-m atlas.run transit` |
 | 07 | `-m atlas.run nightlights` |
+| 08 | `-m atlas.run places` |
 | 99 | `-m atlas.run bundle` |
 
 ## Datasets
@@ -40,13 +41,13 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (49 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (632 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/nightlights/viirs.json` (8 KB)<br>`web/public/data/meta.json` (6 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (68 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (632 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/nightlights/viirs.json` (36 KB)<br>`web/public/data/places/settlements.json` (366 KB)<br>`web/public/data/meta.json` (7 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **province-gdp-per-capita**<br>Every province's gross domestic product per capita, in lira and in dollars, as TÜİK publishes it | `data/provinces/gdp-per-capita.json` (49 KB) | yes | `web/src/data/bundle.ts` |
+| **province-gdp-per-capita**<br>Every province's gross domestic product per capita: lira and US dollars as TÜİK publishes them, and Canadian dollars derived from the Bank of Canada's annual rate | `data/provinces/gdp-per-capita.json` (68 KB) | yes | `web/src/data/bundle.ts` |
 
 ### elections
 
@@ -71,7 +72,13 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (8 KB) | yes | `web/src/data/bundle.ts` |
+| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (36 KB) | yes | `web/src/data/bundle.ts` |
+
+### places
+
+| Dataset | Writes | On the site | Read by |
+| --- | --- | --- | --- |
+| **places-settlements**<br>Every city and town, placed in a province, as OpenStreetMap has it | `data/places/settlements.json` (366 KB) | yes | `web/src/data/bundle.ts` |
 
 ### rail
 
@@ -90,7 +97,7 @@ python run.py --check    # every registry file against its schema
 
 **2 shells** (`registry/shells/`): `fetcher`, `geometry`.
 
-**9 sources** (`registry/sources/`): `dhmi_airport_statistics`, `ibb_gtfs`, `nasa_gibs`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
+**11 sources** (`registry/sources/`): `boc_valet`, `dhmi_airport_statistics`, `geoboundaries_adm1`, `ibb_gtfs`, `nasa_gibs`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.

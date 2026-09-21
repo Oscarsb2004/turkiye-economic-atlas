@@ -192,10 +192,26 @@ of its records are wrapped in quotes end to end, so a CSV reader sees one field 
 has nine. Both are repaired, counted, and published as counted.
 
 **Published boundaries are simplified, and things fall outside them.** At Natural Earth 8%,
-49 of 1 334 railway stations — 18 of them Marmaray — sit outside every province, Sabiha Gökçen's
-coordinate lands in Kocaeli, and the Princes' Islands are gone entirely, which puts four ferry
-piers 6–8 km out to sea. A point is therefore placed in the province that contains
+49 of 1 334 railway stations — 18 of them Marmaray — sat outside every province, Sabiha Gökçen's
+coordinate landed in Kocaeli, and the Princes' Islands were not in the file at all, which put
+twelve İstanbul ferry piers 6–8 km out to sea. A point is placed in the province that contains
 it, or in the nearest one within a stated distance, and the record says which.
+
+**The boundaries are two tiers now, and a COORDINATE is placed against the finer one.**
+`provinces.json` is geoBoundaries at 2% (208 KB) and is only ever drawn; `provinces-detail.json`
+is the same source at 15% (1.4 MB), is fetched by the app past zoom 6.5, and is what
+`R.boundaries()` and the declared geometry checks read. Measured on the day it landed: 1 334
+railway stations, 0 outside every boundary and 3 placed by proximity, against 49 outside before;
+the İstanbul stops check went from a 10 km tolerance to 2 km; and the gates went from 95 passed
+with 6 notes to 107 passed with none. Natural Earth still supplies the name pair, the world, the
+lakes and the roads.
+
+**`setFeatureState` THROWS on a style that has not finished loading**, and thrown from a React
+effect it unmounts the tree: the map is removed, the pane goes blank, and two lines appear in a
+console nobody is watching. MapLibre defers `Style.loadJSON` to an animation frame, so in a pane
+that is not painting the style never loads at all and the first click on a province ends the
+session. Every feature-state write therefore goes through `stateOn`, which returns false rather
+than throwing, and its callers retry through `whenReady`.
 
 **And `styledata` stops firing.** The retry that works around the `load` trap below was
 written to re-try on `styledata` alone, which fires while a style is settling and then never

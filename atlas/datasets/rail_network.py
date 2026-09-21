@@ -41,7 +41,6 @@ than pretending to a series.
 
 from __future__ import annotations
 
-import json
 import logging
 
 from atlas.core import clock
@@ -56,7 +55,7 @@ from atlas.shells.transform import geometry
 log = logging.getLogger(__name__)
 
 SOURCE_KEY = "osm_overpass"
-BOUNDARY_KEY = "natural_earth_admin1"
+BOUNDARY_KEY = "geoboundaries_adm1"
 
 #: How far a simplified line may sit from the published one, in metres. Fifty
 #: is under a rail carriage's length and under a pixel at every zoom this map
@@ -82,12 +81,6 @@ STATION_TAGS = ("name", "name:en", "railway", "station", "operator", "network", 
 #: station. Counted separately per province because İstanbul's 222 stations are
 #: mostly metro, and a map that does not say so reads as a railway hub.
 URBAN = frozenset({"subway", "light_rail", "funicular", "monorail"})
-
-
-def _province_features() -> list[dict]:
-    """The published province boundaries, as the geometry pipeline committed them."""
-    path = R.WEB_PUBLIC_DIR / "geo" / "provinces.json"
-    return json.loads(path.read_text(encoding="utf-8"))["features"]
 
 
 def build_network(ctx: Context, *, dataset: str) -> Built:
@@ -180,7 +173,7 @@ def build_stations(ctx: Context, *, dataset: str) -> Built:
     current = instant[:10]                      # the day; see the module docstring
     retrieved = clock.now_iso()
 
-    features = _province_features()
+    features = R.boundaries()
     provinces = R.provinces()
     published = []
     unplaced = 0

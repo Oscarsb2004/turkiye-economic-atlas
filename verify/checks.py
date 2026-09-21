@@ -193,6 +193,23 @@ def check_unique_ids(records, spec, ctx):
 
 
 def check_record_count(records, spec, ctx):
+    """
+    How many records there are, as an exact number or as a floor.
+
+    `expect` is the strict form and is what most datasets want: 81 provinces is
+    81, and 80 is a hole in every overlay. `at_least` exists for a collection
+    that GROWS on its own — the nightlights offer one night per month, so an
+    exact count would fail on the first of every month and the failure would
+    mean nothing. A floor still catches the thing worth catching, which is a
+    collection that emptied or collapsed.
+    """
+    if "at_least" in spec:
+        floor = int(spec["at_least"])
+        return (
+            len(records) >= floor,
+            f"{ctx['name']}: {len(records)} records, at least the {floor} declared",
+            f"got {len(records)}, registry declares at least {floor}",
+        )
     want = spec.get("expect") if "expect" in spec else resolve_registry(spec["expect_from"])
     return (
         len(records) == want,

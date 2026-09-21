@@ -17,12 +17,30 @@
  */
 
 import maplibregl from "maplibre-gl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { provinceName } from "../data/bundle";
+import { loadGeoDetail, provinceName } from "../data/bundle";
 import type { Flow, Geo, GeoJson, Lang, Marker, NetworkLine, ProvinceProps, Raster } from "../data/bundle";
+import { labelsFor, type Labelled } from "./placeLabels";
 import type { Shading } from "./shading";
 import { fillColour, ink, mapStyle } from "./style";
+
+/**
+ * The zoom at which the finer province boundaries are fetched.
+ *
+ * 1.4 MB against the overview tier's 208 KB, so it is not in the first load: a
+ * reader looking at the country cannot see the difference, and a reader looking
+ * at İstanbul cannot read the map without it — at 2% the Princes' Islands are
+ * gone and the Kadıköy shore cuts inland, which is İstanbul's ferry network
+ * drawn over land (scripts/build_geo.mjs). Once fetched it stays: swapping back
+ * would be a second reason for the coastline to move under the reader.
+ */
+const DETAIL_ZOOM = 6.5;
+
+/** A place name to draw, already in the reader's language. */
+export interface PlaceLabel extends Labelled {
+  label: string;
+}
 
 /** Where the map looks if the geometry cannot say — it always can, in practice. */
 const HOME = { center: [35.2, 39.0] as [number, number], zoom: 4.9 };
@@ -96,6 +114,10 @@ interface Props {
    * reader is asking about (overlays/types.ts).
    */
   hint?: (plaka: number) => string | null;
+  /** Whether the reference road network is drawn under the overlay. */
+  roads: boolean;
+  /** The place names to draw, or none. Which of them fit is placeLabels.ts. */
+  places: PlaceLabel[];
 }
 
 /**
@@ -205,6 +227,28 @@ function feedSource(instance: maplibregl.Map, id: string, data: GeoJson): () => 
 }
 
 /**
+ * A province's feature-state, set only if the map will take it.
+ *
+ * THE THIRD TRAP, AND THIS ONE TOOK THE WHOLE APP DOWN
+ *
+ * `setFeatureState` calls MapLibre's `_checkLoaded`, which THROWS
+ * "Style is not done loading" rather than returning. Thrown from inside a React
+ * effect that is nothing to it: React unmounts the tree, the map is removed,
+ * and what is left on screen is a blank pane and two lines in the console. It
+ * is not a hypothetical — a hidden desktop pane gives no frames, `setData` on
+ * the detail tier leaves the style "not loaded" until one arrives, and the next
+ * click on a province ended the session.
+ *
+ * So every feature-state write goes through here, and the callers retry with
+ * `whenReady` instead of throwing.
+ */
+function stateOn(instance: maplibregl.Map, id: number, state: Record<string, unknown>): boolean {
+  if (!instance.isStyleLoaded()) return false;
+  instance.setFeatureState({ source: "provinces", id }, state);
+  return true;
+}
+
+/**
  * Do something to the style as soon as the style will take it.
  *
  * `apply` returns whether it managed; if it did not, it is tried again on every
@@ -241,7 +285,10 @@ function whenReady(instance: maplibregl.Map, apply: () => boolean): () => void {
 }
 
 
-export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, markers, network, focus, raster, hint }: Props) {
+export function ProvinceMap({
+  geo, lang, selected, onSelect, shading, flows, markers, network, focus, raster, hint,
+  roads, places,
+}: Props) {
   const container = useRef<HTMLDivElement>(null);
   const tip = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
@@ -256,6 +303,22 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
   const framing = useRef<[number, number, number, number] | null>(null);
   /** True once the READER has moved the map. After that the view is theirs. */
   const touched = useRef(false);
+  /** Where the detail tier has got to: asked for once, and kept. */
+  const tier = useRef<"overview" | "loading" | "detail">("overview");
+  /**
+   * Bumped when the detail tier replaces the province geometry.
+   *
+   * `setData` drops every feature-state on that source, so the bands and the
+   * selection have to be set again — silently, or the map goes to "no figure"
+   * grey the moment a reader zooms in far enough to want the detail.
+   */
+  const [swapped, setSwapped] = useState(0);
+  /** The labels to draw, read by the map's own move handler rather than React. */
+  const labelling = useRef<PlaceLabel[]>(places);
+  const labels = useRef<maplibregl.Marker[]>([]);
+  /** Set by the build effect; called from React and from the map's own events. */
+  const relabelling = useRef<() => void>(() => undefined);
+  labelling.current = places;
   hinting.current = hint;
   reading.current = lang;
 
@@ -299,6 +362,65 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
       place(at);
     };
 
+    /**
+     * The place names that fit the map as it is now.
+     *
+     * Markers, not a symbol layer: MapLibre draws text from glyph atlases this
+     * project does not ship and will not fetch from someone else's server, so
+     * a label is a DOM element following a coordinate. Which ones and how many
+     * is placeLabels.ts, where the rule can be tested.
+     */
+    const relabel = () => {
+      for (const marker of labels.current) marker.remove();
+      labels.current = [];
+      if (labelling.current.length === 0) return;
+      const bounds = instance.getBounds();
+      const box: [number, number, number, number] = [
+        bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth(),
+      ];
+      for (const place of labelsFor(labelling.current, instance.getZoom(), box)) {
+        const node = document.createElement("div");
+        node.className = "placeLabel";
+        // textContent: the name is a publisher's string, not markup.
+        node.textContent = place.label;
+        labels.current.push(
+          new maplibregl.Marker({ element: node, anchor: "left" })
+            .setLngLat(place.point)
+            .addTo(instance),
+        );
+      }
+    };
+    relabelling.current = relabel;
+
+    /**
+     * Fetch the finer boundaries, once, when the reader has zoomed to them.
+     *
+     * On the source rather than as a second layer: one set of layers, one set
+     * of feature-state keys, and nothing anywhere else in this file has to know
+     * which tier is underneath it.
+     */
+    const deepen = () => {
+      if (tier.current !== "overview" || instance.getZoom() < DETAIL_ZOOM) return;
+      tier.current = "loading";
+      loadGeoDetail().then(
+        (fine) => {
+          const provinces = instance.getSource("provinces") as maplibregl.GeoJSONSource | undefined;
+          const outline = instance.getSource("turkiye") as maplibregl.GeoJSONSource | undefined;
+          if (!provinces || !outline) {
+            tier.current = "overview";
+            return;
+          }
+          provinces.setData(fine.provinces as never);
+          outline.setData(fine.turkiye as never);
+          tier.current = "detail";
+          setSwapped((count) => count + 1);
+        },
+        // A tier that could not be fetched leaves the overview drawing, which
+        // is a coarser map and not a broken one.
+        () => { tier.current = "overview"; },
+      );
+    };
+
     const instance = new maplibregl.Map({
       container: container.current,
       ...(extent
@@ -309,16 +431,16 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
     });
 
     instance.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+    instance.on("zoomend", deepen);
+    instance.on("moveend", () => relabelling.current());
     instance.on("mousemove", "provinces-fill", (event) => {
       const feature = event.features?.[0];
       if (!feature) return;
       const code = Number(feature.id);
       if (hovered.current === code) return;
-      if (hovered.current !== null) {
-        instance.setFeatureState({ source: "provinces", id: hovered.current }, { hover: false });
-      }
+      if (hovered.current !== null) stateOn(instance, hovered.current, { hover: false });
       hovered.current = code;
-      instance.setFeatureState({ source: "provinces", id: code }, { hover: true });
+      stateOn(instance, code, { hover: true });
       instance.getCanvas().style.cursor = "pointer";
       say(feature.properties as unknown as ProvinceProps, code, event.point);
     });
@@ -328,9 +450,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
       if (tip.current && !tip.current.hidden) place(event.point);
     });
     instance.on("mouseleave", "provinces-fill", () => {
-      if (hovered.current !== null) {
-        instance.setFeatureState({ source: "provinces", id: hovered.current }, { hover: false });
-      }
+      if (hovered.current !== null) stateOn(instance, hovered.current, { hover: false });
       hovered.current = null;
       instance.getCanvas().style.cursor = "";
       if (tip.current) tip.current.hidden = true;
@@ -396,22 +516,43 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
     if (import.meta.env.DEV) (window as unknown as { __map?: unknown }).__map = instance;
     return () => {
       observer.disconnect();
+      for (const marker of labels.current) marker.remove();
+      labels.current = [];
       instance.remove();
       map.current = null;
     };
   }, [geo, onSelect]);
 
+  // `swapped` is in here because replacing the source's data drops the state
+  // this effect set: after the detail tier lands, the selected province would
+  // stop being drawn as selected with nothing to say why.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;
-    if (chosen.current !== null) {
-      instance.setFeatureState({ source: "provinces", id: chosen.current }, { selected: false });
-    }
+    const previous = chosen.current;
     chosen.current = selected;
-    if (selected !== null) {
-      instance.setFeatureState({ source: "provinces", id: selected }, { selected: true });
-    }
-  }, [selected]);
+    return whenReady(instance, () => {
+      if (previous !== null && !stateOn(instance, previous, { selected: false })) return false;
+      if (selected !== null && !stateOn(instance, selected, { selected: true })) return false;
+      return true;
+    });
+  }, [selected, swapped]);
+
+  // The reference road network, which is in the style and hidden until asked for.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    return whenReady(instance, () => {
+      if (!instance.getLayer("roads")) return false;
+      instance.setLayoutProperty("roads", "visibility", roads ? "visible" : "none");
+      return true;
+    });
+  }, [roads]);
+
+  // And the place names, redrawn when the list changes as well as on a move.
+  useEffect(() => {
+    if (map.current) relabelling.current();
+  }, [places]);
 
   // The colours arrive with palette.json, after the map is already on screen,
   // and change again when an overlay shades by class instead of by band, so the
@@ -457,12 +598,9 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
       for (const feature of geo.provinces.features ?? []) {
         const plaka = Number((feature.properties as { code: number }).code);
         const band = shading?.byProvince.get(plaka);
-        instance.setFeatureState(
-          { source: "provinces", id: plaka },
-          // undefined would leave the previous band in place; null is what the
-          // expression's coalesce reads as "no figure published".
-          { band: band === undefined ? null : band },
-        );
+        // undefined would leave the previous band in place; null is what the
+        // expression's coalesce reads as "no figure published".
+        stateOn(instance, plaka, { band: band === undefined ? null : band });
       }
     };
 
@@ -479,7 +617,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect, shading, flows, mar
     return () => {
       instance.off("sourcedata", whenReady);
     };
-  }, [shading, geo]);
+  }, [shading, geo, swapped]);
 
   // Where the map is looking. An overlay that is about one city says so with a
   // focus; without one the frame is the country, so switching back comes back.

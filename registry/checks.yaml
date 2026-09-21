@@ -9,12 +9,17 @@
 
 version: 1
 
+# Both are the DETAIL tier, not the tier the map opens on. `provinces.json` is
+# simplified to 2% so the whole country is 200 KB, and at that tolerance the
+# Princes' Islands are absent and the Kadıköy shore cuts inland — a check run
+# against it would be measuring this project's drawing choices rather than the
+# coordinates it publishes (scripts/build_geo.mjs).
 regions:
   country:
-    file: web/public/geo/turkiye.json
+    file: web/public/geo/turkiye-detail.json
     label: Türkiye
   provinces:
-    file: web/public/geo/provinces.json
+    file: web/public/geo/provinces-detail.json
     name_fields: [name_tr, name_en]
 
 datasets:
@@ -29,8 +34,12 @@ datasets:
       expect: 81
       note: All 81 il. A province missing here is a hole in every overlay keyed on the plaka code.
     - kind: fields_present
-      fields: [nuts3, name.tr, name.en, per_capita_gdp.TRY, per_capita_gdp.USD]
-      note: Both currencies TÜİK publishes, and the İBBS code the workbook was joined on.
+      fields: [nuts3, name.tr, name.en, per_capita_gdp.TRY, per_capita_gdp.USD, per_capita_gdp.CAD]
+      note: >-
+        Both currencies TÜİK publishes, the İBBS code the workbook was joined on, and the derived
+        Canadian one. CAD is here because a derived figure that quietly stopped being written would
+        leave the interface offering a currency with nothing behind it; what it is derived FROM is in
+        measure.derived.CAD, with the rate for every year.
   election-2023-cumhurbaskani-1:
     path: data/elections/2023-cumhurbaskani-1.json
     records: provinces
@@ -561,13 +570,50 @@ datasets:
       note: Every stop has the name and the coordinate the feed publishes for it.
     - kind: geometry_within_region
       region: country
-      tolerance_km: 10
+      tolerance_km: 2
       note: >-
-        Every stop is inside Türkiye — at ten kilometres, and the number is the boundary's fault
-        rather than the feed's. Natural Earth admin-1 simplified to 8% reduces İstanbul to two
-        polygons of 13 and 9 points and loses the Princes' Islands altogether, so the ferry piers at
-        Büyükada, Heybeliada, Burgazada and Kınalıada sit 6 to 8 km outside a coastline that does not
-        include the islands they are on. The stops are where İBB says they are.
+        Every stop is inside Türkiye. This was ten kilometres until 2026-09-21, and the ten was the
+        boundary's fault rather than the feed's: Natural Earth admin-1 at 8% reduced İstanbul to two
+        polygons of 13 and 9 points and had no Princes' Islands at all, so the piers at Büyükada,
+        Heybeliada, Burgazada and Kınalıada sat 6 to 8 km outside a coastline that did not include
+        the islands they are on. The boundaries are geoBoundaries' now and the islands are in them,
+        so the tolerance is back to what a pier on a quay actually needs.
+
+  places-settlements:
+    path: data/places/settlements.json
+    records: places
+    id_field: id
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per OSM node, and no node twice.
+    - kind: fields_present
+      fields: [name.tr, kind, plaka, point, province.tr]
+      note: >-
+        A name, a class, the province it was placed in and the coordinate it was placed by. A
+        settlement with no name is a dot the base layer cannot label, which is the one thing this
+        layer is for.
+    - kind: enum_field
+      field: kind
+      allowed: [city, town]
+      note: >-
+        The two OSM classes this dataset asks for. `village` would be 35 000 more of them and is not
+        a label layer; a third class appearing here means the query changed.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 2
+      note: >-
+        Every settlement is inside Türkiye. The query asks OSM for nodes inside the country, so a
+        point outside it means the area filter matched something else — which is the failure mode an
+        empty Overpass answer shares, and the one worth catching.
+    - kind: geometry_region_matches_text
+      region: provinces
+      note: >-
+        The province this atlas published for a settlement is the province whose boundary contains
+        its coordinate — recomputed here from the boundary file rather than taken from the pipeline's
+        own answer. Measured 2026-09-21: all 1 005 were placed by containment and none by proximity,
+        which is the detail tier doing its job.
 
   nightlights-viirs:
     path: data/nightlights/viirs.json
@@ -577,15 +623,22 @@ datasets:
     - kind: unique_ids
       note: One record per night offered, and no night twice.
     - kind: record_count
-      expect: 15
+      at_least: 60
       note: >-
-        One night a year from 2012 to the newest the layer publishes. The number grows by one each
-        January, which is a change worth making deliberately.
+        A floor rather than a number, because this collection grows on its own: one night a month for
+        the last five calendar years, plus one a year back to 2012, so an exact count would fail on
+        the first of every month and mean nothing. Sixty is below any month's total and far above an
+        empty or collapsed answer, which is the failure worth catching.
     - kind: fields_present
-      fields: [year, period, tile, tile_bytes, tile_sha256]
+      fields: [year, stands_for, grain, period, tile, tile_bytes, tile_sha256]
       note: >-
-        The year it stands for, the published period it falls in, the tile fetched as proof, and what
-        came back.
+        The period it stands for and how long that period is, the published interval it falls in, the
+        tile fetched as proof, and what came back.
+    - kind: enum_field
+      field: grain
+      allowed: [month, year]
+      note: >-
+        The two rules that choose a night. A third value would mean a stop nobody decided on.
     - kind: date_in_declared_ranges
       field: date
       ranges_path: layer.periods

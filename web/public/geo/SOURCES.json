@@ -2,12 +2,19 @@
   "generated_by": "scripts/build_geo.mjs",
   "mapshaper": "0.7.56",
   "sources": {
+    "boundaries": {
+      "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/TUR/ADM1/geoBoundaries-TUR-ADM1.geojson",
+      "file": "geoBoundaries-TUR-ADM1.geojson",
+      "publisher": "geoBoundaries (William & Mary geoLab)",
+      "licence": "Creative Commons Attribution-ShareAlike 2.0, from OpenStreetMap",
+      "note": "The 81 il as OpenStreetMap draws them; shapeISO is TR-01..TR-81, the plaka codes."
+    },
     "admin1": {
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_1_states_provinces.geojson",
       "file": "ne_10m_admin_1_states_provinces.geojson",
       "publisher": "Natural Earth",
       "licence": "public domain",
-      "note": "Provinces of every country at 1:10m; the 81 Turkish features carry iso_3166_2 TR-01..TR-81."
+      "note": "Read for the name_tr/name_en pair only; the boundaries come from geoBoundaries."
     },
     "countries": {
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_admin_0_countries.geojson",
@@ -22,12 +29,27 @@
       "publisher": "Natural Earth",
       "licence": "public domain",
       "note": "Van, Tuz and the rest, painted over the province fill so they are not land."
+    },
+    "roads": {
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_10m_roads.geojson",
+      "file": "ne_10m_roads.geojson",
+      "publisher": "Natural Earth",
+      "licence": "public domain",
+      "note": "The reference road network. Not a highway map: 1 304 segments cover Türkiye, and KGM's own network cannot be reproduced here (CLAUDE.md §3)."
     }
   },
   "builds": {
+    "names": {
+      "rows": 81,
+      "command": "-i {admin1} -filter \"iso_a2 === 'TR'\" -each \"code = +iso_3166_2.slice(3), name_tr = name_tr || name, name_en = name_en || name\" -filter-fields code,name_tr,name_en -o {raw}/province-names.csv format=csv"
+    },
     "provinces": {
       "features": 81,
-      "command": "-i {admin1} -filter \"iso_a2 === 'TR'\" -each \"code = +iso_3166_2.slice(3), name_tr = name_tr || name, name_en = name_en || name\" -filter-fields code,name_tr,name_en -simplify 8% keep-shapes -clean -o {out}/provinces.json format=geojson precision=0.0001 id-field=code"
+      "command": "-i {boundaries} -each \"code = +shapeISO.slice(3)\" -filter-fields code -join {raw}/province-names.csv keys=code,code field-types=code:number -simplify 2% keep-shapes -clean -o {out}/provinces.json format=geojson precision=0.0001 id-field=code"
+    },
+    "provinces-detail": {
+      "features": 81,
+      "command": "-i {boundaries} -each \"code = +shapeISO.slice(3)\" -filter-fields code -join {raw}/province-names.csv keys=code,code field-types=code:number -simplify 15% keep-shapes -clean -o {out}/provinces-detail.json format=geojson precision=0.00001 id-field=code"
     },
     "points": {
       "features": 81,
@@ -37,6 +59,10 @@
       "features": 1,
       "command": "-i {out}/provinces.json -dissolve2 -each \"name = 'Türkiye'\" -o {out}/turkiye.json format=geojson precision=0.0001"
     },
+    "turkiye-detail": {
+      "features": 1,
+      "command": "-i {out}/provinces-detail.json -dissolve2 -each \"name = 'Türkiye'\" -o {out}/turkiye-detail.json format=geojson precision=0.00001"
+    },
     "world": {
       "features": 32,
       "command": "-i {countries} -filter \"ISO_A2 !== 'TR'\" -each \"name = NAME_EN\" -filter-fields name -clip bbox=19,32,52,46 -simplify 4% keep-shapes -clean -o {out}/world.json format=geojson precision=0.01"
@@ -44,12 +70,22 @@
     "water": {
       "features": 23,
       "command": "-i {lakes} -clip bbox=19,32,52,46 -filter \"this.area > 0.02\" -each \"name = name || ''\" -filter-fields name -simplify 10% keep-shapes -o {out}/water.json format=geojson precision=0.001"
+    },
+    "roads": {
+      "features": 1457,
+      "command": "-i {roads} -clip bbox=25,35,45.5,42.5 -filter \"type !== 'Ferry Route' && type !== 'Ferry, seasonal' && type !== 'Track'\" -each \"kind = type || '', label = label || ''\" -filter-fields kind,label -simplify 15% keep-shapes -o {out}/roads.json format=geojson precision=0.001"
     }
   },
+  "tiers": {
+    "overview": "2%",
+    "detail": "15%"
+  },
   "notes": [
-    "Natural Earth is pinned at tag v5.1.2; a moving source would change coastlines with no commit.",
-    "turkiye.json is dissolved from the already-simplified provinces.json, so the outline sits exactly on the fills.",
-    "iso_3166_2 TR-01..TR-81 are the plaka codes, which YSK's il_ID and TÜİK's province tables also use.",
-    "Türkiye's own TUCBS geodata forbids redistribution, which is why the boundaries here are Natural Earth's."
+    "Natural Earth is pinned at tag v5.1.2 and geoBoundaries at commit 9469f09; a moving source would change coastlines with no commit.",
+    "The province shapes are geoBoundaries' (OpenStreetMap-derived); the name_tr/name_en pair is joined on from Natural Earth.",
+    "shapeISO TR-01..TR-81 are the plaka codes, which YSK's il_ID and TÜİK's province tables also use.",
+    "Each outline is dissolved from the already-simplified provinces of its own tier, so the outline sits exactly on the fills.",
+    "The DETAIL tier is what coordinates are placed against and what the declared geometry checks use; the overview tier is only drawn.",
+    "Türkiye's own TUCBS geodata forbids redistribution, which is why the boundaries here are not the government's."
   ]
 }

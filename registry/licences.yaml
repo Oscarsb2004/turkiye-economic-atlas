@@ -70,6 +70,33 @@ licences:
     # the material." Suomi NPP is a NASA-led mission.
     attribution: NASA Earth Observing System Data and Information System (EOSDIS) GIBS
 
+  boc-terms-of-use:
+    name: Bank of Canada Terms of Use
+    url: https://www.bankofcanada.ca/terms/
+    redistribution: permitted with attribution
+    # Read 2026-09-21. Under "1. Copyright / Permission to Reproduce", except for
+    # bank note images and the Bank's own logo, "the Bank permits you to freely
+    # use, copy, distribute and transmit its website content" — on the conditions
+    # that the Bank is attributed as the source and that changes are indicated
+    # (1.1), that due diligence is exercised over the accuracy of anything
+    # reproduced (1.2), and that content provided through a paid service says it
+    # is available free on the Bank's own site (1.3). This atlas reproduces one
+    # number per year from one series, attributes it, and is not sold.
+    attribution: Bank of Canada
+
+  geoboundaries-open:
+    name: geoBoundaries gbOpen — Creative Commons Attribution-ShareAlike 2.0
+    url: https://www.geoboundaries.org/index.html#usage
+    redistribution: permitted with attribution and share-alike
+    # Read 2026-09-21 from geoBoundaries' own API for TUR/ADM1, which returns
+    # boundaryLicense "Creative Commons Attribution-ShareAlike 2.0" and
+    # licenseSource www.openstreetmap.org/copyright — so the upstream is
+    # OpenStreetMap and the share-alike is the same obligation odbl-1.0 carries.
+    # Recorded as its own entry rather than folded into odbl-1.0 because the
+    # licence NAME geoBoundaries publishes is not ODbL, and a card must say what
+    # its publisher says.
+    attribution: geoBoundaries (geoLab, William & Mary), from © OpenStreetMap contributors
+
   odbl-1.0:
     name: Open Database License 1.0
     url: https://opendatacommons.org/licenses/odbl/1-0/

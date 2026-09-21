@@ -70,6 +70,21 @@ STATION_QUERY = f"""[out:json][timeout:300];
 out body;"""
 
 
+#: Cities and towns, as points. `place=city` and `place=town` are OSM's own two
+#: classes for a settlement a reader would name; `village` would be the next one
+#: down and is 35 000 more of them, which is not a label layer.
+#:
+#: Measured 2026-09-21: 1 005 nodes over Türkiye, which is a node query like the
+#: stations above rather than the 37 434 ways a road query would be.
+PLACE_QUERY = f"""[out:json][timeout:300];
+{AREA}
+(
+  node["place"="city"](area.tr);
+  node["place"="town"](area.tr);
+);
+out body;"""
+
+
 class OverpassError(ValueError):
     """The API answered with something this reader was not written for."""
 

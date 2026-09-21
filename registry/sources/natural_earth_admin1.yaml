@@ -1,18 +1,29 @@
 # registry/sources/natural_earth_admin1.yaml — one source this project reads.
 # The file name is the source's key; its licence is defined in registry/licences.yaml.
 
-title: Natural Earth admin-1 (states and provinces, 1:10m)
+title: Natural Earth 1:10m — province names, the world, the lakes and the roads
 publisher: Natural Earth
 licence: public-domain
 attribution: Natural Earth (public domain)
 page: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/
-# The 81 il, pinned at tag v5.1.2 and built into web/public/geo/provinces.json by
-# scripts/build_geo.mjs, which records every command it ran in SOURCES.json.
+# Pinned at tag v5.1.2 and read by scripts/build_geo.mjs, which records every
+# command it ran in SOURCES.json.
 #
-# Named as a source card because a dataset now DEPENDS on those boundaries
-# rather than merely drawing them: a station's province is the province whose
-# published boundary contains its published coordinate, and the card is what
-# says whose boundary that is.
+# WHAT IT SUPPLIES NOW
 #
-# Türkiye's own TUCBS geodata forbids redistribution, which is why the
-# boundaries here are Natural Earth's (docs/PLAN.md).
+#   the name_tr/name_en pair for the 81 il, joined onto geoBoundaries' shapes
+#   world.json   the neighbouring countries, drawn as context
+#   water.json   Van, Tuz and the rest, so a lake is not painted as land
+#   roads.json   the reference road network, 1 457 segments over Türkiye
+#
+# The BOUNDARIES were Natural Earth's until 2026-09-21 and are geoBoundaries'
+# now: at the 8% simplification this atlas shipped them at, the Princes' Islands
+# were not in the file and 49 of 1 334 railway stations fell outside every
+# province (registry/sources/geoboundaries_adm1.yaml).
+#
+# The names stayed, because they were measured: checked 2026-09-20 against YSK's
+# own province list, same 81 codes and zero disagreements.
+#
+# The road layer is Natural Earth's reference network and is not a highway map.
+# KGM's terms forbid reproducing its content, so KGM is cited and never copied
+# (CLAUDE.md §3).

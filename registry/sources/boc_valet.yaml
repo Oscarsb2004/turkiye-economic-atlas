@@ -1,0 +1,22 @@
+# registry/sources/boc_valet.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Bank of Canada Valet API — FXAUSDCAD, annual average USD/CAD
+publisher: Bank of Canada
+licence: boc-terms-of-use
+attribution: Bank of Canada, Valet API series FXAUSDCAD (annual average exchange rate)
+page: https://www.bankofcanada.ca/valet/docs
+api: https://www.bankofcanada.ca/valet/observations/FXAUSDCAD/json
+# Read for ONE thing: the rate that turns TÜİK's published US dollar figure for
+# a province into a Canadian dollar one.
+#
+# Nobody publishes Turkish provincial GDP in Canadian dollars, so that figure
+# can only be arithmetic — and arithmetic over published inputs needs both
+# inputs to be published, which is why a central bank has a card here rather
+# than a constant sitting in a script (CLAUDE.md §1).
+#
+# FXAUSDCAD is the Bank's OWN annual average of its daily rate. Averaging the
+# daily series here would be recomputing something the publisher already
+# publishes, slightly differently. Checked 2026-09-21: the series runs 2017
+# to 2025, which covers every year TÜİK's bulletin carries (2020-2024); a year
+# outside it has no rate and therefore no Canadian figure, published as absent.

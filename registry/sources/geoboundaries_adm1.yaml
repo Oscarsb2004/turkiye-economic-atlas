@@ -1,0 +1,31 @@
+# registry/sources/geoboundaries_adm1.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: geoBoundaries gbOpen — Türkiye ADM1 (the 81 il)
+publisher: geoBoundaries (William & Mary geoLab)
+licence: geoboundaries-open
+attribution: geoBoundaries (geoLab, William & Mary), from © OpenStreetMap contributors
+page: https://www.geoboundaries.org/countryDownloads.html
+# The province boundaries this atlas draws and places coordinates against,
+# pinned at the commit geoBoundaries' own API names (9469f09) and built into
+# web/public/geo/provinces.json and provinces-detail.json by
+# scripts/build_geo.mjs, which records every command it ran in SOURCES.json.
+#
+# WHY IT REPLACED NATURAL EARTH'S ADMIN-1 LAYER
+#
+# Natural Earth's is public domain, correctly coded TR-01..TR-81, and far too
+# coarse for a city. At the 8% this atlas shipped it at, 49 of 1 334 railway
+# stations sat outside every province, Sabiha Gökçen's coordinate landed in
+# Kocaeli, and the Princes' Islands were not in the file at all — which put
+# twelve İstanbul ferry piers 6–8 km out to sea. geoBoundaries' gbOpen ADM1 is
+# OpenStreetMap-derived, carries `shapeISO` = TR-01..TR-81 (the same plaka codes,
+# so the join key did not change) and holds all 81 provinces in 366 193 points
+# and 712 rings, islands included.
+#
+# It carries no English name, so `name_tr`/`name_en` are still joined on from
+# Natural Earth, which is also where the world, the lakes and the roads come
+# from (registry/sources/natural_earth_admin1.yaml).
+#
+# Türkiye's own TUCBS geodata forbids redistribution, which is why neither of
+# these is the government's own file (docs/PLAN.md).
+api: https://www.geoboundaries.org/api/current/gbOpen/TUR/ADM1/

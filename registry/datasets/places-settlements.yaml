@@ -1,0 +1,24 @@
+# registry/datasets/places-settlements.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "Every city and town, placed in a province, as OpenStreetMap has it"
+group: places
+order: 10
+builder: atlas.datasets.places:build
+params: {}
+sources:
+- osm_overpass
+- geoboundaries_adm1
+shells:
+- fetcher
+- geometry
+after: []
+outputs:
+- data/places/settlements.json
+frame:
+  profile: points
+  record_type: asset
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the base layer draws settlements.json as place labels under whatever overlay is on screen

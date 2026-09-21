@@ -172,6 +172,29 @@ def province_by_nuts3() -> dict[str, dict[str, Any]]:
     return {row["nuts3"]: row for row in provinces().values()}
 
 
+#: The tier of published boundary a COORDINATE is placed against.
+#:
+#: Not the one the map opens on. `provinces.json` is simplified to 2% so that
+#: the whole country is 200 KB, and at that tolerance the Princes' Islands are
+#: not in the file and the Kadıköy shore cuts inland — which is how twelve ferry
+#: piers came to be published 6–8 km out to sea. The detail tier holds all of
+#: them (scripts/build_geo.mjs), so a placement made against it is a placement
+#: against the best boundary this project ships.
+BOUNDARIES = WEB_PUBLIC_DIR / "geo" / "provinces-detail.json"
+
+
+@lru_cache(maxsize=1)
+def boundaries() -> list[dict[str, Any]]:
+    """The published province boundaries, as the geometry pipeline committed them."""
+    features = json.loads(BOUNDARIES.read_text(encoding="utf-8"))["features"]
+    if len(features) != 81:
+        raise RegistryError(
+            f"{BOUNDARIES.name}: {len(features)} provinces, not 81 — "
+            f"run `node scripts/build_geo.mjs`"
+        )
+    return features
+
+
 # ── Airports ───────────────────────────────────────────────────────────────────
 
 @lru_cache(maxsize=1)

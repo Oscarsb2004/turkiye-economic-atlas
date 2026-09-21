@@ -57,6 +57,22 @@ export interface Geo {
   turkiye: GeoJson;
   world: GeoJson;
   water: GeoJson;
+  /** The main road network, drawn only when the reader turns the base layer on. */
+  roads: GeoJson;
+}
+
+/**
+ * The finer province boundaries, fetched only when the map is zoomed into them.
+ *
+ * 1.4 MB against the overview tier's 208 KB, which is the whole reason it is a
+ * second file: a reader looking at the country does not need the Princes'
+ * Islands, and a reader looking at İstanbul cannot read the map without them
+ * (scripts/build_geo.mjs). The pipeline places every coordinate against THIS
+ * tier, so what the app draws past the threshold is also what the data means.
+ */
+export interface GeoDetail {
+  provinces: GeoJson;
+  turkiye: GeoJson;
 }
 
 /** Where the committed geometry lives, honouring the Pages base path. */
@@ -65,16 +81,22 @@ export function asset(path: string): string {
   return `${base.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
 
+async function geoJson(name: string): Promise<GeoJson> {
+  const response = await fetch(asset(`geo/${name}.json`));
+  if (!response.ok) throw new Error(`geo/${name}.json: HTTP ${response.status}`);
+  return (await response.json()) as GeoJson;
+}
+
 export async function loadGeo(): Promise<Geo> {
-  const names = ["provinces", "points", "turkiye", "world", "water"] as const;
-  const bodies = await Promise.all(
-    names.map(async (name) => {
-      const response = await fetch(asset(`geo/${name}.json`));
-      if (!response.ok) throw new Error(`geo/${name}.json: HTTP ${response.status}`);
-      return (await response.json()) as GeoJson;
-    }),
-  );
+  const names = ["provinces", "points", "turkiye", "world", "water", "roads"] as const;
+  const bodies = await Promise.all(names.map(geoJson));
   return Object.fromEntries(names.map((name, i) => [name, bodies[i]])) as unknown as Geo;
+}
+
+export async function loadGeoDetail(): Promise<GeoDetail> {
+  const names = ["provinces-detail", "turkiye-detail"] as const;
+  const [provinces, turkiye] = await Promise.all(names.map(geoJson));
+  return { provinces, turkiye };
 }
 
 /** The province name in `lang`, from the geometry's own properties. */
@@ -530,6 +552,48 @@ export interface NetworkLine {
   id: string;
   line: Array<[number, number]>;
   tone?: number;
+}
+
+// ── Place names ──────────────────────────────────────────────────────────────
+
+/**
+ * Every city and town OSM publishes in Türkiye, placed in a province.
+ *
+ * A reference layer, not a subject: nothing is shaded by it and nothing is
+ * counted from it. `population` is OSM's where a node carries one and null
+ * where it does not, which is about a third of them — the app uses it to decide
+ * which names a zoom has room for, and says so rather than publishing a ranking
+ * (atlas/datasets/places.py).
+ */
+export interface Places {
+  generated_at: string;
+  places: Array<{
+    id: string;
+    name: Text;
+    kind: string;
+    population: number | null;
+    plaka: number | null;
+    placement: string;
+    province: Text;
+    point: [number, number];
+  }>;
+  settlements: {
+    current_as_of: string;
+    label: Text;
+    kinds: { city: number; town: number };
+    with_population: number;
+    unplaced: number;
+    placed_by_nearest: number;
+    placement: { provenance: string; formula: string };
+  };
+}
+
+export const PLACES_FILE = "data/places/settlements.json";
+
+export async function loadPlaces(): Promise<Places> {
+  const response = await fetch(asset(PLACES_FILE));
+  if (!response.ok) throw new Error(`settlements.json: HTTP ${response.status}`);
+  return (await response.json()) as Places;
 }
 
 // ── İstanbul's transit ───────────────────────────────────────────────────────

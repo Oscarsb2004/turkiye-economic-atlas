@@ -20,18 +20,25 @@
     "migration/2025.json",
     "nightlights/viirs.json",
     "palette.json",
+    "places/settlements.json",
     "provinces/gdp-per-capita.json",
     "rail/network.json",
     "rail/stations.json",
     "transit/istanbul.json"
   ],
-  "generated_at": "2026-09-21T12:13:25Z",
+  "generated_at": "2026-09-21T19:41:57Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
       "name": "aisstream.io — no published terms",
       "redistribution": "unstated by the publisher",
       "url": "https://aisstream.io/"
+    },
+    "boc-terms-of-use": {
+      "attribution": "Bank of Canada",
+      "name": "Bank of Canada Terms of Use",
+      "redistribution": "permitted with attribution",
+      "url": "https://www.bankofcanada.ca/terms/"
     },
     "commons-per-file": {
       "attribution": "per file",
@@ -44,6 +51,12 @@
       "name": "DHMİ — no published terms",
       "redistribution": "unstated by the publisher",
       "url": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"
+    },
+    "geoboundaries-open": {
+      "attribution": "geoBoundaries (geoLab, William & Mary), from © OpenStreetMap contributors",
+      "name": "geoBoundaries gbOpen — Creative Commons Attribution-ShareAlike 2.0",
+      "redistribution": "permitted with attribution and share-alike",
+      "url": "https://www.geoboundaries.org/index.html#usage"
     },
     "ibb-open-data": {
       "attribution": "İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı",
@@ -84,11 +97,23 @@
   },
   "schema_version": "1.0.0",
   "sources": {
+    "boc_valet": {
+      "licence": "boc-terms-of-use",
+      "page": "https://www.bankofcanada.ca/valet/docs",
+      "publisher": "Bank of Canada",
+      "title": "Bank of Canada Valet API — FXAUSDCAD, annual average USD/CAD"
+    },
     "dhmi_airport_statistics": {
       "licence": "dhmi-unstated",
       "page": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx",
       "publisher": "Devlet Hava Meydanları İşletmesi (DHMİ)",
       "title": "Havalimanları Karşılaştırmalı İstatistikleri"
+    },
+    "geoboundaries_adm1": {
+      "licence": "geoboundaries-open",
+      "page": "https://www.geoboundaries.org/countryDownloads.html",
+      "publisher": "geoBoundaries (William & Mary geoLab)",
+      "title": "geoBoundaries gbOpen — Türkiye ADM1 (the 81 il)"
     },
     "ibb_gtfs": {
       "licence": "ibb-open-data",
@@ -106,7 +131,7 @@
       "licence": "public-domain",
       "page": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/",
       "publisher": "Natural Earth",
-      "title": "Natural Earth admin-1 (states and provinces, 1:10m)"
+      "title": "Natural Earth 1:10m — province names, the world, the lakes and the roads"
     },
     "osm_overpass": {
       "licence": "odbl-1.0",

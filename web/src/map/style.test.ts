@@ -15,7 +15,9 @@ import type { Geo, GeoJson } from "../data/bundle";
 import { fillColour, mapStyle } from "./style";
 
 const EMPTY: GeoJson = { type: "FeatureCollection", features: [] };
-const GEO: Geo = { provinces: EMPTY, points: EMPTY, turkiye: EMPTY, world: EMPTY, water: EMPTY };
+const GEO: Geo = {
+  provinces: EMPTY, points: EMPTY, turkiye: EMPTY, world: EMPTY, water: EMPTY, roads: EMPTY,
+};
 
 describe("the map's style", () => {
   it("is a style the specification accepts", () => {
@@ -31,6 +33,9 @@ describe("the map's style", () => {
     expect(layers).toContain("flows");
     expect(layers).toContain("markers");
     expect(layers).toContain("network");
+    // The reference layer is in the style from the start and hidden, so a
+    // rename here would leave the base-layer switch toggling nothing.
+    expect(layers).toContain("roads");
   });
 
   it("still validates once a ramp is painted into the province fill", () => {

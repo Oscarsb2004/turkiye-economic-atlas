@@ -155,6 +155,29 @@ def test_zero_is_present_and_blank_is_not():
     assert all(f"'{i}." in detail for i in ("none", "blank", "absent"))
 
 
+def test_record_count_takes_a_floor_for_a_collection_that_grows():
+    """
+    The nightlights offer one night a MONTH now, so an exact count would fail on
+    the first of every month and the failure would mean nothing. `at_least` is
+    the form for a collection that grows on its own; it still catches the thing
+    worth catching, which is one that emptied.
+    """
+    sixty = [{"id": str(n)} for n in range(60)]
+    ok, label, _ = checks.check_record_count(sixty, {"at_least": 60}, CTX)
+    assert ok, label
+    assert "at least the 60 declared" in label
+
+    ok, _, detail = checks.check_record_count(sixty[:59], {"at_least": 60}, CTX)
+    assert not ok
+    assert "got 59" in detail
+
+    # `expect` is unchanged and is still strict: 81 provinces is 81.
+    ok, _, _ = checks.check_record_count(sixty, {"expect": 60}, CTX)
+    assert ok
+    ok, _, _ = checks.check_record_count(sixty, {"expect": 61}, CTX)
+    assert not ok
+
+
 def test_unique_ids_names_duplicates_and_records_with_no_id():
     """
     A record with no id is not a duplicate, so it used to pass. With two of

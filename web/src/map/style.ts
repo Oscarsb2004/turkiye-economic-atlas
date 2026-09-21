@@ -86,6 +86,10 @@ export function mapStyle(geo: Geo): StyleSpecification {
     // future data join key on the same number.
     provinces: { type: "geojson", data: geo.provinces, promoteId: "code" },
     water: { type: "geojson", data: geo.water },
+    // The reference road network. In the style from the start and hidden, so
+    // turning it on is a layout property rather than a source being added to a
+    // live map — which is the operation that needs the style to be ready.
+    roads: { type: "geojson", data: geo.roads },
     // Both empty until an overlay has something to put in them; the
     // effects below set their data.
     flows: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
@@ -114,6 +118,27 @@ export function mapStyle(geo: Geo): StyleSpecification {
       type: "line",
       source: "turkiye",
       paint: { "line-color": ink("--text-2", "#9aa3b2"), "line-width": 1.4 },
+    },
+    // The roads a reader turns on to find out where they are looking. Over
+    // the province fills, under everything this atlas publishes as a subject:
+    // it is there to locate the other layers, not to compete with them.
+    {
+      id: "roads",
+      type: "line",
+      source: "roads",
+      layout: { visibility: "none", "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": ink("--text-3", "#7c7c7c"),
+        // Natural Earth's own class, drawn heavier for the bigger road. ZOOM
+        // IS THE OUTSIDE of the expression; a `["zoom"]` nested inside the
+        // match would have MapLibre refuse the whole style (see above).
+        "line-width": ["interpolate", ["linear"], ["zoom"],
+                       4, ["match", ["get", "kind"],
+                           "Major Highway", 0.9, "Secondary Highway", 0.6, 0.4],
+                       10, ["match", ["get", "kind"],
+                            "Major Highway", 3.4, "Secondary Highway", 2.2, 1.4]],
+        "line-opacity": 0.8,
+      },
     },
     // Flows sit above everything: they are the answer to a question the
     // reader asked by selecting a province.

@@ -29,17 +29,21 @@ import {
   loadGeo,
   loadMeta,
   loadPalette,
+  loadPlaces,
   provinceName,
+  t,
   type Geo,
   type Lang,
   type Meta,
   type Palette,
+  type Places,
   type ProvinceProps,
 } from "./data/bundle";
+import { BaseLayer } from "./BaseLayer";
 import { LANGUAGE_NAME, formatInt, initialLang, rememberLang, stringsFor } from "./i18n";
 import { Sources } from "./Sources";
 import { Legend } from "./map/Legend";
-import { ProvinceMap } from "./map/ProvinceMap";
+import { ProvinceMap, type PlaceLabel } from "./map/ProvinceMap";
 import { quantileBands } from "./map/bins";
 import { shadingOfBands, shadingOfClasses } from "./map/shading";
 import { DEFAULT_OVERLAY, useOverlays } from "./overlays";
@@ -62,6 +66,11 @@ export function App() {
   // laptop they are half its width between them. The rail folds by choice; the
   // panel is simply not there until the reader has picked a province to read.
   const [railOpen, setRailOpen] = useState(true);
+  // The reference layer, which is not an overlay: place names and roads have to
+  // be available UNDER whatever is on screen (BaseLayer.tsx). Its data is
+  // fetched the first time it is switched on, and never before.
+  const [basemap, setBasemap] = useState(false);
+  const [places, setPlaces] = useState<Places | null>(null);
   const s = stringsFor(lang);
 
   useEffect(() => {
@@ -79,6 +88,24 @@ export function App() {
     document.documentElement.lang = lang;
     rememberLang(lang);
   }, [lang]);
+
+  useEffect(() => {
+    if (!basemap || places) return;
+    // A failed reference layer leaves the map without names on it, which is the
+    // state it was in a moment ago; it is not worth an error over the map.
+    loadPlaces().then(setPlaces, () => undefined);
+  }, [basemap, places]);
+
+  /** The names to draw, in the reader's language, or none while it is off. */
+  const labels: PlaceLabel[] = useMemo(() => {
+    if (!basemap || !places) return [];
+    return places.places.map((place) => ({
+      id: place.id,
+      label: t(place.name, lang),
+      population: place.population,
+      point: place.point,
+    }));
+  }, [basemap, places, lang]);
 
   // The selection is part of what an overlay is given: a flow overlay answers
   // a question about one province (overlays/types.ts).
@@ -164,6 +191,14 @@ export function App() {
           publisher={(source) => meta?.sources[source]?.publisher ?? ""}
           open={railOpen}
           onToggle={() => setRailOpen((open) => !open)}
+          chrome={
+            <BaseLayer
+              on={basemap}
+              onToggle={setBasemap}
+              labelled={basemap && places ? places.places.length : null}
+              lang={lang}
+            />
+          }
           sources={<Sources meta={meta} lang={lang} />}
           lang={lang}
         />
@@ -186,6 +221,8 @@ export function App() {
                   network={overlay.network ?? []}
                   focus={overlay.focus}
                   raster={overlay.raster}
+                  roads={basemap}
+                  places={labels}
                 />
                 {/* An overlay that shades nothing brings its own key; one that
                     shades brings bands, and the shared legend explains them. */}

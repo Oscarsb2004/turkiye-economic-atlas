@@ -11,6 +11,8 @@ sources:
 - nasa_gibs
 - ibb_gtfs
 - natural_earth_admin1
+- geoboundaries_adm1
+- boc_valet
 - osm_overpass
 - ourairports
 - tuik_provincial_gdp   # meta.json publishes each source and its licence
@@ -40,6 +42,7 @@ outputs:
 - web/public/data/rail/stations.json
 - web/public/data/transit/istanbul.json
 - web/public/data/nightlights/viirs.json
+- web/public/data/places/settlements.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

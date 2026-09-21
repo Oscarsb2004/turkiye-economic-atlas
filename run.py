@@ -34,6 +34,16 @@ import subprocess
 import sys
 from pathlib import Path
 
+# Windows consoles are cp1252 by default, and a run reads back other people's
+# output: vitest prints a ✓ for every file it passes. `print` of a character the
+# console cannot encode raises UnicodeEncodeError and kills the run at the tests
+# step — after every stage has succeeded, with a stack trace instead of a
+# summary. Replacing what cannot be shown keeps the console's own encoding and
+# loses one glyph instead of the whole run.
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(errors="replace")
+
 ROOT = Path(__file__).resolve().parent
 VENV = ROOT / ".venv"
 PY = VENV / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -61,6 +71,7 @@ STAGES: dict[str, str] = {
     "05": "-m atlas.run rail",
     "06": "-m atlas.run transit",
     "07": "-m atlas.run nightlights",
+    "08": "-m atlas.run places",
     "99": "-m atlas.run bundle",
 }
 

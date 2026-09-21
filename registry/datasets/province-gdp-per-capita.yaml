@@ -2,13 +2,14 @@
 # `python -m atlas.run --dataset province-gdp-per-capita` builds it;
 # atlas/core/registry.py checks every claim below.
 
-title: "Every province's gross domestic product per capita, in lira and in dollars, as TÜİK publishes it"
+title: "Every province's gross domestic product per capita: lira and US dollars as TÜİK publishes them, and Canadian dollars derived from the Bank of Canada's annual rate"
 group: economy
 order: 10
 builder: atlas.datasets.province_gdp:build
 params: {}
 sources:
 - tuik_provincial_gdp
+- boc_valet
 shells:
 - fetcher
 after: []

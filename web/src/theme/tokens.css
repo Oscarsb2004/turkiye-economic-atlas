@@ -178,6 +178,54 @@ body {
   display: none;
 }
 
+/* ── The base layer ─────────────────────────────────────────────────────────
+   A place name is a DOM element following a coordinate, because MapLibre draws
+   text from glyph atlases this project does not ship (map/placeLabels.ts). It
+   must never take a click: the map underneath it is the thing being read. */
+.placeLabel {
+  padding-left: 9px;
+  color: var(--text-1);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 0 3px var(--surface-0), 0 0 6px var(--surface-0);
+  pointer-events: none;
+}
+
+.placeLabel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--text-2);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.switch__box {
+  accent-color: var(--accent-9);
+  margin: 0;
+}
+
+.switch__name {
+  font-weight: 600;
+}
+
 .maptip span {
   color: var(--text-2);
   font-variant-numeric: tabular-nums;
