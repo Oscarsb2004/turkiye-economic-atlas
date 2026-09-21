@@ -132,7 +132,7 @@ python run.py --test     # pytest
 python -m atlas.run --list               # every dataset card, by group
 python -m atlas.run --dataset <id>       # one dataset
 python run.py --verify   # the declared gates in registry/checks.yaml
-python verify/golden.py replay --name data-2026-09-21b   # the identity check
+python verify/golden.py replay --name data-2026-09-21d   # the identity check
 python verify/golden.py record --ref HEAD --name <name>   # a new master, per data state
 ```
 
@@ -191,6 +191,14 @@ at it — reintroduce the bug and `style.test.ts` prints the same message the br
 a recording made two hours after T9 was built reported two committed files changed, and the change
 was one station renamed to "Eryaman YHT Garı". That line in a recording is the source moving, not
 a fault — the identity gate is the REPLAY, which runs on the recording's own inputs.
+
+**And two Overpass answers minutes apart can disagree in both directions.** A refresh and the
+recording that followed it returned: one station in one and not the other, one moved 1.5 km across
+the Malatya/Adıyaman border, and `Eryaman` carrying its full name `Eryaman YHT Garı` in the later
+answer and not the earlier one — a name it had already been given hours before. Edits alone do not
+explain a name coming back; the likeliest explanation is that Overpass is several mirrors and they
+are not at the same replication point, which makes "current as of `timestamp_osm_base`" a claim
+about the mirror that answered. Chasing a recording to zero changed files is therefore not a goal.
 
 **A GTFS feed is not automatically GTFS.** İstanbul's is Windows-1254 where the spec requires
 UTF-8 — `BEŞİKTAŞ` is not valid UTF-8 and a spec-trusting reader dies on the fourth line — and two
