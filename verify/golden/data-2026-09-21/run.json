@@ -1,0 +1,45 @@
+{
+  "mode": "record",
+  "steps": [
+    {
+      "exit": 0,
+      "seconds": 4,
+      "step": "01"
+    },
+    {
+      "exit": 0,
+      "seconds": 16,
+      "step": "02"
+    },
+    {
+      "exit": 0,
+      "seconds": 57,
+      "step": "03"
+    },
+    {
+      "exit": 0,
+      "seconds": 20,
+      "step": "04"
+    },
+    {
+      "exit": 0,
+      "seconds": 43,
+      "step": "05"
+    },
+    {
+      "exit": 0,
+      "seconds": 22,
+      "step": "06"
+    },
+    {
+      "exit": 0,
+      "seconds": 1,
+      "step": "99"
+    },
+    {
+      "exit": 0,
+      "seconds": 1,
+      "step": "verify"
+    }
+  ]
+}

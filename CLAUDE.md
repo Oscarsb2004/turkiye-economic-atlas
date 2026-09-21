@@ -124,7 +124,7 @@ python run.py --test     # pytest
 python -m atlas.run --list               # every dataset card, by group
 python -m atlas.run --dataset <id>       # one dataset
 python run.py --verify   # the declared gates in registry/checks.yaml
-python verify/golden.py replay --name data-2026-09-20f   # the identity check
+python verify/golden.py replay --name data-2026-09-21   # the identity check
 python verify/golden.py record --ref HEAD --name <name>   # a new master, per data state
 ```
 
@@ -166,6 +166,11 @@ published as an empty map. OSM splits a railway at every bridge and attribute ch
 for the main-line network), so fragments are joined before anything is published — and the join
 is recorded, way id by way id, so it can be undone. OSM has no edition: the period is
 `timestamp_osm_base`, the moment the answer was current.
+
+**A live source moves under the golden master.** OSM has no edition and edits arrive continuously:
+a recording made two hours after T9 was built reported two committed files changed, and the change
+was one station renamed to "Eryaman YHT Garı". That line in a recording is the source moving, not
+a fault — the identity gate is the REPLAY, which runs on the recording's own inputs.
 
 **A GTFS feed is not automatically GTFS.** İstanbul's is Windows-1254 where the spec requires
 UTF-8 — `BEŞİKTAŞ` is not valid UTF-8 and a spec-trusting reader dies on the fourth line — and two
