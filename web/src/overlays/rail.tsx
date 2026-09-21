@@ -104,7 +104,8 @@ export function useRailOverlay({ lang, clock, active }: OverlayContext): Overlay
 
   // One period: the moment OSM's answer was current. Until the file arrives
   // there is nothing to date, so there is no period rather than a made-up one.
-  const day = network?.network.current_as_of.slice(0, 10) ?? "";
+  // Published as a day already (atlas/datasets/rail_network.py).
+  const day = network?.network.current_as_of ?? "";
   const periods: Period[] = day
     ? [{ key: `${RAIL_ID}:${day}`, at: day, label: formatInstant(day, lang) }]
     : [];

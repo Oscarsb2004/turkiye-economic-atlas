@@ -25,11 +25,18 @@ Every tag is OSM's, reproduced. Three things are ours and say so:
     boundary contains its published coordinate. registry/checks.yaml recomputes
     it in verify/, which never imports this code.
 
-THE DATE
+THE DATE, AND WHY IT IS A DAY
 
-OSM has no edition, so the period is `timestamp_osm_base` — the moment the
-Overpass answer was current. It is one period, and the time slider shows it as
-the one stop it is rather than pretending to a series.
+OSM has no edition, so the period is `timestamp_osm_base` — when the answer was
+current. It is published as the DAY, not the instant, and that is a decision
+worth writing down: the instant moves every minute whether or not a single node
+changed, which would rewrite a 1.4 MB file on every fetch and make "a re-run
+leaves a zero-line diff" impossible to hold (CLAUDE.md §6). Measured on two
+answers eleven minutes apart: 1 352 lines, 1 334 stations, not one coordinate
+different, and only the stamp moved. The full instant is kept in the receipt.
+
+It is one period, and the time slider shows it as the one stop it is rather
+than pretending to a series.
 """
 
 from __future__ import annotations
@@ -88,7 +95,8 @@ def build_network(ctx: Context, *, dataset: str) -> Built:
     src = R.source(SOURCE_KEY)
     answer = overpass.ask(ctx.fetch, overpass.RAIL_QUERY)
     ways = overpass.ways(answer)
-    current = overpass.current_as_of(answer)
+    instant = overpass.current_as_of(answer)
+    current = instant[:10]                      # the day; see the module docstring
     retrieved = clock.now_iso()
 
     # One group per distinct set of published attributes; fragments only join
@@ -158,7 +166,7 @@ def build_network(ctx: Context, *, dataset: str) -> Built:
         outputs=[(R.DATA_DIR / "rail" / "network.json", payload)],
         receipt={"ways": len(ways), "lines": len(published), "points_kept": kept, "points_raw": raw,
                  "highspeed_lines": payload["network"]["kinds"]["highspeed"],
-                 "current_as_of": current},
+                 "current_as_of": current, "osm_timestamp": instant},
     )
 
 
@@ -168,7 +176,8 @@ def build_stations(ctx: Context, *, dataset: str) -> Built:
     boundaries = R.source(BOUNDARY_KEY)
     answer = overpass.ask(ctx.fetch, overpass.STATION_QUERY)
     nodes = overpass.nodes(answer)
-    current = overpass.current_as_of(answer)
+    instant = overpass.current_as_of(answer)
+    current = instant[:10]                      # the day; see the module docstring
     retrieved = clock.now_iso()
 
     features = _province_features()
@@ -271,5 +280,5 @@ def build_stations(ctx: Context, *, dataset: str) -> Built:
         outputs=[(R.DATA_DIR / "rail" / "stations.json", payload)],
         frames=[frame],
         receipt={"stations": len(published), "provinces": len(by_plaka), "unplaced": unplaced,
-                 "current_as_of": current},
+                 "current_as_of": current, "osm_timestamp": instant},
     )

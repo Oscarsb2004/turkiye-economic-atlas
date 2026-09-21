@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T00:59:51Z",
+  "generated_at": "2026-09-21T01:09:29Z",
   "lines": [
     {
       "electrified": "contact_line",
@@ -83797,7 +83797,7 @@
     }
   ],
   "network": {
-    "current_as_of": "2026-09-21T00:54:52Z",
+    "current_as_of": "2026-09-21",
     "derivation": {
       "joined": "OSM ways that share an end and agree on every published attribute are joined into one line; each line lists the way ids it was made of",
       "provenance": "derived",
@@ -83818,7 +83818,7 @@
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T00:59:51Z",
+      "retrieved_at": "2026-09-21T01:09:29Z",
       "url": "https://www.openstreetmap.org/copyright"
     }
   ]

@@ -300,25 +300,25 @@
     "formula": "the number of stations whose published coordinate falls inside the province's published boundary, or within 2000 m of it where the simplified boundary contains none; `halt` counts those published as railway=halt, and `urban` those whose published station tag is one of funicular, light_rail, monorail, subway",
     "provenance": "derived"
   },
-  "generated_at": "2026-09-21T00:58:39Z",
+  "generated_at": "2026-09-21T01:09:29Z",
   "sources": [
     {
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T00:58:39Z",
+      "retrieved_at": "2026-09-21T01:09:29Z",
       "url": "https://www.openstreetmap.org/copyright"
     },
     {
       "content_sha256": "",
       "licence": "public-domain",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T00:58:39Z",
+      "retrieved_at": "2026-09-21T01:09:29Z",
       "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/"
     }
   ],
   "station_info": {
-    "current_as_of": "2026-09-21T00:54:52Z",
+    "current_as_of": "2026-09-21",
     "kinds": {
       "halt": 238,
       "station": 1096
