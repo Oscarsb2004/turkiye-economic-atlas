@@ -1,0 +1,25 @@
+# registry/sources/osm_overpass.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: OpenStreetMap, through the Overpass API
+publisher: OpenStreetMap contributors
+licence: odbl-1.0
+attribution: © OpenStreetMap contributors, ODbL 1.0
+page: https://www.openstreetmap.org/copyright
+api: https://overpass-api.de/api/interpreter
+docs: https://wiki.openstreetmap.org/wiki/Overpass_API
+# Read for the railway: which track is main line, which is high-speed, and where
+# the stations are. The queries are in atlas/readers/overpass.py, with the
+# reason for each filter beside it.
+#
+# WHY NOT AN EXTRACT. Geofabrik's Türkiye file is 612 MB of PBF, and the HOT
+# export on HDX — a convenient 800 KB — has been stripped to `railway` and
+# `name`, with no `usage`, `highspeed`, `electrified`, `gauge` or `operator`.
+# Telling a high-speed line from a branch line is half of what this dataset is
+# for, and those tags are only published in the full data.
+#
+# Overpass is volunteer-run and one query is about half a minute of it, so the
+# answers are cached on the URL and the query body (the fetcher's post_form).
+#
+# ODbL is share-alike: the railway is published here as its own files rather
+# than merged into anything else, and OSM is credited on the map itself.

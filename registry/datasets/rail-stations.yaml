@@ -1,0 +1,24 @@
+# registry/datasets/rail-stations.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "Every railway station and halt, placed in a province, as OpenStreetMap has it"
+group: rail
+order: 20
+builder: atlas.datasets.rail_network:build_stations
+params: {}
+sources:
+- osm_overpass
+- natural_earth_admin1
+shells:
+- fetcher
+- geometry
+after: []
+outputs:
+- data/rail/stations.json
+frame:
+  profile: points
+  record_type: asset
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app draws each station and shades provinces by how many they hold

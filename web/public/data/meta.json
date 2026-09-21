@@ -19,9 +19,11 @@
     "migration/2024.json",
     "migration/2025.json",
     "palette.json",
-    "provinces/gdp-per-capita.json"
+    "provinces/gdp-per-capita.json",
+    "rail/network.json",
+    "rail/stations.json"
   ],
-  "generated_at": "2026-09-20T23:49:44Z",
+  "generated_at": "2026-09-21T00:59:10Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
@@ -73,6 +75,18 @@
       "page": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx",
       "publisher": "Devlet Hava Meydanları İşletmesi (DHMİ)",
       "title": "Havalimanları Karşılaştırmalı İstatistikleri"
+    },
+    "natural_earth_admin1": {
+      "licence": "public-domain",
+      "page": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/",
+      "publisher": "Natural Earth",
+      "title": "Natural Earth admin-1 (states and provinces, 1:10m)"
+    },
+    "osm_overpass": {
+      "licence": "odbl-1.0",
+      "page": "https://www.openstreetmap.org/copyright",
+      "publisher": "OpenStreetMap contributors",
+      "title": "OpenStreetMap, through the Overpass API"
     },
     "ourairports": {
       "licence": "public-domain",

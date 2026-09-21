@@ -8,6 +8,8 @@ builder: atlas.export.bundle:build
 params: {}
 sources:
 - dhmi_airport_statistics
+- natural_earth_admin1
+- osm_overpass
 - ourairports
 - tuik_provincial_gdp   # meta.json publishes each source and its licence
 - tuik_internal_migration
@@ -32,6 +34,8 @@ outputs:
 - web/public/data/airports/2023.json
 - web/public/data/airports/2024.json
 - web/public/data/airports/2025.json
+- web/public/data/rail/network.json
+- web/public/data/rail/stations.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null

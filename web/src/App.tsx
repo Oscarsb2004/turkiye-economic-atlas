@@ -155,6 +155,7 @@ export function App() {
                   ramp={palette?.sequential.steps ?? []}
                   flows={overlay.flows ?? []}
                   markers={overlay.markers ?? []}
+                  network={overlay.network ?? []}
                 />
                 {binning && palette ? (
                   <Legend

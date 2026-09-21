@@ -1,0 +1,21 @@
+# registry/datasets/rail-network.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "Every main-line and high-speed railway, joined into lines, as OpenStreetMap has it"
+group: rail
+order: 10
+builder: atlas.datasets.rail_network:build_network
+params: {}
+sources:
+- osm_overpass
+shells:
+- fetcher
+- geometry
+after: []
+outputs:
+- data/rail/network.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the app draws the railway on the map

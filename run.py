@@ -57,6 +57,7 @@ STAGES: dict[str, str] = {
     "02": "-m atlas.run elections",
     "03": "-m atlas.run migration",
     "04": "-m atlas.run aviation",
+    "05": "-m atlas.run rail",
     "99": "-m atlas.run bundle",
 }
 

@@ -470,3 +470,56 @@ datasets:
         Two publishers on one fact: does the coordinate OurAirports publishes fall inside the province
         OurAirports also publishes (its iso_region is TR-<plaka>), as Natural Earth draws that province?
         A note, because an airport on a provincial boundary is a real thing and not an error.
+
+  rail-network:
+    path: data/rail/network.json
+    records: lines
+    id_field: id
+    geometry_path: line
+    checks:
+    - kind: unique_ids
+      note: One record per line, keyed on the smallest OSM way id it was joined from.
+    - kind: fields_present
+      fields: [line, osm_ways, points]
+      note: >-
+        Every line carries its geometry, the OSM ways it was joined from — so the join can be undone —
+        and how many points survived the simplification.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: >-
+        Every point of every line is inside Türkiye. The query asks Overpass for an area, and an area
+        filter that silently failed would return the railways of a continent.
+
+  rail-stations:
+    path: data/rail/stations.json
+    records: stations
+    id_field: id
+    geometry_path: point
+    place_text_path: province.tr
+    checks:
+    - kind: unique_ids
+      note: One record per OSM node.
+    - kind: fields_present
+      fields: [kind, point, placement]
+      note: >-
+        The published kind, the published coordinate, and how the province was decided. NOT the name:
+        five of the 1 334 station nodes have none in OSM, and a station that exists without a name is
+        published as it is rather than dropped for being awkward (CLAUDE.md §10).
+    - kind: enum_field
+      field: placement
+      allowed: [contains, nearest, none]
+      note: >-
+        Every station says how it was placed: inside a published boundary, within two kilometres of one
+        where the simplified boundary contains none, or not at all.
+    - kind: geometry_within_region
+      region: country
+      tolerance_km: 5
+      note: Every station's published coordinate is inside the country it was asked for.
+    - kind: geometry_region_matches_text
+      region: provinces
+      severity: note
+      note: >-
+        The province this pipeline derived, recomputed here from the same published boundary — verify/
+        never imports atlas/, so the two are independent. A station the boundary does not contain is
+        skipped by this check and covered by `placement` instead.

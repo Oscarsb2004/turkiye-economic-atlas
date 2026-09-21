@@ -19,7 +19,7 @@
 import maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
-import type { Flow, Geo, GeoJson, Lang, Marker, ProvinceProps } from "../data/bundle";
+import type { Flow, Geo, GeoJson, Lang, Marker, NetworkLine, ProvinceProps } from "../data/bundle";
 import type { Binning } from "./bins";
 
 /** Where the map looks if the geometry cannot say — it always can, in practice. */
@@ -71,6 +71,8 @@ interface Props {
   flows: Flow[];
   /** Places to draw, sized by their figure: airports today, stations later. */
   markers: Marker[];
+  /** Published lines to draw as they are: the railway, and later a corridor. */
+  network: NetworkLine[];
 }
 
 /**
@@ -85,13 +87,31 @@ interface Props {
  * and never across years — the same rule the flow widths follow.
  */
 function markersOf(markers: Marker[]): GeoJson {
-  const most = Math.max(1, ...markers.map((marker) => marker.value));
+  // A marker with no figure against it gets r = 0, which the paint draws at its
+  // smallest radius: a place, not a quantity (data/bundle.ts, Marker.value).
+  const most = Math.max(1, ...markers.map((marker) => marker.value ?? 0));
   return {
     type: "FeatureCollection",
     features: markers.map((marker) => ({
       type: "Feature" as const,
-      properties: { r: Math.sqrt(marker.value / most), label: marker.label, value: marker.value },
+      properties: {
+        r: marker.value ? Math.sqrt(marker.value / most) : 0,
+        label: marker.label,
+        value: marker.value ?? null,
+      },
       geometry: { type: "Point" as const, coordinates: marker.point },
+    })),
+  } as GeoJson;
+}
+
+/** Published lines, as they were published. */
+function networkOf(lines: NetworkLine[]): GeoJson {
+  return {
+    type: "FeatureCollection",
+    features: lines.map((line) => ({
+      type: "Feature" as const,
+      properties: { highspeed: line.highspeed ? 1 : 0 },
+      geometry: { type: "LineString" as const, coordinates: line.line },
     })),
   } as GeoJson;
 }
@@ -193,7 +213,7 @@ function feedSource(instance: maplibregl.Map, id: string, data: GeoJson): () => 
 }
 
 
-export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers }: Props) {
+export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flows, markers, network }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const hovered = useRef<number | null>(null);
@@ -230,6 +250,7 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
           // effects below set their data.
           flows: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
           markers: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+          network: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
         },
         layers: [
           { id: "background", type: "background", paint: { "background-color": waterColour } },
@@ -275,6 +296,23 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
               "line-opacity": 0.85,
             },
           },
+          // A published network, under the markers that sit on it. High-speed
+          // is drawn heavier and in its own colour, because that distinction is
+          // the point of the layer and it is a published tag, not our judgement.
+          {
+            id: "network",
+            type: "line",
+            source: "network",
+            layout: { "line-cap": "round", "line-join": "round" },
+            paint: {
+              "line-color": ["case", ["==", ["get", "highspeed"], 1],
+                             ink("--series-2", "#a35829"), ink("--text-2", "#b4b4b4")],
+              "line-width": ["interpolate", ["linear"], ["zoom"],
+                             4, ["case", ["==", ["get", "highspeed"], 1], 2.2, 1.1],
+                             9, ["case", ["==", ["get", "highspeed"], 1], 5, 2.4]],
+              "line-opacity": 0.9,
+            },
+          },
           // Places, over everything: a marker is a published figure about a
           // point, not about the province it happens to sit in.
           {
@@ -282,13 +320,22 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
             type: "circle",
             source: "markers",
             paint: {
-              "circle-radius": ["interpolate", ["linear"], ["get", "r"], 0, 3, 1, 22],
+              // r = 0 is a place with no figure against it — 1 334 railway
+              // stations are, and at that many a dot with a heavy ring reads as
+              // a dotted line and hides the railway it is sitting on. Those grow
+              // with the zoom instead: a texture on the line from far away, a
+              // station you can point at once you are close.
+              "circle-radius": [
+                "case", ["==", ["get", "r"], 0],
+                ["interpolate", ["linear"], ["zoom"], 4, 1.6, 9, 5],
+                ["interpolate", ["linear"], ["get", "r"], 0, 4, 1, 22],
+              ],
               // Slot 4 of the validated palette: the ramp under it is blue, and
               // a marker has to be a different thing at a glance (CLAUDE.md §9).
               "circle-color": ink("--series-4", "#d6409f"),
               "circle-opacity": 0.65,
               "circle-stroke-color": ink("--text-1", "#eeeeee"),
-              "circle-stroke-width": 0.75,
+              "circle-stroke-width": ["case", ["==", ["get", "r"], 0], 0.4, 0.75],
             },
           },
         ],
@@ -430,6 +477,12 @@ export function ProvinceMap({ geo, lang, selected, onSelect, binning, ramp, flow
     if (!instance) return;
     return feedSource(instance, "markers", markersOf(markers));
   }, [markers]);
+
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    return feedSource(instance, "network", networkOf(network));
+  }, [network]);
 
   // The language does not change the map today — province labels arrive with
   // the first overlay — but the effect is here so the map is not rebuilt when

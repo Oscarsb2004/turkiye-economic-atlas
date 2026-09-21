@@ -60,6 +60,8 @@ COPIES = (
     "airports/2023.json",
     "airports/2024.json",
     "airports/2025.json",
+    "rail/network.json",
+    "rail/stations.json",
 )
 
 SCHEMA_VERSION = "1.0.0"

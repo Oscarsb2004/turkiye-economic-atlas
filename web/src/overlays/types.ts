@@ -19,7 +19,7 @@
 
 import type { ReactNode } from "react";
 
-import type { Flow, Lang, Marker } from "../data/bundle";
+import type { Flow, Lang, Marker, NetworkLine } from "../data/bundle";
 import type { Clock, Period } from "./timeline";
 
 /**
@@ -88,6 +88,13 @@ export interface Overlay {
    * not a province — airports, stations, projects — lives here.
    */
   markers?: Marker[];
+  /**
+   * Published lines to draw — a railway, and later a route or a corridor.
+   *
+   * Unlike `flows`, these are not pairs with a figure against them: they are
+   * geometry a publisher published, and the map draws them as they are.
+   */
+  network?: NetworkLine[];
   /** This overlay's own controls — a currency, a candidate — shown in the rail. */
   controls: ReactNode;
   /** What is known about one province under this overlay. */

@@ -160,6 +160,18 @@ whose header names BOTH of them, so a year is found by reading the headers, neve
 position · DHMİ's figures are cumulative, so December is the year · DHMİ TOPLAMI is not the sum
 of the rows above it (it leaves out the airports marked (*)); TÜRKİYE GENELİ is.
 
+**OpenStreetMap through Overpass** answers HTTP 200 with an empty element list both for "there is
+none" and for an area filter that silently failed, so an empty answer is refused rather than
+published as an empty map. OSM splits a railway at every bridge and attribute change (7 758 ways
+for the main-line network), so fragments are joined before anything is published — and the join
+is recorded, way id by way id, so it can be undone. OSM has no edition: the period is
+`timestamp_osm_base`, the moment the answer was current.
+
+**Published boundaries are simplified, and things fall outside them.** At Natural Earth 8%,
+49 of 1 334 railway stations — 18 of them Marmaray — sit outside every province, and Sabiha
+Gökçen's coordinate lands in Kocaeli. A point is therefore placed in the province that contains
+it, or in the nearest one within a stated distance, and the record says which.
+
 **MapLibre's `load` event needs a rendered frame.** A hidden desktop pane gives no animation
 frames at all, so `map.loaded()` and `isStyleLoaded()` stay false indefinitely while the style,
 the sources and the paint are all fine, and anything queued behind `once("load")` never happens

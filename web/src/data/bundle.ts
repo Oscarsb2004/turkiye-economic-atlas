@@ -420,5 +420,107 @@ export interface Marker {
   id: string;
   point: [number, number];
   label: string;
-  value: number;
+  /**
+   * What it is worth, where that is published.
+   *
+   * Absent means there is no figure against this place — a railway station is
+   * a station — and the map draws it as a dot of one size rather than sizing it
+   * by something invented.
+   */
+  value?: number;
+}
+
+// ── The railway ──────────────────────────────────────────────────────────────
+
+/**
+ * The railway network, as OpenStreetMap has it.
+ *
+ * Every attribute on a line is OSM's. Two things are this project's and the
+ * file says so in `network.derivation`: fragments that share an end and agree
+ * on every published attribute are joined into one line (with the OSM way ids
+ * kept, so the join can be undone), and the geometry is simplified at 50 m.
+ *
+ * `current_as_of` is OSM's own timestamp for the answer, which is the only date
+ * a map of OSM can honestly carry.
+ */
+export interface RailNetwork {
+  generated_at: string;
+  network: {
+    current_as_of: string;
+    label: Text;
+    kinds: { highspeed: number; conventional: number };
+    derivation: { provenance: string; joined: string; simplified: string; tolerance_m: number };
+  };
+  lines: Array<{
+    id: string;
+    name: Text;
+    highspeed: boolean;
+    usage: string;
+    electrified: string;
+    gauge: string;
+    maxspeed: string;
+    operator: string;
+    osm_ways: number[];
+    points: number;
+    line: Array<[number, number]>;
+  }>;
+}
+
+/**
+ * Railway stations and halts, each placed in a province.
+ *
+ * `placement` says how: `contains` if the published boundary holds the
+ * published coordinate, `nearest` where it does not and a province is within
+ * two kilometres — Natural Earth's simplified coastline leaves Marmaray out at
+ * sea — and `none` where neither is true, which is published as it is.
+ */
+export interface RailStations {
+  generated_at: string;
+  stations: Array<{
+    id: string;
+    name: Text;
+    kind: string;
+    station: string;
+    operator: string;
+    network: string;
+    train: string;
+    plaka: number | null;
+    province: Text;
+    placement: string;
+    point: [number, number];
+  }>;
+  station_info: {
+    current_as_of: string;
+    label: Text;
+    kinds: { station: number; halt: number };
+    unplaced: number;
+    placed_by_nearest: number;
+  };
+  by_province: {
+    provenance: string;
+    formula: string;
+    by_plaka: Record<string, { total: number; halt: number; urban: number }>;
+  };
+}
+
+export const RAIL_NETWORK_FILE = "data/rail/network.json";
+export const RAIL_STATIONS_FILE = "data/rail/stations.json";
+
+export async function loadRailNetwork(): Promise<RailNetwork> {
+  const response = await fetch(asset(RAIL_NETWORK_FILE));
+  if (!response.ok) throw new Error(`network.json: HTTP ${response.status}`);
+  return (await response.json()) as RailNetwork;
+}
+
+export async function loadRailStations(): Promise<RailStations> {
+  const response = await fetch(asset(RAIL_STATIONS_FILE));
+  if (!response.ok) throw new Error(`stations.json: HTTP ${response.status}`);
+  return (await response.json()) as RailStations;
+}
+
+/** A published line to draw, and whether it is high-speed. */
+export interface NetworkLine {
+  id: string;
+  highspeed: boolean;
+  line: Array<[number, number]>;
 }

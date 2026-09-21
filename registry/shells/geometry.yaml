@@ -1,0 +1,43 @@
+# registry/shells/geometry.yaml - the card for one shell (docs/PLAN.md).
+# atlas/core/registry.py checks that its module, functions, users and tests exist.
+
+kind: transform
+module: atlas.shells.transform.geometry
+title: Joining line fragments, dropping points a shape does not need, and placing a point in an area
+contract: Given lines that share ends, return the chains they make; given a line and a tolerance in metres,
+  return the points its shape needs; given a point and published areas, return the one that contains it.
+functions:
+- stitch
+- simplify
+- without_repeats
+- containing
+- nearest
+- distance_m
+invariants:
+- Every input line appears in exactly one output chain, reversed if that is how it fits.
+- A simplified line keeps both of its ends, so it starts and finishes where the published one did.
+- A point inside an odd number of a polygon's rings is inside the polygon, so holes are holes.
+- A point inside an area is zero metres from it, so `containing` and `nearest` agree at the edge.
+refusals:
+- Nothing is refused here; a line of two points and a tolerance of zero both come back unchanged.
+benchmark:
+- 'Measured 2026-09-20 on the Turkish main-line railway: 7 758 OSM ways with 87 696 points became 1 352
+  chains, and Douglas-Peucker at 50 m left 12 925 points — 15% of the points for a shape that is the same
+  at every zoom this map uses.'
+tests:
+- tests/test_geometry.py::test_fragments_that_share_an_end_become_one_line
+- tests/test_geometry.py::test_simplify_keeps_the_ends_and_the_corners
+- tests/test_geometry.py::test_a_point_in_a_hole_is_outside
+- tests/test_geometry.py::test_a_point_just_outside_belongs_to_the_nearest_area
+limits:
+- Not a projection library. Longitude is scaled by cos(latitude) about a line's own middle, which is right
+  in the small and wrong for anything spanning the globe.
+- Chains, not routes. Three fragments meeting at a junction cannot be one chain, and the third stays its own
+  line - which is a fork in the network, not a failure.
+gotchas:
+- 'Published boundaries are SIMPLIFIED: 49 of 1 334 railway stations, 18 of them Marmaray, fall outside
+  every province at Natural Earth 8%. That is what `nearest` is for, and a record says which way it was placed.'
+- A tolerance is in METRES because a tolerance in degrees means a different thing at every latitude.
+- Coordinates are compared exactly when stitching, so rounding must happen before it, not after.
+used_by:
+- atlas/datasets/rail_network.py
