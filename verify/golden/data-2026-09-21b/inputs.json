@@ -1,0 +1,344 @@
+{
+  "clock": "2026-09-20T12:00:00+00:00",
+  "exported": "6775f05b37e7965f2c837c6fedc1d7f7a8fad5e2",
+  "http": [
+    {
+      "content_type": "application/vnd.ms-excel",
+      "encoding": null,
+      "key": "GET https://veriportali.tuik.gov.tr/api/tr/data/downloads?t=t&pid=53930&p=wsTazyi9qDR2KKSbu5u8XaTLiGZ5YbOGNzXPPlmovenPnHSXUdX%2FOOd%2BgEMEQzpTmUX1WJYxabDeGC1DjZr9QiccFIrhAGlNYUO15wrB8TS8B9T93LNLqfYrOEzIq0%2B4RQ5zmUNEQQmFGSg3no8bHBIC5WzH%2Fxd%2FVLQmEAuDkss%3D",
+      "sha256": "33cd4de0ad45cad8cb9e213ac74322089d9211b2be2bbf42f5c123b06f05b75f",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=9",
+      "sha256": "d7f507fc6dab51ab21051b5a23304179e68a69d462c330834e01b4a225e167cb",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "29f7e1ce5ab192e2b520c6aee76d93d7b4eca6a462696528a60df57850a1520e",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20240&secimTuru=9",
+      "sha256": "77ad4950fc95203b526dd01ece110f10a0d8a6a552488d6ce70e3e46cdba362a",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20240&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "fa28847b83dca84c5099e5d46ae703bc2a9db2462df72c411a995cd559c221e7",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=8",
+      "sha256": "99c2df6a3afa0c66966b3dedd221fc001cf5213cda909e1cc1d5c7a78f2ae83d",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=8&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "011c6fd638e6c9cfc7581530d5d76faa28d3f019347995def5f81885ac44e4ab",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:3755eb6f9abd3064217d4c3e93a0f223a9ac0280509f4eba4af894b5665a852e",
+      "sha256": "f0e7e4b378475345efaa964033d87bc4c65c60dbd06f417fa77991447487c656",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:caae1d83a2dd280da975bff2e262042bff24ded43bd83250277c59693f6cbf87",
+      "sha256": "f3ead832b1d0526180c0dfbfc33778c8a25c09fce9b2c29125c3420d79ac8f88",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:694088c66cc19db4cc0251346a4e4a9f1d557bf28af37c441f210c3a92a757d7",
+      "sha256": "536bdb12d6e37ab1f5a0c18440e0f1d3bc946e3a288dc8196925a083fb18daae",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:48094f954b1c04a0886178c55fb80091f9f186a89d3c52bc0a75b3cab3217c1f",
+      "sha256": "407badca586fa130fa10a267c65527b14313056830a5e36ab3aa887dd7fb2bb3",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:68d7c74a4d26d76879fcad620a97c8d4e493f76a9825be44915e7535fbc4ae09",
+      "sha256": "d2dde7e784274e79f516b137fb10e808e61c4b788b306f4ce9b82185ec0f0351",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:2978e12043cb482810ce7972d452a3b3ef9035c62b3abe8430604fe6aa7e3021",
+      "sha256": "6e08a92c41bf67ee826991da557062f794ec91cb4ca68ce54e0a24e54dfa3eee",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/201/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "74a6aa9a158461a8f82054e585ff500449e23689cfe102f1101cf5aa347e54e0",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "GET https://davidmegginson.github.io/ourairports-data/airports.csv",
+      "sha256": "12a2bcceaa11c4ac9b7e2fa5dac8f91e4750bdf997d9036fd05ebe5ee8faa870",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/244/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "31cd8e32db0f31ebb16c17c60ae46d56c66f35670d3bd1673eacd5f008d85975",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/299/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "df98a0c4a4864c3728fc9aebc2c2d22263aba5a0a95d616018bf26bc2fa4e106",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/364/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "4ea986513cad7b886c526b1abdd67a3afd80072e4163bae8175481f7a5641808",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/404/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "54423ec9238fa8c18a048af221a91b1813d621855525ce09165c4cf7e29519e2",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/429/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "2414bbb46af6dfd0bd4784b7f70371ba5bd9cd225ddd93fa3dea261a32d6632f",
+      "status": 200
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://overpass-api.de/api/interpreter body:a9efca7d88a47a010b85c727a5346334a06df24dfb2156c33e6264295ba2da68",
+      "sha256": "9e8d149c02b9ab7719f9e6cfdf696730c39abead6f27e39eb13793b7d2adbb82",
+      "status": 504
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://overpass-api.de/api/interpreter body:a9efca7d88a47a010b85c727a5346334a06df24dfb2156c33e6264295ba2da68",
+      "sha256": "9e8d149c02b9ab7719f9e6cfdf696730c39abead6f27e39eb13793b7d2adbb82",
+      "status": 504
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "POST https://overpass-api.de/api/interpreter body:a9efca7d88a47a010b85c727a5346334a06df24dfb2156c33e6264295ba2da68",
+      "sha256": "5559af9fe04eeedcc8ddd2122e86c08ae01f8faabf603e4cd00c3c4f07cab2ca",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "POST https://overpass-api.de/api/interpreter body:4210e49f12b4b9ab95dfbdc586beb261d79094d4a16edb454b5672ca80b18ccc",
+      "sha256": "7bcc5c09ad175be6f2dab143aec8bec927996acff91568f1e6eafd033742c7a9",
+      "status": 200
+    },
+    {
+      "content_type": "application/json;charset=utf-8",
+      "encoding": "utf-8",
+      "key": "GET https://data.ibb.gov.tr/api/3/action/package_show?id=public-transport-gtfs-data",
+      "sha256": "20fc9119459f392bf1d1af63e4d5d16472c0c1aaa49e6bba98e66e2308589bb9",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/42ae499d-ae9c-4906-ac5c-96e0c155e00b/download/agency.csv",
+      "sha256": "651f34391e06b8a2ae6d69caa868a6b95b9364061e7ab53e55d30fa900e73656",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/c84ca913-29ac-4f15-87cd-076aef3dccd6/download/calendar.csv",
+      "sha256": "97ec0e730189551053b4fbcddac2b801a9bcf76dc94cae6ad586feb7c1ec2d4f",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/36b554c7-cae0-4b7e-978f-fc6a43664e88/download/routes.csv",
+      "sha256": "552adddb25d53bc1484b9c612f620c417cf2ed6dfc4da2387fa6fe8b5a655400",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/dcee1700-e59f-4a5f-8009-f602045a4507/download/trips.csv",
+      "sha256": "34e059c18f52ec4a413cbf6da37cf1d6bde9982efdcee0987ca32e2f4915b517",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/d1f7c258-bbc1-406f-9ab2-7a7c1797c673/download/stops.csv",
+      "sha256": "7f1f32a945fc03b8d792fe4aee19fc478ff7aee6b8338c123e7ef97cd6aee40c",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/ac646b83-3b6f-4ca2-afb4-9071ab44d9af/download/stop_times.csv",
+      "sha256": "dad8249b6179e367ea40cab25bb5045187ddb6edd31cd9a273bbf2cf2b637500",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv",
+      "encoding": "ISO-8859-1",
+      "key": "GET https://data.ibb.gov.tr/dataset/121a9892-7945-419a-9b89-49f6083926df/resource/83317085-aa56-41b0-9447-ea579567f2cb/download/shapes.csv",
+      "sha256": "30c7b28e8074d5a053eb517b46f24bed0dbd58ad50bd0f376ae0719c1f9b297d",
+      "status": 200
+    },
+    {
+      "content_type": "text/xml; charset=UTF-8",
+      "encoding": "UTF-8",
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml",
+      "sha256": "3e1009c9c990f1fc015f14879d022428d2a0c81c13f3b435c3f07c57194da873",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2012-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "dad2cbe349ce878d92967b895de43701465f444a7b0e21e24bac2623a0b7dc26",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2013-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "f2692a664dbe89af1f2213a53ca69fe6e1318830bad61359c17db473060afbe4",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2014-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "d45f931002bfb8d739b3c5bdab48ff18537305c06ba841068df93bf29c21bf32",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2015-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "e89ec1880454aeabcfb083b6f717a12488fb45b482feb6570f566b8be805bb36",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2016-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "eec8795fe8c2ac28620f6ab1aca484cee387d6ac416f3dfc300e45ce63e60c5d",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2017-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "22195681c0d04c12bc0aa25d0e279e5f027c3af12669a958e10b082b5116daf0",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2018-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "f0a938124b5a3430420b7cb6ed3d08c8417970d04ad29c1ed96e3de6292dc26b",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2019-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "3f5860f9b3c684b71c8c152f177c3daae463bf7f0b2b6cb69b46cd26f08a6c49",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2020-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "de3549b3e20620f6489a909fa085ea50f9f9ae5e7f7f1d0a3801ad745af76bd2",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2021-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "2fcc0c58a8c453242135d26b56c031601be41d71a5ba043271cf7d0b0c15cc10",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "aee19ebb3bfec9890a559a4acd560da2d81ab040d91152b0e0fa71b5bb62f13d",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "d9a36b0ec4de849610d298c1386a3b9547a3e0fa2f3bf57a9f774b02e8057305",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "adda3423a6e6828f51ec57bf622c826f6aa1a9775f75f6af2c987efaadc99fd9",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "bc5b005bc5336282a855214c7afbec69853521ca260c053264c0d93c6c03a920",
+      "status": 200
+    },
+    {
+      "content_type": "image/png",
+      "encoding": null,
+      "key": "GET https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-09-20/GoogleMapsCompatible_Level8/4/6/9.png",
+      "sha256": "de79d31f828fa466cffd2a8b7d0d675b9a383f45cd7bf2a65065f54fb42eb0e7",
+      "status": 200
+    }
+  ],
+  "raw_files": {},
+  "ref": "HEAD"
+}
