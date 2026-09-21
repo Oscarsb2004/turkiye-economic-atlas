@@ -1,0 +1,153 @@
+{
+  "clock": "2026-09-20T12:00:00+00:00",
+  "exported": "4bd89ea2a1130c82120cc13a39274331f5ba5798",
+  "http": [
+    {
+      "content_type": "application/vnd.ms-excel",
+      "encoding": null,
+      "key": "GET https://veriportali.tuik.gov.tr/api/tr/data/downloads?t=t&pid=53930&p=wsTazyi9qDR2KKSbu5u8XaTLiGZ5YbOGNzXPPlmovenPnHSXUdX%2FOOd%2BgEMEQzpTmUX1WJYxabDeGC1DjZr9QiccFIrhAGlNYUO15wrB8TS8B9T93LNLqfYrOEzIq0%2B4RQ5zmUNEQQmFGSg3no8bHBIC5WzH%2Fxd%2FVLQmEAuDkss%3D",
+      "sha256": "33cd4de0ad45cad8cb9e213ac74322089d9211b2be2bbf42f5c123b06f05b75f",
+      "status": 200
+    },
+    {
+      "error": "ConnectionError",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=9",
+      "message": "('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))"
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=9",
+      "sha256": "d7f507fc6dab51ab21051b5a23304179e68a69d462c330834e01b4a225e167cb",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "72a6bdd375556fe9cc51d62d79e9c8c3f648a5347fa3001c623d9e444550a598",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20240&secimTuru=9",
+      "sha256": "77ad4950fc95203b526dd01ece110f10a0d8a6a552488d6ce70e3e46cdba362a",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20240&secimTuru=9&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "31796e664f9d153ab5d448b89baeeee72878047d97ef9bd16a3494abbbc6eb5e",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSandikSecimSonucBaslikList?secimId=20230&secimTuru=8",
+      "sha256": "99c2df6a3afa0c66966b3dedd221fc001cf5213cda909e1cc1d5c7a78f2ae83d",
+      "status": 200
+    },
+    {
+      "content_type": "application/json",
+      "encoding": "utf-8",
+      "key": "GET https://acikveri.ysk.gov.tr/api/getSecimSandikSonucList?secimId=20230&secimTuru=8&ilId=0&ilceId=0&beldeId=0&birimId=0&muhtarlikId=0&cezaeviId=0&sandikTuru=0&sandikNoIlk=0&sandikNoSon=0&ulkeId=0&disTemsilcilikId=0&gumrukId=0&yurtIciDisi=1&sandikRumuzIlk=0&sandikRumuzSon=0&secimCevresiId=0&sandikId=0&sorguTuru=1",
+      "sha256": "22428101f4fdd1de45a35fc81619c7088e7884153d9b3a43c9b221e858bb870f",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:3755eb6f9abd3064217d4c3e93a0f223a9ac0280509f4eba4af894b5665a852e",
+      "sha256": "f0e7e4b378475345efaa964033d87bc4c65c60dbd06f417fa77991447487c656",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:caae1d83a2dd280da975bff2e262042bff24ded43bd83250277c59693f6cbf87",
+      "sha256": "f3ead832b1d0526180c0dfbfc33778c8a25c09fce9b2c29125c3420d79ac8f88",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:694088c66cc19db4cc0251346a4e4a9f1d557bf28af37c441f210c3a92a757d7",
+      "sha256": "536bdb12d6e37ab1f5a0c18440e0f1d3bc946e3a288dc8196925a083fb18daae",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:48094f954b1c04a0886178c55fb80091f9f186a89d3c52bc0a75b3cab3217c1f",
+      "sha256": "407badca586fa130fa10a267c65527b14313056830a5e36ab3aa887dd7fb2bb3",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:68d7c74a4d26d76879fcad620a97c8d4e493f76a9825be44915e7535fbc4ae09",
+      "sha256": "d2dde7e784274e79f516b137fb10e808e61c4b788b306f4ce9b82185ec0f0351",
+      "status": 200
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "POST https://nip.tuik.gov.tr/Home/IlYilIcGocIllerArasiForTable? body:2978e12043cb482810ce7972d452a3b3ef9035c62b3abe8430604fe6aa7e3021",
+      "sha256": "6e08a92c41bf67ee826991da557062f794ec91cb4ca68ce54e0a24e54dfa3eee",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/201/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "74a6aa9a158461a8f82054e585ff500449e23689cfe102f1101cf5aa347e54e0",
+      "status": 200
+    },
+    {
+      "content_type": "text/csv; charset=utf-8",
+      "encoding": "utf-8",
+      "key": "GET https://davidmegginson.github.io/ourairports-data/airports.csv",
+      "sha256": "1e81bd61ddafe0072539d6caf13698671e5aa7f24fab552afa40fc86546ad479",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/244/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "31cd8e32db0f31ebb16c17c60ae46d56c66f35670d3bd1673eacd5f008d85975",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/299/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "df98a0c4a4864c3728fc9aebc2c2d22263aba5a0a95d616018bf26bc2fa4e106",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/364/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "4ea986513cad7b886c526b1abdd67a3afd80072e4163bae8175481f7a5641808",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/404/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "54423ec9238fa8c18a048af221a91b1813d621855525ce09165c4cf7e29519e2",
+      "status": 200
+    },
+    {
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "encoding": null,
+      "key": "GET https://www.dhmi.gov.tr/Lists/Istatislikler/Attachments/429/T%C3%9CM%C3%9C.xlsx",
+      "sha256": "2414bbb46af6dfd0bd4784b7f70371ba5bd9cd225ddd93fa3dea261a32d6632f",
+      "status": 200
+    }
+  ],
+  "raw_files": {},
+  "ref": "HEAD"
+}
