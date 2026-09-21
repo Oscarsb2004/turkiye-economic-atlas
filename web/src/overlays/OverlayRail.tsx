@@ -27,8 +27,7 @@ import { OVERLAY_GROUPS, type Overlay, type OverlayGroup } from "./types";
 
 /** Typed as a total map: a group added without a label fails the build. */
 const GROUP_LABEL: Record<OverlayGroup, (s: Strings) => string> = {
-  economic: (s) => s.groupEconomic,
-  elections: (s) => s.groupElections,
+  provinces: (s) => s.groupProvinces,
   connections: (s) => s.groupConnections,
   activity: (s) => s.groupActivity,
 };
@@ -83,7 +82,12 @@ export function OverlayRail({
                       onClick={() => onPick(overlay.id)}
                     >
                       <span className="rail__name">{overlay.label}</span>
-                      <span className="rail__source">{publisher(overlay.source)}</span>
+                      <span className="rail__source">
+                        {/* Every publisher the tab reads, and each named once:
+                            TÜİK's GDP bulletin and its migration portal are two
+                            cards under one name. */}
+                        {[...new Set(overlay.sources.map(publisher))].filter(Boolean).join(" · ")}
+                      </span>
                     </button>
                     {overlay.id === activeId && (
                       <div className="rail__controls">{overlay.controls}</div>

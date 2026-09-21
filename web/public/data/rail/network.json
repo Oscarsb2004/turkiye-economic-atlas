@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T13:36:48Z",
+  "generated_at": "2026-09-21T23:38:05Z",
   "lines": [
     {
       "electrified": "contact_line",
@@ -83818,7 +83818,7 @@
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T13:36:48Z",
+      "retrieved_at": "2026-09-21T23:38:05Z",
       "url": "https://www.openstreetmap.org/copyright"
     }
   ]

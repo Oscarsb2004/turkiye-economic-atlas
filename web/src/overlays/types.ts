@@ -27,16 +27,12 @@ import type { Clock, Period } from "./timeline";
 /**
  * The rail's sections, in the order they are shown.
  *
- * `economic` holds what a province produces and what it is connected to by
- * rail; `elections` holds how it voted; `connections` holds the flow layers;
- * `activity` holds what the country looks like rather than what it reports —
- * the nightlights today, and whatever else is observed rather than published.
- *
- * The railway sits with GDP per capita rather than with the flows because a
- * reader comparing provinces reads them together, which is the owner's call
- * and the reason this list is declared rather than inferred from the overlays.
+ * `provinces` holds what is published ABOUT a province — its economy and how it
+ * voted; `connections` holds the flow and network layers; `activity` holds what
+ * the country looks like rather than what it reports, which today is the
+ * nightlights and later is whatever else is observed rather than published.
  */
-export const OVERLAY_GROUPS = ["economic", "elections", "connections", "activity"] as const;
+export const OVERLAY_GROUPS = ["provinces", "connections", "activity"] as const;
 
 export type OverlayGroup = (typeof OVERLAY_GROUPS)[number];
 
@@ -63,8 +59,16 @@ export interface Overlay {
   group: OverlayGroup;
   /** Interface text, in the reader's language. */
   label: string;
-  /** The source card this overlay reads; the rail resolves it through meta.json. */
-  source: string;
+  /**
+   * The source cards this overlay reads, in the order they are credited.
+   *
+   * A list rather than one name because an overlay can read more than one
+   * publisher: the economy tab is TÜİK's figures, the Bank of Canada's rate
+   * behind the Canadian ones, and OpenStreetMap's railway over the top. The
+   * rail resolves each through meta.json, so the app carries no publisher's
+   * name of its own.
+   */
+  sources: string[];
   /** Every period this overlay has, ascending. Empty until its index arrives. */
   periods: Period[];
   /** The period the clock snapped to, or null when there are none yet. */
@@ -119,6 +123,13 @@ export interface Overlay {
    * geometry a publisher published, and the map draws them as they are.
    */
   network?: NetworkLine[];
+  /**
+   * More key, under the shared legend's bands.
+   *
+   * For an overlay that shades AND draws: the bands are the shared legend's
+   * business and the lines are the overlay's, and they belong in one box.
+   */
+  legendExtra?: ReactNode;
   /**
    * A legend of this overlay's own, where the shared one cannot speak for it.
    *

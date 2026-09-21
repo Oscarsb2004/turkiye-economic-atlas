@@ -12,28 +12,26 @@
 
 import type { Lang } from "../data/bundle";
 import { AVIATION_ID, useAviationOverlay } from "./aviation";
+import { ECONOMY_ID, useEconomyOverlay } from "./economy";
 import { ELECTION_ID, useElectionOverlay } from "./elections";
-import { GDP_ID, useGdpOverlay } from "./gdp";
 import { MIGRATION_ID, useMigrationOverlay } from "./migration";
 import { NIGHTLIGHTS_ID, useNightlightsOverlay } from "./nightlights";
-import { RAIL_ID, useRailOverlay } from "./rail";
 import { TRANSIT_ID, useTransitOverlay } from "./transit";
 import type { Clock } from "./timeline";
 import type { Overlay } from "./types";
 
 /** What the atlas opens on: the figures that cover every province, every year. */
-export const DEFAULT_OVERLAY = GDP_ID;
+export const DEFAULT_OVERLAY = ECONOMY_ID;
 
 export function useOverlays({ lang, clock, activeId, selected }: {
   lang: Lang; clock: Clock | null; activeId: string; selected: number | null;
 }): Overlay[] {
   const context = (id: string) => ({ lang, clock, active: activeId === id, selected });
   return [
-    useGdpOverlay(context(GDP_ID)),
+    useEconomyOverlay(context(ECONOMY_ID)),
     useElectionOverlay(context(ELECTION_ID)),
     useMigrationOverlay(context(MIGRATION_ID)),
     useAviationOverlay(context(AVIATION_ID)),
-    useRailOverlay(context(RAIL_ID)),
     useTransitOverlay(context(TRANSIT_ID)),
     useNightlightsOverlay(context(NIGHTLIGHTS_ID)),
   ];

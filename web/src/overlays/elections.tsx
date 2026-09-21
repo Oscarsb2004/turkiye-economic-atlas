@@ -231,9 +231,9 @@ export function useElectionOverlay({ lang, clock, active }: OverlayContext): Ove
 
   return {
     id: ELECTION_ID,
-    group: "elections",
+    group: "provinces",
     label: s.overlayElection,
-    source: SOURCE,
+    sources: [SOURCE],
     periods,
     period,
     // A winner is a kind, not an amount: there is nothing to band, and the

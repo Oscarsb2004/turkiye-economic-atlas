@@ -203,7 +203,7 @@ export function useMigrationOverlay({ lang, clock, active, selected }: OverlayCo
     id: MIGRATION_ID,
     group: "connections",
     label: s.overlayMigration,
-    source: SOURCE,
+    sources: [SOURCE],
     periods,
     period,
     values,

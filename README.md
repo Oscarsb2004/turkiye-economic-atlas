@@ -1,13 +1,23 @@
 # Türkiye Economic Atlas
 
-A map and charts of Türkiye built only from published data: election results by area with a
-time slider, GDP per capita by province, migration between provinces, transport networks, and
-what activity looks like from orbit at night.
+A map of Türkiye built only from published data, with one clock across every layer of it.
 
-**Status: the first dataset is in.** GDP per capita for all 81 provinces, 2020–2024, from
-TÜİK. Next is the choropleth that shades the map by it (T4 of
-[`docs/PLAN.md`](docs/PLAN.md)). `STATUS.md` is generated from `registry/` and always says
-what actually exists.
+Six tabs, each one question:
+
+| Tab | What it shows | Published by |
+| --- | --- | --- |
+| **Economy** | GDP per capita by province, 2020–2024, in lira, US dollars and Canadian ones — with the main-line and high-speed railway drawn over it | TÜİK · Bank of Canada · OpenStreetMap |
+| **Election** | Which option led each province, and every option on that ballot with its votes and share | YSK |
+| **Migration** | The 6 480 province-to-province flows, as arcs from the province you select | TÜİK |
+| **Airport traffic** | Five measures over 56 airports, and this project's sum of them per province | DHMİ · OurAirports |
+| **İstanbul transit** | 123 metro, tram, funicular, cable-car and ferry routes with their stops | İBB |
+| **Nightlights** | One night a month for the last five years, and one a year back to 2012, as NASA's own tiles | NASA GIBS |
+
+Under any of them, a base layer of 1 005 place names and the main road network.
+
+**Status: nine stages, all green.** 45 published files, 125 Python tests and 29 web tests, and
+107 declared verification gates with no notes outstanding. `STATUS.md` is generated from
+`registry/` and always says what actually exists; [`docs/PLAN.md`](docs/PLAN.md) is the queue.
 
 ## Where it comes from
 

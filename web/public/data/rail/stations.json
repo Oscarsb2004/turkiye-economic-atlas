@@ -295,20 +295,20 @@
     "formula": "the number of stations whose published coordinate falls inside the province's published boundary, or within 2000 m of it where the simplified boundary contains none; `halt` counts those published as railway=halt, and `urban` those whose published station tag is one of funicular, light_rail, monorail, subway",
     "provenance": "derived"
   },
-  "generated_at": "2026-09-21T19:30:36Z",
+  "generated_at": "2026-09-21T23:38:05Z",
   "sources": [
     {
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T19:30:36Z",
+      "retrieved_at": "2026-09-21T23:38:05Z",
       "url": "https://www.openstreetmap.org/copyright"
     },
     {
       "content_sha256": "",
       "licence": "geoboundaries-open",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T19:30:36Z",
+      "retrieved_at": "2026-09-21T23:38:05Z",
       "url": "https://www.geoboundaries.org/countryDownloads.html"
     }
   ],

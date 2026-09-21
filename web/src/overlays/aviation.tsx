@@ -156,7 +156,7 @@ export function useAviationOverlay({ lang, clock, active }: OverlayContext): Ove
     id: AVIATION_ID,
     group: "connections",
     label: s.overlayAviation,
-    source: SOURCE,
+    sources: [SOURCE],
     periods,
     period,
     values,

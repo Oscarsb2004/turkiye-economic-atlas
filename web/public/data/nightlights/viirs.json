@@ -738,7 +738,7 @@
       "year": "2026"
     }
   ],
-  "generated_at": "2026-09-21T19:36:06Z",
+  "generated_at": "2026-09-21T23:40:52Z",
   "layer": {
     "attribution": "NASA EOSDIS GIBS — VIIRS Day/Night Band, Suomi NPP",
     "capabilities": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml",
@@ -786,7 +786,7 @@
       "content_sha256": "",
       "licence": "nasa-cc0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T19:36:06Z",
+      "retrieved_at": "2026-09-21T23:40:52Z",
       "url": "https://nasa-gibs.github.io/gibs-api-docs/"
     }
   ]

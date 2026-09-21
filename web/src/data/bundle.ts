@@ -109,7 +109,28 @@ export function provinceName(props: ProvinceProps, lang: Lang): string {
 /** `data/provinces/gdp-per-capita.json`, as the pipeline writes it. */
 export interface PerCapitaGdp {
   generated_at: string;
-  measure: { key: string; label: Text; currencies: string[]; years: Record<string, string[]> };
+  measure: {
+    key: string;
+    label: Text;
+    currencies: string[];
+    years: Record<string, string[]>;
+    /**
+     * The currencies that are OURS, and the arithmetic behind each.
+     *
+     * TRY and USD are TÜİK's and are absent from here. CAD is a product of
+     * TÜİK's dollar figure and a Bank of Canada rate, so it arrives with the
+     * formula and the rate for every year, and the interface says so wherever
+     * it shows one (atlas/datasets/province_gdp.py).
+     */
+    derived?: Record<string, {
+      provenance: string;
+      formula: string;
+      series: string;
+      series_description: string;
+      rate_by_year: Record<string, number>;
+      years_without_a_rate: string[];
+    }>;
+  };
   provinces: Array<{
     plaka: number;
     nuts3: string;

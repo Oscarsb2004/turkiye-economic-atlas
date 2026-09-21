@@ -88,7 +88,7 @@ export function useNightlightsOverlay({ lang, clock, active }: OverlayContext): 
     id: NIGHTLIGHTS_ID,
     group: "activity",
     label: s.overlayNightlights,
-    source: SOURCE,
+    sources: [SOURCE],
     periods,
     period,
     // Imagery, not figures: nothing to band, and the legend says what it is.

@@ -119,7 +119,7 @@ export function useTransitOverlay({ lang, clock, active }: OverlayContext): Over
     id: TRANSIT_ID,
     group: "connections",
     label: s.overlayTransit,
-    source: SOURCE,
+    sources: [SOURCE],
     periods,
     period,
     // Nothing to shade: one city. The legend below says what the colours are.

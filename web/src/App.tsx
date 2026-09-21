@@ -234,6 +234,7 @@ export function App() {
                     title={overlay.legendTitle}
                     format={overlay.format}
                     bands={overlay.bands}
+                    extra={overlay.legendExtra}
                     lang={lang}
                   />
                 ) : (

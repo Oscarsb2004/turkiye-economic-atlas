@@ -20,6 +20,8 @@
  * the map does.
  */
 
+import type { ReactNode } from "react";
+
 import type { Lang } from "../data/bundle";
 import { stringsFor } from "../i18n";
 import type { Binning } from "./bins";
@@ -37,6 +39,8 @@ interface Props {
   format: (value: number) => string;
   /** Ranges, or only the direction. Defaults to ranges. */
   bands?: BandsRead;
+  /** More key, from an overlay that draws something the bands do not explain. */
+  extra?: ReactNode;
   lang: Lang;
 }
 
@@ -58,7 +62,7 @@ function Ramp({ binning, ramp, lang }: Pick<Props, "binning" | "ramp" | "lang">)
   );
 }
 
-export function Legend({ binning, ramp, title, format, bands = "values", lang }: Props) {
+export function Legend({ binning, ramp, title, format, bands = "values", extra, lang }: Props) {
   const s = stringsFor(lang);
   if (binning.bands.length === 0) return null;
   const relative = bands === "relative";
@@ -92,6 +96,7 @@ export function Legend({ binning, ramp, title, format, bands = "values", lang }:
       <p className="legend__method">
         {relative ? `${s.legendRelative} ${s.legendPickProvince}` : s.legendMethod}
       </p>
+      {extra}
     </LegendBox>
   );
 }

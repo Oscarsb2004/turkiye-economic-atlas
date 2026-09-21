@@ -147,9 +147,15 @@ endings via `.gitattributes`.
 
 An overlay is a hook returning the shape in `web/src/overlays/types.ts`: its own fetching, its
 own controls, its own periods. It reads the shared clock and snaps to it (`timeline.ts`), and it
-names its SOURCE CARD rather than its publisher, so the rail's attribution comes from meta.json
-and the app carries no publisher's name of its own. Adding one is a module and a line in
-`web/src/overlays/index.ts`.
+names its SOURCE CARDS rather than their publishers, so the rail's attribution comes from
+meta.json and the app carries no publisher's name of its own. Adding one is a module and a line
+in `web/src/overlays/index.ts`.
+
+**One tab is one question, not one publisher.** The economy tab shades TÜİK's GDP per capita,
+derives its Canadian figures from a Bank of Canada rate and draws OpenStreetMap's railway over
+the result, because "what does this province produce and what runs through it" is one question
+(decided by the owner, 2026-09-21, merging what were two overlays). A tab that reads more than
+one publisher lists them all, in the order it credits them.
 
 ## Things that fail silently — Turkish specifics
 
