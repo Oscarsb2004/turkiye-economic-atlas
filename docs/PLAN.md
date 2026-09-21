@@ -153,8 +153,8 @@ all 81 provinces present per election; vote shares reconcile to YSK's published 
 reproduces the published figure; every migration row's origin and destination are real il codes
 and the matrix totals match TÜİK's own. Golden master recorded at T3 and re-recorded whenever the
 published set changes: `data-2026-09-20` (GDP), `data-2026-09-20b` (the elections),
-`data-2026-09-20c` (the election index the time slider reads), `data-2026-09-20d` (migration), `data-2026-09-20e` (airports). Each replays byte-identical on
-its own recorded inputs; the current one is `data-2026-09-20e`.
+`data-2026-09-20c` (the election index the time slider reads), `data-2026-09-20d` (migration), `data-2026-09-20e` (airports), `data-2026-09-20f` (the railway). Each replays byte-identical on
+its own recorded inputs; the current one is `data-2026-09-20f`.
 
 ## Other avenues worth considering later
 
