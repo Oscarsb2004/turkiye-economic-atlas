@@ -28,140 +28,30 @@
   ],
   "generated_at": "2026-09-24T13:42:30Z",
   "licences": {
-    "aisstream-unstated": {
-      "attribution": "aisstream.io",
-      "name": "aisstream.io — no published terms",
-      "redistribution": "unstated by the publisher",
-      "url": "https://aisstream.io/"
-    },
-    "boc-terms-of-use": {
-      "attribution": "Bank of Canada",
-      "name": "Bank of Canada Terms of Use",
-      "redistribution": "permitted with attribution",
-      "url": "https://www.bankofcanada.ca/terms/"
-    },
-    "commons-per-file": {
-      "attribution": "per file",
-      "name": "Wikimedia Commons — per file",
-      "redistribution": "per file; each file's own licence and author are published beside it",
-      "url": "https://commons.wikimedia.org/wiki/Commons:Licensing"
-    },
-    "dhmi-unstated": {
-      "attribution": "Devlet Hava Meydanları İşletmesi (DHMİ)",
-      "name": "DHMİ — no published terms",
-      "redistribution": "unstated by the publisher",
-      "url": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"
-    },
-    "geoboundaries-open": {
-      "attribution": "geoBoundaries (geoLab, William & Mary), from © OpenStreetMap contributors",
-      "name": "geoBoundaries gbOpen — Creative Commons Attribution-ShareAlike 2.0",
-      "redistribution": "permitted with attribution and share-alike",
-      "url": "https://www.geoboundaries.org/index.html#usage"
-    },
-    "ibb-open-data": {
-      "attribution": "İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı",
-      "name": "İstanbul Büyükşehir Belediyesi Açık Veri Lisansı",
-      "redistribution": "permitted, commercially and non-commercially, with attribution",
-      "url": "https://data.ibb.gov.tr/license"
-    },
-    "nasa-cc0": {
-      "attribution": "NASA Earth Observing System Data and Information System (EOSDIS) GIBS",
-      "name": "NASA Earthdata — CC0, with acknowledgement asked",
-      "redistribution": "permitted; NASA asks to be acknowledged as the source",
-      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-policy"
-    },
-    "odbl-1.0": {
-      "attribution": "© OpenStreetMap contributors, ODbL 1.0",
-      "name": "Open Database License 1.0",
-      "redistribution": "permitted with attribution and share-alike",
-      "url": "https://opendatacommons.org/licenses/odbl/1-0/"
-    },
-    "public-domain": {
-      "attribution": "",
-      "name": "Public domain",
-      "redistribution": "permitted",
-      "url": ""
-    },
-    "tuik-attribution": {
-      "attribution": "Türkiye İstatistik Kurumu (TÜİK)",
-      "name": "TÜİK terms of use",
-      "redistribution": "permitted with attribution",
-      "url": "https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari"
-    },
-    "ysk-unstated": {
-      "attribution": "Yüksek Seçim Kurulu (YSK)",
-      "name": "YSK Açık Veri Portalı — no published terms",
-      "redistribution": "unstated by the publisher",
-      "url": "https://acikveri.ysk.gov.tr/"
-    }
+    "aisstream-unstated": {"attribution":"aisstream.io","name":"aisstream.io — no published terms","redistribution":"unstated by the publisher","url":"https://aisstream.io/"},
+    "boc-terms-of-use": {"attribution":"Bank of Canada","name":"Bank of Canada Terms of Use","redistribution":"permitted with attribution","url":"https://www.bankofcanada.ca/terms/"},
+    "commons-per-file": {"attribution":"per file","name":"Wikimedia Commons — per file","redistribution":"per file; each file's own licence and author are published beside it","url":"https://commons.wikimedia.org/wiki/Commons:Licensing"},
+    "dhmi-unstated": {"attribution":"Devlet Hava Meydanları İşletmesi (DHMİ)","name":"DHMİ — no published terms","redistribution":"unstated by the publisher","url":"https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx"},
+    "geoboundaries-open": {"attribution":"geoBoundaries (geoLab, William & Mary), from © OpenStreetMap contributors","name":"geoBoundaries gbOpen — Creative Commons Attribution-ShareAlike 2.0","redistribution":"permitted with attribution and share-alike","url":"https://www.geoboundaries.org/index.html#usage"},
+    "ibb-open-data": {"attribution":"İstanbul Büyükşehir Belediyesi (İBB) Açık Veri Portalı","name":"İstanbul Büyükşehir Belediyesi Açık Veri Lisansı","redistribution":"permitted, commercially and non-commercially, with attribution","url":"https://data.ibb.gov.tr/license"},
+    "nasa-cc0": {"attribution":"NASA Earth Observing System Data and Information System (EOSDIS) GIBS","name":"NASA Earthdata — CC0, with acknowledgement asked","redistribution":"permitted; NASA asks to be acknowledged as the source","url":"https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-policy"},
+    "odbl-1.0": {"attribution":"© OpenStreetMap contributors, ODbL 1.0","name":"Open Database License 1.0","redistribution":"permitted with attribution and share-alike","url":"https://opendatacommons.org/licenses/odbl/1-0/"},
+    "public-domain": {"attribution":"","name":"Public domain","redistribution":"permitted","url":""},
+    "tuik-attribution": {"attribution":"Türkiye İstatistik Kurumu (TÜİK)","name":"TÜİK terms of use","redistribution":"permitted with attribution","url":"https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari"},
+    "ysk-unstated": {"attribution":"Yüksek Seçim Kurulu (YSK)","name":"YSK Açık Veri Portalı — no published terms","redistribution":"unstated by the publisher","url":"https://acikveri.ysk.gov.tr/"}
   },
   "schema_version": "1.0.0",
   "sources": {
-    "boc_valet": {
-      "licence": "boc-terms-of-use",
-      "page": "https://www.bankofcanada.ca/valet/docs",
-      "publisher": "Bank of Canada",
-      "title": "Bank of Canada Valet API — FXAUSDCAD, annual average USD/CAD"
-    },
-    "dhmi_airport_statistics": {
-      "licence": "dhmi-unstated",
-      "page": "https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx",
-      "publisher": "Devlet Hava Meydanları İşletmesi (DHMİ)",
-      "title": "Havalimanları Karşılaştırmalı İstatistikleri"
-    },
-    "geoboundaries_adm1": {
-      "licence": "geoboundaries-open",
-      "page": "https://www.geoboundaries.org/countryDownloads.html",
-      "publisher": "geoBoundaries (William & Mary geoLab)",
-      "title": "geoBoundaries gbOpen — Türkiye ADM1 (the 81 il)"
-    },
-    "ibb_gtfs": {
-      "licence": "ibb-open-data",
-      "page": "https://data.ibb.gov.tr/dataset/public-transport-gtfs-data",
-      "publisher": "İstanbul Büyükşehir Belediyesi (İBB)",
-      "title": "Toplu Ulaşım GTFS Verisi (Public Transport GTFS Data)"
-    },
-    "nasa_gibs": {
-      "licence": "nasa-cc0",
-      "page": "https://nasa-gibs.github.io/gibs-api-docs/",
-      "publisher": "NASA Earth Observing System Data and Information System (EOSDIS)",
-      "title": "Global Imagery Browse Services (GIBS) — VIIRS Day/Night Band"
-    },
-    "natural_earth_admin1": {
-      "licence": "public-domain",
-      "page": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/",
-      "publisher": "Natural Earth",
-      "title": "Natural Earth 1:10m — province names, the world, the lakes and the roads"
-    },
-    "osm_overpass": {
-      "licence": "odbl-1.0",
-      "page": "https://www.openstreetmap.org/copyright",
-      "publisher": "OpenStreetMap contributors",
-      "title": "OpenStreetMap, through the Overpass API"
-    },
-    "ourairports": {
-      "licence": "public-domain",
-      "page": "https://ourairports.com/data/",
-      "publisher": "OurAirports",
-      "title": "OurAirports — airports.csv"
-    },
-    "tuik_internal_migration": {
-      "licence": "tuik-attribution",
-      "page": "https://nip.tuik.gov.tr/?value=IllerArasiGoc",
-      "publisher": "Türkiye İstatistik Kurumu (TÜİK)",
-      "title": "İller Arası Göç (Nüfus İstatistikleri Portalı)"
-    },
-    "tuik_provincial_gdp": {
-      "licence": "tuik-attribution",
-      "page": "https://veriportali.tuik.gov.tr/tr/press/53930",
-      "publisher": "Türkiye İstatistik Kurumu (TÜİK)",
-      "title": "İl Bazında Gayrisafi Yurt İçi Hasıla"
-    },
-    "ysk_election_results": {
-      "licence": "ysk-unstated",
-      "page": "https://acikveri.ysk.gov.tr/",
-      "publisher": "Yüksek Seçim Kurulu (YSK)",
-      "title": "Seçim sonuçları (Açık Veri Portalı)"
-    }
+    "boc_valet": {"licence":"boc-terms-of-use","page":"https://www.bankofcanada.ca/valet/docs","publisher":"Bank of Canada","title":"Bank of Canada Valet API — FXAUSDCAD, annual average USD/CAD"},
+    "dhmi_airport_statistics": {"licence":"dhmi-unstated","page":"https://www.dhmi.gov.tr/Sayfalar/Istatistikler.aspx","publisher":"Devlet Hava Meydanları İşletmesi (DHMİ)","title":"Havalimanları Karşılaştırmalı İstatistikleri"},
+    "geoboundaries_adm1": {"licence":"geoboundaries-open","page":"https://www.geoboundaries.org/countryDownloads.html","publisher":"geoBoundaries (William & Mary geoLab)","title":"geoBoundaries gbOpen — Türkiye ADM1 (the 81 il)"},
+    "ibb_gtfs": {"licence":"ibb-open-data","page":"https://data.ibb.gov.tr/dataset/public-transport-gtfs-data","publisher":"İstanbul Büyükşehir Belediyesi (İBB)","title":"Toplu Ulaşım GTFS Verisi (Public Transport GTFS Data)"},
+    "nasa_gibs": {"licence":"nasa-cc0","page":"https://nasa-gibs.github.io/gibs-api-docs/","publisher":"NASA Earth Observing System Data and Information System (EOSDIS)","title":"Global Imagery Browse Services (GIBS) — VIIRS Day/Night Band"},
+    "natural_earth_admin1": {"licence":"public-domain","page":"https://www.naturalearthdata.com/downloads/10m-cultural-vectors/","publisher":"Natural Earth","title":"Natural Earth 1:10m — province names, the world, the lakes and the roads"},
+    "osm_overpass": {"licence":"odbl-1.0","page":"https://www.openstreetmap.org/copyright","publisher":"OpenStreetMap contributors","title":"OpenStreetMap, through the Overpass API"},
+    "ourairports": {"licence":"public-domain","page":"https://ourairports.com/data/","publisher":"OurAirports","title":"OurAirports — airports.csv"},
+    "tuik_internal_migration": {"licence":"tuik-attribution","page":"https://nip.tuik.gov.tr/?value=IllerArasiGoc","publisher":"Türkiye İstatistik Kurumu (TÜİK)","title":"İller Arası Göç (Nüfus İstatistikleri Portalı)"},
+    "tuik_provincial_gdp": {"licence":"tuik-attribution","page":"https://veriportali.tuik.gov.tr/tr/press/53930","publisher":"Türkiye İstatistik Kurumu (TÜİK)","title":"İl Bazında Gayrisafi Yurt İçi Hasıla"},
+    "ysk_election_results": {"licence":"ysk-unstated","page":"https://acikveri.ysk.gov.tr/","publisher":"Yüksek Seçim Kurulu (YSK)","title":"Seçim sonuçları (Açık Veri Portalı)"}
   }
 }

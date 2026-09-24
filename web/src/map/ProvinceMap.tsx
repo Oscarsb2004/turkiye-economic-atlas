@@ -114,8 +114,8 @@ interface Props {
    * reader is asking about (overlays/types.ts).
    */
   hint?: (plaka: number) => string | null;
-  /** Whether the reference road network is drawn under the overlay. */
-  roads: boolean;
+  /** The reference road network to draw under the overlay, or null for none. */
+  roads: GeoJson | null;
   /** The place names to draw, or none. Which of them fit is placeLabels.ts. */
   places: PlaceLabel[];
 }
@@ -544,15 +544,18 @@ export function ProvinceMap({
     });
   }, [selected, swapped]);
 
-  // The reference road network, which is in the style and hidden until asked for.
+  // The reference road network, which is in the style, empty and hidden until
+  // the reader asks for it.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;
-    return whenReady(instance, () => {
+    const unfeed = roads ? feedSource(instance, "roads", roads) : () => undefined;
+    const unshow = whenReady(instance, () => {
       if (!instance.getLayer("roads")) return false;
       instance.setLayoutProperty("roads", "visibility", roads ? "visible" : "none");
       return true;
     });
+    return () => { unfeed(); unshow(); };
   }, [roads]);
 
   // And the place names, redrawn when the list changes as well as on a move.

@@ -104,10 +104,11 @@ export function mapStyle(geo: Geo): StyleSpecification {
     // future data join key on the same number.
     provinces: { type: "geojson", data: geo.provinces, promoteId: "code" },
     water: { type: "geojson", data: geo.water },
-    // The reference road network. In the style from the start and hidden, so
-    // turning it on is a layout property rather than a source being added to a
-    // live map — which is the operation that needs the style to be ready.
-    roads: { type: "geojson", data: geo.roads },
+    // The reference road network. In the style from the start, hidden and
+    // empty, so turning it on is data on an existing source plus a layout
+    // property — never a source added to a live map, which is the operation
+    // that needs the style to be ready. Its data arrives when first asked for.
+    roads: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
     // Both empty until an overlay has something to put in them; the
     // effects below set their data.
     flows: { type: "geojson", data: { type: "FeatureCollection", features: [] } },

@@ -3,15 +3,18 @@ atlas.export.bundle — what the site reads.
 
     python -m atlas.run bundle
 
-The datasets write under data/. This assembles what the web app fetches, in the
-layout it fetches: the dataset files copied BYTE FOR BYTE, plus two files
-generated here.
+The datasets write under data/, and the site reads them FROM THERE: the dev
+server serves data/ at /data/ and the production build copies the files this
+module lists into the site (web/vite.config.ts). This writes only what is
+generated rather than published.
 
-WHY COPIES AND NOT RE-SERIALISATION
+WHY THERE ARE NO COPIES ANY MORE
 
-A file that is already correct must not change by being written again. The
-runner performs `copies` byte-wise and only when the bytes differ, so a re-run
-with unchanged sources leaves a zero-line diff (CLAUDE.md §6).
+This used to copy every dataset file into web/public/data/, byte for byte, and
+both copies were committed — 4.5 MB of the repository's 13.9 MB was the same
+JSON twice (measured 2026-09-24). The copy existed because Vite serves one
+public directory; a twelve-line plugin serving a second one is cheaper than a
+second copy of every file in every commit.
 
 WHAT IS GENERATED
 
@@ -42,8 +45,10 @@ from atlas.datasets import Built, Context
 
 log = logging.getLogger(__name__)
 
-#: Dataset outputs the site reads, copied under web/public/data/ at the same path.
-COPIES = (
+#: Dataset outputs the site reads, served from data/ at the same path. The
+#: production build copies exactly these (meta.json's `files`), so a dataset
+#: the site does not read never ships in it.
+SERVED = (
     "provinces/gdp-per-capita.json",
     "elections/2023-cumhurbaskani-1.json",
     "elections/2023-cumhurbaskani-2.json",
@@ -95,13 +100,10 @@ def build(ctx: Context, *, dataset: str) -> Built:  # noqa: ARG001 - the runner 
     """Every dataset the site reads, plus meta and palette."""
     web = R.WEB_DATA_DIR
     written: list[str] = []
-    copies = []
-    for rel in COPIES:
-        source = R.DATA_DIR / rel
-        if not source.exists():
+    for rel in SERVED:
+        if not (R.DATA_DIR / rel).exists():
             log.warning("skipping missing %s", rel)
             continue
-        copies.append((source, web / rel))
         written.append(rel)
 
     index = _election_index(written)
@@ -122,11 +124,10 @@ def build(ctx: Context, *, dataset: str) -> Built:  # noqa: ARG001 - the runner 
     }
     palette = yaml.safe_load((R.REGISTRY_DIR / "palette.yaml").read_text(encoding="utf-8"))
 
-    log.info("bundle: %d copied, %d election(s) indexed, meta and palette generated",
-             len(copies), len(index["elections"]))
+    log.info("bundle: %d served from data/, %d election(s) indexed, meta and palette generated",
+             len(written) - 1, len(index["elections"]))
     return Built(
         outputs=[(web / ELECTIONS_INDEX, index),
                  (web / "meta.json", meta), (web / "palette.json", palette)],
-        copies=copies,
         receipt={"files": meta["files"], "schema_version": SCHEMA_VERSION},
     )

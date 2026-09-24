@@ -160,7 +160,7 @@ function EconomyFigures({ gdp, stations, plaka, year, lang }: {
   );
 }
 
-export function useEconomyOverlay({ lang, clock, active }: OverlayContext): Overlay {
+export function useEconomyOverlay({ lang, clock, active, selected }: OverlayContext): Overlay {
   const [gdp, setGdp] = useState<PerCapitaGdp | null>(null);
   const [network, setNetwork] = useState<RailNetwork | null>(null);
   const [stations, setStations] = useState<RailStations | null>(null);
@@ -175,8 +175,15 @@ export function useEconomyOverlay({ lang, clock, active }: OverlayContext): Over
     // railway that could not be fetched leaves a map of GDP per capita, which
     // is most of this overlay, so it does not fail the whole tab.
     loadRailNetwork().then(setNetwork, () => undefined);
-    loadRailStations().then(setStations, () => undefined);
   }, [active, gdp, failed]);
+
+  // The stations only ever appear in the panel, so they are fetched when a
+  // province is first selected rather than with the tab: 363 KB that a reader
+  // who never clicks a province has no use for.
+  useEffect(() => {
+    if (!active || selected === null || stations) return;
+    loadRailStations().then(setStations, () => undefined);
+  }, [active, selected, stations]);
 
   const periods: Period[] = useMemo(() => {
     const years = gdp?.measure.years[currency] ?? [];

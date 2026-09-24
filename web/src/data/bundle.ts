@@ -57,8 +57,6 @@ export interface Geo {
   turkiye: GeoJson;
   world: GeoJson;
   water: GeoJson;
-  /** The main road network, drawn only when the reader turns the base layer on. */
-  roads: GeoJson;
 }
 
 /**
@@ -88,9 +86,19 @@ async function geoJson(name: string): Promise<GeoJson> {
 }
 
 export async function loadGeo(): Promise<Geo> {
-  const names = ["provinces", "points", "turkiye", "world", "water", "roads"] as const;
+  const names = ["provinces", "points", "turkiye", "world", "water"] as const;
   const bodies = await Promise.all(names.map(geoJson));
   return Object.fromEntries(names.map((name, i) => [name, bodies[i]])) as unknown as Geo;
+}
+
+/**
+ * The main road network, fetched the first time the base layer is switched on.
+ *
+ * It was part of the first load, and the base layer is off until a reader asks
+ * for it: 244 KB every visitor downloaded and most never drew.
+ */
+export async function loadRoads(): Promise<GeoJson> {
+  return geoJson("roads");
 }
 
 export async function loadGeoDetail(): Promise<GeoDetail> {

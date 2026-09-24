@@ -67,8 +67,45 @@ def write_if_changed(path: Path, payload: dict) -> bool:
         if existing is not None and strip_volatile(existing) == strip_volatile(readback):
             return False
 
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True),
-        encoding="utf-8",
-    )
+    path.write_text(dumps(payload), encoding="utf-8")
     return True
+
+
+#: How many levels of a payload are indented. Below this, a value is one line.
+INDENTED_LEVELS = 2
+
+
+def dumps(payload: Any) -> str:
+    """
+    A payload as this project publishes it: one RECORD per line.
+
+    WHY NOT `indent=2`, WHICH THIS WAS
+
+    `indent=2` puts every number of every coordinate on a line of its own, so a
+    railway of 12 925 kept points was 1 358 KB of mostly newlines and leading
+    spaces, published twice (once here, once in the bundle) and downloaded by
+    every reader. Measured over every file under data/ on 2026-09-24:
+
+        indent=2              4 334 KB
+        outer 2 levels only   2 270 KB    <- this
+        fully compact         2 241 KB
+
+    Indenting the outer two levels keeps what made indentation worth having —
+    a git diff shows WHICH station, line or province changed, one per line —
+    for 1% more than no whitespace at all. Keys stay sorted, so the same
+    content is always the same bytes.
+    """
+    return _dump(payload, 0) + "\n"
+
+
+def _dump(value: Any, depth: int) -> str:
+    if depth >= INDENTED_LEVELS or not isinstance(value, (dict, list)) or not value:
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    pad, end = "  " * (depth + 1), "  " * depth
+    if isinstance(value, dict):
+        body = ",\n".join(
+            f"{pad}{json.dumps(key, ensure_ascii=False)}: {_dump(value[key], depth + 1)}"
+            for key in sorted(value)
+        )
+        return "{\n" + body + "\n" + end + "}"
+    return "[\n" + ",\n".join(pad + _dump(item, depth + 1) for item in value) + "\n" + end + "]"

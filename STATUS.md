@@ -31,68 +31,68 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **airport-traffic-2020**<br>Every airport's traffic in 2020, as DHMİ publishes it | `data/airports/2020.json` (93 KB) | yes | `web/src/data/bundle.ts` |
-| **airport-traffic-2021**<br>Every airport's traffic in 2021, as DHMİ publishes it | `data/airports/2021.json` (93 KB) | yes | `web/src/data/bundle.ts` |
-| **airport-traffic-2022**<br>Every airport's traffic in 2022, as DHMİ publishes it | `data/airports/2022.json` (95 KB) | yes | `web/src/data/bundle.ts` |
-| **airport-traffic-2023**<br>Every airport's traffic in 2023, as DHMİ publishes it | `data/airports/2023.json` (95 KB) | yes | `web/src/data/bundle.ts` |
-| **airport-traffic-2024**<br>Every airport's traffic in 2024, as DHMİ publishes it | `data/airports/2024.json` (96 KB) | yes | `web/src/data/bundle.ts` |
-| **airport-traffic-2025**<br>Every airport's traffic in 2025, as DHMİ publishes it | `data/airports/2025.json` (96 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2020**<br>Every airport's traffic in 2020, as DHMİ publishes it | `data/airports/2020.json` (65 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2021**<br>Every airport's traffic in 2021, as DHMİ publishes it | `data/airports/2021.json` (65 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2022**<br>Every airport's traffic in 2022, as DHMİ publishes it | `data/airports/2022.json` (66 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2023**<br>Every airport's traffic in 2023, as DHMİ publishes it | `data/airports/2023.json` (66 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2024**<br>Every airport's traffic in 2024, as DHMİ publishes it | `data/airports/2024.json` (67 KB) | yes | `web/src/data/bundle.ts` |
+| **airport-traffic-2025**<br>Every airport's traffic in 2025, as DHMİ publishes it | `data/airports/2025.json` (67 KB) | yes | `web/src/data/bundle.ts` |
 
 ### bundle
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (68 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (633 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/nightlights/viirs.json` (31 KB)<br>`web/public/data/places/settlements.json` (366 KB)<br>`web/public/data/meta.json` (7 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>What the site reads that is generated rather than published — meta, palette and the election index | `web/public/data/elections/index.json` (1 KB)<br>`web/public/data/meta.json` (6 KB)<br>`web/public/data/palette.json` (2 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **province-gdp-per-capita**<br>Every province's gross domestic product per capita: lira and US dollars as TÜİK publishes them, and Canadian dollars derived from the Bank of Canada's annual rate | `data/provinces/gdp-per-capita.json` (68 KB) | yes | `web/src/data/bundle.ts` |
+| **province-gdp-per-capita**<br>Every province's gross domestic product per capita: lira and US dollars as TÜİK publishes them, and Canadian dollars derived from the Bank of Canada's annual rate | `data/provinces/gdp-per-capita.json` (40 KB) | yes | `web/src/data/bundle.ts` |
 
 ### elections
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **election-2023-cumhurbaskani-1**<br>Presidential election, first round — every province's published result | `data/elections/2023-cumhurbaskani-1.json` (42 KB) | yes | `web/src/data/bundle.ts` |
-| **election-2023-cumhurbaskani-2**<br>Presidential election, second round — every province's published result | `data/elections/2023-cumhurbaskani-2.json` (36 KB) | yes | `web/src/data/bundle.ts` |
-| **election-2023-milletvekili**<br>Parliamentary general election, 28th term — every province's published result | `data/elections/2023-milletvekili.json` (112 KB) | yes | `web/src/data/bundle.ts` |
+| **election-2023-cumhurbaskani-1**<br>Presidential election, first round — every province's published result | `data/elections/2023-cumhurbaskani-1.json` (26 KB) | yes | `web/src/data/bundle.ts` |
+| **election-2023-cumhurbaskani-2**<br>Presidential election, second round — every province's published result | `data/elections/2023-cumhurbaskani-2.json` (22 KB) | yes | `web/src/data/bundle.ts` |
+| **election-2023-milletvekili**<br>Parliamentary general election, 28th term — every province's published result | `data/elections/2023-milletvekili.json` (67 KB) | yes | `web/src/data/bundle.ts` |
 
 ### migration
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **migration-2020**<br>Province-to-province migration in 2020, as TÜİK publishes it | `data/migration/2020.json` (151 KB) | yes | `web/src/data/bundle.ts` |
-| **migration-2021**<br>Province-to-province migration in 2021, as TÜİK publishes it | `data/migration/2021.json` (151 KB) | yes | `web/src/data/bundle.ts` |
-| **migration-2022**<br>Province-to-province migration in 2022, as TÜİK publishes it | `data/migration/2022.json` (152 KB) | yes | `web/src/data/bundle.ts` |
-| **migration-2023**<br>Province-to-province migration in 2023, as TÜİK publishes it | `data/migration/2023.json` (152 KB) | yes | `web/src/data/bundle.ts` |
-| **migration-2024**<br>Province-to-province migration in 2024, as TÜİK publishes it | `data/migration/2024.json` (151 KB) | yes | `web/src/data/bundle.ts` |
-| **migration-2025**<br>Province-to-province migration in 2025, as TÜİK publishes it | `data/migration/2025.json` (151 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2020**<br>Province-to-province migration in 2020, as TÜİK publishes it | `data/migration/2020.json` (68 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2021**<br>Province-to-province migration in 2021, as TÜİK publishes it | `data/migration/2021.json` (69 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2022**<br>Province-to-province migration in 2022, as TÜİK publishes it | `data/migration/2022.json` (69 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2023**<br>Province-to-province migration in 2023, as TÜİK publishes it | `data/migration/2023.json` (69 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2024**<br>Province-to-province migration in 2024, as TÜİK publishes it | `data/migration/2024.json` (69 KB) | yes | `web/src/data/bundle.ts` |
+| **migration-2025**<br>Province-to-province migration in 2025, as TÜİK publishes it | `data/migration/2025.json` (68 KB) | yes | `web/src/data/bundle.ts` |
 
 ### nightlights
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (31 KB) | yes | `web/src/data/bundle.ts` |
+| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (26 KB) | yes | `web/src/data/bundle.ts` |
 
 ### places
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **places-settlements**<br>Every city and town, placed in a province, as OpenStreetMap has it | `data/places/settlements.json` (366 KB) | yes | `web/src/data/bundle.ts` |
+| **places-settlements**<br>Every city and town, placed in a province, as OpenStreetMap has it | `data/places/settlements.json` (199 KB) | yes | `web/src/data/bundle.ts` |
 
 ### rail
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **rail-network**<br>Every main-line and high-speed railway, joined into lines, as OpenStreetMap has it | `data/rail/network.json` (1.5 MB) | yes | `web/src/data/bundle.ts` |
-| **rail-stations**<br>Every railway station and halt, placed in a province, as OpenStreetMap has it | `data/rail/stations.json` (633 KB) | yes | `web/src/data/bundle.ts` |
+| **rail-network**<br>Every main-line and high-speed railway, joined into lines, as OpenStreetMap has it | `data/rail/network.json` (624 KB) | yes | `web/src/data/bundle.ts` |
+| **rail-stations**<br>Every railway station and halt, placed in a province, as OpenStreetMap has it | `data/rail/stations.json` (372 KB) | yes | `web/src/data/bundle.ts` |
 
 ### transit
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **istanbul-transit**<br>İstanbul's metro, tram, funicular, cable car and ferry network, as İBB publishes it | `data/transit/istanbul.json` (432 KB) | yes | `web/src/data/bundle.ts` |
+| **istanbul-transit**<br>İstanbul's metro, tram, funicular, cable car and ferry network, as İBB publishes it | `data/transit/istanbul.json` (147 KB) | yes | `web/src/data/bundle.ts` |
 
 ## What they are built from
 

@@ -30,9 +30,11 @@ import {
   loadMeta,
   loadPalette,
   loadPlaces,
+  loadRoads,
   provinceName,
   t,
   type Geo,
+  type GeoJson,
   type Lang,
   type Meta,
   type Palette,
@@ -71,6 +73,7 @@ export function App() {
   // fetched the first time it is switched on, and never before.
   const [basemap, setBasemap] = useState(false);
   const [places, setPlaces] = useState<Places | null>(null);
+  const [roads, setRoads] = useState<GeoJson | null>(null);
   const s = stringsFor(lang);
 
   useEffect(() => {
@@ -90,11 +93,12 @@ export function App() {
   }, [lang]);
 
   useEffect(() => {
-    if (!basemap || places) return;
-    // A failed reference layer leaves the map without names on it, which is the
-    // state it was in a moment ago; it is not worth an error over the map.
-    loadPlaces().then(setPlaces, () => undefined);
-  }, [basemap, places]);
+    if (!basemap) return;
+    // A failed reference layer leaves the map without names or roads on it,
+    // which is the state it was in a moment ago; not worth an error over it.
+    if (!places) loadPlaces().then(setPlaces, () => undefined);
+    if (!roads) loadRoads().then(setRoads, () => undefined);
+  }, [basemap, places, roads]);
 
   /** The names to draw, in the reader's language, or none while it is off. */
   const labels: PlaceLabel[] = useMemo(() => {
@@ -221,7 +225,7 @@ export function App() {
                   network={overlay.network ?? []}
                   focus={overlay.focus}
                   raster={overlay.raster}
-                  roads={basemap}
+                  roads={basemap ? roads : null}
                   places={labels}
                 />
                 {/* An overlay that shades nothing brings its own key; one that

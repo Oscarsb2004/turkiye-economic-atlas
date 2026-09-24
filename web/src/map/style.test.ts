@@ -15,9 +15,7 @@ import type { Geo, GeoJson } from "../data/bundle";
 import { fillColour, mapStyle } from "./style";
 
 const EMPTY: GeoJson = { type: "FeatureCollection", features: [] };
-const GEO: Geo = {
-  provinces: EMPTY, points: EMPTY, turkiye: EMPTY, world: EMPTY, water: EMPTY, roads: EMPTY,
-};
+const GEO: Geo = { provinces: EMPTY, points: EMPTY, turkiye: EMPTY, world: EMPTY, water: EMPTY };
 
 describe("the map's style", () => {
   it("is a style the specification accepts", () => {

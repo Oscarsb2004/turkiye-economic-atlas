@@ -1,7 +1,7 @@
 # registry/datasets/bundle.yaml - the bundle the site fetches.
 # `python -m atlas.run bundle` builds it; atlas/core/registry.py checks every claim below.
 
-title: The bundle the site fetches, plus the generated meta and palette
+title: What the site reads that is generated rather than published — meta, palette and the election index
 group: bundle
 order: 10
 builder: atlas.export.bundle:build
@@ -21,32 +21,11 @@ sources:
 shells: []
 after: []
 outputs:
-- web/public/data/provinces/gdp-per-capita.json
-- web/public/data/elections/2023-cumhurbaskani-1.json
-- web/public/data/elections/2023-cumhurbaskani-2.json
-- web/public/data/elections/2023-milletvekili.json
 - web/public/data/elections/index.json
-- web/public/data/migration/2020.json
-- web/public/data/migration/2021.json
-- web/public/data/migration/2022.json
-- web/public/data/migration/2023.json
-- web/public/data/migration/2024.json
-- web/public/data/migration/2025.json
-- web/public/data/airports/2020.json
-- web/public/data/airports/2021.json
-- web/public/data/airports/2022.json
-- web/public/data/airports/2023.json
-- web/public/data/airports/2024.json
-- web/public/data/airports/2025.json
-- web/public/data/rail/network.json
-- web/public/data/rail/stations.json
-- web/public/data/transit/istanbul.json
-- web/public/data/nightlights/viirs.json
-- web/public/data/places/settlements.json
 - web/public/data/meta.json
 - web/public/data/palette.json
 frame: null
 on_screen: true
 consumed_by:
 - path: web/src/data/bundle.ts
-  how: the app fetches these paths at start-up
+  how: the app fetches meta.json, palette.json and the election index; every dataset file it reads is served from data/ (web/vite.config.ts)
