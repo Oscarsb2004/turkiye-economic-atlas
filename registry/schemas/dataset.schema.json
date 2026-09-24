@@ -76,7 +76,7 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "pattern": "^(data|web/public/data)/[A-Za-z0-9_./-]+\\.json$"
+        "pattern": "^(data|web/public/data)/[A-Za-z0-9_./-]+\\.(json|jpg|png)$"
       }
     },
     "frame": {

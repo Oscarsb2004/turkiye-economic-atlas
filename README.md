@@ -11,9 +11,12 @@ Six tabs, each one question:
 | **Migration** | The 6 480 province-to-province flows, as arcs from the province you select | TÜİK |
 | **Airport traffic** | Five measures over 56 airports, and this project's sum of them per province | DHMİ · OurAirports |
 | **İstanbul transit** | 123 metro, tram, funicular, cable-car and ferry routes with their stops | İBB |
-| **Nightlights** | One night a month for the last five years, and one a year back to 2012, as NASA's own tiles | NASA GIBS |
+| **Nightlights** | NASA's Black Marble composites of 2012 and 2016, then one night a month for the last five years, on the globe, as NASA's own tiles | NASA GIBS |
 
-Under any of them, a base layer of 1 005 place names and the main road network.
+Under any of them, a base layer of 1 005 place names and the main road network — and the map
+is a globe. Zoom out past it and the view keeps going: the Moon and the planets where JPL
+Horizons puts them, the stars around the Sun from Hipparcos, and the galaxies of the 2MASS
+Redshift Survey, out to the edge of what that survey reaches.
 
 **Status: nine stages, all green.** 45 published files, 125 Python tests and 29 web tests, and
 107 declared verification gates with no notes outstanding. `STATUS.md` is generated from

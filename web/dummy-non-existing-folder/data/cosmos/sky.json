@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-09-24T14:10:24Z",
+  "milky_way": {
+    "bytes": 71247,
+    "file": "cosmos/milky-way.jpg",
+    "from": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004851/milkyway_2020_4k_print.jpg",
+    "projection": "equirectangular, celestial (ICRS) coordinates, 0h right ascension at the centre, right ascension increasing to the LEFT",
+    "why_carried": "the SVS sends no CORS header a browser would accept, so the image cannot be used as a texture straight from NASA; it is reproduced here unchanged"
+  },
+  "sources": [
+    {"content_sha256":"","licence":"nasa-svs-public-domain","provenance":"official_dataset","retrieved_at":"2026-09-24T14:10:24Z","url":"https://svs.gsfc.nasa.gov/4851/"}
+  ]
+}

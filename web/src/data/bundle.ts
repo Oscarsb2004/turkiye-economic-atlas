@@ -772,3 +772,80 @@ export interface Raster {
   attribution: string;
   opacity?: number;
 }
+
+// ── The cosmos ───────────────────────────────────────────────────────────────
+
+/**
+ * Where the atlas lies, from the Earth outwards (atlas/datasets/cosmos.py).
+ *
+ * Fetched only when a reader zooms out past the globe: 3.9 MB of catalogues
+ * that nobody reading a province needs. Rows are arrays, in the order each
+ * file's `columns` names, because 43 507 copies of the same key names were
+ * most of the file.
+ */
+export const COSMOS_FILES = {
+  solarSystem: "data/cosmos/solar-system.json",
+  stars: "data/cosmos/stars.json",
+  galaxies: "data/cosmos/galaxies.json",
+  sky: "data/cosmos/sky.json",
+  milkyWay: "data/cosmos/milky-way.jpg",
+} as const;
+
+export interface SolarSystem {
+  epoch: string;
+  bodies: Array<{
+    id: string;
+    name: Text;
+    radius_km: number;
+    /** "500@0" is the solar system's barycentre; "500@399" is the Earth. */
+    centre: string;
+    position_km: [number, number, number];
+    orbit_km: Array<[number, number, number]>;
+  }>;
+}
+
+/** [hip, ra°, dec°, parallax mas, Hipparcos mag, B−V]. */
+export type StarRow = [number, number, number, number, number | null, number | null];
+
+export interface Stars {
+  catalogue: { title: string; distance: { formula: string } };
+  columns: string[];
+  stars: StarRow[];
+}
+
+/** [2MASS name, ra°, dec°, recession km/s, Ks mag]. */
+export type GalaxyRow = [string, number, number, number, number | null];
+
+export interface Galaxies {
+  catalogue: { title: string; distance: { formula: string; h0_source: string } };
+  columns: string[];
+  galaxies: GalaxyRow[];
+}
+
+export interface Cosmos {
+  solarSystem: SolarSystem;
+  stars: Stars;
+  galaxies: Galaxies;
+  /** Where the Milky Way's glow is served from, for a texture loader. */
+  milkyWay: string;
+  /** H0 the galaxy distances were stated at, read back out of the file. */
+  h0: number;
+}
+
+async function loadJson<T>(path: string): Promise<T> {
+  const response = await fetch(asset(path));
+  if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+  return (await response.json()) as T;
+}
+
+export async function loadCosmos(): Promise<Cosmos> {
+  const [solarSystem, stars, galaxies] = await Promise.all([
+    loadJson<SolarSystem>(COSMOS_FILES.solarSystem),
+    loadJson<Stars>(COSMOS_FILES.stars),
+    loadJson<Galaxies>(COSMOS_FILES.galaxies),
+  ]);
+  // The H0 the pipeline stated its formula with, not a second copy of it here.
+  const stated = /H0 = ([\d.]+)/.exec(galaxies.catalogue.distance.formula);
+  if (!stated) throw new Error("galaxies.json states no H0 in its distance formula");
+  return { solarSystem, stars, galaxies, milkyWay: asset(COSMOS_FILES.milkyWay), h0: Number(stated[1]) };
+}

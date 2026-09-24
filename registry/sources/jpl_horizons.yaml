@@ -1,0 +1,13 @@
+# registry/sources/jpl_horizons.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: JPL Horizons — positions of the Sun, the planets, Pluto and the Moon
+publisher: NASA Jet Propulsion Laboratory, Solar System Dynamics Group
+licence: jpl-horizons-unstated
+attribution: NASA/JPL-Caltech Solar System Dynamics Group, Horizons On-Line Ephemeris System
+page: https://ssd.jpl.nasa.gov/horizons/
+api: https://ssd.jpl.nasa.gov/api/horizons.api
+# Read for where each body is on one date and the orbit it follows from there,
+# as positions Horizons itself publishes: the orbit is 180 of them, not an
+# ellipse this project computed from elements. Asked in the ICRF, the same
+# axes the star and galaxy catalogues use, so nothing is rotated between them.

@@ -70,6 +70,11 @@ SERVED = (
     "transit/istanbul.json",
     "nightlights/viirs.json",
     "places/settlements.json",
+    "cosmos/solar-system.json",
+    "cosmos/stars.json",
+    "cosmos/galaxies.json",
+    "cosmos/sky.json",
+    "cosmos/milky-way.jpg",
 )
 
 SCHEMA_VERSION = "1.0.0"

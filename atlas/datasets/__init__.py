@@ -44,6 +44,10 @@ class Built:
     #: (source, destination) pairs copied byte for byte rather than re-serialised,
     #: so a file that is already correct cannot change by being written again.
     copies: list[tuple[Path, Path]] = field(default_factory=list)
+    #: (destination, bytes) for a published file that is not JSON — an image a
+    #: publisher serves without the CORS header a browser needs, so the site has
+    #: to carry it. Written only when the bytes differ, like everything else.
+    blobs: list[tuple[Path, bytes]] = field(default_factory=list)
     frames: list[Frame] = field(default_factory=list)
     #: Named values for the receipt: what a reviewer checks the run by.
     receipt: dict[str, Any] = field(default_factory=dict)

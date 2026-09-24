@@ -1,0 +1,14 @@
+# registry/sources/nasa_svs.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: NASA Scientific Visualization Studio — Deep Star Maps 2020
+publisher: NASA Goddard Space Flight Center, Scientific Visualization Studio
+licence: nasa-svs-public-domain
+attribution: NASA/Goddard Space Flight Center Scientific Visualization Studio, Deep Star Maps 2020
+page: https://svs.gsfc.nasa.gov/4851/
+api: https://svs.gsfc.nasa.gov/api/4851
+# Read for the Milky Way's diffuse light, the glow of the stars no catalogue
+# resolves. The full maps are HDR EXR files of 34 MB and up; the web edition is
+# 1024×512, which is enough for a glow and is all this is — the stars in front
+# of it are Hipparcos, drawn as points. Carried in data/ rather than fetched by
+# the browser because the SVS sends no CORS header a browser would accept.

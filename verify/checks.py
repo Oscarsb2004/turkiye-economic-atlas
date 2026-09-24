@@ -72,9 +72,17 @@ def resolve(obj: Any, path: str) -> list[Any]:
         key, selector = m.group(1), m.group(2)
         nxt: list[Any] = []
         for item in current:
-            if not isinstance(item, dict) or key not in item:
+            # A number addresses a column of a compact row: the cosmos
+            # catalogues publish each star or galaxy as an array, because
+            # 43 507 copies of the same six key names are most of a file.
+            if isinstance(item, list) and key.isdigit():
+                if int(key) >= len(item):
+                    continue
+                value = item[int(key)]
+            elif isinstance(item, dict) and key in item:
+                value = item[key]
+            else:
                 continue
-            value = item[key]
             if selector is None:
                 nxt.append(value)
             elif selector == "":
@@ -181,7 +189,7 @@ def check_unique_ids(records, spec, ctx):
     than which records were wrong.
     """
     field = ctx["dataset"]["id_field"]
-    counts = Counter(r.get(field) for r in records)
+    counts = Counter(resolve_one(r, field) for r in records)
     missing = sum(n for i, n in counts.items() if _blank(i))
     dupes = sorted(str(i) for i, n in counts.items() if n > 1 and not _blank(i))
     detail = []
@@ -221,7 +229,7 @@ def check_record_count(records, spec, ctx):
 def check_fields_present(records, spec, ctx):
     idf = ctx["dataset"]["id_field"]
     missing = [
-        f"{r.get(idf)}.{path}"
+        f"{resolve_one(r, idf)}.{path}"
         for r in records
         for path in spec["fields"]
         if not _present(resolve(r, path))
@@ -236,7 +244,7 @@ def check_fields_present(records, spec, ctx):
 def check_enum_field(records, spec, ctx):
     idf, field = ctx["dataset"]["id_field"], spec["field"]
     allowed = set(spec["allowed"])
-    bad = [f"{r.get(idf)}={resolve_one(r, field)!r}"
+    bad = [f"{resolve_one(r, idf)}={resolve_one(r, field)!r}"
            for r in records if resolve_one(r, field) not in allowed]
     return not bad, f"{ctx['name']}: {field} within {sorted(allowed)}", str(bad[:12])
 
@@ -265,7 +273,7 @@ def check_coverage_manifest(records, spec, ctx):
                 f"index unreadable on the last run: {entry.get('reason', 'no reason recorded')}")
 
     idf = ctx["dataset"]["id_field"]
-    have = {r.get(idf) for r in records}
+    have = {resolve_one(r, idf) for r in records}
     missing = sorted(set(listed) - have)
     extra = sorted(have - set(listed))
     detail = []
@@ -291,7 +299,7 @@ def check_geometry_within_region(records, spec, ctx):
         for pt in _points(r, ctx):
             gap = min(distance_to_geometry_km(pt, g) for g in geoms)
             if gap > tolerance:
-                strays.append(f"{r.get(idf)} {pt} is {gap:.0f} km outside")
+                strays.append(f"{resolve_one(r, idf)} {pt} is {gap:.0f} km outside")
     return (
         not strays,
         f"{ctx['name']}: every coordinate is within {tolerance:.0f} km of "
@@ -330,7 +338,7 @@ def check_geometry_region_matches_text(records, spec, ctx):
             names = [str(h["properties"].get(f, "")) for h in hits for f in name_fields]
             if not any(n and n.lower() in blob for n in names):
                 disagreements.append(
-                    f"{r.get(idf)} {pt} falls in {names[0] or '?'}, text says "
+                    f"{resolve_one(r, idf)} {pt} falls in {names[0] or '?'}, text says "
                     f"{texts[0][:48]!r}"
                 )
     _ = tolerance  # declared for symmetry; containment here is exact by design
@@ -424,7 +432,7 @@ def check_records_are_reachable(records, spec, ctx):
             continue
         kinds = {g.get("kind") for g in geoms if isinstance(g, dict)}
         if kinds - allowed:
-            unreachable.append(f"{r.get(idf)} ({', '.join(sorted(k or '?' for k in kinds))})")
+            unreachable.append(f"{resolve_one(r, idf)} ({', '.join(sorted(k or '?' for k in kinds))})")
     return (
         not unreachable,
         f"{ctx['name']}: every record with geometry has a map anchor",
@@ -528,7 +536,7 @@ def check_sums_to_published_totals(records, spec, ctx):
             continue
         if isinstance(value, bool) or not isinstance(value, (int, float)):
             return (False, f"{ctx['name']}: {value_field} is numeric",
-                    f"{r.get(idf)} has {value!r}")
+                    f"{resolve_one(r, idf)} has {value!r}")
         sums[group] += value
 
     problems = []
@@ -580,14 +588,14 @@ def check_map_sums_to_published_total(records, spec, ctx):
         published = resolve_one(record, field)
         if not isinstance(published, dict):
             return (False, f"{ctx['name']}: every record carries {field}",
-                    f"{record.get(idf)} has {published!r}")
+                    f"{resolve_one(record, idf)} has {published!r}")
         for key, value in published.items():
             if key not in sums:
                 return (False, f"{ctx['name']}: {field} keys match the published total",
-                        f"{record.get(idf)} has {key!r}, which the total does not")
+                        f"{resolve_one(record, idf)} has {key!r}, which the total does not")
             if isinstance(value, bool) or not isinstance(value, (int, float)):
                 return (False, f"{ctx['name']}: {field} values are numeric",
-                        f"{record.get(idf)}.{key} is {value!r}")
+                        f"{resolve_one(record, idf)}.{key} is {value!r}")
             sums[key] += value
 
     problems = [
@@ -630,7 +638,7 @@ def check_flow_totals(records, spec, ctx):
     received_key = spec.get("received_key", "received")
     net_key = spec.get("net_key", "net")
 
-    ids = {str(record.get(idf)) for record in records}
+    ids = {str(resolve_one(record, idf)) for record in records}
     if set(totals) != ids:
         missing = sorted(ids - set(totals))[:5]
         extra = sorted(set(totals) - ids)[:5]
@@ -640,7 +648,7 @@ def check_flow_totals(records, spec, ctx):
     given = {key: 0 for key in ids}
     received = {key: 0 for key in ids}
     for record in records:
-        me = str(record.get(idf))
+        me = str(resolve_one(record, idf))
         flows = resolve_one(record, field)
         if not isinstance(flows, dict):
             return (False, f"{ctx['name']}: every record carries {field}",
@@ -702,7 +710,7 @@ def check_date_in_declared_ranges(records, spec, ctx):
                 return True
         return False
 
-    strays = [f"{r.get(idf)}: {resolve_one(r, field)}" for r in records
+    strays = [f"{resolve_one(r, idf)}: {resolve_one(r, field)}" for r in records
               if not covered(str(resolve_one(r, field) or ""))]
     return (
         not strays,
@@ -726,9 +734,9 @@ def check_numeric_at_least(records, spec, ctx):
     for record in records:
         value = resolve_one(record, field)
         if isinstance(value, bool) or not isinstance(value, (int, float)):
-            small.append(f"{record.get(idf)}: {value!r} is not a number")
+            small.append(f"{resolve_one(record, idf)}: {value!r} is not a number")
         elif value < minimum:
-            small.append(f"{record.get(idf)}: {value:,} < {minimum:,.0f}")
+            small.append(f"{resolve_one(record, idf)}: {value:,} < {minimum:,.0f}")
     return (
         not small,
         f"{ctx['name']}: every {field} is at least {minimum:,.0f}",

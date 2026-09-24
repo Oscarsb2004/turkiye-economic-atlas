@@ -70,6 +70,36 @@ licences:
     # the material." Suomi NPP is a NASA-led mission.
     attribution: NASA Earth Observing System Data and Information System (EOSDIS) GIBS
 
+  nasa-svs-public-domain:
+    name: NASA Scientific Visualization Studio — public domain unless noted
+    url: https://svs.gsfc.nasa.gov/help/
+    redistribution: permitted
+    # Read 2026-09-24 on the SVS help page, under "Can I use your
+    # visualizations?": its content is in the public domain unless otherwise
+    # noted, "free to download, use, and redistribute for whatever purposes you
+    # see fit". The Deep Star Maps page notes nothing otherwise.
+    attribution: NASA/Goddard Space Flight Center Scientific Visualization Studio
+
+  jpl-horizons-unstated:
+    name: JPL Horizons — no published terms of use
+    url: https://ssd.jpl.nasa.gov/horizons/manual.html
+    redistribution: unstated by the publisher
+    # Checked 2026-09-24: the Horizons manual states no terms of use; its
+    # acknowledgements credit the Solar System Dynamics Group at JPL, which
+    # built the system under contract with NASA. Recorded as unstated rather
+    # than assumed permissive, as YSK and DHMİ are.
+    attribution: NASA/JPL-Caltech Solar System Dynamics Group, Horizons
+
+  heasarc-unstated:
+    name: HEASARC — no terms of use found
+    url: https://heasarc.gsfc.nasa.gov/
+    redistribution: unstated by the publisher
+    # Checked 2026-09-24: no terms-of-use or data-policy page was found; the
+    # addresses that would carry one returned 404. HEASARC is a NASA archive
+    # serving published catalogues openly; recorded as unstated rather than
+    # assumed, with the catalogues' authors credited in the attribution.
+    attribution: HEASARC, NASA Goddard Space Flight Center
+
   boc-terms-of-use:
     name: Bank of Canada Terms of Use
     url: https://www.bankofcanada.ca/terms/

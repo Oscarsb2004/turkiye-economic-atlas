@@ -1,0 +1,20 @@
+# registry/datasets/cosmos-solar-system.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "The Sun, the planets, Pluto and the Moon on one date, and one orbit each, as JPL Horizons publishes them"
+group: cosmos
+order: 10
+builder: atlas.datasets.cosmos:build_solar_system
+params: {epoch: '2026-09-24'}
+sources:
+- jpl_horizons
+shells:
+- fetcher
+after: []
+outputs:
+- data/cosmos/solar-system.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the cosmos view draws each body at its published position and its orbit through Horizons' own positions

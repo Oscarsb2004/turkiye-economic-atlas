@@ -615,6 +615,69 @@ datasets:
         own answer. Measured 2026-09-21: all 1 005 were placed by containment and none by proximity,
         which is the detail tier doing its job.
 
+  cosmos-solar-system:
+    path: data/cosmos/solar-system.json
+    records: bodies
+    id_field: id
+    checks:
+    - kind: unique_ids
+      note: One record per Horizons body, and no body twice.
+    - kind: record_count
+      expect: 11
+      note: The Sun, eight planets, Pluto and the Moon. A body missing is a gap in the solar system.
+    - kind: fields_present
+      fields: [name.tr, name.en, radius_km, position_km]
+      note: >-
+        A name in both languages, the mean radius from Horizons' own header, and where it is on the
+        epoch. A body with no radius would be drawn at a size nobody published.
+    - kind: numeric_at_least
+      field: radius_km
+      minimum: 1000
+      note: >-
+        Every body here is larger than a thousand kilometres; a smaller radius means the header was
+        read from the wrong line. Pluto, the smallest, is 1 188.
+
+  cosmos-stars:
+    path: data/cosmos/stars.json
+    records: stars
+    id_field: "0"
+    checks:
+    - kind: unique_ids
+      note: One row per Hipparcos number, and no star twice.
+    - kind: record_count
+      at_least: 25000
+      note: >-
+        30 546 stars pass the 10% parallax cut on the day this was built. A floor rather than a number
+        because HEASARC may reprocess; far fewer means the query or the decoding went wrong.
+    - kind: numeric_at_least
+      field: "3"
+      minimum: 0.001
+      note: >-
+        Every parallax is positive, as the query asks, so every star has a distance. A zero or a
+        negative would be a star at infinity or behind the Sun.
+    - kind: fields_present
+      fields: ["1", "2", "3"]
+      note: A direction and a parallax for every star, which is all it takes to place one.
+
+  cosmos-galaxies:
+    path: data/cosmos/galaxies.json
+    records: galaxies
+    id_field: "0"
+    checks:
+    - kind: unique_ids
+      note: One row per 2MASS identifier, and no galaxy twice.
+    - kind: record_count
+      at_least: 40000
+      note: >-
+        43 507 galaxies are receding from us on the day this was built; far fewer means the query or
+        the decoding went wrong.
+    - kind: numeric_at_least
+      field: "3"
+      minimum: 1
+      note: >-
+        Every velocity is positive, as the query asks. A galaxy falling towards us has no Hubble-law
+        distance, and one that got through would be drawn behind the observer.
+
   nightlights-viirs:
     path: data/nightlights/viirs.json
     records: dates

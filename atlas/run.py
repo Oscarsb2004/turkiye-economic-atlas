@@ -91,6 +91,18 @@ def run_card(ctx: Context, dataset: str, card: dict) -> dict:
     if built.copies:
         log.info("%d of %d copies rewritten", copied, len(built.copies))
 
+    for destination, body in built.blobs:
+        if Path(destination) not in declared:
+            raise RuntimeError(f"{dataset}: wrote {destination}, which its card does not declare as an output")
+        rel = Path(destination).relative_to(R.ROOT).as_posix()
+        changed = not Path(destination).exists() or Path(destination).read_bytes() != body
+        if changed:
+            Path(destination).parent.mkdir(parents=True, exist_ok=True)
+            Path(destination).write_bytes(body)
+        written[rel] = {"changed": changed, "bytes": len(body),
+                        "sha256": hashlib.sha256(body).hexdigest()}
+        log.info("%-45s %s", rel, "updated" if changed else "unchanged")
+
     for frame in built.frames:
         body, _ = frames.write(frame, BUILD_DIR / "frames")
         log.info("frame %s: %d rows (%s)", body.relative_to(R.ROOT).as_posix(), len(frame.rows), frame.profile)

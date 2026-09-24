@@ -1,0 +1,17 @@
+# registry/sources/nasa_heasarc.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: HEASARC — Hipparcos New Reduction and the 2MASS Redshift Survey, by TAP
+publisher: NASA High Energy Astrophysics Science Archive Research Center (HEASARC)
+licence: heasarc-unstated
+attribution: HEASARC, NASA Goddard Space Flight Center — Hipparcos New Reduction (van Leeuwen 2007); 2MASS Redshift Survey (Huchra et al. 2012)
+page: https://heasarc.gsfc.nasa.gov/
+api: https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync
+# Read for the stars and the galaxies the atlas zooms out through. HEASARC
+# republishes both catalogues behind the IVOA Table Access Protocol, so the
+# pipeline asks in ADQL for exactly the columns and rows it draws; the query is
+# written into each published file (atlas/datasets/cosmos.py).
+#
+# The service answers only in VOTable, whatever format is asked for, and in the
+# BINARY serialisation — which atlas/readers/heasarc.py decodes by each
+# column's declared type, and refuses where it does not know the width.

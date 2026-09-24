@@ -54,7 +54,10 @@ function publishedData(): Plugin {
             || !existsSync(file) || !statSync(file).isFile()) {
           return next();
         }
-        response.setHeader("Content-Type", "application/json; charset=utf-8");
+        const types: Record<string, string> = {
+          json: "application/json; charset=utf-8", jpg: "image/jpeg", png: "image/png",
+        };
+        response.setHeader("Content-Type", types[rel.split(".").pop() ?? ""] ?? "application/octet-stream");
         createReadStream(file).pipe(response);
       });
     },

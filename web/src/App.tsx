@@ -22,7 +22,7 @@
  * A province with no published figure is never drawn as zero (CLAUDE.md §10).
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   applyPalette,
@@ -45,7 +45,14 @@ import { BaseLayer } from "./BaseLayer";
 import { LANGUAGE_NAME, formatInt, initialLang, rememberLang, stringsFor } from "./i18n";
 import { Sources } from "./Sources";
 import { Legend } from "./map/Legend";
-import { ProvinceMap, type PlaceLabel } from "./map/ProvinceMap";
+import { ProvinceMap, type Departure, type PlaceLabel } from "./map/ProvinceMap";
+
+// three.js and the catalogues are for a reader who zooms out past the Earth:
+// its own chunk, fetched the first time the cosmos is opened and never before.
+const Cosmos = lazy(() => import("./cosmos/Cosmos"));
+
+/** The publishers the cosmos draws from, credited from meta.json. */
+const COSMOS_SOURCES = ["jpl_horizons", "nasa_heasarc", "nasa_svs", "nasa_gibs"];
 import { quantileBands } from "./map/bins";
 import { shadingOfBands, shadingOfClasses } from "./map/shading";
 import { DEFAULT_OVERLAY, useOverlays } from "./overlays";
@@ -74,6 +81,14 @@ export function App() {
   const [basemap, setBasemap] = useState(false);
   const [places, setPlaces] = useState<Places | null>(null);
   const [roads, setRoads] = useState<GeoJson | null>(null);
+  // Past the globe: where the map was left, and where to come back to.
+  const [departure, setDeparture] = useState<Departure | null>(null);
+  const [arrive, setArrive] = useState<{ lon: number; lat: number; at: number } | undefined>();
+  const leaveEarth = useCallback((from: Departure) => setDeparture(from), []);
+  const comeHome = useCallback((lon: number, lat: number) => {
+    setDeparture(null);
+    setArrive({ lon, lat, at: Date.now() });
+  }, []);
   const s = stringsFor(lang);
 
   useEffect(() => {
@@ -227,10 +242,26 @@ export function App() {
                   raster={overlay.raster}
                   roads={basemap ? roads : null}
                   places={labels}
+                  onLeaveEarth={leaveEarth}
+                  arrive={arrive}
                 />
+                {departure && (
+                  <Suspense fallback={<p className="notice cosmos__loading">{s.loading}</p>}>
+                    <Cosmos
+                      lang={lang}
+                      arrival={departure}
+                      earthTiles={overlay.raster?.tiles}
+                      onReturn={comeHome}
+                      credit={COSMOS_SOURCES
+                        .map((key) => meta?.sources[key]?.publisher)
+                        .filter(Boolean)
+                        .join(" · ")}
+                    />
+                  </Suspense>
+                )}
                 {/* An overlay that shades nothing brings its own key; one that
                     shades brings bands, and the shared legend explains them. */}
-                {overlay.legend ? overlay.legend
+                {departure ? null : overlay.legend ? overlay.legend
                   : binning && palette ? (
                   <Legend
                     binning={binning}
@@ -250,12 +281,15 @@ export function App() {
             )}
           </div>
 
-          <TimeSlider
-            periods={overlay.periods}
-            period={overlay.period}
-            onPick={(period) => setClock(clockOf(period))}
-            lang={lang}
-          />
+          {/* The clock is the map's; among the galaxies it has nothing to move. */}
+          {!departure && (
+            <TimeSlider
+              periods={overlay.periods}
+              period={overlay.period}
+              onPick={(period) => setClock(clockOf(period))}
+              lang={lang}
+            />
+          )}
         </section>
 
         {/* No province, no panel: an empty box saying "select a province" is

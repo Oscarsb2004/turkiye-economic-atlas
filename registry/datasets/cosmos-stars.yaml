@@ -1,0 +1,20 @@
+# registry/datasets/cosmos-stars.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "Every Hipparcos star whose parallax is known to better than 10%, as HEASARC serves the New Reduction"
+group: cosmos
+order: 20
+builder: atlas.datasets.cosmos:build_stars
+params: {}
+sources:
+- nasa_heasarc
+shells:
+- fetcher
+after: []
+outputs:
+- data/cosmos/stars.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the cosmos view draws each star at 1000 / parallax parsecs in the direction the catalogue gives

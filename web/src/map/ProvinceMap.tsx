@@ -22,6 +22,31 @@ import { useEffect, useRef, useState } from "react";
 import { loadGeoDetail, provinceName } from "../data/bundle";
 import type { Flow, Geo, GeoJson, Lang, Marker, NetworkLine, ProvinceProps, Raster } from "../data/bundle";
 import { labelsFor, type Labelled } from "./placeLabels";
+
+/** Where the map was left for the cosmos: the centre, and the globe's size. */
+export interface Departure {
+  lon: number;
+  lat: number;
+  /** The globe's radius on screen, CSS pixels. */
+  radiusPx: number;
+  /** The height that radius was measured in: the map's own, CSS pixels. */
+  heightPx: number;
+}
+
+/**
+ * The globe's radius on screen at a zoom: 512·2^zoom / 2π pixels.
+ *
+ * MapLibre's world at zoom 0 is one 512-pixel tile around the equator, and the
+ * globe is a sphere with that circumference. The cosmos view starts at the
+ * distance that gives the Earth this same radius, so leaving the map is not a
+ * jump cut (cosmos/Cosmos.tsx).
+ */
+export function globeRadiusPx(zoom: number): number {
+  return (512 * 2 ** zoom) / (2 * Math.PI);
+}
+
+/** How many wheel notches past the widest zoom it takes to leave the Earth. */
+const LEAVE_AFTER = 3;
 import type { Shading } from "./shading";
 import { fillColour, ink, mapStyle } from "./style";
 
@@ -118,6 +143,10 @@ interface Props {
   roads: GeoJson | null;
   /** The place names to draw, or none. Which of them fit is placeLabels.ts. */
   places: PlaceLabel[];
+  /** The reader zoomed out past the globe; the cosmos takes over from here. */
+  onLeaveEarth?: (departure: Departure) => void;
+  /** Coming back from the cosmos: look here, at the widest zoom. `at` changes each time. */
+  arrive?: { lon: number; lat: number; at: number };
 }
 
 /**
@@ -287,7 +316,7 @@ function whenReady(instance: maplibregl.Map, apply: () => boolean): () => void {
 
 export function ProvinceMap({
   geo, lang, selected, onSelect, shading, flows, markers, network, focus, raster, hint,
-  roads, places,
+  roads, places, onLeaveEarth, arrive,
 }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const tip = useRef<HTMLDivElement>(null);
@@ -297,6 +326,8 @@ export function ProvinceMap({
   // The map is built once, so its handlers read these rather than their own
   // closure: a new overlay or a new language reaches the cursor without the
   // map being rebuilt under the reader's pan.
+  /** The way-out button's name, in the reader's language (it is built once). */
+  const leaveTitle = useRef("");
   const hinting = useRef<Props["hint"]>(undefined);
   const reading = useRef<Lang>(lang);
   /** What the map is meant to be showing, so a resize can show it again. */
@@ -319,8 +350,11 @@ export function ProvinceMap({
   /** Set by the build effect; called from React and from the map's own events. */
   const relabelling = useRef<() => void>(() => undefined);
   labelling.current = places;
+  const leaving = useRef(onLeaveEarth);
+  leaving.current = onLeaveEarth;
   hinting.current = hint;
   reading.current = lang;
+  leaveTitle.current = lang === "en" ? "Zoom out to the universe" : "Evrene uzaklaş";
 
   // One effect builds the map; the language and selection effects below only
   // update it. Rebuilding on every prop change would reset the reader's pan.
@@ -437,6 +471,77 @@ export function ProvinceMap({
     });
 
     instance.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+
+    /** Hand the view to the cosmos, from wherever the globe is. */
+    const leave = () => {
+      const centre = instance.getCenter();
+      leaving.current?.({
+        lon: centre.lng, lat: centre.lat,
+        // The globe at its WIDEST, whatever the zoom was: the cosmos always
+        // begins with the whole planet in view, and a hand-off from a province
+        // would begin it a few hundred kilometres above the ground.
+        radiusPx: globeRadiusPx(instance.getMinZoom()),
+        heightPx: instance.getContainer().clientHeight,
+      });
+    };
+
+    // THE WAY OUT IS THE WAY A READER ALREADY ZOOMS
+    //
+    // At the widest zoom MapLibre ignores a further wheel-out; the reader's
+    // gesture has nowhere to go. A few notches past it, the cosmos takes over,
+    // so "zoom out" keeps meaning zoom out all the way to the galaxies. A few
+    // rather than one, so a reader who merely overshot is not sent to space.
+    let pastTheEdge = 0;
+    container.current.addEventListener("wheel", (event) => {
+      const atEdge = instance.getZoom() <= instance.getMinZoom() + 0.02;
+      if (!atEdge || event.deltaY <= 0) {
+        pastTheEdge = 0;
+        return;
+      }
+      pastTheEdge += 1;
+      if (pastTheEdge >= LEAVE_AFTER) {
+        pastTheEdge = 0;
+        leave();
+      }
+    }, { passive: true });
+
+    // And a button for it, for a reader without a wheel.
+    instance.addControl({
+      onAdd: () => {
+        const box = document.createElement("div");
+        box.className = "maplibregl-ctrl maplibregl-ctrl-group";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "cosmos-leave";
+        button.textContent = "✦";
+        button.title = leaveTitle.current;
+        button.setAttribute("aria-label", leaveTitle.current);
+        // From wherever the map is, out to the whole globe first, THEN away:
+        // pressed while looking at a province, the hand-off would otherwise
+        // start the cosmos a few hundred kilometres above the ground, where
+        // the planet's night texture is a blur.
+        button.addEventListener("click", () => {
+          if (instance.getZoom() <= instance.getMinZoom() + 0.02) {
+            leave();
+            return;
+          }
+          let gone = false;
+          const go = () => {
+            if (gone) return;
+            gone = true;
+            leave();
+          };
+          instance.once("moveend", go);
+          // `moveend` needs rendered frames; a pane that is not painting gives
+          // none, and the button must not then do nothing (CLAUDE.md, "load").
+          window.setTimeout(go, 1700);
+          instance.easeTo({ zoom: instance.getMinZoom(), duration: 1400 });
+        });
+        box.append(button);
+        return box;
+      },
+      onRemove: () => undefined,
+    }, "top-right");
     instance.on("zoomend", deepen);
     instance.on("moveend", () => relabelling.current());
     instance.on("mousemove", "provinces-fill", (event) => {
@@ -543,6 +648,16 @@ export function ProvinceMap({
       return true;
     });
   }, [selected, swapped]);
+
+  // Back from the cosmos: the globe at its widest, over the place the reader
+  // was looking down on when they came home. Marked as the reader's own view,
+  // so a resize does not reframe it to Türkiye.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance || !arrive) return;
+    touched.current = true;
+    instance.jumpTo({ center: [arrive.lon, arrive.lat], zoom: instance.getMinZoom() });
+  }, [arrive]);
 
   // The reference road network, which is in the style, empty and hidden until
   // the reader asks for it.

@@ -1,0 +1,21 @@
+# registry/datasets/cosmos-sky.yaml - one dataset the pipeline makes.
+# atlas/core/registry.py checks every claim below.
+
+title: "The Milky Way's diffuse light, from NASA's Deep Star Maps 2020"
+group: cosmos
+order: 40
+builder: atlas.datasets.cosmos:build_sky
+params: {}
+sources:
+- nasa_svs
+shells:
+- fetcher
+after: []
+outputs:
+- data/cosmos/sky.json
+- data/cosmos/milky-way.jpg
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the cosmos view wraps milky-way.jpg around the sky, behind the catalogue's stars

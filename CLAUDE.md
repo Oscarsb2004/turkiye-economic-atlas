@@ -156,6 +156,15 @@ zoom, never Web Mercator and never MapLibre's "globe" preset, which hands over t
 zoom 10. The rest of the world is therefore the whole planet, not a box around Türkiye — a box
 on a sphere is a rectangle of countries floating on nothing.
 
+**Past the globe is the rest of it** (decided by the owner, 2026-09-24). Zoom out beyond the
+Earth and the cosmos view takes over: the planets where JPL Horizons puts them, the Hipparcos
+stars at 1000/parallax parsecs, the 2MASS Redshift Survey galaxies at velocity/H0 — every one a
+NASA-published dataset, every distance a formula stated beside its rows. The camera orbits the
+Earth out to 200 AU and is free beyond; three.js is its own chunk, fetched only when a reader
+leaves the planet. The range is 10^19, which no single set of float32 coordinates holds, so
+positions live in 64-bit numbers and the scene is rebuilt around the camera every frame
+(`web/src/cosmos/scene.ts`).
+
 **One tab is one question, not one publisher.** The economy tab shades TÜİK's GDP per capita,
 derives its Canadian figures from a Bank of Canada rate and draws OpenStreetMap's railway over
 the result, because "what does this province produce and what runs through it" is one question
@@ -204,6 +213,19 @@ answer and not the earlier one — a name it had already been given hours before
 explain a name coming back; the likeliest explanation is that Overpass is several mirrors and they
 are not at the same replication point, which makes "current as of `timestamp_osm_base`" a claim
 about the mirror that answered. Chasing a recording to zero changed files is therefore not a goal.
+
+**HEASARC's TAP service answers in VOTable whatever format it is asked for** — `csv`,
+`text/csv`, `tsv` all come back as VOTable with a 200 — and it serialises the rows as BINARY:
+base64, records back to back, no separators. `atlas/readers/heasarc.py` decodes each column by
+its declared type and REFUSES one it does not know, because a width guessed wrong shifts every
+byte after it and every later value is read from the wrong place: plausible numbers, all wrong.
+
+**Horizons' Pluto ephemeris ends in 2199**, so a Pluto orbit sampled forward from 2026 is
+refused. Orbits are sampled centred on the epoch instead, which also makes the middle sample the
+epoch's own position.
+
+**`this.area` in mapshaper is square METRES for unprojected data.** A lake filter written as if it
+were square degrees (`> 0.3`) kept all 1 355 of the world's lakes.
 
 **A GTFS feed is not automatically GTFS.** İstanbul's is Windows-1254 where the spec requires
 UTF-8 — `BEŞİKTAŞ` is not valid UTF-8 and a spec-trusting reader dies on the fourth line — and two

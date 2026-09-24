@@ -55,6 +55,26 @@ def test_path_selects_an_array_element_by_field():
     assert resolve_one(doc, "events[slug=b].expected.n") == 2
 
 
+def test_a_number_addresses_a_column_of_a_compact_row():
+    """
+    The cosmos catalogues publish each star or galaxy as an array rather than
+    an object, because 43 507 copies of the same key names were most of the
+    file. A declared check has to be able to say "column 3" — and an id must
+    be readable the same way, or unique_ids reads every row as having none.
+    """
+    row = [1234, 101.287, -16.716, 379.21, -1.44, 0.009]
+    assert resolve_one(row, "0") == 1234
+    assert resolve_one(row, "3") == 379.21
+    assert resolve(row, "9") == [], "past the end is absent, not an error"
+    doc = {"stars": [row, [5678, 0.0, 0.0, 1.0, 9.0, 1.2]]}
+    assert resolve(doc, "stars[].3") == [379.21, 1.0]
+
+    ok, _, detail = checks.check_unique_ids(doc["stars"], {}, {"name": "probe", "dataset": {"id_field": "0"}})
+    assert ok, detail
+    ok, _, detail = checks.check_unique_ids([row, row], {}, {"name": "probe", "dataset": {"id_field": "0"}})
+    assert not ok and "1234" in detail
+
+
 def test_unresolvable_path_returns_empty_rather_than_raising():
     """
     This is what lets one registry describe datasets that are not shaped alike.
