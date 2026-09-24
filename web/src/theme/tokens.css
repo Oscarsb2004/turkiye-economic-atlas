@@ -37,6 +37,15 @@
      not read as "low" (CLAUDE.md §10). */
   --no-figure: #2a2a2a;
 
+  /* The planet under the data. Chrome, not data: nothing is encoded in these,
+     so they sit outside the validated palette (CLAUDE.md §9). The ocean is
+     darker than the land so a coastline reads on a globe with no data on it,
+     and both are darker than every step of the ramp so a shaded province is
+     never mistaken for a country. */
+  --map-ocean: #050b16;
+  --map-land: #161d29;
+  --map-border: #2b3547;
+
   --gutter: 16px;
   --radius: 10px;
   --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -149,10 +158,15 @@ body {
   inset: 0;
 }
 
-/* MapLibre owns this element; the hover label is its sibling, not its child. */
+/* MapLibre owns this element; the hover label is its sibling, not its child.
+   The map is a globe, and what it does not cover is space: MapLibre clears
+   everything outside the planet and its atmosphere to transparent, so the
+   night sky behind it is this element's background. */
 .map__canvas {
   position: absolute;
   inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, #0a1426 0%, #04070f 55%, #000 100%);
 }
 
 /* ── The hover label ────────────────────────────────────────────────────────

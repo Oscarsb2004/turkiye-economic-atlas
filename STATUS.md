@@ -42,7 +42,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (68 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (633 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/nightlights/viirs.json` (36 KB)<br>`web/public/data/places/settlements.json` (366 KB)<br>`web/public/data/meta.json` (7 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>The bundle the site fetches, plus the generated meta and palette | `web/public/data/provinces/gdp-per-capita.json` (68 KB)<br>`web/public/data/elections/2023-cumhurbaskani-1.json` (42 KB)<br>`web/public/data/elections/2023-cumhurbaskani-2.json` (36 KB)<br>`web/public/data/elections/2023-milletvekili.json` (112 KB)<br>`web/public/data/elections/index.json` (1 KB)<br>`web/public/data/migration/2020.json` (151 KB)<br>`web/public/data/migration/2021.json` (151 KB)<br>`web/public/data/migration/2022.json` (152 KB)<br>`web/public/data/migration/2023.json` (152 KB)<br>`web/public/data/migration/2024.json` (151 KB)<br>`web/public/data/migration/2025.json` (151 KB)<br>`web/public/data/airports/2020.json` (93 KB)<br>`web/public/data/airports/2021.json` (93 KB)<br>`web/public/data/airports/2022.json` (95 KB)<br>`web/public/data/airports/2023.json` (95 KB)<br>`web/public/data/airports/2024.json` (96 KB)<br>`web/public/data/airports/2025.json` (96 KB)<br>`web/public/data/rail/network.json` (1.5 MB)<br>`web/public/data/rail/stations.json` (633 KB)<br>`web/public/data/transit/istanbul.json` (432 KB)<br>`web/public/data/nightlights/viirs.json` (31 KB)<br>`web/public/data/places/settlements.json` (366 KB)<br>`web/public/data/meta.json` (7 KB)<br>`web/public/data/palette.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
@@ -73,7 +73,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (36 KB) | yes | `web/src/data/bundle.ts` |
+| **nightlights-viirs**<br>The VIIRS nightlights layer, its dates, and a tile proving each one | `data/nightlights/viirs.json` (31 KB) | yes | `web/src/data/bundle.ts` |
 
 ### places
 

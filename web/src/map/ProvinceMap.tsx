@@ -428,6 +428,12 @@ export function ProvinceMap({
         : { center: HOME.center, zoom: HOME.zoom }),
       attributionControl: false,
       style: mapStyle(geo),
+      // One planet, not a strip of them: a globe has nothing to repeat.
+      renderWorldCopies: false,
+      // Far enough out to see the whole Earth hanging in space, and no further
+      // in than any layer here has detail for.
+      minZoom: 0.6,
+      maxZoom: 13,
     });
 
     instance.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
@@ -645,12 +651,25 @@ export function ProvinceMap({
   // Imagery under the map. Added and removed rather than kept empty: a raster
   // source with no tiles is not a thing MapLibre will hold, and only one
   // overlay at a time wants one.
+  //
+  // THE IMAGERY IS THE PLANET, SO NOTHING ELSE MAY COVER IT
+  //
+  // The rest of the world is a solid land fill for context, and lakes are
+  // painted over everything so Van is not land. Over the night-time Earth both
+  // are wrong: the fill hides every other country's lights, and the lakes come
+  // out as blobs on a black planet. With imagery on screen they
+  // go transparent and only the borders stay, drawn over the lights.
   useEffect(() => {
     const instance = map.current;
     if (!instance) return;
     return whenReady(instance, () => {
       // The layer the imagery is inserted UNDER has to exist before it can be.
       if (!instance.getLayer("world")) return false;
+      instance.setPaintProperty("world", "fill-opacity", raster ? 0 : 1);
+      // The other countries' borders stay, faintly: over the lights they are a
+      // reference, and at full strength they were a grid laid over the picture.
+      instance.setPaintProperty("world-line", "line-opacity", raster ? 0.35 : 1);
+      instance.setPaintProperty("water", "fill-opacity", raster ? 0 : 0.9);
       const existing = instance.getSource("imagery") as maplibregl.RasterTileSource | undefined;
       if (!raster) {
         if (existing) {
@@ -667,7 +686,16 @@ export function ProvinceMap({
       instance.addSource("imagery", {
         type: "raster",
         tiles: [raster.tiles],
-        tileSize: 256,
+        // TILES DECLARED AT HALF THEIR SIZE, SO THE GLOBE IS SHARP
+        //
+        // The publisher's tiles are 256 px. Declared as 128, MapLibre asks for
+        // the zoom level ABOVE the one it would otherwise use — twice the
+        // pixels across, four times the tiles — which is the difference
+        // between a blurred planet and one whose cities are points of light
+        // when the whole globe is in view, on a screen with two pixels per
+        // point. Past the layer's own maximum zoom nothing changes: there is
+        // no finer imagery to ask for.
+        tileSize: 128,
         maxzoom: raster.maxZoom,
         attribution: raster.attribution,
       });
@@ -675,7 +703,12 @@ export function ProvinceMap({
       // the map, and the borders are drawn on top of it.
       instance.addLayer(
         { id: "imagery", type: "raster", source: "imagery",
-          paint: { "raster-opacity": raster.opacity ?? 1 } },
+          paint: {
+            "raster-opacity": raster.opacity ?? 1,
+            "raster-resampling": "linear",
+            // A month changing is a cross-fade rather than a flash of black.
+            "raster-fade-duration": 400,
+          } },
         "world",
       );
       return true;

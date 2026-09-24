@@ -1,5 +1,5 @@
 """
-atlas.datasets.nightlights — Türkiye after dark, a night at a time.
+atlas.datasets.nightlights — the Earth after dark, as NASA publishes it.
 
     python -m atlas.run nightlights
 
@@ -14,31 +14,34 @@ alternative is a URL written into the app — an unchecked claim about somebody
 else's service, which would go black with no error the day it changed. The
 service describes itself (atlas/readers/wmts.py) and this reads that.
 
-WHY A MONTH RECENTLY AND A YEAR BEFORE THAT
+TWO PRODUCTS: NASA'S COMPOSITES, AND A NIGHT A MONTH
 
-The layer publishes a day at a time from January 2012 to yesterday: about five
-thousand of them, which is not a time slider. Two rules, stated here rather
-than chosen a night at a time for how they look:
+The daily layer publishes a night at a time from January 2012 to yesterday —
+about five thousand of them, which is not a time slider, and one night is one
+night: moon, cloud and snow differ from each to the next. So the series is two
+things, each stated rather than chosen for how it looks:
 
-    the last night the layer publishes in each MONTH, for the last five
-    calendar years — which is what a reader wants when they are looking at a
-    city that was built in that time
+    BLACK MARBLE 2012 and 2016 — NASA's own cloud-free annual composites of the
+    same instrument (layer VIIRS_Black_Marble). They are the picture of the
+    Earth at night that NASA publishes as a picture, and nothing this project
+    could assemble from single nights would be as clean.
 
-    and the last night it publishes in each YEAR before those five, so the
-    series still reaches back to the first night the layer has
+    ONE NIGHT A MONTH for the last five calendar years, from the gap-filled
+    daily layer: the last night the layer publishes in each month, or — where
+    that night's tile over Türkiye is empty — the one before it, for up to ten
+    published nights. A month is the step because the owner asked for months,
+    not days, and GIBS publishes no monthly night composite to use instead
+    (checked 2026-09-24 against all 1 319 layers in its capabilities).
 
-Neither is a night picked for its weather. Both take the LAST night the
-service publishes in the period — and then, if that night's tile over Türkiye
-is empty, the one before it, and so on for up to ten published nights.
+These replace ten single nights, one a year from 2012 to 2021: single nights
+standing in for years that NASA publishes proper composites of.
 
 AND THE LAST NIGHT OF A MONTH IS SOMETIMES NOTHING AT ALL
 
-Found while building this: the layer publishes 31 January 2024 and the tile
-over Türkiye is a 934-byte PNG, which is a valid image of nothing. A monthly
-series hits that in a way a yearly one never did, because the yearly rule only
-ever asked for Decembers. Stepping back through the published nights is what
-keeps such a month on the slider; a month where ten of them are empty is left
-off it entirely and counted in `skipped`, rather than offered as a black map.
+Found while building the monthly series: the layer publishes 31 January 2024
+and the tile over Türkiye is a 934-byte PNG, a valid image of nothing. Stepping
+back through the published nights is what keeps such a month on the slider; a
+month where ten of them are empty is left off it and counted in `skipped`.
 
 AND WHAT THAT PICTURE IS NOT
 
@@ -72,17 +75,18 @@ log = logging.getLogger(__name__)
 
 SOURCE_KEY = "nasa_gibs"
 
-#: The layer. Gap-filled and BRDF-corrected rather than at-sensor radiance:
-#: NASA has already removed the moonlight and filled the cloud gaps, which is
-#: the difference between a map of Türkiye and a map of last night's weather.
+#: The monthly layer. Gap-filled and BRDF-corrected rather than at-sensor
+#: radiance: NASA has already removed the moonlight and filled the cloud gaps,
+#: the difference between a map of the Earth and a map of last night's weather.
 LAYER = "VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance"
 
-#: The first year the layer covers. Its first published day is 19 January 2012.
-FIRST_YEAR = 2012
+#: NASA's cloud-free annual composites of the same instrument. Two of them,
+#: 2012 and 2016, and every time value the layer publishes is offered.
+COMPOSITE_LAYER = "VIIRS_Black_Marble"
 
 #: How many calendar years are offered a month at a time, counting back from
 #: the newest year the layer publishes and including it. Five, because that is
-#: what the owner asked for; the years before them keep one night each.
+#: what the owner asked for; before them, NASA's composites stand for the years.
 MONTHLY_YEARS = 5
 
 #: The tile fetched as proof, in the service's own coordinates: zoom 4, where
@@ -143,62 +147,99 @@ def tile_url(template: str, when: str, **tile: str) -> str:
     return url
 
 
+def _proof(ctx: Context, template: str, when: str) -> tuple[bytes, str]:
+    """One tile over Türkiye for a date, fetched and checked to be a PNG."""
+    url = tile_url(template, when, **PROOF_TILE)
+    body = ctx.fetch.bytes(url, force=ctx.refresh)
+    if not body.startswith(b"\x89PNG"):
+        raise ValueError(
+            f"{when}: the tile at {url} starts {body[:8]!r} and is not a PNG; "
+            f"the service is answering with something this reader was not written for"
+        )
+    return body, url
+
+
+def _layer_card(layer: wmts.Layer, src: dict, label: dict[str, str]) -> dict:
+    """What the app needs to draw one layer, and what the checks hold it against."""
+    return {
+        "id": layer.identifier,
+        "title": layer.title,
+        "label": label,
+        "template": layer.template,
+        "tile_matrix_set": MATRIX_SET,
+        "max_zoom": MAX_ZOOM,
+        "formats": layer.formats,
+        "default_time": layer.default_time,
+        "capabilities": src["api"],
+        "attribution": src["attribution"],
+        # Every interval the service publishes, as it publishes them. The
+        # declared checks hold this atlas's dates against these.
+        "periods": layer.periods,
+    }
+
+
 def build(ctx: Context, *, dataset: str) -> Built:
-    """The nightlights layer, its dates, and a tile for each of them."""
+    """NASA's night composites, a night a month, and a tile proving each one."""
     src = R.source(SOURCE_KEY)
     capabilities = ctx.fetch.bytes(src["api"], force=ctx.refresh)
     layer = wmts.layer(capabilities, LAYER)
-
-    if MATRIX_SET not in layer.matrix_sets:
-        raise ValueError(f"{LAYER}: the service no longer publishes {MATRIX_SET}; it has {layer.matrix_sets}")
+    marble = wmts.layer(capabilities, COMPOSITE_LAYER)
+    for each in (layer, marble):
+        if MATRIX_SET not in each.matrix_sets:
+            raise ValueError(f"{each.identifier}: the service no longer publishes {MATRIX_SET}; "
+                             f"it has {each.matrix_sets}")
 
     newest = wmts.latest(layer.periods)
     retrieved = clock.now_iso()
     newest_year = int(newest[:4])
     first_monthly_year = newest_year - MONTHLY_YEARS + 1
 
-    # Every stop this atlas offers, as (what it stands for, the last day of it).
-    # Built as a list of PERIODS first, so the two rules meet in one place and
-    # the fetch loop below does not have to know which rule made a stop.
-    wanted: list[tuple[str, str, str]] = [
-        ("year", str(year), f"{year}-12-31")
-        for year in range(FIRST_YEAR, first_monthly_year)
-    ] + [
-        ("month", f"{year}-{month:02d}", _month_end(year, month))
+    # ── NASA's composites: every one the layer publishes ──────────────────────
+    composites = []
+    for period in marble.periods:
+        # A composite's period is a single instant, "2016-01-01/2016-01-01/P1Y".
+        when = period.split("/")[0]
+        body, url = _proof(ctx, marble.template, when)
+        if len(body) < MIN_TILE_BYTES:
+            raise ValueError(f"{marble.identifier} {when}: the proof tile is {len(body)} bytes; "
+                             f"a composite NASA publishes must have imagery behind it")
+        composites.append({
+            "date": when,
+            "year": when[:4],
+            "stands_for": when[:4],
+            "period": period,
+            "tile": url,
+            "tile_bytes": len(body),
+            "tile_sha256": hashlib.sha256(body).hexdigest(),
+        })
+
+    # ── A night a month, for the last five calendar years ─────────────────────
+    wanted = [
+        (f"{year}-{month:02d}", _month_end(year, month))
         for year in range(first_monthly_year, newest_year + 1)
         for month in range(1, 13)
         # Not the months after the newest night the layer publishes. Asking for
-        # them would put "October 2026 has no imagery" in the file on the 21st
-        # of September, which is true and is not a finding.
+        # them would put "October 2026 has no imagery" in the file in September,
+        # which is true and is not a finding.
         if f"{year}-{month:02d}" <= newest[:7]
     ]
 
     dates = []
     skipped: list[str] = []
-    for grain, stands_for, last_day in wanted:
-        # The last night the layer publishes in that period, then the one before
-        # it, until one of them has imagery over Türkiye. A rule, not a choice
-        # about which night looks best.
+    for stands_for, last_day in wanted:
+        # The last night the layer publishes in that month, then the one before
+        # it, until one of them has imagery over Türkiye.
         chosen: tuple[str, bytes, str] | None = None
         empty = 0
         for night in nights_back(layer.periods, last_day, LOOK_BACK):
             if not night.startswith(stands_for):
-                break                # stepped out of the period this stop is for
-            url = tile_url(layer.template, night, **PROOF_TILE)
-            body = ctx.fetch.bytes(url, force=ctx.refresh)
-            if not body.startswith(b"\x89PNG"):
-                raise ValueError(
-                    f"{night}: the tile at {url} starts {body[:8]!r} and is not a PNG; "
-                    f"the service is answering with something this reader was not written for"
-                )
+                break                # stepped out of the month this stop is for
+            body, url = _proof(ctx, layer.template, night)
             if len(body) >= MIN_TILE_BYTES:
                 chosen = (night, body, url)
                 break
             empty += 1
         if chosen is None:
-            # A period the service has not reached, or one whose nights are all
-            # empty over Türkiye. Left off the slider rather than offered as a
-            # black map, and counted so the omission is visible.
             skipped.append(stands_for)
             continue
 
@@ -209,10 +250,9 @@ def build(ctx: Context, *, dataset: str) -> Built:
         dates.append({
             "date": day,
             "year": day[:4],
-            # Which period this night stands for, and how long that period is.
+            # The month this night stands for.
             "stands_for": stands_for,
-            "grain": grain,
-            # How many later nights in the same period were empty over Türkiye.
+            # How many later nights in the same month were empty over Türkiye.
             "empty_nights_after": empty,
             # The period the service publishes this day inside, as it writes it.
             "period": period,
@@ -221,40 +261,35 @@ def build(ctx: Context, *, dataset: str) -> Built:
             "tile_sha256": hashlib.sha256(body).hexdigest(),
         })
 
+    monthly = _layer_card(layer, src, {"tr": "Gece ışıkları — ayda bir gece (VIIRS)",
+                                       "en": "Nightlights — one night a month (VIIRS)"})
+    monthly["chosen"] = {
+        "provenance": Provenance.DERIVED.value,
+        "rule": (f"the last night the layer publishes in each month of {first_monthly_year}.."
+                 f"{newest_year}; where that night's tile over Türkiye is empty, the night "
+                 f"before it, for up to {LOOK_BACK} published nights"),
+        "monthly_from": f"{first_monthly_year}-01",
+        "months": len(dates),
+        # Months the layer has reached and published nothing usable in, named
+        # rather than silently missing from the series.
+        "skipped": skipped,
+        "caution": ("one night's radiance, not a measure of activity: nights differ by moon, "
+                    "snow and cloud even after the gap-filling"),
+    }
+    composite = _layer_card(marble, src, {"tr": "Kara Mermer — bulutsuz yıllık bileşim (VIIRS)",
+                                          "en": "Black Marble — cloud-free annual composite (VIIRS)"})
+    composite["chosen"] = {
+        "provenance": Provenance.OFFICIAL_DATASET.value,
+        "rule": "every composite the layer publishes",
+        "caution": ("NASA's own composite of many cloud-free nights of a year; still radiance, "
+                    "not a measure of activity"),
+    }
+
     payload = {
         "generated_at": retrieved,
-        "layer": {
-            "id": layer.identifier,
-            "title": layer.title,
-            "label": {"tr": "Gece ışıkları (VIIRS)", "en": "Nightlights (VIIRS)"},
-            "template": layer.template,
-            "tile_matrix_set": MATRIX_SET,
-            "max_zoom": MAX_ZOOM,
-            "formats": layer.formats,
-            "default_time": layer.default_time,
-            "capabilities": src["api"],
-            "attribution": src["attribution"],
-            # Every interval the service publishes, as it publishes them. The
-            # declared checks hold this atlas's dates against these.
-            "periods": layer.periods,
-            "chosen": {
-                "provenance": Provenance.DERIVED.value,
-                "rule": (f"the last night the layer publishes in each month of "
-                         f"{first_monthly_year}..{newest_year}, and in each year from "
-                         f"{FIRST_YEAR} to {first_monthly_year - 1}; where that night's tile "
-                         f"over Türkiye is empty, the night before it, for up to {LOOK_BACK} "
-                         f"published nights"),
-                "monthly_from": f"{first_monthly_year}-01",
-                "months": sum(1 for entry in dates if entry["grain"] == "month"),
-                "years": sum(1 for entry in dates if entry["grain"] == "year"),
-                # Periods the layer has reached and published nothing usable
-                # in, named rather than silently missing from the series. A
-                # month in the future is not asked for and is not one of these.
-                "skipped": skipped,
-                "caution": ("one night's radiance, not a measure of activity: nights differ by moon, "
-                            "snow and cloud even after the gap-filling"),
-            },
-        },
+        "layer": monthly,
+        "black_marble": composite,
+        "composites": composites,
         "dates": dates,
         "sources": [SourceRef(
             url=src["page"], retrieved_at=retrieved,
@@ -262,16 +297,14 @@ def build(ctx: Context, *, dataset: str) -> Built:
         ).to_dict()],
     }
 
-    log.info("nightlights: %s, %d dates %s..%s (%d monthly from %s, %d yearly), "
-             "%d skipped for empty imagery, %d published periods",
-             layer.identifier, len(dates), dates[0]["date"] if dates else "-",
-             dates[-1]["date"] if dates else "-",
-             sum(1 for entry in dates if entry["grain"] == "month"), f"{first_monthly_year}-01",
-             sum(1 for entry in dates if entry["grain"] == "year"),
-             len(skipped), len(layer.periods))
+    log.info("nightlights: %d composites (%s) and %d months %s..%s, %d skipped for empty imagery",
+             len(composites), ", ".join(c["year"] for c in composites), len(dates),
+             dates[0]["stands_for"] if dates else "-", dates[-1]["stands_for"] if dates else "-",
+             len(skipped))
     return Built(
         outputs=[(R.DATA_DIR / "nightlights" / "viirs.json", payload)],
-        receipt={"layer": layer.identifier, "dates": [entry["date"] for entry in dates],
-                 "periods": len(layer.periods), "newest_published": newest,
-                 "skipped": skipped},
+        receipt={"layers": [layer.identifier, marble.identifier],
+                 "composites": [c["date"] for c in composites],
+                 "dates": [entry["date"] for entry in dates],
+                 "newest_published": newest, "skipped": skipped},
     )

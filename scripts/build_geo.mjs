@@ -43,8 +43,8 @@
  *     points.json             one point inside each il, where a flow arc ends
  *     turkiye.json            the country outline, DISSOLVED from provinces
  *     turkiye-detail.json     and from the detail tier, for the same reason
- *     world.json              every other country, for context around the edges
- *     water.json              lakes, so Van and Tuz are not painted as land
+ *     world.json              every other country, the whole planet, for the globe
+ *     water.json              the larger lakes of the world, so Van is not land
  *     roads.json              the main road network, as a reference layer
  *     SOURCES.json            what was downloaded and every command that shaped it
  *
@@ -116,10 +116,6 @@ const SOURCES = {
     note: "The reference road network. Not a highway map: 1 304 segments cover Türkiye, and KGM's own network cannot be reproduced here (CLAUDE.md §3).",
   },
 };
-
-//: Everything a reader can see around Türkiye at the zooms this map uses.
-//: Anything outside it is weight in the committed file and nothing on screen.
-const CONTEXT_BBOX = "19,32,52,46";
 
 //: Türkiye and a little sea around it, for clipping the road network.
 const COUNTRY_BBOX = "25,35,45.5,42.5";
@@ -193,23 +189,32 @@ const BUILDS = {
     "-each \"name = 'Türkiye'\"",
     "-o {out}/turkiye-detail.json format=geojson precision=0.00001",
   ],
+  // THE WHOLE PLANET, BECAUSE THE MAP IS A GLOBE
+  //
+  // This was clipped to a box around Türkiye while the map was a flat Web
+  // Mercator square, where nothing past the box was ever on screen. On a globe
+  // the box is a rectangle of countries floating on an empty sphere — the "2D
+  // square of the world" the owner asked to be rid of. 6% of Natural Earth's
+  // 1:10m countries is 639 KB for all 257, measured against 3% (347 KB, visibly
+  // faceted coastlines on a turning globe) and 10% (1 MB, no difference a reader
+  // can see at the zooms the rest of the world is drawn at).
   world: [
     "-i {countries}",
     '-filter "ISO_A2 !== \'TR\'"',
     '-each "name = NAME_EN"',
     "-filter-fields name",
-    // Context, not data: the neighbours a reader can see past the border. The
-    // whole world at 1:10m is 400 KB of coastline nobody looks at on this map.
-    `-clip bbox=${CONTEXT_BBOX}`,
-    "-simplify 4% keep-shapes",
+    "-simplify 6% keep-shapes",
     "-clean",
-    "-o {out}/world.json format=geojson precision=0.01",
+    "-o {out}/world.json format=geojson precision=0.001",
   ],
   water: [
     "-i {lakes}",
-    `-clip bbox=${CONTEXT_BBOX}`,
-    // Anything smaller than this is invisible at the zooms this map uses.
-    '-filter "this.area > 0.02"',
+    // The larger lakes of the whole world — the Caspian, the Great Lakes and
+    // Victoria as well as Van and Tuz. `this.area` is square METRES for
+    // unprojected data, not square degrees: a threshold of 0.3 kept all 1 355
+    // lakes, which is how that was found. 500 km² keeps Tuz Gölü, the smallest
+    // lake this atlas names, and drops the specks.
+    '-filter "this.area > 5e8"',
     '-each "name = name || \'\'"',
     "-filter-fields name",
     "-simplify 10% keep-shapes",

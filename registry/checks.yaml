@@ -623,22 +623,17 @@ datasets:
     - kind: unique_ids
       note: One record per night offered, and no night twice.
     - kind: record_count
-      at_least: 60
+      at_least: 50
       note: >-
-        A floor rather than a number, because this collection grows on its own: one night a month for
-        the last five calendar years, plus one a year back to 2012, so an exact count would fail on
-        the first of every month and mean nothing. Sixty is below any month's total and far above an
-        empty or collapsed answer, which is the failure worth catching.
+        A floor rather than a number, because this collection grows on its own — one night a month for
+        the last five calendar years, so an exact count would fail on the first of every month and
+        mean nothing. Fifty is below any January's total and far above an empty or collapsed answer,
+        which is the failure worth catching.
     - kind: fields_present
-      fields: [year, stands_for, grain, period, tile, tile_bytes, tile_sha256]
+      fields: [year, stands_for, period, tile, tile_bytes, tile_sha256]
       note: >-
-        The period it stands for and how long that period is, the published interval it falls in, the
-        tile fetched as proof, and what came back.
-    - kind: enum_field
-      field: grain
-      allowed: [month, year]
-      note: >-
-        The two rules that choose a night. A third value would mean a stop nobody decided on.
+        The month it stands for, the published interval it falls in, the tile fetched as proof, and
+        what came back.
     - kind: date_in_declared_ranges
       field: date
       ranges_path: layer.periods
@@ -650,5 +645,29 @@ datasets:
       field: tile_bytes
       minimum: 1000
       note: >-
-        Each proof tile is a real PNG rather than an empty answer. This is the only layer whose
-        imagery the reader's browser fetches live, so "the date works" has to be checked here.
+        Each proof tile is a real PNG rather than an empty answer. This is the one layer whose imagery
+        the reader's browser fetches live, so "the date works" has to be checked here.
+
+  nightlights-black-marble:
+    path: data/nightlights/viirs.json
+    records: composites
+    id_field: date
+    checks:
+    - kind: unique_ids
+      note: One record per composite, and no year twice.
+    - kind: record_count
+      at_least: 2
+      note: >-
+        NASA publishes Black Marble composites for 2012 and 2016 and the dataset offers every one the
+        layer publishes. Fewer than two means the layer lost one, which is worth knowing before the
+        slider quietly loses its showpiece.
+    - kind: date_in_declared_ranges
+      field: date
+      ranges_path: black_marble.periods
+      note: >-
+        Every composite offered is one the Black Marble layer's own capabilities entry publishes,
+        recomputed from its declared periods rather than trusted from the pipeline.
+    - kind: numeric_at_least
+      field: tile_bytes
+      minimum: 1000
+      note: Each composite's proof tile is imagery, not an empty PNG.

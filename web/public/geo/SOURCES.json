@@ -64,12 +64,12 @@
       "command": "-i {out}/provinces-detail.json -dissolve2 -each \"name = 'Türkiye'\" -o {out}/turkiye-detail.json format=geojson precision=0.00001"
     },
     "world": {
-      "features": 32,
-      "command": "-i {countries} -filter \"ISO_A2 !== 'TR'\" -each \"name = NAME_EN\" -filter-fields name -clip bbox=19,32,52,46 -simplify 4% keep-shapes -clean -o {out}/world.json format=geojson precision=0.01"
+      "features": 257,
+      "command": "-i {countries} -filter \"ISO_A2 !== 'TR'\" -each \"name = NAME_EN\" -filter-fields name -simplify 6% keep-shapes -clean -o {out}/world.json format=geojson precision=0.001"
     },
     "water": {
-      "features": 23,
-      "command": "-i {lakes} -clip bbox=19,32,52,46 -filter \"this.area > 0.02\" -each \"name = name || ''\" -filter-fields name -simplify 10% keep-shapes -o {out}/water.json format=geojson precision=0.001"
+      "features": 356,
+      "command": "-i {lakes} -filter \"this.area > 5e8\" -each \"name = name || ''\" -filter-fields name -simplify 10% keep-shapes -o {out}/water.json format=geojson precision=0.001"
     },
     "roads": {
       "features": 1457,

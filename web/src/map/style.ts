@@ -72,13 +72,31 @@ export function fillColour(accent: string, noFigure: string, ramp: string[]) {
 /** The whole style, built from the geometry the app has loaded. */
 export function mapStyle(geo: Geo): StyleSpecification {
   const accent = ink("--accent-9", "#0090ff");
-  const surface = ink("--surface-2", "#222222");
+  const land = ink("--map-land", "#161d29");
+  const border = ink("--map-border", "#2b3547");
   const line = ink("--line", "#3a3a3a");
-  const waterColour = ink("--surface-1", "#191919");
+  const waterColour = ink("--map-ocean", "#050b16");
   const noFigure = ink("--no-figure", "#2a2a2a");
 
   return {
   version: 8,
+  // ALWAYS A GLOBE
+  //
+  // `vertical-perspective` at every zoom, not MapLibre's own "globe" preset —
+  // that one hands over to Web Mercator past zoom 10, which is the flat square
+  // of the world the owner asked never to see again. Nothing this atlas draws
+  // is detailed enough for the globe's precision limit to show before that.
+  projection: { type: "vertical-perspective" },
+  // The thin blue edge of the planet, seen from space, lit from one side the
+  // way a planet is. Tried lit from the front: the atmosphere then hazes the
+  // WHOLE disk and washes the choropleth out, which is decoration winning over
+  // data. Gone by the time a province fills the screen.
+  sky: {
+    "sky-color": "#0b1d3a",
+    "horizon-color": "#2c5b9e",
+    "fog-color": "#0b1d3a",
+    "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 0.8, 3, 0.6, 6, 0],
+  },
   sources: {
     world: { type: "geojson", data: geo.world },
     turkiye: { type: "geojson", data: geo.turkiye },
@@ -98,8 +116,8 @@ export function mapStyle(geo: Geo): StyleSpecification {
   },
   layers: [
     { id: "background", type: "background", paint: { "background-color": waterColour } },
-    { id: "world", type: "fill", source: "world", paint: { "fill-color": surface, "fill-opacity": 0.45 } },
-    { id: "world-line", type: "line", source: "world", paint: { "line-color": line, "line-width": 0.6 } },
+    { id: "world", type: "fill", source: "world", paint: { "fill-color": land, "fill-opacity": 1 } },
+    { id: "world-line", type: "line", source: "world", paint: { "line-color": border, "line-width": 0.6 } },
     {
       id: "provinces-fill",
       type: "fill",

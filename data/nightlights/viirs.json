@@ -1,119 +1,54 @@
 {
-  "dates": [
+  "black_marble": {
+    "attribution": "NASA EOSDIS GIBS — VIIRS Day/Night Band, Suomi NPP",
+    "capabilities": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml",
+    "chosen": {
+      "caution": "NASA's own composite of many cloud-free nights of a year; still radiance, not a measure of activity",
+      "provenance": "official_dataset",
+      "rule": "every composite the layer publishes"
+    },
+    "default_time": "2016-01-01",
+    "formats": [
+      "image/png"
+    ],
+    "id": "VIIRS_Black_Marble",
+    "label": {
+      "en": "Black Marble — cloud-free annual composite (VIIRS)",
+      "tr": "Kara Mermer — bulutsuz yıllık bileşim (VIIRS)"
+    },
+    "max_zoom": 8,
+    "periods": [
+      "2012-01-01/2012-01-01/P1Y",
+      "2016-01-01/2016-01-01/P1Y"
+    ],
+    "template": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/{Time}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+    "tile_matrix_set": "GoogleMapsCompatible_Level8",
+    "title": "Black Marble (VIIRS, Suomi NPP)"
+  },
+  "composites": [
     {
-      "date": "2012-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
+      "date": "2012-01-01",
+      "period": "2012-01-01/2012-01-01/P1Y",
       "stands_for": "2012",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2012-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 18847,
-      "tile_sha256": "dad2cbe349ce878d92967b895de43701465f444a7b0e21e24bac2623a0b7dc26",
+      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2012-01-01/GoogleMapsCompatible_Level8/4/6/9.png",
+      "tile_bytes": 83408,
+      "tile_sha256": "785c4a59bb975ab926d6127215e7799b0b3a4b855a6c5f73447cdc8f5e1353e6",
       "year": "2012"
     },
     {
-      "date": "2013-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2013",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2013-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 32102,
-      "tile_sha256": "f2692a664dbe89af1f2213a53ca69fe6e1318830bad61359c17db473060afbe4",
-      "year": "2013"
-    },
-    {
-      "date": "2014-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2014",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2014-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 28955,
-      "tile_sha256": "d45f931002bfb8d739b3c5bdab48ff18537305c06ba841068df93bf29c21bf32",
-      "year": "2014"
-    },
-    {
-      "date": "2015-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2015",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2015-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 30101,
-      "tile_sha256": "e89ec1880454aeabcfb083b6f717a12488fb45b482feb6570f566b8be805bb36",
-      "year": "2015"
-    },
-    {
-      "date": "2016-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
+      "date": "2016-01-01",
+      "period": "2016-01-01/2016-01-01/P1Y",
       "stands_for": "2016",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2016-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 30495,
-      "tile_sha256": "eec8795fe8c2ac28620f6ab1aca484cee387d6ac416f3dfc300e45ce63e60c5d",
+      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/4/6/9.png",
+      "tile_bytes": 83982,
+      "tile_sha256": "fe066fff29b50dbbeb9fc805ecbc2f44410178274de73261c20579938f2b6dce",
       "year": "2016"
-    },
-    {
-      "date": "2017-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2017",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2017-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 18560,
-      "tile_sha256": "22195681c0d04c12bc0aa25d0e279e5f027c3af12669a958e10b082b5116daf0",
-      "year": "2017"
-    },
-    {
-      "date": "2018-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2018",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2018-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 27001,
-      "tile_sha256": "f0a938124b5a3430420b7cb6ed3d08c8417970d04ad29c1ed96e3de6292dc26b",
-      "year": "2018"
-    },
-    {
-      "date": "2019-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2019",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2019-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 29852,
-      "tile_sha256": "3f5860f9b3c684b71c8c152f177c3daae463bf7f0b2b6cb69b46cd26f08a6c49",
-      "year": "2019"
-    },
-    {
-      "date": "2020-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2020",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2020-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 14569,
-      "tile_sha256": "de3549b3e20620f6489a909fa085ea50f9f9ae5e7f7f1d0a3801ad745af76bd2",
-      "year": "2020"
-    },
-    {
-      "date": "2021-12-31",
-      "empty_nights_after": 0,
-      "grain": "year",
-      "period": "2012-11-23/2022-07-26/P1D",
-      "stands_for": "2021",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2021-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 29360,
-      "tile_sha256": "2fcc0c58a8c453242135d26b56c031601be41d71a5ba043271cf7d0b0c15cc10",
-      "year": "2021"
-    },
+    }
+  ],
+  "dates": [
     {
       "date": "2022-01-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-01",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-01-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -124,7 +59,6 @@
     {
       "date": "2022-02-28",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-02",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-02-28/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -135,7 +69,6 @@
     {
       "date": "2022-03-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-03",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-03-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -146,7 +79,6 @@
     {
       "date": "2022-04-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-04",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-04-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -157,7 +89,6 @@
     {
       "date": "2022-05-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-05",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-05-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -168,7 +99,6 @@
     {
       "date": "2022-06-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-06",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-06-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -179,7 +109,6 @@
     {
       "date": "2022-07-26",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2012-11-23/2022-07-26/P1D",
       "stands_for": "2022-07",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-07-26/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -190,7 +119,6 @@
     {
       "date": "2022-08-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2022-08",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-08-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -201,7 +129,6 @@
     {
       "date": "2022-09-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2022-09",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-09-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -212,7 +139,6 @@
     {
       "date": "2022-10-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2022-10",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-10-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -223,7 +149,6 @@
     {
       "date": "2022-11-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2022-11",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-11-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -234,7 +159,6 @@
     {
       "date": "2022-12-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2022-12",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2022-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -245,7 +169,6 @@
     {
       "date": "2023-01-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-01",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-01-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -256,7 +179,6 @@
     {
       "date": "2023-02-28",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-02",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-02-28/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -267,7 +189,6 @@
     {
       "date": "2023-03-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-03",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-03-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -278,7 +199,6 @@
     {
       "date": "2023-04-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-04",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-04-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -289,7 +209,6 @@
     {
       "date": "2023-05-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-05",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-05-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -300,7 +219,6 @@
     {
       "date": "2023-06-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-06",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-06-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -311,7 +229,6 @@
     {
       "date": "2023-07-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-07",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-07-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -322,7 +239,6 @@
     {
       "date": "2023-08-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-08",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-08-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -333,7 +249,6 @@
     {
       "date": "2023-09-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-09",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-09-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -344,7 +259,6 @@
     {
       "date": "2023-10-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-10",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-10-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -355,7 +269,6 @@
     {
       "date": "2023-11-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-11",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-11-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -366,7 +279,6 @@
     {
       "date": "2023-12-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2023-12",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2023-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -375,20 +287,18 @@
       "year": "2023"
     },
     {
-      "date": "2024-01-30",
-      "empty_nights_after": 1,
-      "grain": "month",
+      "date": "2024-01-31",
+      "empty_nights_after": 0,
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2024-01",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-01-30/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 25790,
-      "tile_sha256": "6b6c6f89d5aa9a356dfaa0adecdebffadf38808b27a2229ebf8509420ffb427b",
+      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-01-31/GoogleMapsCompatible_Level8/4/6/9.png",
+      "tile_bytes": 41165,
+      "tile_sha256": "06edd7bf98ea0b303855690956534b4f1a01ad7e8a153337bc9302bdb7409325",
       "year": "2024"
     },
     {
       "date": "2024-02-29",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2024-02",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-02-29/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -399,7 +309,6 @@
     {
       "date": "2024-03-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2024-03",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-03-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -410,7 +319,6 @@
     {
       "date": "2024-04-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2024-04",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-04-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -421,7 +329,6 @@
     {
       "date": "2024-05-29",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2022-08-11/2024-05-29/P1D",
       "stands_for": "2024-05",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-05-29/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -432,7 +339,6 @@
     {
       "date": "2024-06-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-06-04/2024-07-09/P1D",
       "stands_for": "2024-06",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-06-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -443,7 +349,6 @@
     {
       "date": "2024-07-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-07-29/2024-09-25/P1D",
       "stands_for": "2024-07",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-07-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -454,7 +359,6 @@
     {
       "date": "2024-08-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-07-29/2024-09-25/P1D",
       "stands_for": "2024-08",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-08-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -465,7 +369,6 @@
     {
       "date": "2024-09-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-09-27/2024-11-02/P1D",
       "stands_for": "2024-09",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-09-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -476,7 +379,6 @@
     {
       "date": "2024-10-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-09-27/2024-11-02/P1D",
       "stands_for": "2024-10",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-10-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -487,7 +389,6 @@
     {
       "date": "2024-11-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2024-11",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-11-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -498,7 +399,6 @@
     {
       "date": "2024-12-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2024-12",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2024-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -509,7 +409,6 @@
     {
       "date": "2025-01-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-01",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-01-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -520,7 +419,6 @@
     {
       "date": "2025-02-28",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-02",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-02-28/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -531,7 +429,6 @@
     {
       "date": "2025-03-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-03",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-03-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -542,7 +439,6 @@
     {
       "date": "2025-04-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-04",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-04-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -553,7 +449,6 @@
     {
       "date": "2025-05-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-05",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-05-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -564,7 +459,6 @@
     {
       "date": "2025-06-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-06",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-06-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -575,7 +469,6 @@
     {
       "date": "2025-07-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-07",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-07-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -586,7 +479,6 @@
     {
       "date": "2025-08-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-08",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-08-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -597,7 +489,6 @@
     {
       "date": "2025-09-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-09",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-09-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -608,7 +499,6 @@
     {
       "date": "2025-10-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-10",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-10-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -619,7 +509,6 @@
     {
       "date": "2025-11-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-11",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-11-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -630,7 +519,6 @@
     {
       "date": "2025-12-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2025-12",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2025-12-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -641,7 +529,6 @@
     {
       "date": "2026-01-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2026-01",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-01-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -652,7 +539,6 @@
     {
       "date": "2026-02-28",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2026-02",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-02-28/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -663,7 +549,6 @@
     {
       "date": "2026-03-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2024-11-06/2026-04-28/P1D",
       "stands_for": "2026-03",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-03-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -674,7 +559,6 @@
     {
       "date": "2026-04-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2026-04-30/2026-07-10/P1D",
       "stands_for": "2026-04",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-04-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -685,7 +569,6 @@
     {
       "date": "2026-05-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2026-04-30/2026-07-10/P1D",
       "stands_for": "2026-05",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-05-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -696,7 +579,6 @@
     {
       "date": "2026-06-30",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2026-04-30/2026-07-10/P1D",
       "stands_for": "2026-06",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-06-30/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -707,7 +589,6 @@
     {
       "date": "2026-07-31",
       "empty_nights_after": 0,
-      "grain": "month",
       "period": "2026-07-16/2026-08-03/P1D",
       "stands_for": "2026-07",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-07-31/GoogleMapsCompatible_Level8/4/6/9.png",
@@ -718,8 +599,7 @@
     {
       "date": "2026-08-31",
       "empty_nights_after": 0,
-      "grain": "month",
-      "period": "2026-08-06/2026-09-20/P1D",
+      "period": "2026-08-06/2026-09-23/P1D",
       "stands_for": "2026-08",
       "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-08-31/GoogleMapsCompatible_Level8/4/6/9.png",
       "tile_bytes": 23603,
@@ -727,18 +607,17 @@
       "year": "2026"
     },
     {
-      "date": "2026-09-20",
+      "date": "2026-09-23",
       "empty_nights_after": 0,
-      "grain": "month",
-      "period": "2026-08-06/2026-09-20/P1D",
+      "period": "2026-08-06/2026-09-23/P1D",
       "stands_for": "2026-09",
-      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-09-20/GoogleMapsCompatible_Level8/4/6/9.png",
-      "tile_bytes": 36779,
-      "tile_sha256": "de79d31f828fa466cffd2a8b7d0d675b9a383f45cd7bf2a65065f54fb42eb0e7",
+      "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/2026-09-23/GoogleMapsCompatible_Level8/4/6/9.png",
+      "tile_bytes": 23190,
+      "tile_sha256": "827d3b28433725ae44d5645a56f13f28ae9a706ae847d89427f3512ea0f4426b",
       "year": "2026"
     }
   ],
-  "generated_at": "2026-09-21T23:40:52Z",
+  "generated_at": "2026-09-24T13:40:58Z",
   "layer": {
     "attribution": "NASA EOSDIS GIBS — VIIRS Day/Night Band, Suomi NPP",
     "capabilities": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/1.0.0/WMTSCapabilities.xml",
@@ -747,18 +626,17 @@
       "monthly_from": "2022-01",
       "months": 57,
       "provenance": "derived",
-      "rule": "the last night the layer publishes in each month of 2022..2026, and in each year from 2012 to 2021; where that night's tile over Türkiye is empty, the night before it, for up to 10 published nights",
-      "skipped": [],
-      "years": 10
+      "rule": "the last night the layer publishes in each month of 2022..2026; where that night's tile over Türkiye is empty, the night before it, for up to 10 published nights",
+      "skipped": []
     },
-    "default_time": "2026-09-20",
+    "default_time": "2026-09-23",
     "formats": [
       "image/png"
     ],
     "id": "VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance",
     "label": {
-      "en": "Nightlights (VIIRS)",
-      "tr": "Gece ışıkları (VIIRS)"
+      "en": "Nightlights — one night a month (VIIRS)",
+      "tr": "Gece ışıkları — ayda bir gece (VIIRS)"
     },
     "max_zoom": 8,
     "periods": [
@@ -775,7 +653,7 @@
       "2024-11-06/2026-04-28/P1D",
       "2026-04-30/2026-07-10/P1D",
       "2026-07-16/2026-08-03/P1D",
-      "2026-08-06/2026-09-20/P1D"
+      "2026-08-06/2026-09-23/P1D"
     ],
     "template": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_GapFilled_BRDF_Corrected_DayNightBand_Radiance/default/{Time}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
     "tile_matrix_set": "GoogleMapsCompatible_Level8",
@@ -786,7 +664,7 @@
       "content_sha256": "",
       "licence": "nasa-cc0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T23:40:52Z",
+      "retrieved_at": "2026-09-24T13:40:58Z",
       "url": "https://nasa-gibs.github.io/gibs-api-docs/"
     }
   ]

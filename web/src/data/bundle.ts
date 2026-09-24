@@ -687,30 +687,48 @@ export async function loadTransit(): Promise<Transit> {
  * is not committed — which is why the template comes from the pipeline rather
  * than being written into the app.
  */
+/** One published night-time layer: its template, its dates, and the rule. */
+export interface NightLayer {
+  id: string;
+  title: string;
+  label: Text;
+  template: string;
+  tile_matrix_set: string;
+  max_zoom: number;
+  formats: string[];
+  default_time: string;
+  capabilities: string;
+  attribution: string;
+  periods: string[];
+  chosen: { provenance: string; rule: string; caution: string };
+}
+
+/** One stop on the slider: a night, or a year NASA composited. */
+export interface NightStop {
+  date: string;
+  year: string;
+  /** The month ("2024-03") or the year ("2016") the image stands for. */
+  stands_for: string;
+  period: string;
+  tile: string;
+  tile_bytes: number;
+  tile_sha256: string;
+}
+
+/**
+ * The Earth at night: NASA's two cloud-free composites, and a night a month.
+ *
+ * Two layers, because they are two products. `black_marble` is NASA's own
+ * annual composite and `composites` are its years; `layer` is the daily
+ * gap-filled radiance and `dates` are the nights the pipeline chose from it,
+ * one a month (atlas/datasets/nightlights.py).
+ */
 export interface Nightlights {
   generated_at: string;
-  layer: {
-    id: string;
-    title: string;
-    label: Text;
-    template: string;
-    tile_matrix_set: string;
-    max_zoom: number;
-    formats: string[];
-    default_time: string;
-    capabilities: string;
-    attribution: string;
-    periods: string[];
-    chosen: { provenance: string; rule: string; caution: string };
-  };
-  dates: Array<{
-    date: string;
-    year: string;
-    period: string;
-    tile: string;
-    tile_bytes: number;
-    tile_sha256: string;
-  }>;
+  layer: NightLayer;
+  black_marble: NightLayer;
+  composites: NightStop[];
+  dates: NightStop[];
 }
 
 export const NIGHTLIGHTS_FILE = "data/nightlights/viirs.json";
@@ -729,7 +747,7 @@ export async function loadNightlights(): Promise<Nightlights> {
  * the matrix set are filled in here because they are ours to choose; nothing
  * else about the URL is.
  */
-export function tilesFor(layer: Nightlights["layer"], date: string): string {
+export function tilesFor(layer: NightLayer, date: string): string {
   return layer.template
     .replace("{Time}", date)
     .replace("{TileMatrixSet}", layer.tile_matrix_set)

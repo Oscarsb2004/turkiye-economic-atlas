@@ -151,6 +151,11 @@ names its SOURCE CARDS rather than their publishers, so the rail's attribution c
 meta.json and the app carries no publisher's name of its own. Adding one is a module and a line
 in `web/src/overlays/index.ts`.
 
+**The map is a globe, always** (decided by the owner, 2026-09-24): `vertical-perspective` at every
+zoom, never Web Mercator and never MapLibre's "globe" preset, which hands over to Mercator past
+zoom 10. The rest of the world is therefore the whole planet, not a box around Türkiye — a box
+on a sphere is a rectangle of countries floating on nothing.
+
 **One tab is one question, not one publisher.** The economy tab shades TÜİK's GDP per capita,
 derives its Canadian figures from a Bank of Canada rate and draws OpenStreetMap's railway over
 the result, because "what does this province produce and what runs through it" is one question

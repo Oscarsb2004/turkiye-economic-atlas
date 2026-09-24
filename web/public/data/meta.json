@@ -7,12 +7,6 @@
     "airports/2023.json",
     "airports/2024.json",
     "airports/2025.json",
-    "cities/istanbul/coast.json",
-    "cities/istanbul/districts.json",
-    "cities/istanbul/neighbourhoods.json",
-    "cities/istanbul/reference-manifest.json",
-    "cities/istanbul/roads-local.json",
-    "cities/istanbul/roads-major.json",
     "elections/2023-cumhurbaskani-1.json",
     "elections/2023-cumhurbaskani-2.json",
     "elections/2023-milletvekili.json",
@@ -32,7 +26,7 @@
     "rail/stations.json",
     "transit/istanbul.json"
   ],
-  "generated_at": "2026-09-22T19:54:30Z",
+  "generated_at": "2026-09-24T13:42:30Z",
   "licences": {
     "aisstream-unstated": {
       "attribution": "aisstream.io",
