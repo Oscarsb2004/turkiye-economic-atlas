@@ -1,0 +1,10 @@
+{
+  "changed": [
+    "data/nightlights/viirs.json",
+    "data/places/settlements.json",
+    "data/rail/network.json",
+    "data/rail/stations.json"
+  ],
+  "extra": [],
+  "missing": []
+}

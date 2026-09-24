@@ -1,0 +1,154 @@
+{
+  "data/airports/2020.json": {
+    "bytes": 64621,
+    "sha256": "cb1b86c2a50edba7b9a549c77e88963eb7e2c54f99b5a92d797718fa75f13426"
+  },
+  "data/airports/2021.json": {
+    "bytes": 64648,
+    "sha256": "d87a38737c23aed11d6fd8dbfecff84353a8a5cace795812fc72a8d4c64bed76"
+  },
+  "data/airports/2022.json": {
+    "bytes": 66188,
+    "sha256": "e9726022e65f2dd0b5b905a6ff5587f821a74e63b02ecf28e99b23549eb59d3e"
+  },
+  "data/airports/2023.json": {
+    "bytes": 66406,
+    "sha256": "8784365d13716913ba32cd44c7dc5e85c85fa1d7605e31a2873b82a14bc77adc"
+  },
+  "data/airports/2024.json": {
+    "bytes": 66714,
+    "sha256": "d68a999cd81e4b9ea7484724ec5a42e2c55bd02b074d14a4b7c374cb2e52d830"
+  },
+  "data/airports/2025.json": {
+    "bytes": 67159,
+    "sha256": "a7705f7fcd48bfbfe227a3220b093850dff2de191c1ec5f1db32e8d248f14ffc"
+  },
+  "data/cosmos/galaxies.json": {
+    "bytes": 2607533,
+    "sha256": "d47856c6db45a90858c5d5d489b386fca3e0d1b42255ce8f8db641acaaef69eb"
+  },
+  "data/cosmos/milky-way.jpg": {
+    "bytes": 71247,
+    "sha256": "1ebe95804f5f0e6e23f77488aaa33fdb4aaef3fd336821fb41b261ddeaee2df0"
+  },
+  "data/cosmos/sky.json": {
+    "bytes": 731,
+    "sha256": "a4d072efb3575fd719c37fcc269c49ec372891438ada314269e2647a808be55a"
+  },
+  "data/cosmos/solar-system.json": {
+    "bytes": 71509,
+    "sha256": "a68662299a95c7cbc219ffd7c6e96ec115756cf3d3a4a5214320cc70e0d201c4"
+  },
+  "data/cosmos/stars.json": {
+    "bytes": 1382705,
+    "sha256": "bde429ba132c557cae94fac336c4a87d2f94942ece3be71836116faf1c1b84bd"
+  },
+  "data/elections/2023-cumhurbaskani-1.json": {
+    "bytes": 25616,
+    "sha256": "f252ea772edbee6429fb34f7fbb439c924fdf93c7256896d37f18eae0dc7665b"
+  },
+  "data/elections/2023-cumhurbaskani-2.json": {
+    "bytes": 21965,
+    "sha256": "9cec28f69b7988a4c107b251a8f426df3f659c56a08153a78f4e395ac8625afc"
+  },
+  "data/elections/2023-milletvekili.json": {
+    "bytes": 66506,
+    "sha256": "214746febf1d5d2b6c0fd23b508def27306e00b14cf826ff1aae505166549240"
+  },
+  "data/migration/2020.json": {
+    "bytes": 67959,
+    "sha256": "8beb210ee39ef15b9008b0deb1904091e4554e297bbb5301473125fad9780686"
+  },
+  "data/migration/2021.json": {
+    "bytes": 68757,
+    "sha256": "fc81c56372fabfdeef76b51fbccf046cabdf3a133e688585191595c052d0fb33"
+  },
+  "data/migration/2022.json": {
+    "bytes": 68900,
+    "sha256": "784e5e20be488c4f2529cbe5c03c4faa6876037ba66c1172234c95d3b933de63"
+  },
+  "data/migration/2023.json": {
+    "bytes": 69248,
+    "sha256": "2bfc4b7e002fb8020c9195f2a02def063d7a5705b85b1f52dd5186b341891087"
+  },
+  "data/migration/2024.json": {
+    "bytes": 68702,
+    "sha256": "432233faaf656540b2ccc412939d0031dd99de9fe7b5224c6276cd12a2fb901a"
+  },
+  "data/migration/2025.json": {
+    "bytes": 68473,
+    "sha256": "ac2157e3a0de54d9f457b482da9229fda274f39496961df4762a03793f17687b"
+  },
+  "data/nightlights/viirs.json": {
+    "bytes": 26363,
+    "sha256": "6924ab18f14f94f882bbebdd9ebaafc2c6649010ca9ae56368c772489a0cfd53"
+  },
+  "data/places/settlements.json": {
+    "bytes": 198719,
+    "sha256": "b86613f6dbe15201bfc69f0773415e12e28b5a4d4204c4aa0480120eb8b0d3cc"
+  },
+  "data/provinces/gdp-per-capita.json": {
+    "bytes": 40343,
+    "sha256": "4ce09f756e4c8ca65998e151e47cab311a1bba636d35b47f3ba09e060413d2a7"
+  },
+  "data/rail/network.json": {
+    "bytes": 624409,
+    "sha256": "b8e07cbdc6faf3950ffe43c0af86b3bb56de7505bc5d7917b20c6f4cc8628dc1"
+  },
+  "data/rail/stations.json": {
+    "bytes": 371798,
+    "sha256": "cae8cd502fc23628e0e11df7f1658681ada7cce743d442005721776e9f337345"
+  },
+  "data/transit/istanbul.json": {
+    "bytes": 147168,
+    "sha256": "f4c49606fe14a4f32e3f6f1bbb05cc29bf32a21c7e175ce2760a758f1e77f632"
+  },
+  "web/public/data/elections/index.json": {
+    "bytes": 544,
+    "sha256": "581564c7bc5f701e6af78f3c0fe701841af5f3789c212e18ca05113cc2c89d6d"
+  },
+  "web/public/data/meta.json": {
+    "bytes": 7433,
+    "sha256": "dd77fbff6bca0993ef37da85c0f727648b264b88fc2e5e603d497de57ec984cb"
+  },
+  "web/public/data/palette.json": {
+    "bytes": 2080,
+    "sha256": "f0dfa9347b734056ac5cdeaa282438d9b78a68e3c60b84f65216266c8f3bf156"
+  },
+  "web/public/geo/SOURCES.json": {
+    "bytes": 5213,
+    "sha256": "d21146c16bb09882b4cac14d81304db267900da651e7c0ea0acc4283692d3f90"
+  },
+  "web/public/geo/points.json": {
+    "bytes": 13233,
+    "sha256": "615b217d10e1f2d9746319752f5835f9217f8e3df12d9482b57374389a680250"
+  },
+  "web/public/geo/provinces-detail.json": {
+    "bytes": 1415290,
+    "sha256": "135ec861fe6de8c8dd00e555431cba025bef93a74ec36701536d8f314b529de0"
+  },
+  "web/public/geo/provinces.json": {
+    "bytes": 208007,
+    "sha256": "84d4241fa5d1f482da3cf3466791b27a09757f963a973fa20100d41215a871fd"
+  },
+  "web/public/geo/roads.json": {
+    "bytes": 252177,
+    "sha256": "6482261f04b61d98600cbbe5d1057a6f886896a7556312c931b83d24162375d2"
+  },
+  "web/public/geo/turkiye-detail.json": {
+    "bytes": 435141,
+    "sha256": "5052e3bf308949b8ff2144040189a9becbfd6065e9852ed8fcd0f926d11c4809"
+  },
+  "web/public/geo/turkiye.json": {
+    "bytes": 32748,
+    "sha256": "957ef25fb7e439aaa3c903f550c98898a7c656c2d1423e7778ebc5282fdf3b62"
+  },
+  "web/public/geo/water.json": {
+    "bytes": 249759,
+    "sha256": "4300049c7491694f8c8fec01bfb7462e1865a8b125044b01376f9e8223f0a80d"
+  },
+  "web/public/geo/world.json": {
+    "bytes": 654757,
+    "sha256": "ddd54545f79194dc92d682eccb9494da1584f7f6a065a0ff01b3fecc07cea4a9"
+  }
+}
