@@ -2,15 +2,15 @@
 """
 run.py — the only command this project needs.
 
-    python run.py                 the whole pipeline, then the tests, then verification,
-                                  and a summary that says what was found and where to read it
+    python run.py                 the atlas locally, on a port it prints before it opens
+    python run.py --pipeline      every data stage, then tests and verification
     python run.py --stage 01      run one stage (see --help for the list)
     python run.py --check         validate every registry file against its schema
     python run.py --status        rewrite STATUS.md from the registry
     python run.py --verify        independent verification only
     python run.py --test          the tests: pytest, and the web tests if npm install has been run
-    python run.py --web           the atlas in your browser (needs `npm install` in web/)
-    python run.py --live          the same
+    python run.py --web           alias for the atlas locally (needs `npm install` in web/)
+    python run.py --live          alias for the atlas locally
     python run.py --refresh       bypass the HTTP cache when pulling
 
 On first use it creates `.venv`, installs `requirements.txt` into it, and
@@ -290,55 +290,18 @@ def check() -> int:
     return 1 if errors else 0
 
 
-def main() -> int:
-    import argparse
-
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--stage", choices=sorted(STAGES))
-    ap.add_argument("--verify", action="store_true")
-    ap.add_argument("--check", action="store_true")
-    ap.add_argument("--status", action="store_true")
-    ap.add_argument("--test", action="store_true")
-    ap.add_argument("--web", action="store_true")
-    ap.add_argument("--live", action="store_true")
-    ap.add_argument("--refresh", action="store_true")
-    args = ap.parse_args()
-
-    if args.test:
-        code, summary = tests()
-        print(f"\n  tests: {summary}\n")
-        return code
-
-    if args.verify:
-        return run("-m", "verify.run")
-
-    if args.check:
-        return check()
-
-    if args.status:
-        from atlas import status
-
-        print("STATUS.md " + ("rewritten" if status.write() else "already current"))
-        return 0
-
-    if args.live or args.web:
-        return app()
-
-    extra = ["--refresh"] if args.refresh else []
-
-    if args.stage:
-        return run(*shlex.split(STAGES[args.stage]), *extra)
+def pipeline(*, refresh: bool) -> int:
+    """Run every data stage, then tests and verification, in declared order."""
+    extra = ["--refresh"] if refresh else []
 
     # A registry mistake stops the run before any stage reads it.
     code = check()
     if code != 0:
         return code
 
-    # Full run: stages in order, then the tests, then verification, then a
-    # summary of what all three found. Any stage failing stops the run — a
-    # later stage reading a half-written earlier output is how a bad bundle
-    # gets committed — and the summary still says where it stopped.
+    # Any stage failing stops the pipeline — a later stage reading a half-written
+    # earlier output is how a bad bundle gets committed — and the summary still
+    # says where it stopped.
     failures: list[str] = []
     for key in sorted(STAGES):
         print(f"\n=== stage {key} ===")
@@ -367,23 +330,53 @@ def main() -> int:
             ("data", f"{count} published files, {megabytes:.1f} MB"),
             ("tests", test_summary),
             ("gates", gates),
-            ("site", f"python run.py --web  ->  http://localhost:{free_port()}/"),
+            ("site", f"python run.py  ->  http://localhost:{free_port()}/"),
         ],
         failures,
     )
     return test_code or verify_code
-    # Full run: stages in order, then verification. Any stage failing stops the
-    # run — a later stage reading a half-written earlier output is how a bad
-    # bundle gets committed.
-    for key in sorted(STAGES):
-        print(f"\n=== stage {key} ===")
-        code = run(*shlex.split(STAGES[key]), *extra)
-        if code != 0:
-            print(f"stage {key} failed", file=sys.stderr)
-            return code
 
-    print("\n=== verify ===")
-    return run("-m", "verify.run")
+
+def main() -> int:
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--stage", choices=sorted(STAGES))
+    ap.add_argument("--verify", action="store_true")
+    ap.add_argument("--check", action="store_true")
+    ap.add_argument("--status", action="store_true")
+    ap.add_argument("--test", action="store_true")
+    ap.add_argument("--pipeline", action="store_true")
+    ap.add_argument("--web", action="store_true")
+    ap.add_argument("--live", action="store_true")
+    ap.add_argument("--refresh", action="store_true")
+    args = ap.parse_args()
+
+    if args.test:
+        code, summary = tests()
+        print(f"\n  tests: {summary}\n")
+        return code
+
+    if args.verify:
+        return run("-m", "verify.run")
+
+    if args.check:
+        return check()
+
+    if args.status:
+        from atlas import status
+
+        print("STATUS.md " + ("rewritten" if status.write() else "already current"))
+        return 0
+
+    if args.stage:
+        return run(*shlex.split(STAGES[args.stage]), *( ["--refresh"] if args.refresh else []))
+
+    if args.pipeline:
+        return pipeline(refresh=args.refresh)
+
+    return app()
 
 
 if __name__ == "__main__":

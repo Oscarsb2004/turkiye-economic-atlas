@@ -20,11 +20,13 @@ invariants:
 refusals:
 - 403 and 404 fail at once rather than being retried.
 - A transient status (429, 5xx, 520-524) is retried three times with backoff, then fails.
+- A response whose chunked body ends early is retried three times with backoff, then fails.
 benchmark:
 - Not yet measured against a Turkish publisher; the first golden master sets it (docs/PLAN.md, T3).
 tests:
 - tests/test_fetcher.py::test_cache_entries_expire
 - tests/test_fetcher.py::test_a_form_post_is_cached_on_its_body
+- tests/test_fetcher.py::test_a_truncated_chunked_get_is_retried
 limits:
 - Not for live streams; aisstream.io is a WebSocket (docs/PLAN.md, T13).
 gotchas:

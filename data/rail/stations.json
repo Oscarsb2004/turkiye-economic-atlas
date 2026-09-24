@@ -47,8 +47,8 @@
         "urban": 0
       },
       "2": {
-        "halt": 1,
-        "total": 5,
+        "halt": 2,
+        "total": 6,
         "urban": 0
       },
       "20": {
@@ -207,8 +207,8 @@
         "urban": 0
       },
       "56": {
-        "halt": 2,
-        "total": 6,
+        "halt": 1,
+        "total": 5,
         "urban": 0
       },
       "58": {
@@ -295,25 +295,25 @@
     "formula": "the number of stations whose published coordinate falls inside the province's published boundary, or within 2000 m of it where the simplified boundary contains none; `halt` counts those published as railway=halt, and `urban` those whose published station tag is one of funicular, light_rail, monorail, subway",
     "provenance": "derived"
   },
-  "generated_at": "2026-09-21T23:38:05Z",
+  "generated_at": "2026-09-22T13:24:03Z",
   "sources": [
     {
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T23:38:05Z",
+      "retrieved_at": "2026-09-22T13:24:03Z",
       "url": "https://www.openstreetmap.org/copyright"
     },
     {
       "content_sha256": "",
       "licence": "geoboundaries-open",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T23:38:05Z",
+      "retrieved_at": "2026-09-22T13:24:03Z",
       "url": "https://www.geoboundaries.org/countryDownloads.html"
     }
   ],
   "station_info": {
-    "current_as_of": "2026-09-21",
+    "current_as_of": "2026-09-22",
     "kinds": {
       "halt": 238,
       "station": 1096
@@ -2049,13 +2049,13 @@
         "en": "",
         "tr": "Demirlipınar"
       },
-      "network": "",
+      "network": "TR-railway",
       "operator": "",
       "placement": "contains",
       "plaka": 72,
       "point": [
-        41.15552,
-        37.93271
+        41.17676,
+        37.96242
       ],
       "province": {
         "en": "Batman",
@@ -12240,8 +12240,8 @@
       "placement": "contains",
       "plaka": 56,
       "point": [
-        41.50678,
-        37.96274
+        41.50639,
+        37.96259
       ],
       "province": {
         "en": "Siirt",
@@ -13382,14 +13382,14 @@
       "network": "TR-railway",
       "operator": "",
       "placement": "contains",
-      "plaka": 44,
+      "plaka": 2,
       "point": [
-        37.68334,
-        37.91626
+        37.69022,
+        37.92926
       ],
       "province": {
-        "en": "Malatya",
-        "tr": "Malatya"
+        "en": "Adıyaman",
+        "tr": "Adıyaman"
       },
       "station": "",
       "train": "yes"
@@ -18920,8 +18920,8 @@
       "id": "6982425707",
       "kind": "station",
       "name": {
-        "en": "",
-        "tr": "Eryaman"
+        "en": "Eryaman high-speed railway station",
+        "tr": "Eryaman YHT Garı"
       },
       "network": "Türkiye Cumhuriyeti Devlet Demiryolları",
       "operator": "TCDD Taşımacılık",
@@ -28553,28 +28553,6 @@
       "train": "yes"
     },
     {
-      "id": "14008701288",
-      "kind": "halt",
-      "name": {
-        "en": "",
-        "tr": ""
-      },
-      "network": "",
-      "operator": "",
-      "placement": "contains",
-      "plaka": 56,
-      "point": [
-        41.45448,
-        37.96088
-      ],
-      "province": {
-        "en": "Siirt",
-        "tr": "Siirt"
-      },
-      "station": "",
-      "train": "yes"
-    },
-    {
       "id": "14021962816",
       "kind": "station",
       "name": {
@@ -29670,6 +29648,28 @@
       "province": {
         "en": "Manisa",
         "tr": "Manisa"
+      },
+      "station": "",
+      "train": "yes"
+    },
+    {
+      "id": "14203469417",
+      "kind": "halt",
+      "name": {
+        "en": "",
+        "tr": "KM 155+800"
+      },
+      "network": "TR-railway",
+      "operator": "",
+      "placement": "contains",
+      "plaka": 44,
+      "point": [
+        37.68336,
+        37.91639
+      ],
+      "province": {
+        "en": "Malatya",
+        "tr": "Malatya"
       },
       "station": "",
       "train": "yes"

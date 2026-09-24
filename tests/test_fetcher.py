@@ -73,3 +73,40 @@ def test_a_form_post_is_cached_on_its_body():
         # recorder keys a POST on.
         same = fetch._key_for_form(url, {"search[value]": "2020", "length": "20000"})
         assert same == answers["2020"]
+
+
+def test_a_truncated_chunked_get_is_retried():
+    """
+    İBB closed a GTFS CSV response before its final chunk had arrived.
+
+    requests calls that ``ChunkedEncodingError`` rather than ``ConnectionError``.
+    It is a transient source interruption, so the fetcher must retry it exactly
+    as it retries a timeout rather than letting one broken download stop the
+    whole pipeline.
+    """
+    import tempfile
+
+    import requests
+
+    from atlas.shells.acquire.fetcher import Fetcher
+
+    class Response:
+        status_code = 200
+        content = b"complete response"
+
+    with tempfile.TemporaryDirectory() as d:
+        fetch = Fetcher(cache_dir=Path(d), min_interval=0)
+        attempts = 0
+
+        def get(*_args, **_kwargs):
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                raise requests.exceptions.ChunkedEncodingError("truncated chunk")
+            return Response()
+
+        fetch._session.get = get  # type: ignore[method-assign]
+        fetch._sleep_for_retry = lambda *_args: None  # type: ignore[method-assign]
+
+        assert fetch._get_with_retries("https://data.ibb.gov.tr/gtfs/stops.csv") == b"complete response"
+        assert attempts == 2

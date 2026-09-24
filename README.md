@@ -60,10 +60,10 @@ happens next.
 ## Running it
 
 ```bash
-python run.py            # every stage, the tests, verification, and a summary of what they found
+python run.py            # the atlas locally; it prints the address before it opens
 python run.py --check    # registry against its schemas, and STATUS.md
 python run.py --test     # the test suite: pytest, and the web tests
-python run.py --web      # the atlas in a browser; it prints the address before it opens
+python run.py --pipeline # every data stage, tests, verification, and a summary of what they found
 ```
 
 A full run ends like this, and the last line is where to read the result:
@@ -75,7 +75,7 @@ A full run ends like this, and the last line is where to read the result:
   data       43 published files, 8.1 MB
   tests      106 passed · web 16 passed
   gates      95 passed, 6 note(s)
-  site       python run.py --web  ->  http://localhost:5173/
+  site       python run.py  ->  http://localhost:5173/
 ```
 
 Nothing in that block is recounted: each figure is what the step itself printed, or what was

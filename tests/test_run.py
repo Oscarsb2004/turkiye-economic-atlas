@@ -1,5 +1,5 @@
 """
-The summary `python run.py` ends with.
+The summary `python run.py --pipeline` ends with.
 
 It reports what each step said about itself, so the only thing that can go
 wrong here is misreading them — and a misread summary is worse than none,
@@ -7,6 +7,8 @@ because it is the line a reader believes without scrolling.
 """
 
 from __future__ import annotations
+
+import sys
 
 import run
 
@@ -49,3 +51,31 @@ def test_every_stage_is_a_step_of_the_run():
     """The bundle sorts last, because it reads what the others wrote."""
     assert sorted(run.STAGES) == list(run.STAGES)
     assert max(run.STAGES) == "99", "the bundle stays the last stage"
+
+
+def test_no_arguments_start_the_local_atlas(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["run.py"])
+    monkeypatch.setattr(run, "app", lambda: 17)
+
+    assert run.main() == 17
+
+
+def test_test_flag_runs_only_the_test_suites(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["run.py", "--test"])
+    monkeypatch.setattr(run, "tests", lambda: (0, "139 passed · web 29 passed"))
+
+    assert run.main() == 0
+
+
+def test_pipeline_flag_keeps_the_full_data_workflow_explicit(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["run.py", "--pipeline", "--refresh"])
+    seen = {}
+
+    def fake_pipeline(*, refresh):
+        seen["refresh"] = refresh
+        return 19
+
+    monkeypatch.setattr(run, "pipeline", fake_pipeline)
+
+    assert run.main() == 19
+    assert seen == {"refresh": True}

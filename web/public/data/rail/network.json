@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-21T23:38:05Z",
+  "generated_at": "2026-09-22T13:23:40Z",
   "lines": [
     {
       "electrified": "contact_line",
@@ -21955,12 +21955,8 @@
           37.87262
         ],
         [
-          37.69527,
-          37.87796
-        ],
-        [
-          37.69407,
-          37.88305
+          37.69421,
+          37.88256
         ],
         [
           37.69119,
@@ -21971,8 +21967,8 @@
           37.89385
         ],
         [
-          37.69239,
-          37.89689
+          37.69247,
+          37.89729
         ],
         [
           37.69228,
@@ -21987,12 +21983,16 @@
           37.90437
         ],
         [
-          37.68431,
-          37.91116
+          37.68441,
+          37.91082
         ],
         [
           37.68327,
           37.91629
+        ],
+        [
+          37.68421,
+          37.91891
         ],
         [
           37.68407,
@@ -83797,11 +83797,11 @@
     }
   ],
   "network": {
-    "current_as_of": "2026-09-21",
+    "current_as_of": "2026-09-22",
     "derivation": {
       "joined": "OSM ways that share an end and agree on every published attribute are joined into one line; each line lists the way ids it was made of",
       "provenance": "derived",
-      "simplified": "Douglas–Peucker at 50 m, which left 12925 of 81288 points",
+      "simplified": "Douglas–Peucker at 50 m, which left 12925 of 81291 points",
       "tolerance_m": 50
     },
     "kinds": {
@@ -83818,7 +83818,7 @@
       "content_sha256": "",
       "licence": "odbl-1.0",
       "provenance": "official_dataset",
-      "retrieved_at": "2026-09-21T23:38:05Z",
+      "retrieved_at": "2026-09-22T13:23:40Z",
       "url": "https://www.openstreetmap.org/copyright"
     }
   ]

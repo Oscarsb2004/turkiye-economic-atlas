@@ -26,9 +26,11 @@ Four behaviours, each with a reason:
   free; a run the next day sees what the government changed. `--refresh`
   bypasses the cache entirely for the case where you know something just moved.
 
-  Backoff. 502/504/524 from these hosts are infrastructure, not a bad URL.
-  Three retries with exponential backoff; 404 and 403 fail immediately, because
-  retrying them just repeats a wrong answer more slowly.
+  Backoff. 502/504/524 from these hosts are infrastructure, not a bad URL. So
+  is a server closing a chunked response before its declared body ends: requests
+  calls that a ``ChunkedEncodingError``. Three retries with exponential backoff;
+  404 and 403 fail immediately, because retrying them just repeats a wrong
+  answer more slowly.
 
   Generous timeouts. canada.ca was observed taking more than 45 seconds to first
   byte from some networks while smaller endpoints answered instantly. A short
@@ -75,6 +77,14 @@ RETRY_BACKOFF_BASE = 5           # seconds; doubles each attempt (5 → 10 → 2
 
 #: Status codes worth retrying. Everything else is an answer, even if unwelcome.
 TRANSIENT_STATUS = frozenset({429, 500, 502, 503, 504, 520, 522, 524})
+
+# ``ChunkedEncodingError`` is not a ``ConnectionError``: requests raises it
+# while consuming a response whose server closed the chunked body early. It is
+# nevertheless the same kind of transient transport failure. İBB did exactly
+# this while this project's GTFS reader was fetching a CSV, so it belongs in
+# the one shared retry policy rather than in that reader.
+TRANSIENT_EXCEPTIONS = (requests.Timeout, requests.ConnectionError,
+                        requests.exceptions.ChunkedEncodingError)
 
 #: How long a cached body stays usable, in seconds.
 #:
@@ -229,7 +239,7 @@ class Fetcher:
             try:
                 resp = self._session.post(url, json=json_body, data=data, headers=headers,
                                           timeout=TIMEOUT)
-            except (requests.Timeout, requests.ConnectionError) as exc:
+            except TRANSIENT_EXCEPTIONS as exc:
                 last = exc
                 if attempt == MAX_RETRIES:
                     break
@@ -271,7 +281,7 @@ class Fetcher:
             self._throttle()
             try:
                 resp = self._session.get(url, timeout=TIMEOUT, allow_redirects=True)
-            except (requests.Timeout, requests.ConnectionError) as exc:
+            except TRANSIENT_EXCEPTIONS as exc:
                 last_exc = exc
                 if attempt == MAX_RETRIES:
                     break
