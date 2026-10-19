@@ -43,7 +43,7 @@ python run.py --check    # every registry file against its schema
 
 | Dataset | Writes | On the site | Read by |
 | --- | --- | --- | --- |
-| **bundle**<br>What the site reads that is generated rather than published — meta, palette and the election index | `web/public/data/elections/index.json` (1 KB)<br>`web/public/data/meta.json` (7 KB)<br>`web/public/data/palette.json` (2 KB) | yes | `web/src/data/bundle.ts` |
+| **bundle**<br>What the site reads that is generated rather than published — meta, palette and the election index | `web/public/data/elections/index.json` (1 KB)<br>`web/public/data/meta.json` (8 KB)<br>`web/public/data/palette.json` (2 KB) | yes | `web/src/data/bundle.ts` |
 
 ### cosmos
 
@@ -53,6 +53,7 @@ python run.py --check    # every registry file against its schema
 | **cosmos-stars**<br>Every Hipparcos star whose parallax is known to better than 10%, as HEASARC serves the New Reduction | `data/cosmos/stars.json` (1.4 MB) | yes | `web/src/data/bundle.ts` |
 | **cosmos-galaxies**<br>Every 2MASS Redshift Survey galaxy receding from us, as HEASARC serves it | `data/cosmos/galaxies.json` (2.6 MB) | yes | `web/src/data/bundle.ts` |
 | **cosmos-sky**<br>The Milky Way's diffuse light, from NASA's Deep Star Maps 2020 | `data/cosmos/sky.json` (1 KB)<br>`data/cosmos/milky-way.jpg` (71 KB) | yes | `web/src/data/bundle.ts` |
+| **cosmos-earth**<br>The Earth by day and by night, and its relief, for the cosmic viewer | `data/cosmos/earth.json` (3 KB) | yes | `web/src/data/bundle.ts` |
 
 ### economy
 
@@ -108,7 +109,7 @@ python run.py --check    # every registry file against its schema
 
 **2 shells** (`registry/shells/`): `fetcher`, `geometry`.
 
-**14 sources** (`registry/sources/`): `boc_valet`, `dhmi_airport_statistics`, `geoboundaries_adm1`, `ibb_gtfs`, `jpl_horizons`, `nasa_gibs`, `nasa_heasarc`, `nasa_svs`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
+**16 sources** (`registry/sources/`): `boc_valet`, `dhmi_airport_statistics`, `geoboundaries_adm1`, `ibb_gtfs`, `jpl_horizons`, `nasa_gibs`, `nasa_gibs_geographic`, `nasa_heasarc`, `nasa_svs`, `nasa_visible_earth`, `natural_earth_admin1`, `osm_overpass`, `ourairports`, `tuik_internal_migration`, `tuik_provincial_gdp`, `ysk_election_results`.
 
 Each shell card states its contract, invariants, refusals and the benchmark that proves it; each
 source card carries its licence, read and dated before its data was used.

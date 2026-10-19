@@ -27,12 +27,13 @@ import type { Clock, Period } from "./timeline";
 /**
  * The rail's sections, in the order they are shown.
  *
- * `provinces` holds what is published ABOUT a province — its economy and how it
- * voted; `connections` holds the flow and network layers; `activity` holds what
- * the country looks like rather than what it reports, which today is the
- * nightlights and later is whatever else is observed rather than published.
+ * `space` comes first: the planet as NASA sees it — the cosmic viewer and the
+ * nightlights — which is where the atlas says where Türkiye lies before it
+ * says anything about it (reorganised at the owner's request, 2026-09-24).
+ * Then `provinces`, what is published ABOUT a province — its economy and how
+ * it voted — and `connections`, the flow and network layers between them.
  */
-export const OVERLAY_GROUPS = ["provinces", "connections", "activity"] as const;
+export const OVERLAY_GROUPS = ["space", "provinces", "connections"] as const;
 
 export type OverlayGroup = (typeof OVERLAY_GROUPS)[number];
 
@@ -150,6 +151,15 @@ export interface Overlay {
    * wrong frame. Clearing it returns the map to Türkiye.
    */
   focus?: number[];
+  /**
+   * A view of this overlay's own, drawn INSTEAD of the province map.
+   *
+   * The cosmic viewer is the case: a globe lit by the Sun has no provinces to
+   * shade, no clock to snap to and no panel, so it replaces the map rather
+   * than drawing on it. An overlay with a view has no legend of the shared
+   * kind either; it brings its own in `legend`.
+   */
+  view?: ReactNode;
   /** This overlay's own controls — a currency, a candidate — shown in the rail. */
   controls: ReactNode;
   /** What is known about one province under this overlay. */

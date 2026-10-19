@@ -70,6 +70,17 @@ licences:
     # the material." Suomi NPP is a NASA-led mission.
     attribution: NASA Earth Observing System Data and Information System (EOSDIS) GIBS
 
+  nasa-media-guidelines:
+    name: NASA Images and Media Usage Guidelines
+    url: https://www.nasa.gov/nasa-brand-center/images-and-media/
+    redistribution: permitted for informational use; NASA to be acknowledged
+    # Read 2026-09-24: NASA content, including "texture maps", "generally are
+    # not subject to copyright in the United States"; it may be used for
+    # "computer graphical simulations and Internet Web pages", "personal Web
+    # pages" included, and "NASA should be acknowledged as the source of the
+    # material". The NASA insignia and logotype are excluded; none is used.
+    attribution: NASA Earth Observatory
+
   nasa-svs-public-domain:
     name: NASA Scientific Visualization Studio — public domain unless noted
     url: https://svs.gsfc.nasa.gov/help/

@@ -843,4 +843,78 @@ body {
 .cosmos-leave {
   font-size: 15px;
   line-height: 1;
+  /* MapLibre's control group is white; the app's text colour is for the dark
+     chrome, and inherited here it drew a white star on a white button. */
+  color: #333;
+}
+
+/* ── The cosmic viewer ─────────────────────────────────────────────────────
+   A globe of its own in place of the map (overlays/cosmic.tsx), its controls
+   in the rail under its tab. */
+.cosmic {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.cosmic__canvas {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+
+.cosmic__canvas:active {
+  cursor: grabbing;
+}
+
+.cosmic__hint {
+  position: absolute;
+  left: var(--gutter);
+  top: 12px;
+  margin: 0;
+  color: var(--text-2);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.cosmic__controls {
+  display: grid;
+  gap: 8px;
+}
+
+.cosmic__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cosmic__field {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.cosmic__field input {
+  width: 100%;
+  font: inherit;
+  color-scheme: dark;
+}
+
+.chip {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chip--on {
+  background: var(--accent-9);
+  border-color: var(--accent-9);
+  color: var(--accent-contrast);
 }

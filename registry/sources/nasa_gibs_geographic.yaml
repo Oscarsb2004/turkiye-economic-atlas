@@ -1,0 +1,18 @@
+# registry/sources/nasa_gibs_geographic.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Global Imagery Browse Services (GIBS) — geographic tiles (EPSG:4326)
+publisher: NASA Earth Observing System Data and Information System (EOSDIS)
+licence: nasa-cc0
+attribution: NASA EOSDIS GIBS — Blue Marble Next Generation; Black Marble (VIIRS, Suomi NPP)
+page: https://nasa-gibs.github.io/gibs-api-docs/
+api: https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/1.0.0/WMTSCapabilities.xml
+docs: https://nasa-gibs.github.io/gibs-api-docs/access-basics/
+# The same service as nasa_gibs, in its latitude/longitude tiling instead of
+# Web Mercator. The cosmic viewer wraps the Earth around a sphere, and a sphere
+# wants an equirectangular image: these tiles ARE that, poles included, where
+# Mercator's stop at ±85° and leave a hole at each pole.
+#
+# As with the nightlights, the reader's browser fetches the imagery live (GIBS
+# sends Access-Control-Allow-Origin: *). What is published is the layers'
+# description and one tile each, fetched as proof.

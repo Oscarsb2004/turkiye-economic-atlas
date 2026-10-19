@@ -789,7 +789,44 @@ export const COSMOS_FILES = {
   galaxies: "data/cosmos/galaxies.json",
   sky: "data/cosmos/sky.json",
   milkyWay: "data/cosmos/milky-way.jpg",
+  earth: "data/cosmos/earth.json",
 } as const;
+
+// ── The cosmic viewer's Earth ────────────────────────────────────────────────
+
+/** One GIBS layer in the geographic tiling, and a tile fetched as its proof. */
+export interface EarthLayer {
+  id: string;
+  title: string;
+  /** With {TileMatrixSet}, {TileMatrix}, {TileRow}, {TileCol}, and {Time} if timed. */
+  template: string;
+  time?: string;
+  attribution: string;
+}
+
+/** What earth.json holds (atlas/datasets/cosmos.py, build_earth). */
+export interface Earth {
+  grid: { tile_matrix_set: string; level: number; columns: number; rows: number; tile_px: number };
+  day: EarthLayer;
+  night: EarthLayer;
+  relief: { url: string; width: number; height: number; attribution: string; reads_as: string };
+  sun: { formula: string };
+}
+
+export async function loadEarth(): Promise<Earth> {
+  return loadJson<Earth>(COSMOS_FILES.earth);
+}
+
+/** Every tile of a geographic layer at the grid's level, row by row. */
+export function earthTiles(layer: EarthLayer, grid: Earth["grid"]): string[][] {
+  const base = layer.template
+    .replace("{Time}", layer.time ?? "")
+    .replace("{TileMatrixSet}", grid.tile_matrix_set)
+    .replace("{TileMatrix}", String(grid.level));
+  return Array.from({ length: grid.rows }, (_, row) =>
+    Array.from({ length: grid.columns }, (_, col) =>
+      base.replace("{TileRow}", String(row)).replace("{TileCol}", String(col))));
+}
 
 export interface SolarSystem {
   epoch: string;

@@ -38,6 +38,7 @@ nearest galaxies, whose own motion is a large fraction of their recession.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import re
 from datetime import date, timedelta
@@ -47,7 +48,7 @@ from atlas.core import clock
 from atlas.core import registry as R
 from atlas.core.schema import Provenance, SourceRef
 from atlas.datasets import Built, Context
-from atlas.readers import heasarc
+from atlas.readers import heasarc, wmts
 
 log = logging.getLogger(__name__)
 
@@ -315,3 +316,109 @@ def build_sky(ctx: Context, *, dataset: str) -> Built:
     return Built(outputs=[(OUT / "sky.json", payload)],
                  blobs=[(OUT / "milky-way.jpg", body)],
                  receipt={"milky_way_bytes": len(body)})
+
+
+# ── The Earth the cosmic viewer lights by the Sun ─────────────────────────────
+
+GEOGRAPHIC_KEY = "nasa_gibs_geographic"
+RELIEF_KEY = "nasa_visible_earth"
+
+DAY_LAYER = "BlueMarble_NextGeneration"
+NIGHT_LAYER = "VIIRS_Black_Marble"
+#: GIBS's geographic matrix set both layers publish. Level 3 of it is 10×5
+#: tiles of 512 px, 36° each: the whole Earth, equirectangular, 5 120 px wide.
+GEOGRAPHIC_SET = "500m"
+GEOGRAPHIC_LEVEL = 3
+GEOGRAPHIC_GRID = {"columns": 10, "rows": 5, "tile_px": 512, "degrees_per_tile": 36}
+#: The tile over Türkiye at that level: 0°–36°E, 54°–18°N.
+GEOGRAPHIC_PROOF = {"TileMatrix": "3", "TileRow": "1", "TileCol": "5"}
+
+RELIEF = ("https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/"
+          "topography/gebco_08_rev_elev_5400x2700.jpg")
+
+
+def jpeg_size(body: bytes) -> tuple[int, int]:
+    """(width, height) from a JPEG's frame header, without decoding it."""
+    at = 2
+    while at + 9 < len(body):
+        if body[at] != 0xFF:
+            raise ValueError(f"not a JPEG marker at byte {at}")
+        marker = body[at + 1]
+        length = int.from_bytes(body[at + 2:at + 4], "big")
+        if marker in (0xC0, 0xC1, 0xC2):
+            return (int.from_bytes(body[at + 7:at + 9], "big"), int.from_bytes(body[at + 5:at + 7], "big"))
+        at += 2 + length
+    raise ValueError("no frame header in the JPEG")
+
+
+def _tile(ctx: Context, template: str, magic: bytes, when: str = "") -> dict:
+    """One tile of a geographic layer, fetched as proof that the template works."""
+    url = template.replace("{Time}", when).replace("{TileMatrixSet}", GEOGRAPHIC_SET)
+    for name, value in GEOGRAPHIC_PROOF.items():
+        url = url.replace(f"{{{name}}}", value)
+    body = ctx.fetch.bytes(url, force=ctx.refresh)
+    if not body.startswith(magic):
+        raise ValueError(f"the tile at {url} starts {body[:8]!r}, not {magic!r}")
+    return {"tile": url, "tile_bytes": len(body), "tile_sha256": hashlib.sha256(body).hexdigest()}
+
+
+def build_earth(ctx: Context, *, dataset: str) -> Built:
+    """Blue Marble by day, Black Marble by night, and the relief the Sun falls on."""
+    gibs = R.source(GEOGRAPHIC_KEY)
+    relief_src = R.source(RELIEF_KEY)
+    retrieved = clock.now_iso()
+    capabilities = ctx.fetch.bytes(gibs["api"], force=ctx.refresh)
+    day = wmts.layer(capabilities, DAY_LAYER, timed=False)
+    night = wmts.layer(capabilities, NIGHT_LAYER)
+    for each in (day, night):
+        if GEOGRAPHIC_SET not in each.matrix_sets:
+            raise ValueError(f"{each.identifier}: no {GEOGRAPHIC_SET} matrix set; it has {each.matrix_sets}")
+    # The newest composite NASA publishes, as the night side of the planet.
+    night_time = wmts.latest(night.periods)
+
+    relief = ctx.fetch.bytes(RELIEF, force=ctx.refresh)
+    if not relief.startswith(b"\xff\xd8"):
+        raise ValueError(f"{RELIEF} is not a JPEG: it starts {relief[:8]!r}")
+    width, height = jpeg_size(relief)
+    if width != 2 * height:
+        raise ValueError(f"{RELIEF} is {width}×{height}; an equirectangular Earth is twice as wide as tall")
+
+    payload = {
+        "generated_at": retrieved,
+        "grid": {"tile_matrix_set": GEOGRAPHIC_SET, "level": GEOGRAPHIC_LEVEL, **GEOGRAPHIC_GRID},
+        "day": {
+            "id": day.identifier, "title": day.title, "template": day.template,
+            "attribution": gibs["attribution"],
+            **_tile(ctx, day.template, b"\xff\xd8"),
+        },
+        "night": {
+            "id": night.identifier, "title": night.title, "template": night.template,
+            "time": night_time, "periods": night.periods,
+            "attribution": gibs["attribution"],
+            **_tile(ctx, night.template, b"\x89PNG", night_time),
+        },
+        "relief": {
+            "url": RELIEF, "bytes": len(relief), "sha256": hashlib.sha256(relief).hexdigest(),
+            "width": width, "height": height,
+            "reads_as": "grey level rises with land elevation; no scale to metres is published, "
+                        "so it is used for shading only",
+            "attribution": relief_src["attribution"],
+        },
+        "sun": {
+            "provenance": Provenance.DERIVED.value,
+            "formula": ("subsolar point from the Astronomical Almanac's low-precision solar "
+                        "coordinates: n = JD - 2451545.0; L = 280.460 + 0.9856474n; "
+                        "g = 357.528 + 0.9856003n; lambda = L + 1.915 sin g + 0.020 sin 2g; "
+                        "epsilon = 23.439 - 0.0000004n; latitude = asin(sin epsilon sin lambda); "
+                        "longitude = atan2(cos epsilon sin lambda, cos lambda) - GMST (IAU 1982)"),
+            "computed_in": "web/src/cosmos/sun.ts, in the reader's browser, for the instant shown",
+        },
+        "sources": [
+            SourceRef(url=gibs["page"], retrieved_at=retrieved,
+                      provenance=Provenance.OFFICIAL_DATASET, licence=gibs["licence"]).to_dict(),
+            SourceRef(url=relief_src["page"], retrieved_at=retrieved,
+                      provenance=Provenance.OFFICIAL_DATASET, licence=relief_src["licence"]).to_dict(),
+        ],
+    }
+    return Built(outputs=[(OUT / "earth.json", payload)],
+                 receipt={"relief_bytes": len(relief), "night_time": night_time})

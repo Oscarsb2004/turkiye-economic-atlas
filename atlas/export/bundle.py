@@ -75,6 +75,7 @@ SERVED = (
     "cosmos/galaxies.json",
     "cosmos/sky.json",
     "cosmos/milky-way.jpg",
+    "cosmos/earth.json",
 )
 
 SCHEMA_VERSION = "1.0.0"

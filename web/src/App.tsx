@@ -56,6 +56,7 @@ const COSMOS_SOURCES = ["jpl_horizons", "nasa_heasarc", "nasa_svs", "nasa_gibs"]
 import { quantileBands } from "./map/bins";
 import { shadingOfBands, shadingOfClasses } from "./map/shading";
 import { DEFAULT_OVERLAY, useOverlays } from "./overlays";
+import { COSMIC_ID } from "./overlays/cosmic";
 import { OverlayRail } from "./overlays/OverlayRail";
 import { TimeSlider } from "./overlays/TimeSlider";
 import { clockOf, type Clock } from "./overlays/timeline";
@@ -200,7 +201,7 @@ export function App() {
 
       <main className={[
         "app__body",
-        selected ? "app__body--panel" : "",
+        selected && !overlay.view ? "app__body--panel" : "",
         railOpen ? "" : "app__body--folded",
       ].filter(Boolean).join(" ")}>
         <OverlayRail
@@ -226,6 +227,15 @@ export function App() {
           <div className="app__map">
             {failed ? (
               <p className="notice notice--bad">{s.failed}: {failed}</p>
+            ) : overlay.view ? (
+              // An overlay with a view of its own replaces the map: the cosmic
+              // viewer is a globe with no provinces on it (overlays/types.ts).
+              <>
+                {overlay.view}
+                {overlay.legend}
+              </>
+            ) : overlay.id === COSMIC_ID ? (
+              <p className="notice">{overlay.unavailable ?? s.loading}</p>
             ) : geo ? (
               <>
                 <ProvinceMap
@@ -282,7 +292,7 @@ export function App() {
           </div>
 
           {/* The clock is the map's; among the galaxies it has nothing to move. */}
-          {!departure && (
+          {!departure && !overlay.view && overlay.id !== COSMIC_ID && (
             <TimeSlider
               periods={overlay.periods}
               period={overlay.period}
@@ -296,7 +306,7 @@ export function App() {
             320px of the map spent telling the reader what the cursor already
             tells them. The credits moved to the rail, where they are always
             present rather than behind a click (Sources.tsx). */}
-        {selected && (
+        {selected && !overlay.view && (
           <aside className="app__panel">
             <h2 className="panel__name">{provinceName(selected.props, lang)}</h2>
             <dl className="panel__facts">

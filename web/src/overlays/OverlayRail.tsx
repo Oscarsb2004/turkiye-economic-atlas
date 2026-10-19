@@ -27,9 +27,9 @@ import { OVERLAY_GROUPS, type Overlay, type OverlayGroup } from "./types";
 
 /** Typed as a total map: a group added without a label fails the build. */
 const GROUP_LABEL: Record<OverlayGroup, (s: Strings) => string> = {
+  space: (s) => s.groupSpace,
   provinces: (s) => s.groupProvinces,
   connections: (s) => s.groupConnections,
-  activity: (s) => s.groupActivity,
 };
 
 interface Props {

@@ -12,6 +12,7 @@
 
 import type { Lang } from "../data/bundle";
 import { AVIATION_ID, useAviationOverlay } from "./aviation";
+import { COSMIC_ID, useCosmicOverlay } from "./cosmic";
 import { ECONOMY_ID, useEconomyOverlay } from "./economy";
 import { ELECTION_ID, useElectionOverlay } from "./elections";
 import { MIGRATION_ID, useMigrationOverlay } from "./migration";
@@ -27,12 +28,15 @@ export function useOverlays({ lang, clock, activeId, selected }: {
   lang: Lang; clock: Clock | null; activeId: string; selected: number | null;
 }): Overlay[] {
   const context = (id: string) => ({ lang, clock, active: activeId === id, selected });
+  // In the rail's order: the planet first, then the provinces, then what
+  // moves between them (types.ts, OVERLAY_GROUPS).
   return [
+    useCosmicOverlay(context(COSMIC_ID)),
+    useNightlightsOverlay(context(NIGHTLIGHTS_ID)),
     useEconomyOverlay(context(ECONOMY_ID)),
     useElectionOverlay(context(ELECTION_ID)),
     useMigrationOverlay(context(MIGRATION_ID)),
     useAviationOverlay(context(AVIATION_ID)),
     useTransitOverlay(context(TRANSIT_ID)),
-    useNightlightsOverlay(context(NIGHTLIGHTS_ID)),
   ];
 }

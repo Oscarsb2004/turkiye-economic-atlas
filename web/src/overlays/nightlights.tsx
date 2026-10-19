@@ -124,7 +124,7 @@ export function useNightlightsOverlay({ lang, clock, active }: OverlayContext): 
 
   return {
     id: NIGHTLIGHTS_ID,
-    group: "activity",
+    group: "space",
     label: s.overlayNightlights,
     sources: [SOURCE],
     periods,

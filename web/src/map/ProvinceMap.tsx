@@ -16,12 +16,19 @@
  * feature id, so the state key is the same number everything else joins on.
  */
 
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
+// MapLibre 6 finds its worker beside its own module (import.meta.url), and a
+// bundler moves the module: in dev Vite's pre-bundle has no worker beside it,
+// and the map drew nothing with "Worker failed to load" in the console. So the
+// worker is built by Vite as a worker in its own right and its URL handed over.
+import mapWorker from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import { useEffect, useRef, useState } from "react";
 
 import { loadGeoDetail, provinceName } from "../data/bundle";
 import type { Flow, Geo, GeoJson, Lang, Marker, NetworkLine, ProvinceProps, Raster } from "../data/bundle";
 import { labelsFor, type Labelled } from "./placeLabels";
+
+maplibregl.setWorkerUrl(mapWorker);
 
 /** Where the map was left for the cosmos: the centre, and the globe's size. */
 export interface Departure {

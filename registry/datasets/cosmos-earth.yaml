@@ -1,0 +1,21 @@
+# registry/datasets/cosmos-earth.yaml - one dataset the pipeline makes.
+# atlas.core.registry checks every claim below.
+
+title: "The Earth by day and by night, and its relief, for the cosmic viewer"
+group: cosmos
+order: 50
+builder: atlas.datasets.cosmos:build_earth
+params: {}
+sources:
+- nasa_gibs_geographic
+- nasa_visible_earth
+shells:
+- fetcher
+after: []
+outputs:
+- data/cosmos/earth.json
+frame: null
+on_screen: true
+consumed_by:
+- path: web/src/data/bundle.ts
+  how: the cosmic viewer fetches the layers it describes and lights the relief by the Sun

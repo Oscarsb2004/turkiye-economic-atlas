@@ -1,0 +1,15 @@
+# registry/sources/nasa_visible_earth.yaml — one source this project reads.
+# The file name is the source's key; its licence is defined in registry/licences.yaml.
+
+title: Blue Marble Next Generation — Topography (GEBCO), NASA Visible Earth
+publisher: NASA Earth Observatory
+licence: nasa-media-guidelines
+attribution: Imagery by Jesse Allen, NASA's Earth Observatory, using data from the General Bathymetric Chart of the Oceans (GEBCO) produced by the British Oceanographic Data Centre
+page: https://visibleearth.nasa.gov/images/73934/topography
+# Read for the relief the cosmic viewer lights by the Sun: a greyscale image of
+# the land's elevation, brighter for higher, 5400×2700 in its web edition. The
+# page states no scale from grey level to metres, so the viewer uses it for
+# SHADING only — which way a slope faces — and claims no height from it.
+#
+# Served with Access-Control-Allow-Origin: *, so the browser fetches it from
+# NASA; the pipeline fetches it once to record its size and hash.

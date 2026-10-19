@@ -59,8 +59,15 @@ class Layer:
     default_time: str = ""
 
 
-def layer(body: bytes, identifier: str) -> Layer:
-    """One layer of a WMTS capabilities document, by its identifier."""
+def layer(body: bytes, identifier: str, *, timed: bool = True) -> Layer:
+    """
+    One layer of a WMTS capabilities document, by its identifier.
+
+    `timed=False` is for a layer that is one picture rather than a series —
+    Blue Marble is the Earth of 2004, once — whose template has no {Time} and
+    whose capabilities publish no Time dimension. Everything else must have
+    both, and a timed layer without them is still refused.
+    """
     root = ET.fromstring(body)
     for element in root.iter(f"{WMTS}Layer"):
         name = element.findtext(f"{OWS}Identifier", default="").strip()
@@ -76,7 +83,8 @@ def layer(body: bytes, identifier: str) -> Layer:
                          for node in link.findall(f"{WMTS}TileMatrixSet") if node.text],
         )
         for resource in element.findall(f"{WMTS}ResourceURL"):
-            if resource.get("resourceType") == "tile" and "{Time}" in (resource.get("template") or ""):
+            template = resource.get("template") or ""
+            if resource.get("resourceType") == "tile" and ("{Time}" in template) == timed:
                 found.template = resource.get("template", "")
                 break
         for dimension in element.findall(f"{WMTS}Dimension"):
@@ -87,8 +95,8 @@ def layer(body: bytes, identifier: str) -> Layer:
                              for node in dimension.findall(f"{WMTS}Value") if node.text]
 
         if not found.template:
-            raise WmtsError(f"{identifier}: no tile template with a {{Time}} in it")
-        if not found.periods:
+            raise WmtsError(f"{identifier}: no tile template {'with' if timed else 'without'} a {{Time}} in it")
+        if timed and not found.periods:
             raise WmtsError(f"{identifier}: the Time dimension publishes no values")
         log.info("wmts %s: %d published period(s), default %s",
                  identifier, len(found.periods), found.default_time)

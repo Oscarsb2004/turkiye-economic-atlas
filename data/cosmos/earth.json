@@ -1,0 +1,49 @@
+{
+  "day": {
+    "attribution": "NASA EOSDIS GIBS — Blue Marble Next Generation; Black Marble (VIIRS, Suomi NPP)",
+    "id": "BlueMarble_NextGeneration",
+    "template": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/BlueMarble_NextGeneration/default/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg",
+    "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/BlueMarble_NextGeneration/default/500m/3/1/5.jpeg",
+    "tile_bytes": 56639,
+    "tile_sha256": "b18797d28fa758ccba63c34cb4e2268a24e1f935d36e6ae3a532e8a6697b43d4",
+    "title": "Blue Marble (MODIS)"
+  },
+  "generated_at": "2026-09-24T14:55:36Z",
+  "grid": {
+    "columns": 10,
+    "degrees_per_tile": 36,
+    "level": 3,
+    "rows": 5,
+    "tile_matrix_set": "500m",
+    "tile_px": 512
+  },
+  "night": {
+    "attribution": "NASA EOSDIS GIBS — Blue Marble Next Generation; Black Marble (VIIRS, Suomi NPP)",
+    "id": "VIIRS_Black_Marble",
+    "periods": ["2012-01-01/2012-01-01/P1Y","2016-01-01/2016-01-01/P1Y"],
+    "template": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_Black_Marble/default/{Time}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+    "tile": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/VIIRS_Black_Marble/default/2016-01-01/500m/3/1/5.png",
+    "tile_bytes": 307918,
+    "tile_sha256": "86ecab0818a63b5b635de65ae2add7018bb2df2e143d83b173005b4e55e4f6df",
+    "time": "2016-01-01",
+    "title": "Black Marble (VIIRS, Suomi NPP)"
+  },
+  "relief": {
+    "attribution": "Imagery by Jesse Allen, NASA's Earth Observatory, using data from the General Bathymetric Chart of the Oceans (GEBCO) produced by the British Oceanographic Data Centre",
+    "bytes": 1244508,
+    "height": 2700,
+    "reads_as": "grey level rises with land elevation; no scale to metres is published, so it is used for shading only",
+    "sha256": "97828a87bcb6549a527232455e478c5f9e4556f761b37d620a46446da17593ab",
+    "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/topography/gebco_08_rev_elev_5400x2700.jpg",
+    "width": 5400
+  },
+  "sources": [
+    {"content_sha256":"","licence":"nasa-cc0","provenance":"official_dataset","retrieved_at":"2026-09-24T14:55:36Z","url":"https://nasa-gibs.github.io/gibs-api-docs/"},
+    {"content_sha256":"","licence":"nasa-media-guidelines","provenance":"official_dataset","retrieved_at":"2026-09-24T14:55:36Z","url":"https://visibleearth.nasa.gov/images/73934/topography"}
+  ],
+  "sun": {
+    "computed_in": "web/src/cosmos/sun.ts, in the reader's browser, for the instant shown",
+    "formula": "subsolar point from the Astronomical Almanac's low-precision solar coordinates: n = JD - 2451545.0; L = 280.460 + 0.9856474n; g = 357.528 + 0.9856003n; lambda = L + 1.915 sin g + 0.020 sin 2g; epsilon = 23.439 - 0.0000004n; latitude = asin(sin epsilon sin lambda); longitude = atan2(cos epsilon sin lambda, cos lambda) - GMST (IAU 1982)",
+    "provenance": "derived"
+  }
+}
